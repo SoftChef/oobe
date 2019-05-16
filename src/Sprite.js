@@ -61,8 +61,17 @@ class Sprite extends Base {
         return change
     }
 
-    export() {
-        return this.shape.options.export.call(this.unit)
+    export(name) {
+        let shape = null
+        if (name) {
+            shape = this.base.shapes[name]
+            if (shape == null) {
+                this.$systemError('export', `Shape(${name}) not found.`)
+            }
+        } else {
+            shape = this.shape
+        }
+        return shape.options.export.call(this.unit)
     }
 
     getUnit() {
@@ -76,6 +85,7 @@ class Sprite extends Base {
     out() {
         if (this.live === false) this.$systemError('out', 'This Sprite is dead.')
         this.soul = this.base.createSprite(this.toOrigin())
+        this.soul.distortion(this.shape.name)
         this.soul.from = this
         this.sleep()
         return this.soul.getUnit()
@@ -105,7 +115,9 @@ class Sprite extends Base {
     }
 
     copy() {
-        return this.base.container.make(this.base.name, this.toOrigin()).getUnit()
+        let sprite = this.base.createSprite(this.toOrigin())
+        sprite.distortion(this.shape.name)
+        return sprite.getUnit()
     }
 
     dead() {

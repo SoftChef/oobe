@@ -56,6 +56,7 @@ module.exports = {
         },
         delete: {
             export() {
+                return 'delete'
             }
         }
     }

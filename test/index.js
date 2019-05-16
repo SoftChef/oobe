@@ -153,6 +153,11 @@ describe('#Sprite', () => {
         expect(user.$export()).to.equal('test')
     })
 
+    it('export assign mode', function() {
+        let user = this.user.$copy().$distortion('create')
+        expect(user.$export('delete')).to.equal('delete')
+    })
+
     it('container rules and validate', function() {
         this.user.name = 'ffff'
         expect(this.user.$validate().success).to.equal(true)
