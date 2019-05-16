@@ -56,11 +56,19 @@ class Core extends Base {
         return container.make(spriteName, data).getUnit()
     }
 
-    addContainer(name, optnios) {
+    addContainer(name, container) {
         if (this.containers[name]) {
             return this.$systemError('addContainer', `Name(${name}) already exists.`)
         }
-        this.containers[name] = new Container(this, optnios)
+        this.containers[name] = new Container(this, container)
+        return this.containers[name]
+    }
+
+    getConfigs(name) {
+        if (this.containers[name] == null) {
+            return this.$systemError('getConfigs', `Containers name(${name}) not found.`)
+        }
+        return this.containers[name].getConfigs()
     }
 }
 
@@ -72,7 +80,12 @@ class Export {
         this.getRules = core.getRules.bind(core)
         this.validate = core.validate.bind(core)
         this.validates = core.validates.bind(core)
-        this.addContainer = core.addContainer.bind(core)
+        this.getConfigs = core.getConfigs.bind(core)
+        this.addContainer = (name, data, options = {}) => {
+            let container = core.addContainer(name, data)
+            let configs = container.options.configs
+            return container.options.install.call(this, configs, options)
+        }
     }
 
     static isSprite(target) {

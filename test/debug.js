@@ -1,8 +1,8 @@
 /* eslint-disable no-debugger */
 
 const Oobe = require('../src/Main')
-const LawData = require('./cognito_user/data.json')
-const CognitoUser = require('./cognito_user')
+const LawData = require('./fake/data.json')
+const CognitoUser = require('./fake')
 
 oobe = new Oobe()
 oobe.addContainer('CognitoUser', CognitoUser)

@@ -1,0 +1,10 @@
+{
+    "title": "oobe",
+    "plugins": ["-sharing", "-search", "fontsettings"],
+    "links": {
+        "sidebar": false
+    },
+    "styles": {
+        "website": "./style/main.css"
+    }
+}

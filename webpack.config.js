@@ -4,9 +4,12 @@ module.exports = {
     mode: 'production',
     entry: './src/Main.js',
     output: {
+        library: 'oobe',
+        libraryTarget: 'umd',
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
-        filename: 'index.js'
+        filename: 'index.js',
+        globalObject: 'this'
     },
     module: {
         rules: [

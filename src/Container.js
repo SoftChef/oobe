@@ -1,5 +1,6 @@
 const Base = require('./Base')
 const Rule = require('./Rule')
+const Helper = require('./Helper')
 const SpriteBase = require('./SpriteBase')
 
 class Container extends Base {
@@ -8,10 +9,12 @@ class Container extends Base {
         this.core = core
         this.rule = new Rule()
         this.options = this.$verify(options, {
-            utils: [false, ['object'], {}],
             rules: [false, ['object'], {}],
+            utils: [false, ['object'], {}],
             sprites: [true, ['object']],
+            configs: [false, ['object'], {}],
             methods: [false, ['object'], {}],
+            install: [false, ['function'], () => {}],
             distortions: [false, ['object'], []]
         })
         this.initRules()
@@ -33,6 +36,10 @@ class Container extends Base {
 
     getRule(name) {
         return name.slice(0, 1) === '$' ? this.rule.get(name.slice(1)) : this.core.getRule(name)
+    }
+
+    getConfigs() {
+        return Helper.deepClone(this.options.configs)
     }
 
     make(baseName, data) {

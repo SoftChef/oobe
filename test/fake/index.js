@@ -1,25 +1,35 @@
 const user = require('./user')
+const locales = require('./locales')
 const attributes = require('./attributes')
-const hello = function() {
-    return 'hello'
-}
 
 module.exports = {
     sprites: {
         user,
         attributes
     },
-    utils: {
-        hello
+
+    install(configs, options) {
+        configs.test = options.test
+        return 'install'
     },
+
+    utils: {},
+
+    configs: {
+        locales,
+        helloWorld: 'hello world'
+    },
+
     methods: {
-        world() {
-            return 'world'
+        helloWorld() {
+            return this.$configs.helloWorld
         }
     },
+
     distortions: [
         'adminRead'
     ],
+
     rules: {
         alphanumeric(value) {
             var regex = /\W/ig

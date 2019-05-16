@@ -4,7 +4,7 @@ const Helper = require('./Helper')
 
 class Sprite extends Base {
     constructor(base, data) {
-        super('SpriteUnit')
+        super('Sprite')
         this.unit = new Unit()
         this.body = {}
         this.refs = {}
@@ -24,7 +24,7 @@ class Sprite extends Base {
     }
 
     getBody() {
-        let output = this.clone(this.body)
+        let output = Helper.deepClone(this.body)
         this.eachRefs((ref, key) => {
             output[key] = ref.getBody()
         })
@@ -32,7 +32,7 @@ class Sprite extends Base {
     }
 
     getKeys() {
-        return this.propertyNames
+        return this.propertyNames.concat(Object.keys(this.base.options.refs))
     }
 
     getProperty(name) {
@@ -70,11 +70,7 @@ class Sprite extends Base {
     }
 
     toOrigin() {
-        return this.options.origin.call(this.unit, this.clone(this.body))
-    }
-
-    clone(data) {
-        return JSON.parse(JSON.stringify(data))
+        return this.options.origin.call(this.unit)
     }
 
     out() {
@@ -126,7 +122,7 @@ class Sprite extends Base {
 
     reborn(origin) {
         this.wakeup()
-        this.reset(origin)
+        this.resetBody(origin)
     }
 
     reset() {
@@ -192,6 +188,7 @@ class Sprite extends Base {
         this.unit.$revive = this.revive.bind(this)
         this.unit.$export = this.export.bind(this)
         this.unit.$status = this.getStatus.bind(this)
+        this.unit.$configs = this.base.container.getConfigs()
         this.unit.$isFixed = this.isFixed.bind(this)
         this.unit.$toOrigin = this.toOrigin.bind(this)
         this.unit.$isChange = this.isChange.bind(this)
@@ -276,9 +273,10 @@ class Sprite extends Base {
     }
 
     validateAll() {
+        let names = Object.keys(this.base.options.rules)
         let errors = {}
         let success = true
-        for (let name of this.propertyNames) {
+        for (let name of names) {
             let result = this.validate(name)
             if (result.success === false) {
                 success = false

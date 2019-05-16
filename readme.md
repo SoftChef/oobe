@@ -1,3 +1,3 @@
-目的: 前端表單操作用model
+# OOBE
 
-測試框架: JEST
+[文件](https://softchef.github.io/oobe/book/_book/index.html)

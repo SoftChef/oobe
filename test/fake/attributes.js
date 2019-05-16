@@ -20,7 +20,8 @@ module.exports = {
         return target
     },
 
-    origin(body) {
+    origin() {
+        let body = this.$body()
         let target = []
         body.phone_number = body['custom:country_code'] + body.phone_number
         for (let key in body) {

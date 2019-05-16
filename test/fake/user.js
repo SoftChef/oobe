@@ -28,10 +28,8 @@ module.exports = {
     },
 
     methods: {
-        toCsv() {
-            return {
-                '使用者名稱': this.name
-            }
+        getName() {
+            return this.name
         }
     },
 
@@ -45,7 +43,7 @@ module.exports = {
         create: {
             fixed: ['name'],
             export() {
-                return 'AAA'
+                return 'test'
             }
         },
         update: {
