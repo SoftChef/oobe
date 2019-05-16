@@ -13,7 +13,7 @@ class Sprite extends Base {
         this.from = null
         this.base = base
         this.fixed = []
-        this.shape = null
+        this.state = null
         this.options = base.options
         this.rawBody = ''
         this.rawData = JSON.stringify(data)
@@ -62,16 +62,16 @@ class Sprite extends Base {
     }
 
     export(name) {
-        let shape = null
+        let state = null
         if (name) {
-            shape = this.base.shapes[name]
-            if (shape == null) {
-                this.$systemError('export', `Shape(${name}) not found.`)
+            state = this.base.states[name]
+            if (state == null) {
+                this.$systemError('export', `State(${name}) not found.`)
             }
         } else {
-            shape = this.shape
+            state = this.state
         }
-        return shape.options.export.call(this.unit)
+        return state.options.export.call(this.unit)
     }
 
     getUnit() {
@@ -85,7 +85,7 @@ class Sprite extends Base {
     out() {
         if (this.live === false) this.$systemError('out', 'This Sprite is dead.')
         this.soul = this.base.createSprite(this.toOrigin())
-        this.soul.distortion(this.shape.name)
+        this.soul.distortion(this.state.name)
         this.soul.from = this
         this.sleep()
         return this.soul.getUnit()
@@ -116,7 +116,7 @@ class Sprite extends Base {
 
     copy() {
         let sprite = this.base.createSprite(this.toOrigin())
-        sprite.distortion(this.shape.name)
+        sprite.distortion(this.state.name)
         return sprite.getUnit()
     }
 
@@ -170,11 +170,11 @@ class Sprite extends Base {
 
     distortion(name) {
         if (this.live === false) this.$systemError('distortion', 'This Sprite is dead.')
-        if (this.base.shapes[name] == null) {
+        if (this.base.states[name] == null) {
             return this.$systemError('distortion', `Name(${name}) not found.`)
         }
-        this.shape = this.base.shapes[name]
-        this.fixed = this.shape.options.fixed
+        this.state = this.base.states[name]
+        this.fixed = this.state.options.fixed
         this.eachRefs(s => s.distortion(name))
         return this.getUnit()
     }
@@ -184,6 +184,7 @@ class Sprite extends Base {
         this.initBody()
         this.rawBody = JSON.stringify(this.body)
         this.propertyNames = Object.keys(this.body)
+        this.base.create.call(this.getUnit())
     }
 
     initUnit() {
@@ -245,7 +246,7 @@ class Sprite extends Base {
         return {
             live: this.live,
             keys: this.getKeys(),
-            shape: this.shape.name,
+            state: this.state.name,
             fixed: this.fixed.slice(),
             rawBody: this.rawBody,
             rawData: this.rawData

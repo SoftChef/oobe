@@ -1,5 +1,5 @@
 const Base = require('./Base')
-const Shape = require('./Shape')
+const State = require('./State')
 const Sprite = require('./Sprite')
 
 class SpriteBase extends Base {
@@ -13,17 +13,18 @@ class SpriteBase extends Base {
             rules: [false, ['object'], {}],
             reborn: [true, ['function']],
             origin: [true, ['function']],
-            methods: [false, ['object'], {}],
-            distortion: [true, ['object']]
+            create: [false, ['function'], () => {}],
+            states: [false, ['object'], {}],
+            methods: [false, ['object'], {}]
         })
-        this.initShapes()
+        this.initStates()
     }
 
-    initShapes() {
-        this.shapes = {}
-        let distortions = this.container.options.distortions.concat(['read', 'create', 'update', 'delete'])
-        for (let name of distortions) {
-            this.shapes[name] = new Shape(name, this.options.distortion[name])
+    initStates() {
+        this.states = {}
+        let states = this.container.options.states.concat(['read', 'create', 'update', 'delete'])
+        for (let name of states) {
+            this.states[name] = new State(name, this.options.states[name])
         }
     }
 

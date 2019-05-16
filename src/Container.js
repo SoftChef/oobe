@@ -11,11 +11,11 @@ class Container extends Base {
         this.options = this.$verify(options, {
             rules: [false, ['object'], {}],
             utils: [false, ['object'], {}],
+            states: [false, ['object'], []],
             sprites: [true, ['object']],
             configs: [false, ['object'], {}],
             methods: [false, ['object'], {}],
-            install: [false, ['function'], () => {}],
-            distortions: [false, ['object'], []]
+            install: [false, ['function'], () => {}]
         })
         this.initRules()
         this.initSprites()

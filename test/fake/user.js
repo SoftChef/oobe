@@ -13,11 +13,15 @@ module.exports = {
         name: ['@require', '$alphanumeric']
     },
 
-    reborn(rawData) {
+    reborned(rawData) {
         return {
             name: rawData['Username'],
             attributes: rawData['UserAttributes']
         }
+    },
+
+    create() {
+        console.log(this.name)
     },
 
     origin() {
@@ -33,7 +37,7 @@ module.exports = {
         }
     },
 
-    distortion: {
+    states: {
         read: {
             fixed: [],
             export() {

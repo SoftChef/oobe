@@ -18,6 +18,8 @@ module.exports = {
         }
     },
 
+    create() {},
+
     origin() {
         return {
             Username: this.name,
@@ -27,5 +29,5 @@ module.exports = {
 
     methods: {},
 
-    distortion: {}
+    states: {}
 }

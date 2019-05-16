@@ -123,10 +123,30 @@ console.log(result) // require
 ## Options
 
 ```js
+const moment = require('moment')
 core.addContainer('myFirstContainer', {
     sprites: {
-        myFirstSprite: spriteOptions
-    }
+        myFirstSprite: spriteOptions,
+        anotherSprite: anotherSprite
+    },
+    install(confings, options) {},
+    rules: {
+        number: v => typeof value === 'number' ? true : 'Value not a number.'
+    },
+    utils: {
+        moment
+    },
+    configs: {
+        foo: 'foo'
+    },
+    methods: {
+        foo() {
+            return this.$configs.foo
+        }
+    },
+    states: [
+        'frozen'
+    ]
 })
 ```
 
@@ -142,38 +162,42 @@ Container所有的精靈。
 * optional
 * function
 
-加入Core的初始化行為。
-<!-- rules: [false, ['object'], {}],
-utils: [false, ['object'], {}],
-sprites: [true, ['object']],
-configs: [false, ['object'], {}],
-methods: [false, ['object'], {}],
-distortions: [false, ['object'], []] -->
+加入Core的初始化行為，作為core交換資料的接口。
 
+### rules
 
-    utils: {},
+* optional
+* object
 
-    configs: {},
-
-    methods: {},
-
-    distortions: [],
-
-    rules: {}
-
-### sprites
-
-### install
-
-### utils
-
-### configs
+私有驗證方法。
 
 ### methods
 
-### distortions
+* optional
+* object
 
-### rules
+通用方法，所有的精靈都會繼承這些方法。
+
+### utils
+
+* optional
+* object
+
+跟`methods`一樣，但不會導向`this`至`sprite`，適用於模組擴充。
+
+### configs
+
+* optional
+* object
+
+底下的 `sprite` 能接收到的通用設定值。
+
+### states
+
+* optional
+* array
+
+每個`sprite`都有CRUD四個`state`，可以用`states`可以擴充私有型態。
 
 ---
 
@@ -181,38 +205,146 @@ distortions: [false, ['object'], []] -->
 
 ## Options
 
+```js
+let sprite = {
+    body() {
+        return {
+            count: 0
+        }
+    },
+
+    refs: {
+        anotherSprite: 'anotherSprite'
+    },
+
+    rules: {
+        count: ['$number']
+    },
+
+    reborn(rawData) {
+        return rawData
+    },
+
+    create() {},
+
+    origin() {
+        return this.$body()
+    },
+
+    methods: {
+        add() {
+            this.count += 1
+        }
+    },
+
+    states: {
+        read: {},
+        create: {},
+        update: {},
+        delete: {}
+    }
+}
+```
+
 ### body
+
+* required
+* object
+
+定義 `sprite` 的基本參數，以下所有行為接對應 `body` 回傳的 `key` 值。
 
 ### refs
 
+* optional
+* object
+
+建議每個 `sprite` 都支援一層data，對於第二層或者是關聯出來的屬性都使用refs做為另一個 `sprite` 實例。
+
 ### rules
+
+* optional
+* object
+
+定義所有的 `body` 的驗證行為，使用 `$` 字號會把驗證導向私有驗證。
 
 ### reborn
 
+* required
+* function
+
+將raw data轉換成body的過程。
+
+### create
+
+* optional
+* function
+
+初次建立時，綁定 `reborn` 後呼叫，可作為驗證層。
+
 ### origin
+
+* required
+* function
+
+將body轉換成raw data的過程。
 
 ### methods
 
-### distortion
+* optional
+* object
+
+一個該 `sprite` 的私有方法。
+
+### states
+
+* optional
+* object
+    * fixed
+        * optional
+        * array || string
+        該狀態不可修正的值，宣告為 `*` 則全部都不能改。
+    * export
+        * optional
+        * function
+        該狀態輸出的值。
+
+狀態的變化改變的內部屬性設定。
 
 ## Apis
 
+```js
+let sprite = oobe.make('myFirstContainer', 'myFirstSprite', rawData)
+console.log(sprite.count) // 0
+```
+
 ### fn
-### out
-### dead
-### copy
-### body
-### keys
-### reset
-### rules
-### utils
-### helper
-### revive
-### export
-### status
-### configs
-### isFixed
-### toOrigin
-### isChange
-### validate
-### distortion
+
+methods的層載物件。
+
+```js
+// self methods
+sprite.$fn.add()
+console.log(sprite.count) // 1
+// container methods
+let foo = sprite.$fn.foo()
+console.log(foo) // foo
+```
+
+### out()
+### dead()
+### copy()
+### body()
+### keys()
+### reset()
+### rules()
+### utils()
+### helper()
+### revive()
+### export()
+### status()
+### configs()
+### isFixed()
+### toOrigin()
+### isChange()
+### validate()
+### distortion()

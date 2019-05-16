@@ -26,7 +26,7 @@ module.exports = {
         }
     },
 
-    distortions: [
+    states: [
         'adminRead'
     ],
 

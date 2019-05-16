@@ -15,7 +15,7 @@ module.exports = {
 
     methods: {},
 
-    distortions: [],
+    states: [],
 
     rules: {}
 }
