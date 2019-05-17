@@ -13,16 +13,14 @@ module.exports = {
         name: ['@require', '$alphanumeric']
     },
 
-    reborned(rawData) {
+    reborn(rawData) {
         return {
             name: rawData['Username'],
             attributes: rawData['UserAttributes']
         }
     },
 
-    create() {
-        console.log(this.name)
-    },
+    create() {},
 
     origin() {
         return {

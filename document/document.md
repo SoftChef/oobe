@@ -34,7 +34,7 @@ validate(['isString|target:20'])
 
 #### Core Rule
 
-Core的Rule具有前墜符號 `@` ，而私有Rule則為 `$` 字號，請避免命名衝突。
+Core的Rule具有前墜符號`@`，而私有Rule則為 `$` 字號，請避免命名衝突。
 
 > Core Rule 所有的錯誤訊息都會回傳他的名子，例如`@require`回傳`require`。
 
@@ -63,7 +63,8 @@ core.addRule('string', (value, params) => {
 獲取一個驗證列表。
 
 * target : required => array
-    - array可以是個 `rule` function，他會原封不動被加入參數中。
+    - array可以是個`rule` function，他會原封不動被加入參數中。
+* reutrn : array => [function, ...]
 
 ```js
 let fn = value => true
@@ -75,6 +76,7 @@ console.log(rules) // [function, function]
 
 * ruleName : required => string
 * value : required => any
+* return : true || string
 
 驗證一個方法。
 
@@ -86,6 +88,10 @@ console.log(vNumber) // Param not a string.
 ```
 
 ### validates(value, targetRules)
+
+* value : required => any
+* targetRules : required => array => [string or rule function]
+* return : true || string
 
 對一個參數多重驗證。
 
@@ -101,10 +107,12 @@ console.log(result) // require
 * name : required => string
 * containerData : required => any
 * options : optional => object
+* return : any
 
 ### getConfigs(name)
 
 * name : required => string
+* return : object
 
 獲取指定 `container` 的設定值。
 
@@ -113,6 +121,7 @@ console.log(result) // require
 * containerName : required => string
 * spriteName : required => string
 * rawData : required => any
+* return : sprite
 
 建立一個 `sprite`。
 
@@ -190,7 +199,7 @@ Container所有的精靈。
 * optional
 * object
 
-底下的 `sprite` 能接收到的通用設定值。
+底下的`sprite`能接收到的通用設定值。
 
 ### states
 
@@ -202,6 +211,8 @@ Container所有的精靈。
 ---
 
 # Sprite
+
+所有的系統方法與屬性都會以`$`作為前墜符號。
 
 ## Options
 
@@ -238,7 +249,12 @@ let sprite = {
     },
 
     states: {
-        read: {},
+        read: {
+            fixed: '*',
+            export() {
+                return {}
+            }
+        },
         create: {},
         update: {},
         delete: {}
@@ -269,10 +285,18 @@ let sprite = {
 
 ### reborn
 
-* required
+* optional
 * function
 
 將raw data轉換成body的過程。
+
+預設的方法 :
+
+```js
+function reborn(rawData) {
+    return rawData
+}
+```
 
 ### create
 
@@ -283,10 +307,18 @@ let sprite = {
 
 ### origin
 
-* required
+* optional
 * function
 
 將body轉換成raw data的過程。
+
+預設的方法 :
+
+```js
+function origin() {
+    return this.$body()
+}
+```
 
 ### methods
 
@@ -310,12 +342,7 @@ let sprite = {
 
 狀態的變化改變的內部屬性設定。
 
-## Apis
-
-```js
-let sprite = oobe.make('myFirstContainer', 'myFirstSprite', rawData)
-console.log(sprite.count) // 0
-```
+## Properties
 
 ### fn
 
@@ -330,21 +357,204 @@ let foo = sprite.$fn.foo()
 console.log(foo) // foo
 ```
 
-### out()
+### utils
+
+從`container`獲取的工具組。
+
+```js
+console.log(sprite.$utils.moment()) // moment
+```
+
+### helper
+
+由`oobe`自身提供的常用方法。
+
+```js
+let foo = sprite.$helper.deepClone({
+    foo: 'bar'
+})
+console.log(foo) // 'bar'
+```
+
+
+## APIS
+
+```js
+let sprite = oobe.make('myFirstContainer', 'myFirstSprite', rawData)
+console.log(sprite.count) // 0
+```
+
+### out() and revive()
+
+* return : sprite
+
+抽離一份具相同資料的`sprite`並保綁定雙向關係，被綁定的`sprite`會宣告死亡，而被抽離出來的`sprite`稱為`soul`。
+
+`soul`具有`revive`方法，可以喚醒被綁定的`sprite`並將自身的資料傳遞過去，之後宣告自己死亡。
+
+```js
+let soul = sprite.$out()
+console.log(sprite.count) // 1
+console.log(soul.count) // 1
+
+sprite.$fn.add() // throw error 'This Sprite is dead'
+soul.$fn.add()
+
+console.log(sprite.count) // 1
+console.log(soul.count) // 2
+
+soul.$revive()
+
+console.log(sprite.count) // 2
+console.log(soul.count) // 2
+
+sprite.$fn.add()
+soul.$fn.add() // throw error 'This Sprite is dead'
+```
+
 ### dead()
+
+* return : sprite
+
+也是只有`soul`可以宣告，宣告後喚醒綁定的`sprite`並死亡，但不會將資料回傳給綁定對象。
+
+```js
+sprite.count = 1
+let soul = sprite.$out()
+console.log(sprite.count) // 1
+console.log(soul.count) // 1
+
+soul.$fn.add()
+soul.$dead()
+
+console.log(sprite.count) // 1
+```
+
 ### copy()
+
+* return : sprite
+
+直接從現有狀態複製一份`sprite`，不會有任何綁定狀態。
+
+```js
+let new_sprite = sprite.$copy()
+```
+
 ### body()
+
+* return : object
+
+獲取`body`的現有資料。
+
+```js
+let body = sprite.$body()
+console.log(body.count)
+```
+
 ### keys()
+
+* return : array => [string, ...]
+
+獲取`body`和`refs`所有的`key`。
+
+```js
+let keys = sprite.$keys()
+console.log(key) // ['count', 'anotherSprite']
+```
+
 ### reset()
-### rules()
-### utils()
-### helper()
-### revive()
-### export()
+
+將資料重製回最初的模樣。
+
+### rules(name, extra)
+
+* name : required => string
+* extra : optional => array => [string or rule function]
+* return : array => [function, ...]
+
+獲取指定rule的驗證方法集。
+
+```js
+let rules = sprite.$rules(['$number', '@require'])
+```
+
 ### status()
+
+* return : object
+    * live: boolean => 是否活著
+    * fixed: array => 現階段狀態的鎖定名單
+    * state: string => 現階段狀態的名稱
+    * rawBody: string => 最初始化狀態的body json
+    * rawData: string => 最初始化狀態的data json
+
+回傳現有狀態。
+
+### export()
+
+* return : any
+
+依照現階段的狀態輸出值。
+
 ### configs()
-### isFixed()
+
+獲取`container`的`config`。
+
+### isFixed(key)
+
+* key : required => string
+* return : boolean
+
+該`property`是否被綁定。
+
 ### toOrigin()
+
+* return : any
+
+獲取origin行為回傳的資料。
+
 ### isChange()
+
+* return : boolean
+
+屬性是否被更動過。
+
 ### validate()
-### distortion()
+
+* return : object
+    * success : boolean
+    * errors : array => [string, ...]
+
+所有的`body`和`refs`藉由宣告的rules驗證的結果。
+
+### distortion(stateName)
+
+* stateName : required => string
+* return : self sprite
+
+轉換指定狀態，若要擴充狀態必須在`container`的`states`中宣告。
+
+# state
+
+## Options
+
+### fixed
+
+* optional
+* array => [string, ...]
+
+鎖定指定的屬性。
+
+### export
+
+* optional
+* function
+
+`sprite`輸出的模式。
+
+預設狀態為下 :
+
+```js
+function export() {
+    return this.$toOrigin()
+}
+```

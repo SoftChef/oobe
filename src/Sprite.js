@@ -3,7 +3,7 @@ const Unit = require('./Unit')
 const Helper = require('./Helper')
 
 class Sprite extends Base {
-    constructor(base, data) {
+    constructor(base, data = {}) {
         super('Sprite')
         this.unit = new Unit()
         this.body = {}
@@ -108,7 +108,7 @@ class Sprite extends Base {
             this.from.ignoreFixed = true
             this.from.reborn(data)
             this.from.ignoreFixed = false
-            this.dead()
+            return this.dead()
         } else {
             this.$systemError('revive', 'This Sprite is root.')
         }
@@ -123,10 +123,12 @@ class Sprite extends Base {
     dead() {
         if (this.live === false) this.$systemError('dead', 'This Sprite is dead.')
         if (this.from) {
+            let from = this.from
             this.from.wakeup()
             this.from.soul = null
             this.from = null
             this.sleep()
+            return from
         } else {
             this.$systemError('dead', 'This Sprite is root.')
         }
@@ -184,7 +186,7 @@ class Sprite extends Base {
         this.initBody()
         this.rawBody = JSON.stringify(this.body)
         this.propertyNames = Object.keys(this.body)
-        this.base.create.call(this.getUnit())
+        this.base.options.create.call(this.getUnit())
     }
 
     initUnit() {
@@ -245,7 +247,6 @@ class Sprite extends Base {
     getStatus() {
         return {
             live: this.live,
-            keys: this.getKeys(),
             state: this.state.name,
             fixed: this.fixed.slice(),
             rawBody: this.rawBody,

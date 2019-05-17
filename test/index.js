@@ -139,7 +139,7 @@ describe('#Sprite', () => {
     it('distortions', function() {
         let user = this.user.$copy().$distortion('create')
         let status = user.$status()
-        expect(status.shape).to.equal('create')
+        expect(status.state).to.equal('create')
         expect(user.$isFixed('name')).to.equal(true)
     })
 
