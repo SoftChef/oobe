@@ -2,6 +2,8 @@
 
 優質的表單操作庫，你開心也可以用在後端環境上。
 
+[![NPM Version][npm-image]][npm-url]
+
 ## Install
 
 ```bash
@@ -12,7 +14,6 @@ npm i --save oobe
 
 ```js
 import OOBE from 'oobe'
-
 let oobe = new OOBE()
 ```
 
@@ -34,3 +35,5 @@ let oobe = new OOBE()
 
 [DocLink]: https://softchef.github.io/oobe/document/document
 [LinkSpriteImg]: https://softchef.github.io/oobe/document/like_sprite.jpg
+[npm-image]: https://img.shields.io/npm/v/oobe.svg
+[npm-url]: https://npmjs.org/package/oobe
