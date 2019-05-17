@@ -4,9 +4,7 @@ module.exports = {
             'sub': '',
             'name': '',
             'email': '',
-            'phone_number': '',
-            'custom:level': 'user',
-            'custom:country_code': ''
+            'phone_number': ''
         }
     },
 
