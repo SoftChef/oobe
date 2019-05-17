@@ -27,7 +27,11 @@ module.exports = {
         }
     },
 
-    methods: {},
+    methods: {
+        getSubId() {
+            return this.attributes.sub
+        }
+    },
 
     states: {}
 }

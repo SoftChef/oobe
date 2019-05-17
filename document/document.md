@@ -42,7 +42,7 @@ Core的Rule具有前墜符號`@`，而私有Rule則為 `$` 字號，請避免命
 
 空陣列、空物件、空字串、null、undefined都算失敗。
 
-## Apis
+## APIS
 
 ### addRule(name, rule)
 
@@ -91,7 +91,7 @@ console.log(vNumber) // Param not a string.
 
 * value : required => any
 * targetRules : required => array => [string or rule function]
-* return : true || string
+* return : true or string
 
 對一個參數多重驗證。
 

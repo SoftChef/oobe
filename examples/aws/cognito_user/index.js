@@ -1,5 +1,11 @@
 const user = require('./user')
+const locale = require('./locales')
 const attributes = require('./attributes')
+
+/**
+ * @name cognito_user
+ * @param {string} [locale = en-us] 顯示語系
+ */
 
 module.exports = {
     sprites: {
@@ -7,13 +13,23 @@ module.exports = {
         attributes
     },
 
-    install(configs, options) {},
+    install(configs, options) {
+        configs.locale = options.locale || configs.locale
+        configs.messages = locale[configs.locale]
+    },
 
     utils: {},
 
-    configs: {},
+    configs: {
+        locale: 'en-us',
+        messages: null
+    },
 
-    methods: {},
+    methods: {
+        $t(name) {
+            return this.$configs[name] || name
+        }
+    },
 
     states: [],
 
