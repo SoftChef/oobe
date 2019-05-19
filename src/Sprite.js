@@ -14,10 +14,10 @@ class Sprite extends Base {
         this.base = base
         this.fixed = []
         this.state = null
+        this.hidden = []
         this.options = base.options
         this.rawBody = ''
         this.rawData = JSON.stringify(data)
-        this.ignoreFixed = false
         this.propertyNames = []
         this.init()
         this.distortion('read')
@@ -44,9 +44,13 @@ class Sprite extends Base {
     }
 
     isFixed(name) {
-        if (this.ignoreFixed) return false
         if (this.fixed === '*') return true
         return this.fixed.includes(name)
+    }
+
+    isHidden(name) {
+        if (this.hidden === '*') return true
+        return this.hidden.includes(name)
     }
 
     isChange() {
@@ -105,9 +109,7 @@ class Sprite extends Base {
         let data = this.toOrigin()
         if (this.live === false) this.$systemError('revive', 'This Sprite is dead.')
         if (this.from) {
-            this.from.ignoreFixed = true
             this.from.reborn(data)
-            this.from.ignoreFixed = false
             return this.dead()
         } else {
             this.$systemError('revive', 'This Sprite is root.')
@@ -131,6 +133,14 @@ class Sprite extends Base {
             return from
         } else {
             this.$systemError('dead', 'This Sprite is root.')
+        }
+    }
+
+    getRaws() {
+        return {
+            default: this.options.body(),
+            rawBody: this.rawBody,
+            rawData: this.rawData
         }
     }
 
@@ -177,6 +187,7 @@ class Sprite extends Base {
         }
         this.state = this.base.states[name]
         this.fixed = this.state.options.fixed
+        this.hidden = this.state.options.hidden
         this.eachRefs(s => s.distortion(name))
         return this.getUnit()
     }
@@ -191,11 +202,13 @@ class Sprite extends Base {
 
     initUnit() {
         this.unit.$fn = this.getMethods()
+        this.unit.$meg = this.base.getMessage
         this.unit.$out = this.out.bind(this)
         this.unit.$dead = this.dead.bind(this)
         this.unit.$copy = this.copy.bind(this)
         this.unit.$body = this.getBody.bind(this)
         this.unit.$keys = this.getKeys.bind(this)
+        this.unit.$raws = this.getRaws.bind(this)
         this.unit.$reset = this.reset.bind(this)
         this.unit.$rules = this.getRules.bind(this)
         this.unit.$utils = this.base.container.options.utils
@@ -205,6 +218,7 @@ class Sprite extends Base {
         this.unit.$status = this.getStatus.bind(this)
         this.unit.$configs = this.base.container.getConfigs()
         this.unit.$isFixed = this.isFixed.bind(this)
+        this.unit.$isHidden = this.isHidden.bind(this)
         this.unit.$toOrigin = this.toOrigin.bind(this)
         this.unit.$isChange = this.isChange.bind(this)
         this.unit.$validate = this.validateAll.bind(this)
@@ -249,12 +263,12 @@ class Sprite extends Base {
             live: this.live,
             state: this.state.name,
             fixed: this.fixed.slice(),
-            rawBody: this.rawBody,
-            rawData: this.rawData
+            hidden: this.hidden.slice()
         }
     }
 
     getRules(name, extra = []) {
+        let unit = this.getUnit()
         let output = []
         let rules = this.base.options.rules[name]
         if (rules == null) {
@@ -263,9 +277,9 @@ class Sprite extends Base {
         rules = rules.concat(extra)
         for (let data of rules) {
             if (typeof data === 'function') {
-                output.push(data)
+                output.push(data.bind(unit))
             } else {
-                output.push(this.base.container.getRule(data))
+                output.push(this.base.container.getRule(data).bind(unit))
             }
         }
         return output
@@ -322,9 +336,6 @@ class Sprite extends Base {
             }
             if (protect) {
                 return this.$systemError('set', `This property(${key}) is protect.`)
-            }
-            if (this.isFixed(key)) {
-                return this.$systemError('set', `This property(${key}) is fixed.`)
             }
             this.body[key] = value
         }

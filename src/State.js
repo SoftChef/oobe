@@ -6,6 +6,7 @@ class State extends Base {
         this.name = name
         this.options = this.$verify(options, {
             fixed: [false, ['object', 'string'], []],
+            hidden: [false, ['object', 'string'], []],
             export: [false, ['function'], function() {
                 return this.$toOrigin()
             }]

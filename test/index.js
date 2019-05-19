@@ -141,6 +141,7 @@ describe('#Sprite', () => {
         let status = user.$status()
         expect(status.state).to.equal('create')
         expect(user.$isFixed('name')).to.equal(true)
+        expect(user.$isHidden('name')).to.equal(true)
     })
 
     it('container distortions', function() {
@@ -217,5 +218,29 @@ describe('#Sprite', () => {
         expect(() => { soul.name = 'test' }).to.throw(Error)
         user.name = '123'
         expect(user.name).to.equal('123')
+    })
+
+    it('raws', function() {
+        let json = this.user.$raws()
+        expect(json.rawBody).to.be.a('string')
+        expect(json.rawData).to.be.a('string')
+    })
+})
+
+describe('#Helper', () => {
+    before(function() {
+        this.oobe = new Oobe()
+        this.oobe.addContainer('CognitoUser', CognitoUser)
+        this.user = this.oobe.make('CognitoUser', 'user', LawData)
+    })
+
+    it('mapping', function() {
+        let data = {
+            name: 'admin'
+        }
+        let result = this.user.$helper.mapping(data, true, {
+            name: 'Username'
+        })
+        expect(result.Username).to.equal('admin')
     })
 })

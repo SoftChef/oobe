@@ -1,16 +1,48 @@
 const Base = require('./Base')
 const Rule = require('./Rule')
-const Unit = require('./Unit')
-
+const Message = require('./Message')
 const Container = require('./Container')
-const CoreRules = require('./CoreRules')
 
 class Core extends Base {
     constructor() {
         super('Core')
         this.rule = new Rule()
+        this.message = new Message()
+        this.locale = 'en-us'
         this.containers = {}
-        CoreRules(this)
+    }
+
+    addon(optinos) {
+        let plugin = this.$verify(optinos, {
+            name: [],
+            rules: {},
+            locale: {}
+        })
+        for (let key in plugin.rules) {
+            this.addRule(plugin.name + '/' + key, rules[key])
+        }
+        this.addLocale(plugin.locale, plugin.name)
+    }
+
+    refresh() {
+        this.eachContainer((container) => {
+            container.message.setlocale(this.locale)
+        })
+    }
+
+    eachContainer(action) {
+        for (let key in this.containers) {
+            action(this.containers[key])
+        }
+    }
+
+    setLocale(locale) {
+        this.locale = locale
+        this.refresh()
+    }
+
+    addLocale(locale) {
+        this.message.add(locale)
     }
 
     addRule(name, rule) {
@@ -61,6 +93,7 @@ class Core extends Base {
             return this.$systemError('addContainer', `Name(${name}) already exists.`)
         }
         this.containers[name] = new Container(this, container)
+        this.refresh()
         return this.containers[name]
     }
 
@@ -77,19 +110,18 @@ class Export {
         let core = new Core()
         this.make = core.make.bind(core)
         this.addRule = core.addRule.bind(core)
+        this.addRules = core.addRules.bind(core)
         this.getRules = core.getRules.bind(core)
         this.validate = core.validate.bind(core)
         this.validates = core.validates.bind(core)
+        this.addLocale = core.addLocale.bind(core)
+        this.setLocale = core.setLocale.bind(core)
         this.getConfigs = core.getConfigs.bind(core)
         this.addContainer = (name, data, options = {}) => {
             let container = core.addContainer(name, data)
             let configs = container.options.configs
             return container.options.install.call(this, configs, options)
         }
-    }
-
-    static isSprite(target) {
-        return Unit.isSprite(target)
     }
 }
 

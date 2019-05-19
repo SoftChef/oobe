@@ -2,21 +2,19 @@
 
 [Core](#core)
 
+[Rule](#Rule)
+
 [Container](#container)
 
 [Sprite](#sprite)
 
-# Core
+[Helper](#helper)
 
-```js
-let core = new oobe()
-```
-
-## Rule
+# Rule
 
 Rule是一個驗證方法，回傳`true`是通過，回傳`string`則失敗。
 
-#### 語法
+## 方法
 
 ```js
 function max(value, params) {
@@ -24,7 +22,7 @@ function max(value, params) {
 })
 ```
 
-#### 參數
+## 參數
 
 使用 `|` 切割參數，使用 `:` 定義值。
 
@@ -32,17 +30,33 @@ function max(value, params) {
 validate(['isString|target:20'])
 ```
 
-#### Core Rule
+## Core Rules
 
-Core的Rule具有前墜符號`@`，而私有Rule則為 `$` 字號，請避免命名衝突。
+私有Rule以 `$` 字號作為前墜，請避免命名衝突。
 
-> Core Rule 所有的錯誤訊息都會回傳他的名子，例如`@require`回傳`require`。
+# Core
 
-##### @ require
-
-空陣列、空物件、空字串、null、undefined都算失敗。
+```js
+let core = new oobe()
+```
 
 ## APIS
+
+[addRule](###addRule(name,&nbsp;rule))
+
+[getRules](###getRules(target))
+
+[validate](###validate(ruleName,&nbsp;value))
+
+[validates](###validates(value,&nbsp;targetRules))
+
+[addContainer](###addContainer(name,&nbsp;containerData,&nbsp;options))
+
+[getConfigs](###getConfigs(name))
+
+[make](###make(containerName,&nbsp;spriteName,&nbsp;rawData))
+
+---
 
 ### addRule(name, rule)
 
@@ -58,13 +72,15 @@ core.addRule('string', (value, params) => {
 })
 ```
 
+---
+
 ### getRules(target)
 
 獲取一個驗證列表。
 
 * target : required => array
     - array可以是個`rule` function，他會原封不動被加入參數中。
-* reutrn : array => [function, ...]
+* reutrn : `array` => [function, ...]
 
 ```js
 let fn = value => true
@@ -72,11 +88,13 @@ let rules = core.getRules(['string', 'max|target:20', fn])
 console.log(rules) // [function, function]
 ```
 
+---
+
 ### validate(ruleName, value)
 
 * ruleName : required => string
 * value : required => any
-* return : true || string
+* return : `true` || `string`
 
 驗證一個方法。
 
@@ -87,11 +105,13 @@ console.log(vString) // true
 console.log(vNumber) // Param not a string.
 ```
 
+---
+
 ### validates(value, targetRules)
 
 * value : required => any
 * targetRules : required => array => [string or rule function]
-* return : true or string
+* return : `true` or `string`
 
 對一個參數多重驗證。
 
@@ -100,6 +120,8 @@ let result = core.validates('', ['string', '@require'])
 console.log(result) // require
 ```
 
+---
+
 ### addContainer(name, containerData, options)
 
 加入一個`container`，並獲取 `container` 於 `install` 回傳的值。
@@ -107,25 +129,27 @@ console.log(result) // require
 * name : required => string
 * containerData : required => any
 * options : optional => object
-* return : any
+* return : `any`
+
+---
 
 ### getConfigs(name)
 
 * name : required => string
-* return : object
+* return : `object`
 
 獲取指定 `container` 的設定值。
+
+---
 
 ### make(containerName, spriteName, rawData)
 
 * containerName : required => string
 * spriteName : required => string
 * rawData : required => any
-* return : sprite
+* return : `sprite`
 
 建立一個 `sprite`。
-
----
 
 # Container
 
@@ -344,6 +368,10 @@ function origin() {
 
 ## Properties
 
+### core
+
+make的core。
+
 ### fn
 
 methods的層載物件。
@@ -451,6 +479,15 @@ let body = sprite.$body()
 console.log(body.count)
 ```
 
+### raws()
+
+* return : object
+    * default: object => 初始資料
+    * rawBody: string => 最初始化狀態的body json
+    * rawData: string => 最初始化狀態的data json
+
+會傳出使狀態資料。
+
 ### keys()
 
 * return : array => [string, ...]
@@ -484,8 +521,6 @@ let rules = sprite.$rules(['$number', '@require'])
     * live: boolean => 是否活著
     * fixed: array => 現階段狀態的鎖定名單
     * state: string => 現階段狀態的名稱
-    * rawBody: string => 最初始化狀態的body json
-    * rawData: string => 最初始化狀態的data json
 
 回傳現有狀態。
 
@@ -504,7 +539,14 @@ let rules = sprite.$rules(['$number', '@require'])
 * key : required => string
 * return : boolean
 
-該`property`是否被綁定。
+該`property`是否為固定狀態(並非真的無法修改)。
+
+### isHidden(key)
+
+* key : required => string
+* return : boolean
+
+該`property`是否為隱藏狀態(並非真的無法顯示)。
 
 ### toOrigin()
 
@@ -542,7 +584,14 @@ let rules = sprite.$rules(['$number', '@require'])
 * optional
 * array => [string, ...]
 
-鎖定指定的屬性。
+只是個狀態變動，不會有任何實際表現行為。
+
+### hidden
+
+* optional
+* array => [string, ...]
+
+只是個狀態變動，不會有任何實際表現行為。
 
 ### export
 
@@ -557,4 +606,32 @@ let rules = sprite.$rules(['$number', '@require'])
 function export() {
     return this.$toOrigin()
 }
+```
+
+# Helper
+
+## APIS
+
+### deepClone(target)
+
+* target : required : any
+
+深拷貝一個對象。
+
+### mapping(data, forward, map)
+
+* data : required : object
+* forward : required : boolean
+* map : required : object
+
+將值轉換對應Key。
+
+```js
+let data = {
+    name: 'admin'
+}
+let result = this.user.$helper.mapping(data, true, {
+    name: 'username'
+})
+console.log(result.username) // admin
 ```

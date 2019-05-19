@@ -1,7 +1,3 @@
-class Unit {
-    static isSprite(target) {
-        return target instanceof Unit
-    }
-}
+class Unit {}
 
 module.exports = Unit

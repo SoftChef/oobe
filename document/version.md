@@ -4,7 +4,7 @@
 
 ### 📃 Info
 
-npm命名先搶先贏
+npm 命名先搶先贏
 
 ---
 
@@ -21,3 +21,23 @@ npm命名先搶先贏
 🙉 sprite => reborn 非必要，有預設方法
 
 🙉 sprite => origin 非必要，有預設方法
+
+## ver 0.0.3
+
+### 📃 New
+
+🤸🏻‍ state => 新功能 hidden
+
+🙉 sprite => $raws 把原始資料切出status
+
+🤝 helper => mapping
+
+🤸🏻‍ core => set locale
+
+🤸🏻‍ container => locale option
+
+### 📃 Modify
+
+🤸🏻‍ core => 廢除系統驗證
+
+🤸🏻‍ state => fixed 移除真實固定的功能

@@ -1,3 +1,11 @@
-✔ $export 可以指定shape name @done(19-05-16 19:41)
-✔ $copy and $out 必須複製當前的shape @done(19-05-16 19:41)
-✔ create @done(19-05-16 23:36)
+v0.0.2:
+    ✔ $export 可以指定shape name @done(19-05-16 19:41)
+    ✔ $copy and $out 必須複製當前的shape @done(19-05-16 19:41)
+    ✔ create @done(19-05-16 23:36)
+
+v0.0.3:
+    ✔ hidden 狀態 @done(19-05-17 23:15)
+    ✔ 將 status 切割出 $raws @done(19-05-17 23:00)
+    ✔ helper key map @done(19-05-18 02:25)
+    ✔ 移除fixed的實際功能 @done(19-05-17 23:31)
+    ☐ rule message intercept

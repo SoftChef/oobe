@@ -1,12 +1,28 @@
-# OOBE
+# oobe
 
-優質的表單操作庫，你開心也可以用在後端環境上。
+oobe目的為原始資料與控制器之間的中介者，具有資料轉換與驗證方法。
+
+他將為你帶來：
+
+* 降低前後端的耦合。
+* 模組化提高通用性。
+* 為表單操作帶來良好的開發體驗。
+* 驗證、狀態與靈魂模式提高操作安全。
+* 具有model的特性，可統一 js 與 nodejs 前後端的操作模式。
+
+![Like Sprite][LinkSpriteImg]
+
+## Install
 
 [![NPM Version][npm-image]][npm-url]
 
-![flow][Flow]
+### Html
 
-## Install
+```html
+<script src="./dist/index.js"></script>
+```
+
+### Webpack or Nodejs
 
 ```bash
 npm i --save oobe
@@ -14,24 +30,62 @@ npm i --save oobe
 
 ## How to use
 
-```js
-import OOBE from 'oobe'
-let oobe = new OOBE()
+[Document][DocLink]
+
+### Html
+
+```html
+<script>
+    let core = new oobe()
+</script>
 ```
 
-### Container
+### Webpack
 
-模組化精靈組的物件，詳細請見[文件][DocLink]。
+```js
+import oobe from 'oobe'
+let core = new oobe()
+```
 
-### Sprite
+### Nodejs
 
-精靈為表單目標的Model。
+```js
+let oobe = require('oobe')
+let core = new oobe()
+```
 
-![Like Sprite][LinkSpriteImg]
+## First Sprite
 
-## Document
+精靈(sprite)是oobe的最小對象，也是我們定義一切所產生的最終物件。
 
-[Document][DocLink]
+> 以下範例是最小化實例sprite的需求，更好的利用oobe請參閱 [examples](https://github.com/SoftChef/oobe/tree/master/examples/)。
+
+```js
+let oobe = require('oobe')
+let core = new oobe()
+let sptire = {
+    body() {
+        return {
+            name: '小明'
+        }
+    }
+}
+let container = {
+    sprites: {
+        boy: sptire
+    }
+}
+
+core.addContainer('human', container)
+
+let boy = core.make('human', 'boy', {
+    name: '小強'
+})
+
+console.log(boy.name) // 小強
+```
+
+## Other
 
 [Version](https://softchef.github.io/oobe/document/version)
 

@@ -30,30 +30,20 @@ class Helper {
     }
 
     /**
-     * @function inspect()
+     * @function mapping
      * @static
-     * @desc 移除迴圈結構的物件
+     * @desc key 的轉移
      */
 
-    static inspect(target, used = []) {
-        if (target == null) {
-            return null
-        }
-        let output = Array.isArray(target) ? [] : {}
-        for (let key in target) {
-            let aims = target[key]
-            let type = typeof aims
-            if (type === 'function') {
-                continue
-            } else if (type === 'object') {
-                let newUsed = [target].concat(used)
-                if (newUsed.includes(aims)) {
-                    output[key] = 'Circular structure object.'
-                } else {
-                    output[key] = Helper.inspect(aims, newUsed)
-                }
-            } else {
-                output[key] = aims
+    static mapping(data, forward, map) {
+        let output = {}
+        if (forward) {
+            for (let key in map) {
+                output[map[key]] = data[key]
+            }
+        } else {
+            for (let key in map) {
+                output[key] = data[map[key]]
             }
         }
         return output

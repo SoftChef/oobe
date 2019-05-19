@@ -44,6 +44,7 @@ module.exports = {
         },
         create: {
             fixed: ['name'],
+            hidden: ['name'],
             export() {
                 return 'test'
             }

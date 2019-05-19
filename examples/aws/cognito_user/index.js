@@ -1,10 +1,10 @@
-const user = require('./user')
-const locale = require('./locales')
-const attributes = require('./attributes')
+const user = require('./sprites/user')
+const locale = require('./locale')
+const attributes = require('./sprites/attributes')
 
 /**
  * @name cognito_user
- * @param {string} [locale = en-us] 顯示語系
+ * @description cognito user
  */
 
 module.exports = {
@@ -13,25 +13,21 @@ module.exports = {
         attributes
     },
 
-    install(configs, options) {
-        configs.locale = options.locale || configs.locale
-        configs.messages = locale[configs.locale]
-    },
+    locale,
+
+    install(configs, options) {},
 
     utils: {},
 
-    configs: {
-        locale: 'en-us',
-        messages: null
-    },
+    configs: {},
 
-    methods: {
-        $t(name) {
-            return this.$configs[name] || name
-        }
-    },
+    methods: {},
 
     states: [],
 
-    rules: {}
+    rules: {
+        string(value, params, message) {
+            return typeof value === 'string' ? true : message('need_string', { value })
+        }
+    }
 }
