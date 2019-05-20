@@ -56,9 +56,9 @@ let core = new oobe()
 
 ## First Sprite
 
-精靈(sprite)是oobe的最小對象，也是我們定義一切所產生的最終物件。
+精靈(sprite)是`oobe`的最小對象，也是我們定義一切所產生的最終物件。
 
-> 以下範例是最小化實例sprite的需求，更好的利用oobe請參閱 [examples](https://github.com/SoftChef/oobe/tree/master/examples/)。
+> 以下範例是最小化實例`sprite`的需求，更好的利用`oobe`請參閱 [examples](https://github.com/SoftChef/oobe/tree/master/examples/)。
 
 ```js
 let oobe = require('oobe')

@@ -11,11 +11,13 @@ class SpriteBase extends Base {
             body: [true, ['function']],
             refs: [false, ['object'], {}],
             rules: [false, ['object'], {}],
+            watch: [false, ['object'], {}],
             reborn: [false, ['function'], function(data) { return data }],
             origin: [false, ['function'], function() { return this.$body() }],
             create: [false, ['function'], () => {}],
             states: [false, ['object'], {}],
-            methods: [false, ['object'], {}]
+            methods: [false, ['object'], {}],
+            computed: [false, ['object'], {}]
         })
         this.initStates()
     }

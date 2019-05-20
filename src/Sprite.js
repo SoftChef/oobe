@@ -1,9 +1,10 @@
 const Base = require('./Base')
 const Unit = require('./Unit')
+const Event = require('./Event')
 const Helper = require('./Helper')
 
 class Sprite extends Base {
-    constructor(base, data = {}) {
+    constructor(base, data) {
         super('Sprite')
         this.unit = new Unit()
         this.body = {}
@@ -13,11 +14,14 @@ class Sprite extends Base {
         this.from = null
         this.base = base
         this.fixed = []
+        this.event = new Event(this.unit, ['ready'])
         this.state = null
+        this.watch = base.options.watch
         this.hidden = []
         this.options = base.options
         this.rawBody = ''
-        this.rawData = JSON.stringify(data)
+        this.rawData = ''
+        this.callback = data ? typeof data === 'function' ? data : f => f(data) : null
         this.propertyNames = []
         this.init()
         this.distortion('read')
@@ -32,7 +36,9 @@ class Sprite extends Base {
     }
 
     getKeys() {
-        return this.propertyNames.concat(Object.keys(this.base.options.refs))
+        return this.propertyNames
+            .concat(Object.keys(this.base.options.refs))
+            .concat(Object.keys(this.base.options.computed))
     }
 
     getProperty(name) {
@@ -166,7 +172,7 @@ class Sprite extends Base {
     setBody(data) {
         let reborn = this.options.reborn.call(this.unit, data)
         for (let key of this.propertyNames) {
-            this.unit[key] = reborn[key]
+            this.unit[key] = reborn[key] === undefined ? this.unit[key] : reborn[key]
         }
         return reborn
     }
@@ -192,17 +198,30 @@ class Sprite extends Base {
         return this.getUnit()
     }
 
+    onReady(data = {}) {
+        let reborn = this.setBody(data)
+        this.rawBody = JSON.stringify(this.body)
+        this.rawData = JSON.stringify(data)
+        this.base.options.create.call(this.getUnit())
+        this.eachRefs((sprite, key) => { sprite.onReady(reborn[key]) })
+        this.event.emit('ready')
+    }
+
     init() {
         this.initUnit()
         this.initBody()
-        this.rawBody = JSON.stringify(this.body)
+        this.initComputed()
         this.propertyNames = Object.keys(this.body)
-        this.base.options.create.call(this.getUnit())
+        if (this.callback) {
+            this.callback(result => this.onReady(result))
+        }
     }
 
     initUnit() {
+        let container = this.base.container
         this.unit.$fn = this.getMethods()
-        this.unit.$meg = this.base.getMessage
+        this.unit.$on = this.event.on.bind(this.event)
+        this.unit.$meg = container.getMessage.bind(container)
         this.unit.$out = this.out.bind(this)
         this.unit.$dead = this.dead.bind(this)
         this.unit.$copy = this.copy.bind(this)
@@ -211,12 +230,12 @@ class Sprite extends Base {
         this.unit.$raws = this.getRaws.bind(this)
         this.unit.$reset = this.reset.bind(this)
         this.unit.$rules = this.getRules.bind(this)
-        this.unit.$utils = this.base.container.options.utils
-        this.unit.$helper = Helper
+        this.unit.$utils = container.options.utils
+        this.unit.$ready = false
         this.unit.$revive = this.revive.bind(this)
         this.unit.$export = this.export.bind(this)
         this.unit.$status = this.getStatus.bind(this)
-        this.unit.$configs = this.base.container.getConfigs()
+        this.unit.$configs = container.getConfigs()
         this.unit.$isFixed = this.isFixed.bind(this)
         this.unit.$isHidden = this.isHidden.bind(this)
         this.unit.$toOrigin = this.toOrigin.bind(this)
@@ -228,19 +247,28 @@ class Sprite extends Base {
     initBody() {
         let refs = this.options.refs
         let body = this.options.body.call(this.unit)
-        let born = this.options.reborn.call(this.unit, JSON.parse(this.rawData))
         for (let key in body) {
-            this.body[key] = born[key] === undefined ? body[key] : born[key]
+            this.body[key] = body[key]
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('body', key),
                 set: this.setDefineProperty(key)
             })
         }
         for (let key in refs) {
-            this.refs[key] = this.base.container.make(refs[key], born[key])
+            this.refs[key] = this.base.container.make(refs[key])
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('refs', key),
                 set: this.setDefineProperty(key, true)
+            })
+        }
+    }
+
+    initComputed() {
+        let data = this.base.options.computed
+        for (let key in data) {
+            Object.defineProperty(this.unit, key, {
+                get: data[key].get ? data[key].get.bind(this.unit) : () => {},
+                set: data[key].set ? data[key].set.bind(this.unit) : (val) => {}
             })
         }
     }
@@ -336,6 +364,9 @@ class Sprite extends Base {
             }
             if (protect) {
                 return this.$systemError('set', `This property(${key}) is protect.`)
+            }
+            if (this.watch[key]) {
+                this.watch[key].call(this.unit, this.body[key], value)
             }
             this.body[key] = value
         }

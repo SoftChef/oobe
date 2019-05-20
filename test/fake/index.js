@@ -1,5 +1,5 @@
 const user = require('./user')
-const locales = require('./locales')
+const locale = require('./locale')
 const attributes = require('./attributes')
 
 module.exports = {
@@ -7,6 +7,8 @@ module.exports = {
         user,
         attributes
     },
+
+    locale,
 
     install(configs, options) {
         configs.test = options.test
@@ -16,7 +18,6 @@ module.exports = {
     utils: {},
 
     configs: {
-        locales,
         helloWorld: 'hello world'
     },
 

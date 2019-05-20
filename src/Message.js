@@ -5,18 +5,18 @@ class Message extends Base {
         super('Locale')
         this.store = { 'en-us': {} }
         this.default = this.store['en-us']
-        this.setlocale('en-us')
+        this.setLocale('en-us')
     }
 
-    setlocale(locale) {
+    setLocale(locale) {
         if (typeof locale !== 'string') {
-            return this.$systemError('setlocale', `Locale(${locale}) not be strung.`)
+            return this.$systemError('setLocale', `Locale(${locale}) not be strung.`)
         }
         this.locale = locale
         this.messages = this.store[locale]
     }
 
-    add(data) {
+    add(data, pluginName = '') {
         if (typeof data !== 'object') {
             return this.$systemError('set', 'Data not a object', data)
         }
@@ -25,7 +25,7 @@ class Message extends Base {
                 this.store[key] = {}
             }
             for (let name in data[key]) {
-                this.store[key][name] = data[key]
+                this.store[key][pluginName + name] = data[key][name]
             }
         }
     }

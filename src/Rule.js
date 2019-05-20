@@ -28,7 +28,9 @@ class Rule extends Base {
             let data = value.split(':')
             params[data[0]] = data[1] === undefined ? true : data[1]
         }
-        return value => rule(value, params)
+        return function(value) {
+            return rule.call(this, value, params)
+        }
     }
 }
 

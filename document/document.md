@@ -488,6 +488,12 @@ console.log(body.count)
 
 會傳出使狀態資料。
 
+### meg(key, value)
+
+* key : required => string
+* value : optional => object
+* return : string
+
 ### keys()
 
 * return : array => [string, ...]

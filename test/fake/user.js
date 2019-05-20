@@ -1,7 +1,9 @@
 module.exports = {
     body() {
         return {
-            name: ''
+            name: '',
+            watchTest: '',
+            computedTest: ''
         }
     },
 
@@ -10,12 +12,34 @@ module.exports = {
     },
 
     rules: {
-        name: ['@require', '$alphanumeric']
+        name: [
+            '[s]require',
+            '$alphanumeric'
+        ]
+    },
+
+    computed: {
+        test: {
+            set(value) {
+                this.computedTest = value * 2
+            },
+            get() {
+                return this.computedTest
+            }
+        }
+    },
+
+    watch: {
+        name(oldValue, newVale) {
+            this.watchTest = oldValue + newVale
+        }
     },
 
     reborn(rawData) {
         return {
             name: rawData['Username'],
+            watchTest: '',
+            computedTest: '',
             attributes: rawData['UserAttributes']
         }
     },

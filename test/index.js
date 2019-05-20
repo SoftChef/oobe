@@ -1,5 +1,6 @@
 const expect = require('chai').expect
 const Oobe = require('../src/Main')
+const Plugin = require('../plugins/rules')
 const LawData = require('./fake/data.json')
 const CognitoUser = require('./fake')
 const TestRawOrigin = JSON.stringify({
@@ -16,6 +17,8 @@ const TestRawOrigin = JSON.stringify({
 
 const TestRawBody = JSON.stringify({
     name: 'admin',
+    watchTest: '',
+    computedTest: '',
     attributes: {
         'sub': 'aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa',
         'name': 'admin',
@@ -29,6 +32,10 @@ const TestRawBody = JSON.stringify({
 describe('#Core', () => {
     before(function() {
         this.oobe = new Oobe()
+    })
+
+    it('addon and addRules and add locale', function() {
+        this.oobe.addon(Plugin)
     })
 
     it('check constructor', function() {
@@ -61,9 +68,9 @@ describe('#Core', () => {
     })
 
     it('get rules', function() {
-        let rules = this.oobe.getRules(['@require', 'string'])
+        let rules = this.oobe.getRules(['[s]require', 'string'])
         expect(rules).to.be.a('array')
-        expect(rules[0]('')).to.equal('require')
+        expect(rules[0]('')).to.be.a('string')
         expect(rules[0]('test')).to.equal(true)
         expect(rules[1]('')).to.equal(true)
         expect(rules[1]('test')).to.equal(true)
@@ -79,10 +86,10 @@ describe('#Core', () => {
     })
 
     it('validates rule', function() {
-        expect(this.oobe.validates('test', ['string', '@require'])).to.equal(true)
-        expect(this.oobe.validates(1234, ['string', '@require'])).to.equal('error')
-        expect(this.oobe.validates(1234, ['number', '@require'])).to.equal(true)
-        expect(this.oobe.validates('', ['string', '@require'])).to.equal('require')
+        expect(this.oobe.validates('test', ['string', '[s]require'])).to.equal(true)
+        expect(this.oobe.validates(1234, ['string', '[s]require'])).to.be.a('string')
+        expect(this.oobe.validates(1234, ['number', '[s]require'])).to.equal(true)
+        expect(this.oobe.validates('', ['string', '[s]require'])).to.be.a('string')
     })
 
     it('make sprite unit', function() {
@@ -96,8 +103,21 @@ describe('#Core', () => {
 describe('#Sprite', () => {
     before(function() {
         this.oobe = new Oobe()
+        this.oobe.addon(Plugin)
         this.oobe.addContainer('CognitoUser', CognitoUser)
         this.user = this.oobe.make('CognitoUser', 'user', LawData)
+    })
+
+    it('lazyload', function() {
+        let origin = JSON.stringify(this.user.$toOrigin())
+        let user = this.oobe.make('CognitoUser', 'user', (finish) => {
+            setTimeout(() => {
+                finish(LawData)
+            }, 200)
+        })
+        user.$on('ready', () => {
+            expect(JSON.stringify(user.$toOrigin()) === origin).to.equal(true)
+        })
     })
 
     it('change value', function() {
@@ -192,8 +212,10 @@ describe('#Sprite', () => {
 
     it('keys', function() {
         let keys = this.user.$keys()
-        expect(keys[0]).to.equal('name')
-        expect(keys[1]).to.equal('attributes')
+        expect(keys.includes('name')).to.equal(true)
+        expect(keys.includes('watchTest')).to.equal(true)
+        expect(keys.includes('test')).to.equal(true)
+        expect(keys.includes('attributes')).to.equal(true)
     })
 
     it('body', function() {
@@ -222,8 +244,28 @@ describe('#Sprite', () => {
 
     it('raws', function() {
         let json = this.user.$raws()
+        expect(json.default).to.be.a('object')
         expect(json.rawBody).to.be.a('string')
         expect(json.rawData).to.be.a('string')
+    })
+
+    it('meg', function() {
+        expect(this.user.$meg('$aaaa')).to.equal('big')
+        expect(this.user.$meg('[s]require', { value: 123 })).to.equal('Value 123 must be required.')
+        this.oobe.setLocale('zh-tw')
+        expect(this.user.$meg('$aaaa')).to.equal('巨')
+    })
+
+    it('computed', function() {
+        this.user.test = 5
+        expect(this.user.computedTest).to.equal(10)
+    })
+
+    it('watch', function() {
+        let ov = this.user.name
+        let nv = 'aaa'
+        this.user.name = nv
+        expect(this.user.watchTest).to.equal(ov + nv)
     })
 })
 

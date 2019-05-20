@@ -26,13 +26,23 @@ npm 命名先搶先贏
 
 ### 📃 New
 
-🤸🏻‍ state => 新功能 hidden
-
 🙉 sprite => $raws 把原始資料切出status
+
+🙉 sprite => $meg
+
+🙉 sprite => computed
+
+🙉 sprite => watch
+
+🙉 sprite => lazy mode
 
 🤝 helper => mapping
 
 🤸🏻‍ core => set locale
+
+🤸🏻‍ core => addon
+
+🤸🏻‍ state => 新屬性 hidden
 
 🤸🏻‍ container => locale option
 

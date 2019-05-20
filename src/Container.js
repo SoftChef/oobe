@@ -9,8 +9,8 @@ class Container extends Base {
         super('Container')
         this.core = core
         this.rule = new Rule()
-        this.messgae = new Message()
-        this.messgae.add(options.locale || {})
+        this.message = new Message()
+        this.message.add(options.locale || {})
         this.options = this.$verify(options, {
             rules: [false, ['object'], {}],
             utils: [false, ['object'], {}],
@@ -46,7 +46,7 @@ class Container extends Base {
     }
 
     getMessage(name, values) {
-        return name.slice(0, 1) === '$' ? this.messgae.get(name.slice(1), values) : this.core.messgae.get(name, values)
+        return name.slice(0, 1) === '$' ? this.message.get(name.slice(1), values) : this.core.message.get(name, values)
     }
 
     make(baseName, data) {

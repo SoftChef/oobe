@@ -1,15 +1,27 @@
 module.exports = {
     name: 's',
     rules: {
-        string: (value, params, message) => {
-            return typeof value === 'string' ? true : message('s/isString', value)
+        require: function(value, params) {
+            let type = typeof value
+            if (this.$meg == null) {
+                console.log(this)
+            }
+            let message = this.$meg('[s]require', { value })
+            if (value == null) {
+                return message
+            } else if (type === 'string' && value === '') {
+                return message
+            } else if (Array.isArray(value) && value.length === 0) {
+                return message
+            } else if (type === 'object' && Object.keys(value).length === 0) {
+                return message
+            }
+            return true
         }
     },
     locale: {
         'en-us': {
-            'isString': 'Value {value} not a string'
+            'require': 'Value {value} must be required.'
         }
     }
 }
-
-sprite.rules(['s/string'])

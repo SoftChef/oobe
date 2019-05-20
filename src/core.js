@@ -10,23 +10,26 @@ class Core extends Base {
         this.message = new Message()
         this.locale = 'en-us'
         this.containers = {}
+        this.addContainer('__system__', { sprites: { system: { body: () => {} } } })
+        this.systemSprite = this.make('__system__', 'system')
     }
 
     addon(optinos) {
         let plugin = this.$verify(optinos, {
-            name: [],
-            rules: {},
-            locale: {}
+            name: [true, ['string']],
+            rules: [false, ['object'], {}],
+            locale: [false, ['object'], {}]
         })
+        let name = '[' + plugin.name + ']'
         for (let key in plugin.rules) {
-            this.addRule(plugin.name + '/' + key, rules[key])
+            this.addRule(name + key, plugin.rules[key])
         }
-        this.addLocale(plugin.locale, plugin.name)
+        this.message.add(plugin.locale, name)
     }
 
     refresh() {
         this.eachContainer((container) => {
-            container.message.setlocale(this.locale)
+            container.message.setLocale(this.locale)
         })
     }
 
@@ -54,13 +57,13 @@ class Core extends Base {
     }
 
     validate(name, value) {
-        return this.getRule(name)(value)
+        return this.getRule(name).call(this.systemSprite, value)
     }
 
     validates(value, array) {
         let rules = this.getRules(array)
         for (let rule of rules) {
-            let result = rule(value)
+            let result = rule.call(this.systemSprite, value)
             if (result !== true) {
                 return result
             }
@@ -68,13 +71,19 @@ class Core extends Base {
         return true
     }
 
-    getRules(array) {
+    getRules(array, bind) {
         let output = []
         for (let data of array) {
+            let target = null
             if (typeof data === 'function') {
-                output.push(data)
+                target = data
             } else {
-                output.push(this.getRule(data))
+                target = this.getRule(data)
+            }
+            if (bind) {
+                output.push(target.bind(bind))
+            } else {
+                output.push(target)
             }
         }
         return output
@@ -109,9 +118,9 @@ class Export {
     constructor() {
         let core = new Core()
         this.make = core.make.bind(core)
+        this.addon = core.addon.bind(core)
         this.addRule = core.addRule.bind(core)
-        this.addRules = core.addRules.bind(core)
-        this.getRules = core.getRules.bind(core)
+        this.getRules = (array) => { return core.getRules(array, core.systemSprite) }
         this.validate = core.validate.bind(core)
         this.validates = core.validates.bind(core)
         this.addLocale = core.addLocale.bind(core)
