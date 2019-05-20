@@ -87,10 +87,10 @@ console.log(boy.name) // 小強
 
 ## Other
 
-[Version](https://softchef.github.io/oobe/document/version)
+[Version](https://softchef.github.io/oobe/assets/version)
 
 [DocLink]: https://softchef.github.io/oobe/document/document
-[LinkSpriteImg]: https://softchef.github.io/oobe/document/like_sprite.jpg
+[LinkSpriteImg]: https://softchef.github.io/oobe/assets/like_sprite.jpg
 [Flow]: https://softchef.github.io/oobe/document/flow.png
 [npm-image]: https://img.shields.io/npm/v/oobe.svg
 [npm-url]: https://npmjs.org/package/oobe
