@@ -52,11 +52,11 @@ let core = new oobe()
 
 ## Introduction
 
-下列是我們建立 mvvm 時的分工模式，由於 ViewModel 層容易出現 View 不同但資料來源相同的情況，導致組件複用性不構，且耦合過大導致維護困難。
+下列是我們建立 mvvm 時的工作模式，由於 ViewModel 層容易出現 View 不同但資料來源相同的情況，導致組件複用性不構，且耦合過大導致維護困難。
 
 <br>
 <div style="text-align: center">
-    <img src="./assets/oobe1.png">
+    <img src="https://softchef.github.io/oobe/document/oobe1.png">
 </div>
 <br>
 
@@ -64,7 +64,7 @@ let core = new oobe()
 
 <br>
 <div style="text-align: center">
-    <img src="./assets/oobe2.png">
+    <img src="https://softchef.github.io/oobe/document/oobe2.png">
 </div>
 <br>
 
@@ -153,7 +153,7 @@ vue.prototype.$oobe = core
 
 ---
 
-### Document
+## Document
 
 [Core](https://softchef.github.io/oobe/document/document)
 
