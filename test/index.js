@@ -43,7 +43,7 @@ describe('#Core', () => {
     })
 
     it('add container', function() {
-        let result = this.oobe.addContainer('CognitoUser', CognitoUser, {
+        let result = this.oobe.join('CognitoUser', CognitoUser, {
             test: true
         })
         expect(result).to.equal('install')
@@ -55,11 +55,11 @@ describe('#Core', () => {
     })
 
     it('add container same name', function() {
-        expect(() => this.oobe.addContainer('CognitoUser', CognitoUser)).to.throw(Error)
+        expect(() => this.oobe.join('CognitoUser', CognitoUser)).to.throw(Error)
     })
 
     it('add null to container should error', function() {
-        expect(() => this.oobe.addContainer('Null', null)).to.throw(Error)
+        expect(() => this.oobe.join('Null', null)).to.throw(Error)
     })
 
     it('add rule', function() {
@@ -104,7 +104,7 @@ describe('#Sprite', () => {
     before(function() {
         this.oobe = new Oobe()
         this.oobe.addon(Plugin)
-        this.oobe.addContainer('CognitoUser', CognitoUser)
+        this.oobe.join('CognitoUser', CognitoUser)
         this.user = this.oobe.make('CognitoUser', 'user', LawData)
     })
 
@@ -278,7 +278,7 @@ describe('#Sprite', () => {
 describe('#Helper', () => {
     before(function() {
         this.oobe = new Oobe()
-        this.oobe.addContainer('CognitoUser', CognitoUser)
+        this.oobe.join('CognitoUser', CognitoUser)
         this.user = this.oobe.make('CognitoUser', 'user', LawData)
     })
 

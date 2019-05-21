@@ -126,7 +126,7 @@ class Export {
         this.addLocale = core.addLocale.bind(core)
         this.setLocale = core.setLocale.bind(core)
         this.getConfigs = core.getConfigs.bind(core)
-        this.addContainer = (name, data, options = {}) => {
+        this.join = (name, data, options = {}) => {
             let container = core.addContainer(name, data)
             let configs = container.options.configs
             return container.options.install.call(this, configs, options)

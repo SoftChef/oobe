@@ -1,13 +1,13 @@
-const user = require('./sprites/user')
-const locale = require('./locale')
-const attributes = require('./sprites/attributes')
+import locale from './locale'
+import user from './sprites/user'
+import attributes from './sprites/attributes'
 
 /**
  * @name cognito_user
  * @description cognito user
  */
 
-module.exports = {
+export default {
     sprites: {
         user,
         attributes
@@ -25,9 +25,5 @@ module.exports = {
 
     states: [],
 
-    rules: {
-        string(value, params, message) {
-            return typeof value === 'string' ? true : message('need_string', { value })
-        }
-    }
+    rules: {}
 }

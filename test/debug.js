@@ -5,7 +5,7 @@ const LawData = require('./fake/data.json')
 const CognitoUser = require('./fake')
 
 oobe = new Oobe()
-oobe.addContainer('CognitoUser', CognitoUser)
+oobe.join('CognitoUser', CognitoUser)
 
 user = oobe.make('CognitoUser', 'user', LawData)
 

@@ -6,7 +6,6 @@ const Helper = require('./Helper')
 class Sprite extends Base {
     constructor(base, data) {
         super('Sprite')
-        this.unit = new Unit()
         this.body = {}
         this.refs = {}
         this.soul = null
@@ -198,18 +197,18 @@ class Sprite extends Base {
     }
 
     onReady(data = {}) {
-        let reborn = this.setBody(data)
         this.rawBody = JSON.stringify(this.body)
         this.rawData = JSON.stringify(data)
         this.base.options.create.call(this.getUnit())
-        this.eachRefs((sprite, key) => { sprite.onReady(reborn[key]) })
+        this.eachRefs((sprite, key) => { sprite.onReady(this.setBody(data)[key]) })
         this.status.ready = true
         this.event.emit('ready')
     }
 
     onError(error) {
-        this.status.ready = true
         this.status.error = error
+        this.rawBody = JSON.stringify(this.body)
+        this.rawData = JSON.stringify(this.body)
         this.eachRefs((sprite) => { sprite.onError(error) })
         this.event.emit('error')
     }
@@ -243,31 +242,8 @@ class Sprite extends Base {
     }
 
     initUnit() {
-        let container = this.base.container
+        this.unit = new Unit(this)
         this.unit.$fn = this.getMethods()
-        this.unit.$on = this.event.on.bind(this.event)
-        this.unit.$meg = container.getMessage.bind(container)
-        this.unit.$out = this.out.bind(this)
-        this.unit.$dead = this.dead.bind(this)
-        this.unit.$copy = this.copy.bind(this)
-        this.unit.$body = this.getBody.bind(this)
-        this.unit.$keys = this.getKeys.bind(this)
-        this.unit.$raws = this.getRaws.bind(this)
-        this.unit.$reset = this.reset.bind(this)
-        this.unit.$rules = this.getRules.bind(this)
-        this.unit.$utils = container.options.utils
-        this.unit.$revive = this.revive.bind(this)
-        this.unit.$export = this.export.bind(this)
-        this.unit.$status = this.getStatus.bind(this)
-        this.unit.$configs = container.getConfigs()
-        this.unit.$isFixed = this.isFixed.bind(this)
-        this.unit.$isHidden = this.isHidden.bind(this)
-        this.unit.$toOrigin = this.toOrigin.bind(this)
-        this.unit.$isChange = this.isChange.bind(this)
-        this.unit.$validate = this.validateAll.bind(this)
-        this.unit.$distortion = this.distortion.bind(this)
-        Object.defineProperty(this.unit, '$ready', { get: () => this.status.ready })
-        Object.defineProperty(this.unit, '$error', { get: () => this.status.error })
     }
 
     initBody() {
@@ -391,7 +367,7 @@ class Sprite extends Base {
             if (protect) {
                 return this.$systemError('set', `This property(${key}) is protect.`)
             }
-            if (this.watch[key]) {
+            if (this.status.ready && this.watch[key]) {
                 this.watch[key].call(this.unit, this.body[key], value)
             }
             this.body[key] = value
