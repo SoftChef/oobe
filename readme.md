@@ -56,7 +56,7 @@ let core = new oobe()
 
 <br>
 <div style="text-align: center">
-    <img src="https://softchef.github.io/oobe/document/oobe1.png">
+    <img src="https://softchef.github.io/oobe/assets/oobe1.png">
 </div>
 <br>
 
@@ -64,7 +64,7 @@ let core = new oobe()
 
 <br>
 <div style="text-align: center">
-    <img src="https://softchef.github.io/oobe/document/oobe2.png">
+    <img src="https://softchef.github.io/oobe/assets/oobe2.png">
 </div>
 <br>
 
