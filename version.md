@@ -36,6 +36,10 @@ npm 命名先搶先贏
 
 🙉 sprite => lazy mode
 
+🙉 sprite => on ready
+
+🙉 sprite => on error
+
 🤝 helper => mapping
 
 🤸🏻‍ core => set locale

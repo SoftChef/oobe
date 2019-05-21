@@ -110,13 +110,19 @@ describe('#Sprite', () => {
 
     it('lazyload', function() {
         let origin = JSON.stringify(this.user.$toOrigin())
-        let user = this.oobe.make('CognitoUser', 'user', (finish) => {
+        let user = this.oobe.make('CognitoUser', 'user', (finish, error) => {
             setTimeout(() => {
                 finish(LawData)
             }, 200)
         })
+        let user_error = this.oobe.make('CognitoUser', 'user', (finish, error) => {
+            error(true)
+        })
         user.$on('ready', () => {
             expect(JSON.stringify(user.$toOrigin()) === origin).to.equal(true)
+        })
+        user_error.$on('error', () => {
+            expect(user_error.$error).to.equal(true)
         })
     })
 

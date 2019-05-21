@@ -8,6 +8,7 @@ v0.0.3:
     ✔ 將 status 切割出 $raws @done(19-05-17 23:00)
     ✔ helper key map @done(19-05-18 02:25)
     ✔ 移除fixed的實際功能 @done(19-05-17 23:31)
+    ✔ 載入錯誤處理 @done(19-05-21 19:32)
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)

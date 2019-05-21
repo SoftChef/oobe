@@ -14,7 +14,6 @@ class Sprite extends Base {
         this.from = null
         this.base = base
         this.fixed = []
-        this.event = new Event(this.unit, ['ready'])
         this.state = null
         this.watch = base.options.watch
         this.hidden = []
@@ -204,17 +203,43 @@ class Sprite extends Base {
         this.rawData = JSON.stringify(data)
         this.base.options.create.call(this.getUnit())
         this.eachRefs((sprite, key) => { sprite.onReady(reborn[key]) })
+        this.status.ready = true
         this.event.emit('ready')
     }
 
+    onError(error) {
+        this.status.ready = true
+        this.status.error = error
+        this.eachRefs((sprite) => { sprite.onError(error) })
+        this.event.emit('error')
+    }
+
     init() {
+        this.initEvent()
         this.initUnit()
         this.initBody()
+        this.initStatus()
         this.initComputed()
         this.propertyNames = Object.keys(this.body)
         if (this.callback) {
-            this.callback(result => this.onReady(result))
+            this.callback(
+                result => this.onReady(result),
+                error => this.onError(error)
+            )
         }
+    }
+
+    initStatus() {
+        this.status = {
+            error: null,
+            ready: false
+        }
+    }
+
+    initEvent() {
+        this.event = new Event(this.unit)
+        this.event.addChannel('ready', { keepLive: true })
+        this.event.addChannel('error', { keepLive: true })
     }
 
     initUnit() {
@@ -231,7 +256,6 @@ class Sprite extends Base {
         this.unit.$reset = this.reset.bind(this)
         this.unit.$rules = this.getRules.bind(this)
         this.unit.$utils = container.options.utils
-        this.unit.$ready = false
         this.unit.$revive = this.revive.bind(this)
         this.unit.$export = this.export.bind(this)
         this.unit.$status = this.getStatus.bind(this)
@@ -242,6 +266,8 @@ class Sprite extends Base {
         this.unit.$isChange = this.isChange.bind(this)
         this.unit.$validate = this.validateAll.bind(this)
         this.unit.$distortion = this.distortion.bind(this)
+        Object.defineProperty(this.unit, '$ready', { get: () => this.status.ready })
+        Object.defineProperty(this.unit, '$error', { get: () => this.status.error })
     }
 
     initBody() {
