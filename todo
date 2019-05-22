@@ -14,6 +14,9 @@ v0.0.3:
     ☐ 重構生命週期處理
     ☐ 錯誤時所有功能都得鎖住
     ☐ 把Live移至status
+    ☐ checkbox 的array 寫入
+    ☐ each create
+    ☐ 狀態掛勾
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)

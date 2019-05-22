@@ -131,7 +131,7 @@ vue.prototype.$oobe = core
             v-model="sprite.name"
             :label="sprite.$meg('$name')"
             :disabled="sprite.$isFixed('name')"
-            :rules="sprite.$rules()">
+            :rules="sprite.$rules('name')">
         </v-text-field>
     <div>
 </template>
@@ -173,7 +173,7 @@ vue.prototype.$oobe = core
 
 ## Other
 
-[Version](https://softchef.github.io/oobe/assets/version)
+[Version](https://softchef.github.io/oobe/version)
 
 [LinkSpriteImg]: https://softchef.github.io/oobe/assets/like_sprite.jpg
 [Flow]: https://softchef.github.io/oobe/document/flow.png
