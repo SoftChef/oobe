@@ -17,6 +17,11 @@ v0.0.3:
     ☐ checkbox 的array 寫入
     ☐ each create
     ☐ 狀態掛勾
+    ☐ event 冒泡傳遞
+    ☐ alias
+    ☐ ref 私有狀態
+    ☐ fixed and hidden 用function
+    ☐ book
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)
