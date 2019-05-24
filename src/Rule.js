@@ -16,7 +16,13 @@ class Rule extends Base {
         this.items[name] = rule
     }
 
-    get(raw) {
+    addMultiple(rules, pluginName = '') {
+        for (let name in rules) {
+            this.addRule(pluginName + name, rules[name])
+        }
+    }
+
+    get(raw, target) {
         let args = raw.split('|')
         let name = args.shift()
         let rule = this.items[name]
@@ -29,8 +35,17 @@ class Rule extends Base {
             params[data[0]] = data[1] === undefined ? true : data[1]
         }
         return function(value) {
-            return rule.call(this, value, params)
+            return rule.call(target, value, params)
         }
+    }
+
+    getMore(array, target) {
+        let output = []
+        for (let data of array) {
+            let rule = typeof data === 'function' ? data.bind(target) : this.get(data, target)
+            output.push(rule)
+        }
+        return output
     }
 }
 

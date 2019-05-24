@@ -22,6 +22,9 @@ v0.0.3:
     ☐ ref 私有狀態
     ☐ fixed and hidden 用function
     ☐ book
+    ☐ 狀態轉換層
+    ☐ 型態轉換器
+    ☐ helper  is空
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)

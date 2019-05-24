@@ -1,6 +1,5 @@
 const Base = require('./Base')
 const Rule = require('./Rule')
-const Helper = require('./Helper')
 const Message = require('./Message')
 const SpriteBase = require('./SpriteBase')
 
@@ -11,43 +10,69 @@ class Container extends Base {
         this.rule = new Rule()
         this.message = new Message()
         this.message.add(options.locale || {})
+        this.spriteBases = {}
         this.options = this.$verify(options, {
             rules: [false, ['object'], {}],
             utils: [false, ['object'], {}],
-            states: [false, ['object'], []],
+            states: [false, ['array'], []],
             sprites: [true, ['object']],
             configs: [false, ['object'], {}],
             methods: [false, ['object'], {}],
             install: [false, ['function'], () => {}]
         })
+        this.init()
+    }
+
+    // ===================
+    //
+    // init
+    //
+
+    init() {
         this.initRules()
         this.initSprites()
     }
 
     initRules() {
-        for (let key in this.options.rules) {
-            this.rule.add(key, this.options.rules[key])
-        }
+        this.rule.addMultiple(this.options.rules)
     }
 
     initSprites() {
-        this.spriteBases = {}
         for (let key in this.options.sprites) {
             this.spriteBases[key] = new SpriteBase(this, key, this.options.sprites[key])
         }
     }
 
-    getRule(name) {
-        return name.slice(0, 1) === '$' ? this.rule.get(name.slice(1)) : this.core.getRule(name)
-    }
+    // ===================
+    //
+    // get
+    //
 
-    getConfigs() {
-        return Helper.deepClone(this.options.configs)
+    getRule(name, target) {
+        return this.isCallSelf(name) ? this.rule.get(name.slice(1), target) : this.core.rule.get(name, target)
     }
 
     getMessage(name, values) {
-        return name.slice(0, 1) === '$' ? this.message.get(name.slice(1), values) : this.core.message.get(name, values)
+        return this.isCallSelf(name) ? this.message.get(name.slice(1), values) : this.core.message.get(name, values)
     }
+
+    getConfigs() {
+        return this.options.configs
+    }
+
+    // ===================
+    //
+    // methods
+    //
+
+    isCallSelf(value) {
+        return value.slice(0, 1) === '$'
+    }
+
+    // ===================
+    //
+    // public
+    //
 
     make(baseName, data) {
         let base = this.spriteBases[baseName]

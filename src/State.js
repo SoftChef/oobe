@@ -5,13 +5,17 @@ class State extends Base {
         super('States')
         this.name = name
         this.options = this.$verify(options, {
-            fixed: [false, ['object', 'string'], []],
-            hidden: [false, ['object', 'string'], []],
+            fixed: [false, ['array', 'string'], []],
+            hidden: [false, ['array', 'string'], []],
             export: [false, ['function'], function() {
                 return this.$toOrigin()
             }]
         })
     }
+
+    isFixed() {}
+
+    isHidden() {}
 }
 
 module.exports = State

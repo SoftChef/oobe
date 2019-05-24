@@ -48,11 +48,7 @@ let core = new oobe()
 
 [validate](###validate(ruleName,&nbsp;value))
 
-[validates](###validates(value,&nbsp;targetRules))
-
 [addContainer](###addContainer(name,&nbsp;containerData,&nbsp;options))
-
-[getConfigs](###getConfigs(name))
 
 [make](###make(containerName,&nbsp;spriteName,&nbsp;rawData))
 
@@ -90,24 +86,7 @@ console.log(rules) // [function, function]
 
 ---
 
-### validate(ruleName, value)
-
-* ruleName : required => string
-* value : required => any
-* return : `true` || `string`
-
-驗證一個方法。
-
-```js
-let vString = core.validate('string', '')
-let vNumber = core.validate('string', 0)
-console.log(vString) // true
-console.log(vNumber) // Param not a string.
-```
-
----
-
-### validates(value, targetRules)
+### validate(value, targetRules)
 
 * value : required => any
 * targetRules : required => array => [string or rule function]
@@ -130,15 +109,6 @@ console.log(result) // require
 * containerData : required => any
 * options : optional => object
 * return : `any`
-
----
-
-### getConfigs(name)
-
-* name : required => string
-* return : `object`
-
-獲取指定 `container` 的設定值。
 
 ---
 

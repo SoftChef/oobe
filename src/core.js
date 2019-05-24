@@ -1,18 +1,37 @@
 const Base = require('./Base')
 const Rule = require('./Rule')
 const Message = require('./Message')
+const Configs = require('./Configs')
 const Container = require('./Container')
 
 class Core extends Base {
     constructor() {
         super('Core')
         this.rule = new Rule()
-        this.message = new Message()
         this.locale = 'en-us'
+        this.message = new Message()
         this.containers = {}
-        this.addContainer('__system__', { sprites: { system: { body: () => {} } } })
+        this.init()
+    }
+
+    // ===================
+    //
+    // init
+    //
+
+    init() {
+        this.initSystemContainer()
+    }
+
+    initSystemContainer() {
+        this.addContainer('__system__', Configs.systemContainer)
         this.systemSprite = this.make('__system__', 'system')
     }
+
+    // ===================
+    //
+    // plugins
+    //
 
     addon(optinos) {
         let plugin = this.$verify(optinos, {
@@ -21,80 +40,21 @@ class Core extends Base {
             locale: [false, ['object'], {}]
         })
         let name = '[' + plugin.name + ']'
-        for (let key in plugin.rules) {
-            this.addRule(name + key, plugin.rules[key])
-        }
+        this.rule.addMultiple(plugin.rules, name)
         this.message.add(plugin.locale, name)
     }
 
-    refresh() {
-        this.eachContainer((container) => {
-            container.message.setLocale(this.locale)
-        })
-    }
+    // ===================
+    //
+    // add
+    //
 
-    eachContainer(action) {
-        for (let key in this.containers) {
-            action(this.containers[key])
-        }
-    }
-
-    setLocale(locale) {
-        this.locale = locale
-        this.refresh()
+    addRules(rules) {
+        this.rule.addMultiple(rules)
     }
 
     addLocale(locale) {
         this.message.add(locale)
-    }
-
-    addRule(name, rule) {
-        this.rule.add(name, rule)
-    }
-
-    getRule(name) {
-        return this.rule.get(name)
-    }
-
-    validate(name, value) {
-        return this.getRule(name).call(this.systemSprite, value)
-    }
-
-    validates(value, array) {
-        let rules = this.getRules(array)
-        for (let rule of rules) {
-            let result = rule.call(this.systemSprite, value)
-            if (result !== true) {
-                return result
-            }
-        }
-        return true
-    }
-
-    getRules(array, bind) {
-        let output = []
-        for (let data of array) {
-            let target = null
-            if (typeof data === 'function') {
-                target = data
-            } else {
-                target = this.getRule(data)
-            }
-            if (bind) {
-                output.push(target.bind(bind))
-            } else {
-                output.push(target)
-            }
-        }
-        return output
-    }
-
-    make(containerName, spriteName, data) {
-        let container = this.containers[containerName]
-        if (container == null) {
-            return this.$systemError('make', `Container name(${containerName}) not found.`)
-        }
-        return container.make(spriteName, data).getUnit()
     }
 
     addContainer(name, container) {
@@ -106,32 +66,73 @@ class Core extends Base {
         return this.containers[name]
     }
 
-    getConfigs(name) {
-        if (this.containers[name] == null) {
-            return this.$systemError('getConfigs', `Containers name(${name}) not found.`)
+    // ===================
+    //
+    // get
+    //
+
+    getRules(array) {
+        return this.rule.getMore(array, this.systemSprite)
+    }
+
+    // ===================
+    //
+    // set
+    //
+
+    setLocale(locale) {
+        this.locale = locale
+        this.refresh()
+    }
+
+    // ===================
+    //
+    // methods
+    //
+
+    refresh() {
+        this.eachContainer((container) => {
+            container.message.setLocale(this.locale)
+        })
+    }
+
+    validate(value, array) {
+        let rules = this.getRules(array)
+        for (let rule of rules) {
+            let result = rule(value)
+            if (result !== true) {
+                return result
+            }
         }
-        return this.containers[name].getConfigs()
+        return true
+    }
+
+    eachContainer(action) {
+        for (let key in this.containers) {
+            action(this.containers[key])
+        }
+    }
+
+    // ===================
+    //
+    // public
+    //
+
+    make(containerName, spriteName, target) {
+        let container = this.containers[containerName]
+        if (container == null) {
+            return this.$systemError('make', `Container name(${containerName}) not found.`)
+        }
+        return container.make(spriteName, target).getUnit()
+    }
+
+    mult(containerName, spriteName, target) {
+        let output = []
+        for (let data of target) {
+            output.push(this.make(containerName, spriteName, data))
+        }
+        return output
     }
 }
 
-class Export {
-    constructor() {
-        let core = new Core()
-        this.make = core.make.bind(core)
-        this.addon = core.addon.bind(core)
-        this.addRule = core.addRule.bind(core)
-        this.getRules = (array) => { return core.getRules(array, core.systemSprite) }
-        this.validate = core.validate.bind(core)
-        this.validates = core.validates.bind(core)
-        this.addLocale = core.addLocale.bind(core)
-        this.setLocale = core.setLocale.bind(core)
-        this.getConfigs = core.getConfigs.bind(core)
-        this.join = (name, data, options = {}) => {
-            let container = core.addContainer(name, data)
-            let configs = container.options.configs
-            return container.options.install.call(this, configs, options)
-        }
-    }
-}
-
-module.exports = Export
+module.exports = Core

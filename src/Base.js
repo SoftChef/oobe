@@ -1,8 +1,6 @@
 class Base {
     constructor(name) {
-        this._base = {
-            name
-        }
+        this._base = { name }
     }
 
     /**
@@ -24,22 +22,24 @@ class Base {
      * @desc 驗證格式是否正確
      */
 
-    $verify(data, validates, assign = {}) {
+    $verify(data, validates) {
         let newData = {}
         for (let key in validates) {
+            let target = data[key]
             let validate = validates[key]
             let required = validate[0]
-            let type = validate[1]
+            let types = validate[1]
             let defaultValue = validate[2]
-            if (required && data[key] == null) {
+            let type = Array.isArray(target) ? 'array' : typeof target
+            if (required && target == null) {
                 this.$systemError('verify', `Key(${key}) is required`)
             }
-            if (type && data[key] != null && !type.includes(typeof data[key])) {
-                this.$systemError('verify', `Type(${key}::${typeof data[key]}) error, need ${type.join(' or ')}`)
+            if (types && target != null && !types.includes(type)) {
+                this.$systemError('verify', `Type(${key}::${type}) error, need ${types.join(' or ')}`)
             }
-            newData[key] = data[key] || defaultValue
+            newData[key] = target || defaultValue
         }
-        return Object.assign(newData, assign)
+        return newData
     }
 }
 
