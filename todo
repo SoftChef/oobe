@@ -15,16 +15,17 @@ v0.0.3:
     ☐ 錯誤時所有功能都得鎖住
     ☐ 把Live移至status
     ☐ checkbox 的array 寫入
-    ☐ each create
+    ✔ each create @done(19-05-24 08:34)
     ☐ 狀態掛勾
     ☐ event 冒泡傳遞
-    ☐ alias
+    ☐ sprite alias
     ☐ ref 私有狀態
     ☐ fixed and hidden 用function
     ☐ book
     ☐ 狀態轉換層
     ☐ 型態轉換器
     ☐ helper  is空
+    ☐ 將state抽出
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)
