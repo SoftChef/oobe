@@ -1,0 +1,11 @@
+{
+    "title": "Nucleoid",
+    "extension": null,
+    "plugins": ["-sharing", "-search", "fontsettings"],
+    "links": {
+        "sidebar": false
+    },
+    "styles": {
+        "website": "./style/main.css"
+    }
+}

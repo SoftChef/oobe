@@ -10,9 +10,9 @@ module.exports = {
         }
     },
 
-    reborn(rawData) {
+    reborn(data) {
         let target = []
-        for (let attr of rawData) {
+        for (let attr of data) {
             target[attr.Name] = attr.Value
         }
         let country_code = target['custom:country_code']

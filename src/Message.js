@@ -10,7 +10,7 @@ class Message extends Base {
 
     setLocale(locale) {
         if (typeof locale !== 'string') {
-            return this.$systemError('setLocale', `Locale(${locale}) not be strung.`)
+            return this.$systemError('setLocale', `Locale(${locale}) not be string.`)
         }
         this.locale = locale
         this.messages = this.store[locale]

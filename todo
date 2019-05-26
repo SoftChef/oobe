@@ -10,22 +10,18 @@ v0.0.3:
     ✔ 移除fixed的實際功能 @done(19-05-17 23:31)
     ✔ 載入錯誤處理 @done(19-05-21 19:32)
 
-    ☐ 預載入時out問題
-    ☐ 重構生命週期處理
-    ☐ 錯誤時所有功能都得鎖住
-    ☐ 把Live移至status
-    ☐ checkbox 的array 寫入
-    ✔ each create @done(19-05-24 08:34)
-    ☐ 狀態掛勾
-    ☐ event 冒泡傳遞
-    ☐ sprite alias
-    ☐ ref 私有狀態
-    ☐ fixed and hidden 用function
-    ☐ book
+    ☐ checkbox 的 array 寫入
     ☐ 狀態轉換層
     ☐ 型態轉換器
-    ☐ helper  is空
-    ☐ 將state抽出
+    ✔ 重構生命週期處理 @done(19-05-26 18:38)
+    ✔ book @done(19-05-26 18:37)
+    ✔ 預載入時out問題 @done(19-05-26 10:27)
+    ✔ 錯誤時所有功能都得鎖住 @done(19-05-26 10:12)
+    ✔ 把Live移至status @done(19-05-26 10:12)
+    ✔ each create @done(19-05-24 08:34)
+    ✔ helper is空 @done(19-05-25 00:01)
+    ✔ 將state抽出 @done(19-05-26 09:51)
+    ✔ 把validate轉入rule @done(19-05-26 09:51)
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)

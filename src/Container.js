@@ -1,20 +1,18 @@
 const Base = require('./Base')
-const Rule = require('./Rule')
-const Message = require('./Message')
 const SpriteBase = require('./SpriteBase')
 
 class Container extends Base {
-    constructor(core, options = {}) {
+    constructor(core, name, options = {}) {
         super('Container')
         this.core = core
-        this.rule = new Rule()
-        this.message = new Message()
-        this.message.add(options.locale || {})
+        this.name = name
+        this.pluginName = '$' + this.name + '/'
         this.spriteBases = {}
         this.options = this.$verify(options, {
             rules: [false, ['object'], {}],
             utils: [false, ['object'], {}],
             states: [false, ['array'], []],
+            locale: [false, ['object'], {}],
             sprites: [true, ['object']],
             configs: [false, ['object'], {}],
             methods: [false, ['object'], {}],
@@ -31,10 +29,11 @@ class Container extends Base {
     init() {
         this.initRules()
         this.initSprites()
+        this.initMessage()
     }
 
     initRules() {
-        this.rule.addMultiple(this.options.rules)
+        this.core.rule.addMultiple(this.options.rules, this.pluginName)
     }
 
     initSprites() {
@@ -43,17 +42,21 @@ class Container extends Base {
         }
     }
 
+    initMessage() {
+        this.core.message.add(this.options.locale, this.pluginName)
+    }
+
     // ===================
     //
     // get
     //
 
-    getRule(name, target) {
-        return this.isCallSelf(name) ? this.rule.get(name.slice(1), target) : this.core.rule.get(name, target)
+    getRules(target, array) {
+        return this.core.rule.getMore(target, this.getNames(array))
     }
 
     getMessage(name, values) {
-        return this.isCallSelf(name) ? this.message.get(name.slice(1), values) : this.core.message.get(name, values)
+        return this.core.message.get(this.getName(name), values)
     }
 
     getConfigs() {
@@ -65,8 +68,20 @@ class Container extends Base {
     // methods
     //
 
-    isCallSelf(value) {
-        return value.slice(0, 1) === '$'
+    getName(name) {
+        return name.slice(0, 1) === '$' ? this.pluginName + name.slice(1) : name
+    }
+
+    getNames(array) {
+        let data = array.slice()
+        for (let i = 0; i < array.length; i++) {
+            data[i] = this.getName(array[i])
+        }
+        return data
+    }
+
+    validate(target, value, array) {
+        return this.core.rule.validate(target, value, this.getNames(array))
     }
 
     // ===================
@@ -79,7 +94,7 @@ class Container extends Base {
         if (base == null) {
             return this.$systemError('make', `Sprite ${baseName} not found.`)
         }
-        return base.createSprite(data)
+        return base.create(data)
     }
 }
 

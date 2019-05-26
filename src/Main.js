@@ -7,15 +7,15 @@ class Main {
     }
 
     static isSprite(target) {
-        return target instanceof Unit
+        return Unit.isSprite(target)
     }
 
-    make(containerName, spriteName, target) {
-        return this._core.make(containerName, spriteName, target)
+    make(containerName, spriteName, data) {
+        return this._core.make(containerName, spriteName, data)
     }
 
-    mult(containerName, spriteName, target) {
-        return this._core.mult(containerName, spriteName, target)
+    mult(containerName, spriteName, data) {
+        return this._core.mult(containerName, spriteName, data)
     }
 
     join(name, data, options = {}) {
@@ -33,7 +33,7 @@ class Main {
     }
 
     validate(value, array) {
-        this._core.validate(value, array)
+        return this._core.validate(value, array)
     }
 
     addLocale(locale) {

@@ -1,22 +1,9 @@
 module.exports = {
-    name: 's',
+    name: 'sc',
     rules: {
         require: function(value, params) {
-            let type = typeof value
-            if (this.$meg == null) {
-                console.log(this)
-            }
-            let message = this.$meg('[s]require', { value })
-            if (value == null) {
-                return message
-            } else if (type === 'string' && value === '') {
-                return message
-            } else if (Array.isArray(value) && value.length === 0) {
-                return message
-            } else if (type === 'object' && Object.keys(value).length === 0) {
-                return message
-            }
-            return true
+            let message = this.$meg('[sc]require', { value })
+            return this.$helper.isEmpty(value) ? message : true
         }
     },
     locale: {

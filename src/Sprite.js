@@ -1,28 +1,23 @@
 const Base = require('./Base')
 const Unit = require('./Unit')
-const Event = require('./Event')
 const Helper = require('./Helper')
 
 class Sprite extends Base {
-    constructor(base, data) {
+    constructor(base, data, reference) {
         super('Sprite')
         this.body = {}
         this.refs = {}
         this.soul = null
-        this.live = true
         this.from = null
         this.base = base
-        this.fixed = []
-        this.state = null
+        this.state = base.states.read
         this.watch = base.options.watch
-        this.hidden = []
         this.options = base.options
         this.rawBody = ''
         this.rawData = ''
-        this.callback = data ? typeof data === 'function' ? data : f => f(data) : null
+        this.reference = !!reference
         this.propertyNames = []
-        this.init()
-        this.distortion('read')
+        this.init(data)
     }
 
     getBody() {
@@ -47,14 +42,16 @@ class Sprite extends Base {
         }
     }
 
-    isFixed(name) {
-        if (this.fixed === '*') return true
-        return this.fixed.includes(name)
+    isLive() {
+        if (this.status.live === false) {
+            this.$systemError('isLive', 'This Sprite is dead.')
+            return false
+        }
+        return true
     }
 
-    isHidden(name) {
-        if (this.hidden === '*') return true
-        return this.hidden.includes(name)
+    isReady() {
+        return !!this.status.init
     }
 
     isChange() {
@@ -67,6 +64,10 @@ class Sprite extends Base {
             }
         })
         return change
+    }
+
+    isReference() {
+        return !!this.reference
     }
 
     export(name) {
@@ -91,80 +92,64 @@ class Sprite extends Base {
     }
 
     out() {
-        if (this.live === false) this.$systemError('out', 'This Sprite is dead.')
-        this.soul = this.base.createSprite(this.toOrigin())
-        this.soul.distortion(this.state.name)
-        this.soul.from = this
-        this.sleep()
-        return this.soul.getUnit()
+        if (this.isLive()) {
+            this.soul = this.base.create(this.toOrigin())
+            this.soul.distortion(this.state.name)
+            this.soul.from = this
+            this.sleep()
+            return this.soul.getUnit()
+        }
     }
 
     sleep() {
-        this.live = false
+        this.status.live = false
         this.eachRefs(s => s.sleep())
     }
 
     wakeup() {
-        this.live = true
+        this.status.live = true
         this.eachRefs(s => s.wakeup())
     }
 
     revive() {
-        let data = this.toOrigin()
-        if (this.live === false) this.$systemError('revive', 'This Sprite is dead.')
-        if (this.from) {
-            this.from.reborn(data)
-            return this.dead()
-        } else {
-            this.$systemError('revive', 'This Sprite is root.')
+        if (this.isLive()) {
+            if (this.from) {
+                this.from.reborn(this.toOrigin())
+                return this.dead()
+            } else {
+                this.$systemError('revive', 'This Sprite is root.')
+            }
         }
     }
 
     copy() {
-        let sprite = this.base.createSprite(this.toOrigin())
-        sprite.distortion(this.state.name)
-        return sprite.getUnit()
+        return this.base.create(this.toOrigin()).distortion(this.state.name)
     }
 
     dead() {
-        if (this.live === false) this.$systemError('dead', 'This Sprite is dead.')
-        if (this.from) {
-            let from = this.from
-            this.from.wakeup()
-            this.from.soul = null
-            this.from = null
-            this.sleep()
-            return from
-        } else {
-            this.$systemError('dead', 'This Sprite is root.')
-        }
-    }
-
-    getRaws() {
-        return {
-            default: this.options.body(),
-            rawBody: this.rawBody,
-            rawData: this.rawData
+        if (this.isLive()) {
+            if (this.from) {
+                let from = this.from
+                this.from.wakeup()
+                this.from.soul = null
+                this.from = null
+                this.sleep()
+                return from
+            } else {
+                this.$systemError('dead', 'This Sprite is root.')
+            }
         }
     }
 
     reborn(origin) {
         this.wakeup()
-        this.resetBody(origin)
+        this.setBody(origin)
     }
 
     reset() {
-        if (this.live === false) {
-            return this.$systemError('set', 'This Sprite is dead.')
+        if (this.isLive()) {
+            this.setBody(JSON.parse(this.rawData))
         }
-        this.resetBody(JSON.parse(this.rawData))
-    }
-
-    resetBody(origin) {
-        let reborn = this.setBody(origin)
-        this.eachRefs((sprite, key) => {
-            sprite.setBody(reborn[key])
-        })
     }
 
     setBody(data) {
@@ -172,7 +157,9 @@ class Sprite extends Base {
         for (let key of this.propertyNames) {
             this.unit[key] = reborn[key] === undefined ? this.unit[key] : reborn[key]
         }
-        return reborn
+        this.eachRefs((sprite, key) => {
+            sprite.setBody(reborn[key])
+        })
     }
 
     eachRefs(callback) {
@@ -185,60 +172,33 @@ class Sprite extends Base {
     }
 
     distortion(name) {
-        if (this.live === false) this.$systemError('distortion', 'This Sprite is dead.')
-        if (this.base.states[name] == null) {
-            return this.$systemError('distortion', `Name(${name}) not found.`)
+        if (this.isLive()) {
+            if (this.base.states[name] == null) {
+                return this.$systemError('distortion', `Name(${name}) not found.`)
+            }
+            this.state = this.base.states[name]
+            this.eachRefs(s => s.distortion(name))
+            return this.getUnit()
         }
-        this.state = this.base.states[name]
-        this.fixed = this.state.options.fixed
-        this.hidden = this.state.options.hidden
-        this.eachRefs(s => s.distortion(name))
-        return this.getUnit()
     }
 
-    onReady(data = {}) {
-        this.rawBody = JSON.stringify(this.body)
-        this.rawData = JSON.stringify(data)
-        this.base.options.create.call(this.getUnit())
-        this.eachRefs((sprite, key) => { sprite.onReady(this.setBody(data)[key]) })
-        this.status.ready = true
-        this.event.emit('ready')
-    }
-
-    onError(error) {
-        this.status.error = error
-        this.rawBody = JSON.stringify(this.body)
-        this.rawData = JSON.stringify(this.body)
-        this.eachRefs((sprite) => { sprite.onError(error) })
-        this.event.emit('error')
-    }
-
-    init() {
-        this.initEvent()
+    init(data) {
         this.initUnit()
-        this.initBody()
+        this.initBody(data)
         this.initStatus()
         this.initComputed()
+        this.rawBody = JSON.stringify(this.body)
+        this.rawData = JSON.stringify(data)
         this.propertyNames = Object.keys(this.body)
-        if (this.callback) {
-            this.callback(
-                result => this.onReady(result),
-                error => this.onError(error)
-            )
-        }
+        this.base.options.create.call(this.getUnit())
+        this.status.init = true
     }
 
     initStatus() {
         this.status = {
-            error: null,
-            ready: false
+            live: true,
+            init: false
         }
-    }
-
-    initEvent() {
-        this.event = new Event(this.unit)
-        this.event.addChannel('ready', { keepLive: true })
-        this.event.addChannel('error', { keepLive: true })
     }
 
     initUnit() {
@@ -246,18 +206,19 @@ class Sprite extends Base {
         this.unit.$fn = this.getMethods()
     }
 
-    initBody() {
+    initBody(data) {
         let refs = this.options.refs
         let body = this.options.body.call(this.unit)
+        let reborn = this.options.reborn.call(this.unit, data)
         for (let key in body) {
-            this.body[key] = body[key]
+            this.body[key] = reborn[key] === undefined ? body[key] : reborn[key]
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('body', key),
                 set: this.setDefineProperty(key)
             })
         }
         for (let key in refs) {
-            this.refs[key] = this.base.container.make(refs[key])
+            this.refs[key] = this.base.container.make(refs[key], reborn[key])
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('refs', key),
                 set: this.setDefineProperty(key, true)
@@ -288,67 +249,29 @@ class Sprite extends Base {
         return fn
     }
 
-    getStatus() {
-        return {
-            live: this.live,
-            state: this.state.name,
-            fixed: this.fixed.slice(),
-            hidden: this.hidden.slice()
-        }
-    }
-
     getRules(name, extra = []) {
-        let unit = this.getUnit()
-        let output = []
         let rules = this.base.options.rules[name]
         if (rules == null) {
             this.$systemError('getRules', `Rule name(${name}) not found.`)
         }
-        rules = rules.concat(extra)
-        for (let data of rules) {
-            if (typeof data === 'function') {
-                output.push(data.bind(unit))
-            } else {
-                output.push(this.base.container.getRule(data).bind(unit))
-            }
-        }
-        return output
+        return this.base.container.getRules(this.unit, rules.concat(extra))
     }
 
-    validate(name, extra) {
-        let rules = this.getRules(name, extra)
+    validate(name) {
         let value = this.getProperty(name)
-        let errors = []
-        let success = true
-        for (let rule of rules) {
-            let result = rule(value)
-            if (result !== true) {
-                success = false
-                errors.push(result)
-            }
-        }
-        return { success, errors }
+        let rules = this.base.options.rules[name]
+        return this.base.container.validate(this.unit, value, rules)
     }
 
     validateAll() {
         let names = Object.keys(this.base.options.rules)
-        let errors = {}
-        let success = true
         for (let name of names) {
-            let result = this.validate(name)
-            if (result.success === false) {
-                success = false
-            }
-            errors[name] = result.errors
+            output[name] = this.validate(name)
         }
         this.eachRefs((sprite, name) => {
-            let result = sprite.validateAll()
-            if (result.success === false) {
-                success = false
-            }
-            errors[name] = result.errors
+            output[name] = sprite.validateAll()
         })
-        return { success, errors }
+        return output
     }
 
     getDefineProperty(name, key) {
@@ -361,13 +284,13 @@ class Sprite extends Base {
 
     setDefineProperty(key, protect) {
         return (value) => {
-            if (this.live === false) {
+            if (this.isLive() === false) {
                 return this.$systemError('set', 'This Sprite is dead.')
             }
             if (protect) {
                 return this.$systemError('set', `This property(${key}) is protect.`)
             }
-            if (this.status.ready && this.watch[key]) {
+            if (this.isReady() && this.watch[key]) {
                 this.watch[key].call(this.unit, this.body[key], value)
             }
             this.body[key] = value

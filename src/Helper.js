@@ -48,6 +48,45 @@ class Helper {
         }
         return output
     }
+
+    /**
+     * @function getType
+     * @static
+     * @desc 獲取型別
+     */
+
+    static getType(value) {
+        if (Array.isArray(value)) {
+            return 'array'
+        }
+        if (value == null) {
+            return 'empty'
+        }
+        return typeof value
+    }
+
+    /**
+     * @function isEmpty
+     * @static
+     * @desc 是否為空值
+     */
+
+    static isEmpty(value) {
+        let type = Helper.getType(value)
+        if (value == null) {
+            return true
+        }
+        if (type === 'array' && value.length === 0) {
+            return true
+        }
+        if (type === 'object' && Object.keys(value).length === 0) {
+            return true
+        }
+        if (type === 'string' && value === '') {
+            return true
+        }
+        return false
+    }
 }
 
 module.exports = Helper

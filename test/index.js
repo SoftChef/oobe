@@ -1,7 +1,7 @@
 const expect = require('chai').expect
 const Oobe = require('../src/Main')
 const Plugin = require('../plugins/rules')
-const LawData = require('./fake/data.json')
+const RawData = require('./fake/data.json')
 const CognitoUser = require('./fake')
 const TestRawOrigin = JSON.stringify({
     Username: 'admin',
@@ -49,11 +49,6 @@ describe('#Core', () => {
         expect(result).to.equal('install')
     })
 
-    it('get container configs', function() {
-        let configs = this.oobe.getConfigs('CognitoUser')
-        expect(configs.test).to.equal(true)
-    })
-
     it('add container same name', function() {
         expect(() => this.oobe.join('CognitoUser', CognitoUser)).to.throw(Error)
     })
@@ -62,9 +57,11 @@ describe('#Core', () => {
         expect(() => this.oobe.join('Null', null)).to.throw(Error)
     })
 
-    it('add rule', function() {
-        this.oobe.addRule('string', value => typeof value === 'string' ? true : 'error')
-        this.oobe.addRule('number', value => typeof value === 'number' ? true : 'error')
+    it('add rules', function() {
+        this.oobe.addRules({
+            string: value => typeof value === 'string' ? true : 'error',
+            number: value => typeof value === 'number' ? true : 'error'
+        })
     })
 
     it('get rules', function() {
@@ -78,22 +75,22 @@ describe('#Core', () => {
     })
 
     it('validate rule', function() {
-        expect(this.oobe.validate('string', 'test')).to.equal(true)
+        expect(this.oobe.validate('test', ['string'])).to.equal(true)
     })
 
     it('validate rule should error', function() {
-        expect(this.oobe.validate('string', 1234)).to.equal('error')
+        expect(this.oobe.validate(1234, ['string'])).to.equal('error')
     })
 
     it('validates rule', function() {
-        expect(this.oobe.validates('test', ['string', '[s]require'])).to.equal(true)
-        expect(this.oobe.validates(1234, ['string', '[s]require'])).to.be.a('string')
-        expect(this.oobe.validates(1234, ['number', '[s]require'])).to.equal(true)
-        expect(this.oobe.validates('', ['string', '[s]require'])).to.be.a('string')
+        expect(this.oobe.validate('test', ['string', '[s]require'])).to.equal(true)
+        expect(this.oobe.validate(1234, ['string', '[s]require'])).to.be.a('string')
+        expect(this.oobe.validate(1234, ['number', '[s]require'])).to.equal(true)
+        expect(this.oobe.validate('', ['string', '[s]require'])).to.be.a('string')
     })
 
     it('make sprite unit', function() {
-        let unit = this.oobe.make('CognitoUser', 'user', LawData)
+        let unit = this.oobe.make('CognitoUser', 'user', RawData)
         expect(unit.name).to.equal('admin')
         expect(Oobe.isSprite(unit.name)).to.equal(false)
         expect(Oobe.isSprite(unit.attributes)).to.equal(true)
@@ -105,25 +102,7 @@ describe('#Sprite', () => {
         this.oobe = new Oobe()
         this.oobe.addon(Plugin)
         this.oobe.join('CognitoUser', CognitoUser)
-        this.user = this.oobe.make('CognitoUser', 'user', LawData)
-    })
-
-    it('lazyload', function() {
-        let origin = JSON.stringify(this.user.$toOrigin())
-        let user = this.oobe.make('CognitoUser', 'user', (finish, error) => {
-            setTimeout(() => {
-                finish(LawData)
-            }, 200)
-        })
-        let user_error = this.oobe.make('CognitoUser', 'user', (finish, error) => {
-            error(true)
-        })
-        user.$on('ready', () => {
-            expect(JSON.stringify(user.$toOrigin()) === origin).to.equal(true)
-        })
-        user_error.$on('error', () => {
-            expect(user_error.$error).to.equal(true)
-        })
+        this.user = this.oobe.make('CognitoUser', 'user', RawData)
     })
 
     it('change value', function() {
@@ -164,8 +143,7 @@ describe('#Sprite', () => {
 
     it('distortions', function() {
         let user = this.user.$copy().$distortion('create')
-        let status = user.$status()
-        expect(status.state).to.equal('create')
+        expect(user.$state).to.equal('create')
         expect(user.$isFixed('name')).to.equal(true)
         expect(user.$isHidden('name')).to.equal(true)
     })
@@ -187,11 +165,11 @@ describe('#Sprite', () => {
 
     it('container rules and validate', function() {
         this.user.name = 'ffff'
-        expect(this.user.$validate().success).to.equal(true)
+        expect(this.user.$validate().name).to.equal(true)
         this.user.name = 'ff--ff'
-        expect(this.user.$validate().success).to.equal(false)
+        expect(this.user.$validate().name).to.be.a('string')
         this.user.name = ''
-        expect(this.user.$validate().success).to.equal(false)
+        expect(this.user.$validate().name).to.be.a('string')
     })
 
     it('to origin', function() {
@@ -248,13 +226,6 @@ describe('#Sprite', () => {
         expect(user.name).to.equal('123')
     })
 
-    it('raws', function() {
-        let json = this.user.$raws()
-        expect(json.default).to.be.a('object')
-        expect(json.rawBody).to.be.a('string')
-        expect(json.rawData).to.be.a('string')
-    })
-
     it('meg', function() {
         expect(this.user.$meg('$aaaa')).to.equal('big')
         expect(this.user.$meg('[s]require', { value: 123 })).to.equal('Value 123 must be required.')
@@ -279,7 +250,7 @@ describe('#Helper', () => {
     before(function() {
         this.oobe = new Oobe()
         this.oobe.join('CognitoUser', CognitoUser)
-        this.user = this.oobe.make('CognitoUser', 'user', LawData)
+        this.user = this.oobe.make('CognitoUser', 'user', RawData)
     })
 
     it('mapping', function() {
@@ -290,5 +261,26 @@ describe('#Helper', () => {
             name: 'Username'
         })
         expect(result.Username).to.equal('admin')
+    })
+
+    it('getType', function() {
+        expect(this.user.$helper.getType('')).to.equal('string')
+        expect(this.user.$helper.getType(true)).to.equal('boolean')
+        expect(this.user.$helper.getType([])).to.equal('array')
+        expect(this.user.$helper.getType(null)).to.equal('empty')
+        expect(this.user.$helper.getType(undefined)).to.equal('empty')
+        expect(this.user.$helper.getType({})).to.equal('object')
+    })
+
+    it('isEmpty', function() {
+        expect(this.user.$helper.isEmpty('')).to.equal(true)
+        expect(this.user.$helper.isEmpty('1')).to.equal(false)
+        expect(this.user.$helper.isEmpty([])).to.equal(true)
+        expect(this.user.$helper.isEmpty([1])).to.equal(false)
+        expect(this.user.$helper.isEmpty({})).to.equal(true)
+        expect(this.user.$helper.isEmpty({ a: 5 })).to.equal(false)
+        expect(this.user.$helper.isEmpty(null)).to.equal(true)
+        expect(this.user.$helper.isEmpty(undefined)).to.equal(true)
+        expect(this.user.$helper.isEmpty(0)).to.equal(false)
     })
 })

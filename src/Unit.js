@@ -3,40 +3,93 @@ const Helper = require('./Helper')
 class Unit {
     constructor(sprite) {
         this._sprite = sprite
-        this.$on = sprite.event.on.bind(sprite.event)
-        this.$out = sprite.out.bind(sprite)
-        this.$dead = sprite.dead.bind(sprite)
-        this.$copy = sprite.copy.bind(sprite)
-        this.$body = sprite.getBody.bind(sprite)
-        this.$keys = sprite.getKeys.bind(sprite)
-        this.$raws = sprite.getRaws.bind(sprite)
-        this.$reset = sprite.reset.bind(sprite)
-        this.$rules = sprite.getRules.bind(sprite)
+        this._container = this._sprite.base.container
         this.$helper = Helper
-        this.$revive = sprite.revive.bind(sprite)
-        this.$export = sprite.export.bind(sprite)
-        this.$status = sprite.getStatus.bind(sprite)
-        this.$isFixed = sprite.isFixed.bind(sprite)
-        this.$isHidden = sprite.isHidden.bind(sprite)
-        this.$toOrigin = sprite.toOrigin.bind(sprite)
-        this.$isChange = sprite.isChange.bind(sprite)
-        this.$validate = sprite.validateAll.bind(sprite)
-        this.$distortion = sprite.distortion.bind(sprite)
-        initFromStatus(this, sprite)
-        initFromContainer(this, sprite)
+        this.$configs = this._container.getConfigs()
+        Object.defineProperty(this, '$state', { get: () => this._sprite.state.name })
     }
-}
 
-function initFromContainer(unit, { base: { container } }) {
-    unit.$meg = container.getMessage.bind(container)
-    unit.$utils = container.options.utils
-    unit.$configs = container.getConfigs()
-}
+    static isSprite(target) {
+        return target instanceof Unit
+    }
 
-function initFromStatus(unit, sprite) {
-    Object.defineProperty(unit, '$ready', { get: () => sprite.status.ready })
-    Object.defineProperty(unit, '$error', { get: () => sprite.status.error })
-    Object.defineProperty(unit, '$state', { get: () => sprite.state.name })
+    // ===================
+    //
+    // container
+    //
+
+    $meg(name, value) {
+        return this._container.getMessage(name, value)
+    }
+
+    $utils() {
+        return this._container.options.utils
+    }
+
+    // ===================
+    //
+    // sprite
+    //
+
+    $out() {
+        return this._sprite.out()
+    }
+
+    $dead() {
+        return this._sprite.dead()
+    }
+
+    $copy() {
+        return this._sprite.copy()
+    }
+
+    $body() {
+        return this._sprite.getBody()
+    }
+
+    $keys() {
+        return this._sprite.getKeys()
+    }
+
+    $reset() {
+        this._sprite.reset()
+    }
+
+    $rules(name, extra = []) {
+        this._sprite.getRules(name, extra)
+    }
+
+    $revive() {
+        return this._sprite.revive()
+    }
+
+    $export(name) {
+        return this._sprite.export(name)
+    }
+
+    $isFixed(name) {
+        return this._sprite.state.isFixed(name)
+    }
+
+    $isHidden(name) {
+        return this._sprite.state.isHidden(name)
+    }
+
+    $toOrigin() {
+        return this._sprite.toOrigin()
+    }
+
+    $isChange() {
+        return this._sprite.isChange()
+    }
+
+    $validate() {
+        return this._sprite.validateAll()
+    }
+
+    $distortion(name) {
+        return this._sprite.distortion(name)
+    }
 }
 
 module.exports = Unit

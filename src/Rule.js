@@ -18,11 +18,11 @@ class Rule extends Base {
 
     addMultiple(rules, pluginName = '') {
         for (let name in rules) {
-            this.addRule(pluginName + name, rules[name])
+            this.add(pluginName + name, rules[name])
         }
     }
 
-    get(raw, target) {
+    get(target, raw) {
         let args = raw.split('|')
         let name = args.shift()
         let rule = this.items[name]
@@ -39,13 +39,24 @@ class Rule extends Base {
         }
     }
 
-    getMore(array, target) {
+    getMore(target, array) {
         let output = []
         for (let data of array) {
-            let rule = typeof data === 'function' ? data.bind(target) : this.get(data, target)
+            let rule = typeof data === 'function' ? data.bind(target) : this.get(target, data)
             output.push(rule)
         }
         return output
+    }
+
+    validate(target, value, array) {
+        let rules = this.getMore(target, array)
+        for (let rule of rules) {
+            let result = rule(value)
+            if (result !== true) {
+                return result
+            }
+        }
+        return true
     }
 }
 

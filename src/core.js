@@ -8,7 +8,6 @@ class Core extends Base {
     constructor() {
         super('Core')
         this.rule = new Rule()
-        this.locale = 'en-us'
         this.message = new Message()
         this.containers = {}
         this.init()
@@ -61,8 +60,7 @@ class Core extends Base {
         if (this.containers[name]) {
             return this.$systemError('addContainer', `Name(${name}) already exists.`)
         }
-        this.containers[name] = new Container(this, container)
-        this.refresh()
+        this.containers[name] = new Container(this, name, container)
         return this.containers[name]
     }
 
@@ -72,7 +70,7 @@ class Core extends Base {
     //
 
     getRules(array) {
-        return this.rule.getMore(array, this.systemSprite)
+        return this.rule.getMore(this.systemSprite, array)
     }
 
     // ===================
@@ -81,8 +79,7 @@ class Core extends Base {
     //
 
     setLocale(locale) {
-        this.locale = locale
-        this.refresh()
+        this.message.setLocale(locale)
     }
 
     // ===================
@@ -90,21 +87,8 @@ class Core extends Base {
     // methods
     //
 
-    refresh() {
-        this.eachContainer((container) => {
-            container.message.setLocale(this.locale)
-        })
-    }
-
     validate(value, array) {
-        let rules = this.getRules(array)
-        for (let rule of rules) {
-            let result = rule(value)
-            if (result !== true) {
-                return result
-            }
-        }
-        return true
+        return this.rule.validate(this.systemSprite, value, array)
     }
 
     eachContainer(action) {
@@ -118,18 +102,18 @@ class Core extends Base {
     // public
     //
 
-    make(containerName, spriteName, target) {
+    make(containerName, spriteName, data) {
         let container = this.containers[containerName]
         if (container == null) {
             return this.$systemError('make', `Container name(${containerName}) not found.`)
         }
-        return container.make(spriteName, target).getUnit()
+        return container.make(spriteName, data).getUnit()
     }
 
-    mult(containerName, spriteName, target) {
+    mult(containerName, spriteName, data) {
         let output = []
-        for (let data of target) {
-            output.push(this.make(containerName, spriteName, data))
+        for (let item of data) {
+            output.push(this.make(containerName, spriteName, item))
         }
         return output
     }

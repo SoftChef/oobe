@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
-    "build": "mocha && cross-env webpack --progress --hide-modules",
-    "try": "cross-env webpack --progress --hide-modules"
+    "book": "gitbook build ./book ./book/static",
+    "build": "mocha && cross-env webpack --progress --hide-modules"
   },
   "repository": {
     "type": "git",

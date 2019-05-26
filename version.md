@@ -26,21 +26,17 @@ npm 命名先搶先贏
 
 ### 📃 New
 
-🙉 sprite => $raws 把原始資料切出status
-
 🙉 sprite => $meg
 
 🙉 sprite => computed
 
 🙉 sprite => watch
 
-🙉 sprite => lazy mode
-
-🙉 sprite => on ready
-
-🙉 sprite => on error
-
 🤝 helper => mapping
+
+🤝 helper => isEmpty
+
+🤝 helper => getType
 
 🤸🏻‍ core => set locale
 

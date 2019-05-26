@@ -125,27 +125,33 @@ vue.prototype.$oobe = core
 
 ```html
 <template>
-    <div v-if="sprite.$ready">
+    <div>
         <v-text-field
-            v-if="sprite.$isHidden('name')"
-            v-model="sprite.name"
-            :label="sprite.$meg('$name')"
-            :disabled="sprite.$isFixed('name')"
-            :rules="sprite.$rules('name')">
+            v-show="target.$isHidden('name')"
+            v-model="target.name"
+            :label="target.$meg('$name')"
+            :rules="target.$rules('name')"
+            :disabled="target.$isFixed('name')">
         </v-text-field>
+        <v-btn @click.stop="submit()"></v-btn>
     <div>
 </template>
 <script>
     import './oobe.js'
     export default {
-        data() {
-            return {
-                sprite: this.$oobe.make('container', 'sprite', (finish) => {
-                    axios.get('./data').then((data) => {
-                        finish(data)
-                    })
-                })
+        props: {
+            sprite: {
+                required: true,
+                default() { return this.$oobe.make('container', 'sprite') }
             }
+        },
+        methods: {
+            submit() {
+                this.$emit('submit')
+            }
+        },
+        destroyed() {
+            this.target.$dead()
         }
     }
 </script>
