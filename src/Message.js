@@ -12,8 +12,14 @@ class Message extends Base {
         if (typeof locale !== 'string') {
             return this.$systemError('setLocale', `Locale(${locale}) not be string.`)
         }
-        this.locale = locale
-        this.messages = this.store[locale]
+        this.messages = this.getStore(locale)
+    }
+
+    getStore(locale) {
+        if (this.store[locale] == null) {
+            this.store[locale] = {}
+        }
+        return this.store[locale]
     }
 
     add(data, pluginName = '') {
@@ -21,11 +27,9 @@ class Message extends Base {
             return this.$systemError('set', 'Data not a object', data)
         }
         for (let key in data) {
-            if (this.store[key] == null) {
-                this.store[key] = {}
-            }
+            let store = this.getStore(key)
             for (let name in data[key]) {
-                this.store[key][pluginName + name] = data[key][name]
+                store[pluginName + name] = data[key][name]
             }
         }
     }

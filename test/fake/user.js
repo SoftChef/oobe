@@ -13,7 +13,7 @@ module.exports = {
 
     rules: {
         name: [
-            '[s]require',
+            '[sc]require',
             '$alphanumeric'
         ]
     },

@@ -5,28 +5,8 @@ class Helper {
      * @desc 深拷貝一個物件，並回傳此物件
      */
 
-    static deepClone(obj, hash = new WeakMap()) {
-        if (Object(obj) !== obj) {
-            return obj
-        }
-        if (obj instanceof Set) {
-            return new Set(obj)
-        }
-        if (hash.has(obj)) {
-            return hash.get(obj)
-        }
-        const result = obj instanceof Date ? new Date(obj) : obj instanceof RegExp ? new RegExp(obj.source, obj.flags) : Object.create(null)
-        hash.set(obj, result)
-        if (obj instanceof Map) {
-            Array.from(obj, ([key, val]) => {
-                result.set(key, Helper.deepClone(val, hash))
-            })
-        }
-        return Object.assign(result, ...Object.keys(obj).map((key) => {
-            return ({
-                [key]: Helper.deepClone(obj[key], hash)
-            })
-        }))
+    static deepClone(obj) {
+        return JSON.parse(JSON.stringify(obj))
     }
 
     /**

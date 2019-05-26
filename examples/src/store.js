@@ -1,11 +1,16 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import vue from 'vue'
+import vuex from 'vuex'
+import oobe from './oobe'
 
-Vue.use(Vuex)
+vue.use(vuex)
 
-export default new Vuex.Store({
-    state: {},
-    actions: {},
-    mutations: {},
-    getters: {}
+export default new vuex.Store({
+    state: {
+        users: []
+    },
+    actions: {
+        addUser({ state }, data) {
+            state.users.push(oobe.make('User', 'user', data))
+        }
+    }
 })

@@ -3,7 +3,7 @@ const Unit = require('./Unit')
 const Helper = require('./Helper')
 
 class Sprite extends Base {
-    constructor(base, data, reference) {
+    constructor(base, data = {}) {
         super('Sprite')
         this.body = {}
         this.refs = {}
@@ -15,7 +15,6 @@ class Sprite extends Base {
         this.options = base.options
         this.rawBody = ''
         this.rawData = ''
-        this.reference = !!reference
         this.propertyNames = []
         this.init(data)
     }
@@ -64,10 +63,6 @@ class Sprite extends Base {
             }
         })
         return change
-    }
-
-    isReference() {
-        return !!this.reference
     }
 
     export(name) {
@@ -265,6 +260,7 @@ class Sprite extends Base {
 
     validateAll() {
         let names = Object.keys(this.base.options.rules)
+        let output = {}
         for (let name of names) {
             output[name] = this.validate(name)
         }

@@ -7,6 +7,10 @@ module.exports = {
         publicPath: '/dist/',
         filename: 'app.js'
     },
+    node: {
+        fs: 'empty',
+        tls: 'empty'
+    },
     module: {
         rules: [
             {
@@ -62,6 +66,12 @@ module.exports = {
                 loader: ['style-loader', 'css-loader', 'stylus-loader']
             }
         ]
+    },
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        },
+        extensions: ['*', '.js', '.vue', '.json']
     },
     devServer: {
         historyApiFallback: true,

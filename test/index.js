@@ -65,7 +65,7 @@ describe('#Core', () => {
     })
 
     it('get rules', function() {
-        let rules = this.oobe.getRules(['[s]require', 'string'])
+        let rules = this.oobe.getRules(['[sc]require', 'string'])
         expect(rules).to.be.a('array')
         expect(rules[0]('')).to.be.a('string')
         expect(rules[0]('test')).to.equal(true)
@@ -83,10 +83,10 @@ describe('#Core', () => {
     })
 
     it('validates rule', function() {
-        expect(this.oobe.validate('test', ['string', '[s]require'])).to.equal(true)
-        expect(this.oobe.validate(1234, ['string', '[s]require'])).to.be.a('string')
-        expect(this.oobe.validate(1234, ['number', '[s]require'])).to.equal(true)
-        expect(this.oobe.validate('', ['string', '[s]require'])).to.be.a('string')
+        expect(this.oobe.validate('test', ['string', '[sc]require'])).to.equal(true)
+        expect(this.oobe.validate(1234, ['string', '[sc]require'])).to.be.a('string')
+        expect(this.oobe.validate(1234, ['number', '[sc]require'])).to.equal(true)
+        expect(this.oobe.validate('', ['string', '[sc]require'])).to.be.a('string')
     })
 
     it('make sprite unit', function() {
@@ -94,6 +94,13 @@ describe('#Core', () => {
         expect(unit.name).to.equal('admin')
         expect(Oobe.isSprite(unit.name)).to.equal(false)
         expect(Oobe.isSprite(unit.attributes)).to.equal(true)
+    })
+
+    it('mult sprite unit', function() {
+        let unit = this.oobe.mult('CognitoUser', 'user', [RawData, RawData])
+        expect(unit[0].name).to.equal('admin')
+        expect(Oobe.isSprite(unit[0])).to.equal(true)
+        expect(Oobe.isSprite(unit[1])).to.equal(true)
     })
 })
 
@@ -144,6 +151,7 @@ describe('#Sprite', () => {
     it('distortions', function() {
         let user = this.user.$copy().$distortion('create')
         expect(user.$state).to.equal('create')
+        expect(user.$show('name')).to.equal(false)
         expect(user.$isFixed('name')).to.equal(true)
         expect(user.$isHidden('name')).to.equal(true)
     })
@@ -210,6 +218,8 @@ describe('#Sprite', () => {
     it('out revive', function() {
         let user = this.user.$copy()
         let soul = user.$out()
+        expect(user.$live).to.equal(false)
+        expect(soul.$live).to.equal(true)
         soul.name = '123'
         expect(() => { user.name = 'test' }).to.throw(Error)
         soul.$revive()
@@ -228,7 +238,7 @@ describe('#Sprite', () => {
 
     it('meg', function() {
         expect(this.user.$meg('$aaaa')).to.equal('big')
-        expect(this.user.$meg('[s]require', { value: 123 })).to.equal('Value 123 must be required.')
+        expect(this.user.$meg('[sc]require', { value: 123 })).to.equal('Value 123 must be required.')
         this.oobe.setLocale('zh-tw')
         expect(this.user.$meg('$aaaa')).to.equal('巨')
     })

@@ -6,6 +6,7 @@ class Unit {
         this._container = this._sprite.base.container
         this.$helper = Helper
         this.$configs = this._container.getConfigs()
+        Object.defineProperty(this, '$live', { get: () => this._sprite.status.live })
         Object.defineProperty(this, '$state', { get: () => this._sprite.state.name })
     }
 
@@ -73,6 +74,10 @@ class Unit {
 
     $isHidden(name) {
         return this._sprite.state.isHidden(name)
+    }
+
+    $show(name) {
+        return !this._sprite.state.isHidden(name)
     }
 
     $toOrigin() {

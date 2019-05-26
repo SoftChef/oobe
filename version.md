@@ -28,6 +28,8 @@ npm 命名先搶先贏
 
 🙉 sprite => $meg
 
+🙉 sprite => $live
+
 🙉 sprite => computed
 
 🙉 sprite => watch

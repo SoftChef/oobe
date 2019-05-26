@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './components/Home.vue'
-import ErrorPage from './components/404.vue'
+import Update from './components/Form/Update.vue'
+import Create from './components/Form/Create.vue'
+import Overview from './components/Form/Overview.vue'
 
 Vue.use(Router)
 
@@ -10,7 +12,7 @@ const router = new Router({
     routes: [
         {
             path: '*',
-            component: ErrorPage
+            redirect: '/'
         },
         {
             path: '/index.html',
@@ -20,6 +22,21 @@ const router = new Router({
             path: '/',
             name: 'home',
             component: Home
+        },
+        {
+            path: '/create',
+            name: 'create',
+            component: Create
+        },
+        {
+            path: '/overview',
+            name: 'overview',
+            component: Overview
+        },
+        {
+            path: '/update',
+            name: 'update',
+            component: Update
         }
     ]
 })

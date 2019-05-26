@@ -15,7 +15,7 @@ class SpriteBase extends Base {
             rules: [false, ['object'], {}],
             watch: [false, ['object'], {}],
             reborn: [false, ['function'], function(data) { return data }],
-            origin: [false, ['function'], () => { return this.$body() }],
+            origin: [false, ['function'], function() { return this.$body() }],
             create: [false, ['function'], () => {}],
             states: [false, ['object'], {}],
             methods: [false, ['object'], {}],
