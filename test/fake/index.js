@@ -1,6 +1,6 @@
-const user = require('./user')
+const user = require('./sprites/user')
 const locale = require('./locale')
-const attributes = require('./attributes')
+const attributes = require('./sprites/attributes')
 
 module.exports = {
     sprites: {

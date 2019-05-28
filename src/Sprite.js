@@ -259,15 +259,22 @@ class Sprite extends Base {
     }
 
     validateAll() {
-        let names = Object.keys(this.base.options.rules)
-        let output = {}
-        for (let name of names) {
-            output[name] = this.validate(name)
+        let keys = Object.keys(this.base.options.rules)
+        let result = {}
+        let success = true
+        for (let name of keys) {
+            result[name] = this.validate(name)
+            if (result[name] !== true) {
+                success = false
+            }
         }
         this.eachRefs((sprite, name) => {
-            output[name] = sprite.validateAll()
+            result[name] = sprite.validateAll()
+            if (result[name].success !== true) {
+                success = false
+            }
         })
-        return output
+        return { result, success }
     }
 
     getDefineProperty(name, key) {

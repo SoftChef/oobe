@@ -17,6 +17,11 @@ v0.0.3:
     ✔ helper is空 @done(19-05-25 00:01)
     ✔ 將state抽出 @done(19-05-26 09:51)
     ✔ 把validate轉入rule @done(19-05-26 09:51)
+    ☐ $set 且移除 rawdata
+    ☐ $set 才會 $ready
+    ☐ store
+    ☐ helper isSame
+    ☐ helper verify
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)
@@ -26,9 +31,19 @@ v0.0.3:
         ✔ sprite hidden @done(19-05-20 10:22)
         ✔ core addon @done(19-05-20 10:17)
 
-v0.0.4:
+collection:
+    ☐ get
+    ☐ push
+    ☐ each
+    ☐ sort
+    ☐ remove
+    ☐ filter
+
+不明的未來版本:
+    ☐ plugin plus
+    ☐ interchange
     ☐ event
-    ☐ helper is same
-    ☐ plugin
-    ☐ 多個項目的載體
-    ☐ verify移至helper
+    ☐ isChange(key)
+    ☐ diff
+    ☐ mixins
+    ☐ load body

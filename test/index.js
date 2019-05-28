@@ -173,11 +173,11 @@ describe('#Sprite', () => {
 
     it('container rules and validate', function() {
         this.user.name = 'ffff'
-        expect(this.user.$validate().name).to.equal(true)
+        expect(this.user.$validate().success).to.equal(true)
         this.user.name = 'ff--ff'
-        expect(this.user.$validate().name).to.be.a('string')
+        expect(this.user.$validate().success).to.equal(false)
         this.user.name = ''
-        expect(this.user.$validate().name).to.be.a('string')
+        expect(this.user.$validate().success).to.equal(false)
     })
 
     it('to origin', function() {
