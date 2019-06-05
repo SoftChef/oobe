@@ -89,12 +89,12 @@ class Container extends Base {
     // public
     //
 
-    make(baseName, data) {
+    make(baseName) {
         let base = this.spriteBases[baseName]
         if (base == null) {
             return this.$systemError('make', `Sprite ${baseName} not found.`)
         }
-        return base.create(data)
+        return base.create()
     }
 }
 

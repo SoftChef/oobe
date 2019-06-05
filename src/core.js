@@ -102,20 +102,12 @@ class Core extends Base {
     // public
     //
 
-    make(containerName, spriteName, data) {
+    make(containerName, spriteName) {
         let container = this.containers[containerName]
         if (container == null) {
             return this.$systemError('make', `Container name(${containerName}) not found.`)
         }
         return container.make(spriteName, data).getUnit()
-    }
-
-    mult(containerName, spriteName, data) {
-        let output = []
-        for (let item of data) {
-            output.push(this.make(containerName, spriteName, item))
-        }
-        return output
     }
 }
 

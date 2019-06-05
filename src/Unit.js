@@ -8,6 +8,7 @@ class Unit {
         this.$configs = this._container.getConfigs()
         Object.defineProperty(this, '$live', { get: () => this._sprite.status.live })
         Object.defineProperty(this, '$state', { get: () => this._sprite.state.name })
+        Object.defineProperty(this, '$ready', { get: () => this._sprite.status.ready })
     }
 
     static isSprite(target) {
@@ -38,6 +39,10 @@ class Unit {
 
     $dead() {
         return this._sprite.dead()
+    }
+
+    $born(data) {
+        return this._sprite.born(data)
     }
 
     $copy() {

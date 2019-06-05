@@ -10,12 +10,8 @@ class Main {
         return Unit.isSprite(target)
     }
 
-    make(containerName, spriteName, data) {
-        return this._core.make(containerName, spriteName, data)
-    }
-
-    mult(containerName, spriteName, data) {
-        return this._core.mult(containerName, spriteName, data)
+    make(containerName, spriteName) {
+        return this._core.make(containerName, spriteName)
     }
 
     join(name, data, options = {}) {

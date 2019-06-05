@@ -3,7 +3,7 @@ const Unit = require('./Unit')
 const Helper = require('./Helper')
 
 class Sprite extends Base {
-    constructor(base, data = {}) {
+    constructor(base) {
         super('Sprite')
         this.body = {}
         this.refs = {}
@@ -16,7 +16,7 @@ class Sprite extends Base {
         this.rawBody = ''
         this.rawData = ''
         this.propertyNames = []
-        this.init(data)
+        this.init()
     }
 
     getBody() {
@@ -28,9 +28,9 @@ class Sprite extends Base {
     }
 
     getKeys() {
-        return this.propertyNames
-            .concat(Object.keys(this.base.options.refs))
-            .concat(Object.keys(this.base.options.computed))
+        let refs = Object.keys(this.base.options.refs)
+        let computed = Object.keys(this.base.options.computed)
+        return this.propertyNames.concat(refs).concat(computed)
     }
 
     getProperty(name) {
@@ -50,6 +50,10 @@ class Sprite extends Base {
     }
 
     isReady() {
+        return !!this.status.ready
+    }
+
+    isInitialization() {
         return !!this.status.init
     }
 
@@ -88,8 +92,7 @@ class Sprite extends Base {
 
     out() {
         if (this.isLive()) {
-            this.soul = this.base.create(this.toOrigin())
-            this.soul.distortion(this.state.name)
+            this.soul = this.copy()
             this.soul.from = this
             this.sleep()
             return this.soul.getUnit()
@@ -118,13 +121,17 @@ class Sprite extends Base {
     }
 
     copy() {
-        return this.base.create(this.toOrigin()).distortion(this.state.name)
+        if (this.isReady()) {
+            return this.base.create().born(this.toOrigin()).distortion(this.state.name)
+        } else {
+            this.$systemError('copy', 'Sprite no ready.')
+        }
     }
 
     dead() {
         if (this.isLive()) {
+            let from = this.from
             if (this.from) {
-                let from = this.from
                 this.from.wakeup()
                 this.from.soul = null
                 this.from = null
@@ -143,7 +150,11 @@ class Sprite extends Base {
 
     reset() {
         if (this.isLive()) {
-            this.setBody(JSON.parse(this.rawData))
+            if (this.rawData) {
+                this.setBody(JSON.parse(this.rawData))
+            } else {
+                this.setBody(this.toOrigin(this.getBody()))
+            }
         }
     }
 
@@ -177,22 +188,35 @@ class Sprite extends Base {
         }
     }
 
-    init(data) {
+    born(data) {
+        if (this.isLive() && this.isReady()) {
+            this.setBody(data)
+            this.rawBody = JSON.stringify(this.body)
+            this.rawData = JSON.stringify(data)
+            this.base.options.create.call(this.getUnit())
+            this.status.ready = true
+            return this.getUnit()
+        } else {
+            this.$systemError('born', 'Sprite is ready.')
+        }
+    }
+
+    init() {
         this.initUnit()
-        this.initBody(data)
+        this.initBody()
         this.initStatus()
         this.initComputed()
         this.rawBody = JSON.stringify(this.body)
-        this.rawData = JSON.stringify(data)
+        this.rawData = null
         this.propertyNames = Object.keys(this.body)
-        this.base.options.create.call(this.getUnit())
         this.status.init = true
     }
 
     initStatus() {
         this.status = {
             live: true,
-            init: false
+            init: false,
+            ready: false
         }
     }
 
@@ -201,19 +225,18 @@ class Sprite extends Base {
         this.unit.$fn = this.getMethods()
     }
 
-    initBody(data) {
+    initBody() {
         let refs = this.options.refs
         let body = this.options.body.call(this.unit)
-        let reborn = this.options.reborn.call(this.unit, data)
         for (let key in body) {
-            this.body[key] = reborn[key] === undefined ? body[key] : reborn[key]
+            this.body[key] = body[key]
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('body', key),
                 set: this.setDefineProperty(key)
             })
         }
         for (let key in refs) {
-            this.refs[key] = this.base.container.make(refs[key], reborn[key])
+            this.refs[key] = this.base.container.make(refs[key])
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('refs', key),
                 set: this.setDefineProperty(key, true)
@@ -293,7 +316,7 @@ class Sprite extends Base {
             if (protect) {
                 return this.$systemError('set', `This property(${key}) is protect.`)
             }
-            if (this.isReady() && this.watch[key]) {
+            if (this.isInitialization() && this.watch[key]) {
                 this.watch[key].call(this.unit, this.body[key], value)
             }
             this.body[key] = value

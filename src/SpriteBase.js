@@ -35,8 +35,8 @@ class SpriteBase extends Base {
         }
     }
 
-    create(data) {
-        return new Sprite(this, data)
+    create() {
+        return new Sprite(this)
     }
 }
 

@@ -19,7 +19,7 @@ v0.0.3:
     ✔ 把validate轉入rule @done(19-05-26 09:51)
     ☐ $set 且移除 rawdata
     ☐ $set 才會 $ready
-    ☐ store
+    ☐ attr
     ☐ helper isSame
     ☐ helper verify
 
