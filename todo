@@ -43,6 +43,7 @@ collection:
     ☐ plugin plus
     ☐ interchange
     ☐ event
+    ☐ reset(key)
     ☐ isChange(key)
     ☐ diff
     ☐ mixins
