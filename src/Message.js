@@ -22,14 +22,14 @@ class Message extends Base {
         return this.store[locale]
     }
 
-    add(data, pluginName = '') {
+    add(data, prefix = '') {
         if (typeof data !== 'object') {
             return this.$systemError('set', 'Data not a object', data)
         }
         for (let key in data) {
             let store = this.getStore(key)
             for (let name in data[key]) {
-                store[pluginName + name] = data[key][name]
+                store[prefix + name] = data[key][name]
             }
         }
     }

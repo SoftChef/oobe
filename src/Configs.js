@@ -1,5 +1,6 @@
 module.exports = {
-    defaultState: ['read', 'create', 'update', 'delete'],
+    defaultState: ['read', 'create', 'delete', 'update'],
+    protectPrefix: ['self'],
     systemContainer: {
         sprites: {
             system: {

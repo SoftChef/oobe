@@ -1,6 +1,6 @@
 const expect = require('chai').expect
 const Oobe = require('../src/Main')
-const Plugin = require('../plugins/rules')
+const Plugin = require('../package/rules')
 const RawData = require('./fake/data.json')
 const CognitoUser = require('./fake')
 const TestRawOrigin = JSON.stringify({
@@ -18,7 +18,7 @@ const TestRawOrigin = JSON.stringify({
 const TestRawBody = JSON.stringify({
     name: 'admin',
     watchTest: '',
-    computedTest: '',
+    watchTrans: 0,
     attributes: {
         'sub': 'aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa',
         'name': 'admin',
@@ -38,10 +38,6 @@ describe('#Core', () => {
         this.oobe.addon(Plugin)
     })
 
-    it('check constructor', function() {
-        expect(this.oobe instanceof Oobe).to.equal(true)
-    })
-
     it('add container', function() {
         let result = this.oobe.join('CognitoUser', CognitoUser, {
             test: true
@@ -57,15 +53,8 @@ describe('#Core', () => {
         expect(() => this.oobe.join('Null', null)).to.throw(Error)
     })
 
-    it('add rules', function() {
-        this.oobe.addRules({
-            string: value => typeof value === 'string' ? true : 'error',
-            number: value => typeof value === 'number' ? true : 'error'
-        })
-    })
-
     it('get rules', function() {
-        let rules = this.oobe.getRules(['[sc]require', 'string'])
+        let rules = this.oobe.getRules(['#sc.require', '#sc.string'])
         expect(rules).to.be.a('array')
         expect(rules[0]('')).to.be.a('string')
         expect(rules[0]('test')).to.equal(true)
@@ -75,32 +64,25 @@ describe('#Core', () => {
     })
 
     it('validate rule', function() {
-        expect(this.oobe.validate('test', ['string'])).to.equal(true)
+        expect(this.oobe.validate('test', ['#sc.string'])).to.equal(true)
     })
 
     it('validate rule should error', function() {
-        expect(this.oobe.validate(1234, ['string'])).to.equal('error')
+        expect(this.oobe.validate(1234, ['#sc.string'])).to.equal('error')
     })
 
     it('validates rule', function() {
-        expect(this.oobe.validate('test', ['string', '[sc]require'])).to.equal(true)
-        expect(this.oobe.validate(1234, ['string', '[sc]require'])).to.be.a('string')
-        expect(this.oobe.validate(1234, ['number', '[sc]require'])).to.equal(true)
-        expect(this.oobe.validate('', ['string', '[sc]require'])).to.be.a('string')
+        expect(this.oobe.validate('test', ['#sc.string', '#sc.require'])).to.equal(true)
+        expect(this.oobe.validate(1234, ['#sc.string', '#sc.require'])).to.be.a('string')
+        expect(this.oobe.validate(1234, ['#sc.number', '#sc.require'])).to.equal(true)
+        expect(this.oobe.validate('', ['#sc.string', '#sc.require'])).to.be.a('string')
     })
 
     it('make sprite unit', function() {
-        let unit = this.oobe.make('CognitoUser', 'user', RawData)
+        let unit = this.oobe.make('CognitoUser', 'user').$born(RawData)
         expect(unit.name).to.equal('admin')
         expect(Oobe.isSprite(unit.name)).to.equal(false)
         expect(Oobe.isSprite(unit.attributes)).to.equal(true)
-    })
-
-    it('mult sprite unit', function() {
-        let unit = this.oobe.mult('CognitoUser', 'user', [RawData, RawData])
-        expect(unit[0].name).to.equal('admin')
-        expect(Oobe.isSprite(unit[0])).to.equal(true)
-        expect(Oobe.isSprite(unit[1])).to.equal(true)
     })
 })
 
@@ -109,7 +91,13 @@ describe('#Sprite', () => {
         this.oobe = new Oobe()
         this.oobe.addon(Plugin)
         this.oobe.join('CognitoUser', CognitoUser)
-        this.user = this.oobe.make('CognitoUser', 'user', RawData)
+        this.user = this.oobe.make('CognitoUser', 'user')
+    })
+
+    it('born', function() {
+        expect(this.user.$ready).to.equal(false)
+        this.user.$born(RawData)
+        expect(this.user.$ready).to.equal(true)
     })
 
     it('change value', function() {
@@ -206,7 +194,6 @@ describe('#Sprite', () => {
         let keys = this.user.$keys()
         expect(keys.includes('name')).to.equal(true)
         expect(keys.includes('watchTest')).to.equal(true)
-        expect(keys.includes('test')).to.equal(true)
         expect(keys.includes('attributes')).to.equal(true)
     })
 
@@ -236,16 +223,16 @@ describe('#Sprite', () => {
         expect(user.name).to.equal('123')
     })
 
-    it('meg', function() {
-        expect(this.user.$meg('$aaaa')).to.equal('big')
-        expect(this.user.$meg('[sc]require', { value: 123 })).to.equal('Value 123 must be required.')
-        this.oobe.setLocale('zh-tw')
-        expect(this.user.$meg('$aaaa')).to.equal('巨')
+    it('transform', function() {
+        this.user.watchTrans = '1'
+        expect(this.user.watchTrans).to.equal(1)
     })
 
-    it('computed', function() {
-        this.user.test = 5
-        expect(this.user.computedTest).to.equal(10)
+    it('meg', function() {
+        expect(this.user.$meg('aaaa')).to.equal('big')
+        expect(this.user.$meg('#sc.require', { value: 123 })).to.equal('Value 123 must be required.')
+        this.oobe.setLocale('zh-tw')
+        expect(this.user.$meg('aaaa')).to.equal('巨')
     })
 
     it('watch', function() {
@@ -253,6 +240,16 @@ describe('#Sprite', () => {
         let nv = 'aaa'
         this.user.name = nv
         expect(this.user.watchTest).to.equal(ov + nv)
+    })
+
+    it('views', function() {
+        expect(this.user.$views.testViews).to.equal(this.user.name + 'test')
+    })
+
+    it('checkbody', function() {
+        expect(() => {
+            this.oobe.make('CognitoUser', 'checkbody')
+        }).to.throw(Error)
     })
 })
 

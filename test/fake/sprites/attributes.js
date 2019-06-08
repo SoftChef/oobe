@@ -10,7 +10,7 @@ module.exports = {
         }
     },
 
-    reborn(data) {
+    born(data) {
         let target = []
         for (let attr of data) {
             target[attr.Name] = attr.Value

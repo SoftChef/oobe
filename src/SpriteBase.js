@@ -12,14 +12,14 @@ class SpriteBase extends Base {
         this.options = this.$verify(options, {
             body: [true, ['function']],
             refs: [false, ['object'], {}],
+            born: [false, ['function'], function(data) { return data }],
+            views: [false, ['object'], {}],
             rules: [false, ['object'], {}],
             watch: [false, ['object'], {}],
-            reborn: [false, ['function'], function(data) { return data }],
             origin: [false, ['function'], function() { return this.$body() }],
-            create: [false, ['function'], () => {}],
             states: [false, ['object'], {}],
-            methods: [false, ['object'], {}],
-            computed: [false, ['object'], {}]
+            created: [false, ['function'], () => {}],
+            methods: [false, ['object'], {}]
         })
         this.init()
     }

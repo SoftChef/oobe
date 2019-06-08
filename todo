@@ -17,22 +17,22 @@ v0.0.3:
     ✔ helper is空 @done(19-05-25 00:01)
     ✔ 將state抽出 @done(19-05-26 09:51)
     ✔ 把validate轉入rule @done(19-05-26 09:51)
-    ☐ $set 且移除 rawdata
-    ☐ $set 才會 $ready
-    ☐ attr
-    ☐ helper isSame
-    ☐ helper verify
+    ✔ $set 且移除 rawdata @done(19-06-05 20:31)
+    ✔ $set 才會 $ready @done(19-06-05 20:31)
+    ✔ 不允許body出現$字號和function @done(19-06-06 14:21)
+    ✔ prefix的總體設計 @done(19-06-08 18:57)
+    ☐ $view
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)
         ✔ sprite $meg @done(19-05-20 10:21)
-        ✔ sprite computed @done(19-05-20 10:30)
         ✔ sprite watch @done(19-05-20 10:30)
         ✔ sprite hidden @done(19-05-20 10:22)
         ✔ core addon @done(19-05-20 10:17)
 
 collection:
     ☐ get
+    ☐ first
     ☐ push
     ☐ each
     ☐ sort
@@ -40,7 +40,6 @@ collection:
     ☐ filter
 
 不明的未來版本:
-    ☐ plugin plus
     ☐ interchange
     ☐ event
     ☐ reset(key)
@@ -48,3 +47,5 @@ collection:
     ☐ diff
     ☐ mixins
     ☐ load body
+    ☐ helper isSame
+    ☐ helper verify

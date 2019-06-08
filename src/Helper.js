@@ -36,13 +36,17 @@ class Helper {
      */
 
     static getType(value) {
+        let type = typeof value
         if (Array.isArray(value)) {
             return 'array'
         }
         if (value == null) {
             return 'empty'
         }
-        return typeof value
+        if (type === 'number' && isNaN(value)) {
+            return 'NaN'
+        }
+        return type
     }
 
     /**
@@ -53,7 +57,7 @@ class Helper {
 
     static isEmpty(value) {
         let type = Helper.getType(value)
-        if (value == null) {
+        if (type === 'empty') {
             return true
         }
         if (type === 'array' && value.length === 0) {

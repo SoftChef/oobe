@@ -1,10 +1,12 @@
 const user = require('./sprites/user')
 const locale = require('./locale')
 const attributes = require('./sprites/attributes')
+const checkbody = require('./sprites/checkbody')
 
 module.exports = {
     sprites: {
         user,
+        checkbody,
         attributes
     },
 
@@ -28,7 +30,10 @@ module.exports = {
     },
 
     states: [
-        'adminRead'
+        'adminRead',
+        'create',
+        'delete',
+        'update'
     ],
 
     rules: {

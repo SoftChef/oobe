@@ -10,6 +10,10 @@ class Main {
         return Unit.isSprite(target)
     }
 
+    meg(name, value) {
+        return this._core.message.get(name, value)
+    }
+
     make(containerName, spriteName) {
         return this._core.make(containerName, spriteName)
     }
@@ -24,16 +28,8 @@ class Main {
         this._core.addon(optinos)
     }
 
-    addRules(rules) {
-        this._core.addRules(rules)
-    }
-
     validate(value, array) {
         return this._core.validate(value, array)
-    }
-
-    addLocale(locale) {
-        this._core.addLocale(locale)
     }
 
     setLocale(locale) {

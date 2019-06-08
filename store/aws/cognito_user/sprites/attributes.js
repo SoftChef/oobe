@@ -8,7 +8,7 @@ export default {
         }
     },
 
-    reborn(rawData) {
+    born(rawData) {
         let target = []
         for (let attr of rawData) {
             target[attr.Name] = attr.Value

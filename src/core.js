@@ -32,15 +32,25 @@ class Core extends Base {
     // plugins
     //
 
+    getPrefix(name) {
+        if (name === '') {
+            this.$systemError('getPrefix', `This name(${name}) is empty.`)
+        }
+        if (Configs.protectPrefix.includes(name) === true) {
+            this.$systemError('getPrefix', `This name(${name}) is protect.`)
+        }
+        return '#' + name + '.'
+    }
+
     addon(optinos) {
         let plugin = this.$verify(optinos, {
             name: [true, ['string']],
             rules: [false, ['object'], {}],
             locale: [false, ['object'], {}]
         })
-        let name = '[' + plugin.name + ']'
-        this.rule.addMultiple(plugin.rules, name)
-        this.message.add(plugin.locale, name)
+        let prefix = this.getPrefix(plugin.name)
+        this.rule.addMultiple(plugin.rules, prefix)
+        this.message.add(plugin.locale, prefix)
     }
 
     // ===================
@@ -107,7 +117,7 @@ class Core extends Base {
         if (container == null) {
             return this.$systemError('make', `Container name(${containerName}) not found.`)
         }
-        return container.make(spriteName, data).getUnit()
+        return container.make(spriteName).unit
     }
 }
 

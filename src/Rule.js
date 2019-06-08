@@ -16,9 +16,9 @@ class Rule extends Base {
         this.items[name] = rule
     }
 
-    addMultiple(rules, pluginName = '') {
+    addMultiple(rules, prefix = '') {
         for (let name in rules) {
-            this.add(pluginName + name, rules[name])
+            this.add(prefix + name, rules[name])
         }
     }
 

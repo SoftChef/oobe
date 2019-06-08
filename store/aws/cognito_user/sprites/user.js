@@ -11,7 +11,7 @@ export default {
 
     rules: {},
 
-    reborn(rawData) {
+    born(rawData) {
         return {
             name: rawData['Username'],
             attributes: rawData['UserAttributes']

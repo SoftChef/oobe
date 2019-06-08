@@ -6,7 +6,7 @@ class Container extends Base {
         super('Container')
         this.core = core
         this.name = name
-        this.pluginName = '$' + this.name + '/'
+        this.prefix = '$' + this.name + '.'
         this.spriteBases = {}
         this.options = this.$verify(options, {
             rules: [false, ['object'], {}],
@@ -33,7 +33,7 @@ class Container extends Base {
     }
 
     initRules() {
-        this.core.rule.addMultiple(this.options.rules, this.pluginName)
+        this.core.rule.addMultiple(this.options.rules, this.prefix)
     }
 
     initSprites() {
@@ -43,7 +43,7 @@ class Container extends Base {
     }
 
     initMessage() {
-        this.core.message.add(this.options.locale, this.pluginName)
+        this.core.message.add(this.options.locale, this.prefix)
     }
 
     // ===================
@@ -69,7 +69,7 @@ class Container extends Base {
     //
 
     getName(name) {
-        return name.slice(0, 1) === '$' ? this.pluginName + name.slice(1) : name
+        return name[0] === '#' ? name : this.prefix + name
     }
 
     getNames(array) {

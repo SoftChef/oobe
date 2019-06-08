@@ -3,7 +3,7 @@ module.exports = {
         return {
             name: '',
             watchTest: '',
-            computedTest: ''
+            watchTrans: 0
         }
     },
 
@@ -13,33 +13,28 @@ module.exports = {
 
     rules: {
         name: [
-            '[sc]require',
-            '$alphanumeric'
+            '#sc.require',
+            'alphanumeric'
         ]
     },
 
-    computed: {
-        test: {
-            set(value) {
-                this.computedTest = value * 2
-            },
-            get() {
-                return this.computedTest
-            }
-        }
+    views: {
+        testViews() { return this.name + 'test' }
     },
 
     watch: {
-        name(oldValue, newVale) {
+        name(newVale, oldValue) {
             this.watchTest = oldValue + newVale
+        },
+        watchTrans(newVale, oldValue) {
+            return Number(newVale)
         }
     },
 
-    reborn(rawData) {
+    born(rawData) {
         return {
             name: rawData['Username'],
             watchTest: '',
-            computedTest: '',
             attributes: rawData['UserAttributes']
         }
     },

@@ -1,5 +1,9 @@
 const Helper = require('./Helper')
 
+function getUnit(target) {
+    return target instanceof Unit ? target : target.unit
+}
+
 class Unit {
     constructor(sprite) {
         this._sprite = sprite
@@ -34,19 +38,19 @@ class Unit {
     //
 
     $out() {
-        return this._sprite.out()
+        return getUnit(this._sprite.out())
     }
 
     $dead() {
-        return this._sprite.dead()
+        return getUnit(this._sprite.dead())
     }
 
     $born(data) {
-        return this._sprite.born(data)
+        return getUnit(this._sprite.born(data))
     }
 
     $copy() {
-        return this._sprite.copy()
+        return getUnit(this._sprite.copy())
     }
 
     $body() {
@@ -66,7 +70,7 @@ class Unit {
     }
 
     $revive() {
-        return this._sprite.revive()
+        return getUnit(this._sprite.revive())
     }
 
     $export(name) {
@@ -98,7 +102,7 @@ class Unit {
     }
 
     $distortion(name) {
-        return this._sprite.distortion(name)
+        return getUnit(this._sprite.distortion(name))
     }
 }
 

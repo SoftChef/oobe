@@ -18,7 +18,7 @@ npm 命名先搶先贏
 
 🙉 sprite => create 新的中介方法
 
-🙉 sprite => reborn 非必要，有預設方法
+🙉 sprite => born 非必要，有預設方法
 
 🙉 sprite => origin 非必要，有預設方法
 
@@ -29,8 +29,6 @@ npm 命名先搶先贏
 🙉 sprite => $meg
 
 🙉 sprite => $live
-
-🙉 sprite => computed
 
 🙉 sprite => watch
 
