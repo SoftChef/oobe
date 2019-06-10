@@ -21,8 +21,10 @@ let server = http.createServer(function(req, res) {
         now = url.split('/').slice(0, -1).join('/')
         res.write(fs.readFileSync('./index.html', 'utf8'))
     } else {
-        res.writeHeader(200, { 'Content-Type': contentType })
-        res.write(fs.readFileSync('.' + url.replace(now, ''), 'utf8'))
+        try {
+            res.writeHeader(200, { 'Content-Type': contentType })
+            res.write(fs.readFileSync('.' + url.replace(now, ''), 'utf8'))
+        } catch (error) {}
     }
     res.end()
 })

@@ -1,11 +1,8 @@
 {
-    "title": "Nucleoid",
+    "title": "oobe",
     "extension": null,
-    "plugins": ["-sharing", "-search", "fontsettings"],
+    "plugins": ["-sharing"],
     "links": {
         "sidebar": false
-    },
-    "styles": {
-        "website": "./style/main.css"
     }
 }

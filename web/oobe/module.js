@@ -10,10 +10,14 @@ export default {
             return this.$helper.getType(value) !== 'number' ? message : true
         }
     },
-    locale: {
+    locales: {
         'en-us': {
             'require': 'Value must be required.',
             'number': 'Value {value} not a number.'
+        },
+        'zh-tw': {
+            'require': '必填。',
+            'number': '必須為數字.'
         }
     }
 }

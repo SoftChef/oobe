@@ -20,7 +20,7 @@ class Sprite extends Base {
     }
 
     getBody() {
-        let output = Helper.deepClone(this.body)
+        let output = Helper.jpjs(this.body)
         this.eachRefs((ref, key) => {
             output[key] = ref.getBody()
         })

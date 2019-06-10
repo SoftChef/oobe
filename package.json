@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
-    "book": "gitbook build ./book ./book/static",
+    "book": "gitbook build ./book ./document",
     "build": "mocha && cross-env webpack --progress --hide-modules"
   },
   "repository": {

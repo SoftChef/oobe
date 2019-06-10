@@ -5,6 +5,7 @@ export default {
             name: '',
             tags: [],
             price: 0,
+            created_at: 0,
             categories: []
         }
     },
@@ -35,7 +36,12 @@ export default {
     },
 
     views: {
-        tags() { return this.tags.join(', ') },
+        tags() {
+            return this.tags.join(', ')
+        },
+        created_at() {
+            return this.$utils.moment(this.created_at).format('YYYY-MM-DD HH:mm:ss')
+        },
         categories() {
             let output = []
             for (let name of this.categories) {
@@ -50,7 +56,8 @@ export default {
             fixed: '*'
         },
         create: {
-            fixed: ['no']
+            fixed: ['no'],
+            hidden: ['created_at']
         },
         update: {
             fixed: ['no', 'name']

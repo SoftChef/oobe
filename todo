@@ -21,7 +21,7 @@ v0.0.3:
     ✔ $set 才會 $ready @done(19-06-05 20:31)
     ✔ 不允許body出現$字號和function @done(19-06-06 14:21)
     ✔ prefix的總體設計 @done(19-06-08 18:57)
-    ☐ $view
+    ✔ $view @done(19-06-09 10:09)
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)
@@ -30,16 +30,8 @@ v0.0.3:
         ✔ sprite hidden @done(19-05-20 10:22)
         ✔ core addon @done(19-05-20 10:17)
 
-collection:
-    ☐ get
-    ☐ first
-    ☐ push
-    ☐ each
-    ☐ sort
-    ☐ remove
-    ☐ filter
-
 不明的未來版本:
+    ☐ collection
     ☐ interchange
     ☐ event
     ☐ reset(key)

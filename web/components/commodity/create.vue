@@ -31,6 +31,7 @@
             submit() {
                 let validate = this.sprite.$validate()
                 if (validate.success) {
+                    this.sprite.created_at = Date.now()
                     this.$store.dispatch('create', this.sprite)
                     this.$router.push({ name: 'commodity.list' })
                 } else {

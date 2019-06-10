@@ -12,7 +12,7 @@ module.exports = {
             return typeof value === 'number' ? true : 'error'
         }
     },
-    locale: {
+    locales: {
         'en-us': {
             'require': 'Value {value} must be required.'
         }

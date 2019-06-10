@@ -1,5 +1,5 @@
 const user = require('./sprites/user')
-const locale = require('./locale')
+const locales = require('./locales')
 const attributes = require('./sprites/attributes')
 const checkbody = require('./sprites/checkbody')
 
@@ -10,9 +10,9 @@ module.exports = {
         attributes
     },
 
-    locale,
+    locales,
 
-    install(configs, options) {
+    install(configs, options = {}) {
         configs.test = options.test
         return 'install'
     },

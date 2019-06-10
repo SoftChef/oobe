@@ -1,5 +1,6 @@
 const Core = require('./Core')
 const Unit = require('./Unit')
+const Helper = require('./Helper')
 
 class Main {
     constructor() {
@@ -18,7 +19,7 @@ class Main {
         return this._core.make(containerName, spriteName)
     }
 
-    join(name, data, options = {}) {
+    join(name, data, options) {
         let container = this._core.addContainer(name, data)
         let configs = container.options.configs
         return container.options.install.call(this, configs, options)
@@ -26,10 +27,6 @@ class Main {
 
     addon(optinos) {
         this._core.addon(optinos)
-    }
-
-    validate(value, array) {
-        return this._core.validate(value, array)
     }
 
     setLocale(locale) {
@@ -40,5 +37,7 @@ class Main {
         return this._core.getRules(data)
     }
 }
+
+Main.helper = Helper
 
 module.exports = Main

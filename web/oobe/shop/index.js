@@ -6,6 +6,10 @@ export default {
         commodity
     },
 
+    utils: {
+        moment
+    },
+
     locale,
 
     configs: {

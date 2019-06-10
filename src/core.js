@@ -46,25 +46,17 @@ class Core extends Base {
         let plugin = this.$verify(optinos, {
             name: [true, ['string']],
             rules: [false, ['object'], {}],
-            locale: [false, ['object'], {}]
+            locales: [false, ['object'], {}]
         })
         let prefix = this.getPrefix(plugin.name)
         this.rule.addMultiple(plugin.rules, prefix)
-        this.message.add(plugin.locale, prefix)
+        this.message.add(plugin.locales, prefix)
     }
 
     // ===================
     //
     // add
     //
-
-    addRules(rules) {
-        this.rule.addMultiple(rules)
-    }
-
-    addLocale(locale) {
-        this.message.add(locale)
-    }
 
     addContainer(name, container) {
         if (this.containers[name]) {
@@ -96,10 +88,6 @@ class Core extends Base {
     //
     // methods
     //
-
-    validate(value, array) {
-        return this.rule.validate(this.systemSprite, value, array)
-    }
 
     eachContainer(action) {
         for (let key in this.containers) {

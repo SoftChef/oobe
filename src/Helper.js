@@ -1,32 +1,12 @@
 class Helper {
     /**
-     * @function deepClone(obj)
+     * @function jpjs(obj)
      * @static
      * @desc 深拷貝一個物件，並回傳此物件
      */
 
-    static deepClone(obj) {
+    static jpjs(obj) {
         return JSON.parse(JSON.stringify(obj))
-    }
-
-    /**
-     * @function mapping
-     * @static
-     * @desc key 的轉移
-     */
-
-    static mapping(data, forward, map) {
-        let output = {}
-        if (forward) {
-            for (let key in map) {
-                output[map[key]] = data[key]
-            }
-        } else {
-            for (let key in map) {
-                output[key] = data[map[key]]
-            }
-        }
-        return output
     }
 
     /**
@@ -45,6 +25,9 @@ class Helper {
         }
         if (type === 'number' && isNaN(value)) {
             return 'NaN'
+        }
+        if (value instanceof RegExp) {
+            return 'regexp'
         }
         return type
     }

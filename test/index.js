@@ -63,21 +63,6 @@ describe('#Core', () => {
         expect(rules[1](1234)).to.equal('error')
     })
 
-    it('validate rule', function() {
-        expect(this.oobe.validate('test', ['#sc.string'])).to.equal(true)
-    })
-
-    it('validate rule should error', function() {
-        expect(this.oobe.validate(1234, ['#sc.string'])).to.equal('error')
-    })
-
-    it('validates rule', function() {
-        expect(this.oobe.validate('test', ['#sc.string', '#sc.require'])).to.equal(true)
-        expect(this.oobe.validate(1234, ['#sc.string', '#sc.require'])).to.be.a('string')
-        expect(this.oobe.validate(1234, ['#sc.number', '#sc.require'])).to.equal(true)
-        expect(this.oobe.validate('', ['#sc.string', '#sc.require'])).to.be.a('string')
-    })
-
     it('make sprite unit', function() {
         let unit = this.oobe.make('CognitoUser', 'user').$born(RawData)
         expect(unit.name).to.equal('admin')
@@ -180,7 +165,7 @@ describe('#Sprite', () => {
                 c: 5
             }
         }
-        var c = this.user.$helper.deepClone(a)
+        var c = this.user.$helper.jpjs(a)
         c.b.c = 7
         expect(c.b.c).to.equal(7)
         expect(a.b.c).to.equal(5)
@@ -258,16 +243,6 @@ describe('#Helper', () => {
         this.oobe = new Oobe()
         this.oobe.join('CognitoUser', CognitoUser)
         this.user = this.oobe.make('CognitoUser', 'user', RawData)
-    })
-
-    it('mapping', function() {
-        let data = {
-            name: 'admin'
-        }
-        let result = this.user.$helper.mapping(data, true, {
-            name: 'Username'
-        })
-        expect(result.Username).to.equal('admin')
     })
 
     it('getType', function() {

@@ -9,6 +9,7 @@ const messages = {
         'delete': 'Delete',
         'update': 'Update',
         'control': 'Control',
+        'created_at': 'Create At',
         'view_commodity': 'Commodity Overview',
         'create_commodity': 'Create Commodity',
         'update_commodity': 'Update Commodity'
@@ -23,6 +24,7 @@ const messages = {
         'delete': '刪除',
         'update': '更新',
         'control': '控制',
+        'created_at': '建立時間',
         'view_commodity': '商品內容',
         'create_commodity': '建立商品',
         'update_commodity': '更新商品'

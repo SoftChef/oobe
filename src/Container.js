@@ -12,8 +12,8 @@ class Container extends Base {
             rules: [false, ['object'], {}],
             utils: [false, ['object'], {}],
             states: [false, ['array'], []],
-            locale: [false, ['object'], {}],
             sprites: [true, ['object']],
+            locales: [false, ['object'], {}],
             configs: [false, ['object'], {}],
             methods: [false, ['object'], {}],
             install: [false, ['function'], () => {}]
@@ -43,7 +43,7 @@ class Container extends Base {
     }
 
     initMessage() {
-        this.core.message.add(this.options.locale, this.prefix)
+        this.core.message.add(this.options.locales, this.prefix)
     }
 
     // ===================

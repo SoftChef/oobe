@@ -8,6 +8,7 @@ class Unit {
     constructor(sprite) {
         this._sprite = sprite
         this._container = this._sprite.base.container
+        this.$utils = this._container.options.utils
         this.$helper = Helper
         this.$configs = this._container.getConfigs()
         Object.defineProperty(this, '$live', { get: () => this._sprite.status.live })
@@ -26,10 +27,6 @@ class Unit {
 
     $meg(name, value) {
         return this._container.getMessage(name, value)
-    }
-
-    $utils() {
-        return this._container.options.utils
     }
 
     // ===================

@@ -25,7 +25,7 @@
         }),
         mounted () {
             this.$store.dispatch('first', this.$route.query.no).then((sprite) => {
-                this.sprite = sprite.$out().$distortion('create')
+                this.sprite = sprite.$out().$distortion('update')
             })
         },
         methods: {

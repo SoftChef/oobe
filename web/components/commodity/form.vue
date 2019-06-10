@@ -1,5 +1,8 @@
 <template>
     <form class="form-group" v-if="sprite && sprite.$ready">
+        <div class="mb-2" v-if="sprite.$show('created_at')">
+            {{ $t('created_at') }} : {{ sprite.$views.created_at }}
+        </div>
         <!-- No -->
         <div class="mb-2" v-show="sprite.$show('no')">
             <label>{{sprite.$meg('no')}}：</label><br>
