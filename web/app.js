@@ -28,7 +28,7 @@ loader.onload((components) => {
         }
     })
     for (var key in components) { Vue.component(key, components[key]) }
-    new Vue({
+    window.system = new Vue({
         i18n,
         store,
         router: router(components),

@@ -22,6 +22,10 @@ v0.0.3:
     ✔ 不允許body出現$字號和function @done(19-06-06 14:21)
     ✔ prefix的總體設計 @done(19-06-08 18:57)
     ✔ $view @done(19-06-09 10:09)
+    ☐ proxy 代理
+    ☐ ref sprite 不能 distortion
+    ☐ 預設的toOrigin要把ref的資料納入
+    ☐ 複數建立
 
     Test:
         ✔ sprite $raws @done(19-05-20 10:21)

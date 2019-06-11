@@ -8,6 +8,8 @@
 
 精靈是`oobe`的最小單位，也是`model`的原型。
 
+> body的參數無法接受開頭以`$`與`_`命名的變數。
+
 ```js
 let staff = {
     // body定義sprite的結構與預設值
