@@ -52,6 +52,10 @@ class Sprite extends Base {
         return !!this.status.ready
     }
 
+    isReference() {
+        return !!this.status.reference
+    }
+
     isInitialization() {
         return !!this.status.init
     }
@@ -173,6 +177,9 @@ class Sprite extends Base {
     }
 
     distortion(name) {
+        if (this.isReference()) {
+            return this.$systemError('distortion', 'This is reference sprite.')
+        }
         if (this.isLive()) {
             if (this.base.states[name] == null) {
                 return this.$systemError('distortion', `Name(${name}) not found.`)
@@ -212,7 +219,8 @@ class Sprite extends Base {
         this.status = {
             live: true,
             init: false,
-            ready: false
+            ready: false,
+            reference: false
         }
     }
 

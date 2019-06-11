@@ -107,6 +107,19 @@ class Core extends Base {
         }
         return container.make(spriteName).unit
     }
+
+    batch(containerName, spriteName, data) {
+        let type = Helper.getType(data)
+        let output = []
+        if (type === 'array') {
+            data.forEach((d) => {
+                output.push(this.make(containerName, spriteName).$born(d))
+            })
+            return output
+        } else {
+            this.$systemError('batch', 'Data must be a array.', data)
+        }
+    }
 }
 
 module.exports = Core

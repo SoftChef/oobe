@@ -172,7 +172,7 @@ console.log(dave.work_unit.$views.detail)  // work unit is Assembler
 
 ## States
 
-工作了一段時間，Dave是需要好好的休息了。
+午休時間到，Dave是需要好好的休息了。
 
 `states`定義了當下sprite的狀態。
 
@@ -189,7 +189,7 @@ sprite = {
     states: {
         read: {
             fixed: '*',
-            hidden: [],
+            hidden: []
         },
         create: {
             hidden: ['create_at']
@@ -220,7 +220,11 @@ sprite = {
 > refs的sprite會隨著主sprite變換狀態
 
 ```js
+dave.$isFixed('name') // true
 dave.$distortion('create')
+dave.$isFixed('name') // false
+dave.$distortion('delete')
+dave.$export() // Dave
 ```
 
 ## 總結

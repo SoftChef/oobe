@@ -79,6 +79,12 @@ describe('#Sprite', () => {
         this.user = this.oobe.make('CognitoUser', 'user')
     })
 
+    it('batch make', function() {
+        let items = this.oobe.batch('CognitoUser', 'user', [RawData, RawData])
+        expect(items[0].$ready).to.equal(true)
+        expect(items[1].$ready).to.equal(true)
+    })
+
     it('born', function() {
         expect(this.user.$ready).to.equal(false)
         this.user.$born(RawData)
@@ -127,6 +133,10 @@ describe('#Sprite', () => {
         expect(user.$show('name')).to.equal(false)
         expect(user.$isFixed('name')).to.equal(true)
         expect(user.$isHidden('name')).to.equal(true)
+    })
+
+    it('ref distortions', function() {
+        expect(() => { this.user.attributes.$distortion('create') }).to.throw(Error)
     })
 
     it('container distortions', function() {

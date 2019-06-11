@@ -19,6 +19,10 @@ class Main {
         return this._core.make(containerName, spriteName)
     }
 
+    batch(containerName, spriteName, data) {
+        return this._core.batch(containerName, spriteName, data)
+    }
+
     join(name, data, options) {
         let container = this._core.addContainer(name, data)
         let configs = container.options.configs
