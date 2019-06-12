@@ -1,6 +1,6 @@
 # Sprite
 
-Sprite就是model，良好的定義精靈能夠幫助前後端工程師上天堂。
+Sprite就是Model，良好的定義精靈能夠幫助前後端工程師上天堂。
 
 ## Methods
 
@@ -136,8 +136,6 @@ sprite.array = 5
 
 多層物件是難以避免的，把每個層級的物件都視為sprite是最好的實踐，接下來我們把Dave調往至某個單位。
 
-> refs建立的sprite有些限制，例如distortion只能由最頂層的sprite決定。
-
 ```js
 let body = () => { return { name: '' } }
 let unit = {
@@ -232,5 +230,55 @@ dave.$export() // Dave
 恭喜下班，Dave辛苦了，我們來看看Staff這個sprite最終呈現的模樣。
 
 ```js
-let staff = {}
+let unit = {
+    body,
+    views: {
+        detail() {
+            return 'work unit is ' + this.name
+        }
+    }
+}
+let staff = {
+    body() {
+        return {
+            name: '',
+            output: null,
+            create_at: Date.now(),
+            clock_on_list: []
+        }
+    },
+    refs: {
+        work_unit: 'unit'
+    },
+    methods: {
+        clockOn() {
+            this.clock_on.push(Date.now())
+        }
+    },
+    watch: {
+        output(value) {
+            return Number(value)
+        }
+    },
+    views: {
+        clock_on_list() {
+            let list = this.clock_on_list.map(c => (new Date(c)).toISOString())
+            return list.join(',')
+        }
+    },
+    states: {
+        read: {
+            fixed: '*',
+            hidden: []
+        },
+        create: {
+            hidden: ['create_at']
+        },
+        delete: {
+            export() {
+                return this.name
+            }
+        }
+    }
+}
 ```

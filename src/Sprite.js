@@ -159,11 +159,7 @@ class Sprite extends Base {
             this.unit[key] = reborn[key] === undefined ? this.unit[key] : reborn[key]
         }
         this.eachRefs((sprite, key) => {
-            if (sprite.isReady()) {
-                sprite.setBody(reborn[key])
-            } else {
-                sprite.born(reborn[key])
-            }
+            sprite.isReady() ? sprite.setBody(reborn[key]) : sprite.born(reborn[key])
         })
     }
 
@@ -177,9 +173,6 @@ class Sprite extends Base {
     }
 
     distortion(name) {
-        if (this.isReference()) {
-            return this.$systemError('distortion', 'This is reference sprite.')
-        }
         if (this.isLive()) {
             if (this.base.states[name] == null) {
                 return this.$systemError('distortion', `Name(${name}) not found.`)
@@ -246,6 +239,7 @@ class Sprite extends Base {
         }
         for (let key in refs) {
             this.refs[key] = this.base.container.make(refs[key])
+            this.refs[key].status.reference = true
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('refs', key),
                 set: this.setDefineProperty(key, true)

@@ -135,10 +135,6 @@ describe('#Sprite', () => {
         expect(user.$isHidden('name')).to.equal(true)
     })
 
-    it('ref distortions', function() {
-        expect(() => { this.user.attributes.$distortion('create') }).to.throw(Error)
-    })
-
     it('container distortions', function() {
         let user = this.user.$copy().$distortion('adminRead')
         expect(() => { user.$distortion('test') }).to.throw(Error)
