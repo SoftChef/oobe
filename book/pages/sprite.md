@@ -225,6 +225,125 @@ dave.$distortion('delete')
 dave.$export() // Dave
 ```
 
+---
+
+
+## 生命週期
+
+![life_cycle][life_cycle]
+
+### Born 與 Origin
+
+人資希望了解更多Dave的事，希望Dave填入喜愛的食物。
+
+```js
+let staff = {
+    body() {
+        return {
+            name: '',
+            favorite_food: null
+        }
+    }
+}
+```
+
+Dave給我們的答案是`北部粽`，由於資料庫中沒有`北部粽`這個選擇，所以我們必須攔截成正常人比較所知的資料。
+
+> born是接收資料的接口，只能宣告一次，在宣告前有大部分的功能是無法使用的。
+
+```js
+let born = function(data) {
+    let favorite_food = data.favorite_food
+    if (favorite_food === '北部粽') {
+        favorite_food = '3D油飯'
+    }
+    return {
+        name: data.name,
+        favorite_food
+    }
+}
+
+let staff = {
+    born,
+    body() {
+        return {
+            name: '',
+            favorite_food: null
+        }
+    }
+}
+```
+
+但當Dave想要校閱基本資料時我們仍必須提供當初輸入的文字：
+
+```js
+let origin = function() {
+    let favorite_food = this.favorite_food
+    if (favorite_food === '3D油飯') {
+        favorite_food = '北部粽'
+    }
+    return {
+        name: this.name,
+        favorite_food 
+    }
+}
+
+let staff = {
+    born,
+    origin,
+    body() {
+        return {
+            name: '',
+            favorite_food: null
+        }
+    }
+}
+```
+
+```js
+let dave = oobe.make('company', 'staff').$born({
+    name: 'Dave',
+    favorite_food: '北部粽'
+})
+let origin = dave.$toOrigin()
+console.log(dave.favorite_food) // 3D油飯
+console.log(origin.favorite_food) // 北部粽
+```
+
+### Out 與 Revive
+
+對於表單操作上，我們必須避免資料在存檔前被更動，但在雙向綁定的架構上很難避免此狀況發生，這時可以採用`out`來複製一份`sprite`，待確定更動目標後再宣告`revive`把資料複寫回本體。
+
+```js
+let outDave = dave.$out()
+// 報錯，本尊dave已經靈魂出竅死去了。
+dave.name = 'James'
+// 把Dave更換成James。
+outDave.name = 'James'
+outDave.$revive()
+// 報錯，本尊dave已經復活。
+outDave.name = 'Bob'
+console.log(dave.name) // James
+```
+
+但Dave就不是James阿，沒問題，我們可以使用`reset`回復原始資料。
+
+```js
+dave.$reset()
+console.log(dave.name) // Dave
+```
+
+不過等資料輸出在reset是個很愚蠢的行為，可以利用`dead`來放棄這次的變更。
+
+```js
+let outDave = dave.$out()
+outDave.name = 'James'
+outDave.$dead()
+console.log(dave.name) // Dave
+```
+
+---
+
 ## 總結
 
 恭喜下班，Dave辛苦了，我們來看看Staff這個sprite最終呈現的模樣。
@@ -244,6 +363,7 @@ let staff = {
             name: '',
             output: null,
             create_at: Date.now(),
+            favorite_food: '',
             clock_on_list: []
         }
     },
@@ -264,6 +384,26 @@ let staff = {
         clock_on_list() {
             let list = this.clock_on_list.map(c => (new Date(c)).toISOString())
             return list.join(',')
+        }
+    },
+    born(data) {
+        let favorite_food = data.favorite_food
+        if (favorite_food === '北部粽') {
+            favorite_food = '3D油飯'
+        }
+        return {
+            name: data.name,
+            favorite_food
+        }
+    },
+    origin() {
+        let favorite_food = this.favorite_food
+        if (favorite_food === '3D油飯') {
+            favorite_food = '北部粽'
+        }
+        return {
+            name: this.name,
+            favorite_food 
         }
     },
     states: {

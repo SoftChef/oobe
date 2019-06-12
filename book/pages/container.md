@@ -99,6 +99,8 @@ dave.$distortion('adminUpdate') // success
 
 ## 總結
 
+以下開始技術總結：
+
 ```js
 import moment from 'moment'
 let company = {
@@ -119,3 +121,5 @@ let company = {
     states: ['adminUpdate']
 }
 ```
+
+定義完`container`後教學就可以算是結束了，了解`container`的分離結構是oobe最重要的課題，未來會更強化這部分。

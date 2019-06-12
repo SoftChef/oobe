@@ -33,12 +33,16 @@ class Main {
         this._core.addon(optinos)
     }
 
+    getRules(data) {
+        return this._core.getRules(data)
+    }
+
     setLocale(locale) {
         this._core.setLocale(locale)
     }
 
-    getRules(data) {
-        return this._core.getRules(data)
+    setBridge(bridge) {
+        this._core.setBridge(bridge)
     }
 }
 

@@ -31,7 +31,11 @@ const TestRawBody = JSON.stringify({
 
 describe('#Core', () => {
     before(function() {
+        this.tsetBridge = null
         this.oobe = new Oobe()
+        this.oobe.setBridge((containerName, spriteName) => {
+            this.tsetBridge = containerName + spriteName
+        })
     })
 
     it('addon and addRules and add locale', function() {
@@ -68,6 +72,10 @@ describe('#Core', () => {
         expect(unit.name).to.equal('admin')
         expect(Oobe.isSprite(unit.name)).to.equal(false)
         expect(Oobe.isSprite(unit.attributes)).to.equal(true)
+    })
+
+    it('tset bridge', function() {
+        expect(this.tsetBridge).to.equal('CognitoUser' + 'user')
     })
 })
 
