@@ -1,33 +1,29 @@
 export default function(components) {
     return new VueRouter({
         mode: 'history',
+        base: 'https://softchef.github.io/oobe',
         routes: [
             {
                 path: '*',
                 redirect: '/'
             },
             {
-                name: 'home',
                 path: '/',
-                component: components['app-main']
-            },
-            {
-                path: 'commodity',
                 name: 'commodity.list',
                 component: components['commodity-list']
             },
             {
-                path: 'commodityCreate',
+                path: 'create',
                 name: 'commodity.create',
                 component: components['commodity-create']
             },
             {
-                path: 'commodityOverview',
+                path: 'overview',
                 name: 'commodity.overview',
                 component: components['commodity-read']
             },
             {
-                path: 'commodityUpdate',
+                path: 'update',
                 name: 'commodity.update',
                 component: components['commodity-update']
             }

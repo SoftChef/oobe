@@ -5,9 +5,7 @@ import router from './router.js'
 import loader from './lib/vue-http-loader/index.js'
 
 loader.addComponentFileFor('./components/', {
-    'app-nav': 'nav.vue',
-    'app-main': 'main.vue',
-    'app-logo': 'logo.vue'
+    'app-nav': 'nav.vue'
 })
 
 loader.addComponentFileFor('./components/commodity/', {
