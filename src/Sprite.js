@@ -1,334 +1,200 @@
-const Base = require('./Base')
-const Unit = require('./Unit')
 const Helper = require('./Helper')
 
-class Sprite extends Base {
-    constructor(base) {
-        super('Sprite')
-        this.body = {}
-        this.refs = {}
-        this.soul = null
-        this.from = null
-        this.base = base
-        this.state = base.states.read
-        this.watch = base.options.watch
-        this.options = base.options
-        this.rawBody = ''
-        this.rawData = null
-        this.propertyNames = []
-        this.init()
+function getUnit(target) {
+    return target instanceof Sprite ? target : target.unit
+}
+
+/**
+ * export sprite
+ * @hideconstructor
+ * @property {object} utils 來自container utils物件
+ * @property {Helper} helper helper的接口
+ * @property {object} configs 來自container configs物件
+ * @property {string} state 現在狀態
+ * @property {boolean} live 目前是否為激活狀態
+ * @property {boolean} ready 是否宣告過born
+ */
+
+class Sprite {
+    constructor(sprite) {
+        this._sprite = sprite
+        this._container = this._sprite.base.container
+        this.$utils = this._container.options.utils
+        this.$helper = Helper
+        this.$configs = this._container.getConfigs()
+        Object.defineProperty(this, '$live', { get: () => this._sprite.status.live })
+        Object.defineProperty(this, '$state', { get: () => this._sprite.state.name })
+        Object.defineProperty(this, '$ready', { get: () => this._sprite.status.ready })
     }
 
-    getBody() {
-        let output = Helper.jpjs(this.body)
-        this.eachRefs((ref, key) => {
-            output[key] = ref.getBody()
-        })
-        return output
+    /**
+     * 獲取語系資源
+     * @param {string} name 語系的對應key
+     * @param {object} [value] 動態參數
+     * @returns {string}
+     */
+
+    $meg(name, value) {
+        return this._container.getMessage(name, value)
     }
 
-    getKeys() {
-        let refs = Object.keys(this.base.options.refs)
-        return this.propertyNames.concat(refs)
+    /**
+     * 複製一份sprite並休眠宣告對象
+     * @returns {outSprite}
+     */
+
+    $out() {
+        return getUnit(this._sprite.out())
     }
 
-    getProperty(name) {
-        if (this.propertyNames.includes(name)) {
-            return this.unit[name]
-        } else {
-            this.$systemError('getProperty', `Property name(${name}) not found.`)
-        }
+    /**
+     * 關閉這個sprite並喚醒宣告此sprite的對象(無對象的sprite無法宣告)
+     * @returns {originSprite}
+     */
+
+    $dead() {
+        return getUnit(this._sprite.dead())
     }
 
-    isLive() {
-        if (this.status.live === false) {
-            this.$systemError('isLive', 'This Sprite is dead.')
-            return false
-        }
-        return true
+    /**
+     * 初始化並賦予值，並將ready宣告成true
+     * @returns {this}
+     */
+
+    $born(data) {
+        return getUnit(this._sprite.born(data))
     }
 
-    isReady() {
-        return !!this.status.ready
+    /**
+     * 複製當前sprite
+     * @returns {sprite}
+     */
+
+    $copy() {
+        return getUnit(this._sprite.copy())
     }
 
-    isReference() {
-        return !!this.status.reference
+    /**
+     * 獲取body的所有值(為複製對象)
+     * @returns {object}
+     */
+
+    $body() {
+        return this._sprite.getBody()
     }
 
-    isInitialization() {
-        return !!this.status.init
+    /**
+     * 獲取body與refs的鍵值
+     * @returns {array.<string>}
+     */
+
+    $keys() {
+        return this._sprite.getKeys()
     }
 
-    isChange() {
-        let change = this.rawBody !== JSON.stringify(this.body)
-        if (change) return true
-        this.eachRefs((sprite) => {
-            change = sprite.isChange()
-            if (change) {
-                return '_break'
-            }
-        })
-        return change
+    /**
+     * 把值切回born賦予的狀態
+     */
+
+    $reset() {
+        this._sprite.reset()
     }
 
-    export(name) {
-        let state = null
-        if (name) {
-            state = this.base.states[name]
-            if (state == null) {
-                this.$systemError('export', `State(${name}) not found.`)
-            }
-        } else {
-            state = this.state
-        }
-        return state.options.export.call(this.unit)
+    /**
+     * 獲取指定屬性的規則集
+     * @param {string} name 指定屬性
+     * @param {array.<string|fn>} [extra] 擴充規則
+     * @returns {array.<fn>}
+     */
+
+    $rules(name, extra = []) {
+        this._sprite.getRules(name, extra)
     }
 
-    toOrigin() {
-        return this.options.origin.call(this.unit)
+    /**
+     * 把out sprite的資料回歸至origin sprite
+     * @returns {originSprite}
+     */
+
+    $revive() {
+        return getUnit(this._sprite.revive())
     }
 
-    out() {
-        if (this.isLive()) {
-            this.soul = this.copy()
-            this.soul.from = this
-            this.sleep()
-            return this.soul
-        }
+    /**
+     * 輸出當前狀態指定的export
+     * @param {string} [name] 指定狀態
+     * @returns {object}
+     */
+
+    $export(name) {
+        return this._sprite.export(name)
     }
 
-    sleep() {
-        this.status.live = false
-        this.eachRefs(s => s.sleep())
+    /**
+     * 當前狀態的屬性是否有fixed屬性
+     * @param {string} name 指定屬性名稱
+     * @returns {boolean}
+     */
+
+    $isFixed(name) {
+        return this._sprite.state.isFixed(name)
     }
 
-    wakeup() {
-        this.status.live = true
-        this.eachRefs(s => s.wakeup())
+    /**
+     * 當前狀態的屬性是否有hidden屬性
+     * @param {string} name 指定屬性名稱
+     * @returns {boolean}
+     */
+
+    $isHidden(name) {
+        return this._sprite.state.isHidden(name)
     }
 
-    revive() {
-        if (this.isLive()) {
-            if (this.from) {
-                this.from.reborn(this.toOrigin())
-                return this.dead()
-            } else {
-                this.$systemError('revive', 'This Sprite is root.')
-            }
-        }
+    /**
+     * 當前狀態的屬性是否沒hidden屬性
+     * @param {string} name 指定屬性名稱
+     * @returns {boolean}
+     */
+
+    $show(name) {
+        return !this._sprite.state.isHidden(name)
     }
 
-    copy() {
-        if (this.isReady()) {
-            return this.base.create().born(this.toOrigin()).distortion(this.state.name)
-        } else {
-            this.$systemError('copy', 'Sprite no ready.')
-        }
+    /**
+     * 執行origin參數並回傳結果
+     * @returns {object}
+     */
+
+    $toOrigin() {
+        return this._sprite.toOrigin()
     }
 
-    dead() {
-        if (this.isLive()) {
-            let from = this.from
-            if (this.from) {
-                this.from.wakeup()
-                this.from.soul = null
-                this.from = null
-                this.sleep()
-                return from
-            } else {
-                this.$systemError('dead', 'This Sprite is root.')
-            }
-        }
+    /**
+     * 狀態是否與born時的狀態相異
+     * @returns {boolean}
+     */
+
+    $isChange() {
+        return this._sprite.isChange()
     }
 
-    reborn(origin) {
-        this.wakeup()
-        this.setBody(origin)
+    /**
+     * 驗證當下參數是否符合驗證規則
+     * @returns {object}
+     */
+
+    $validate() {
+        return this._sprite.validateAll()
     }
 
-    reset() {
-        if (this.isLive()) {
-            this.setBody(JSON.parse(this.rawData))
-        }
-    }
+    /**
+     * 轉換狀態
+     * @param {string} name 指定狀態名稱
+     * @returns {this}
+     */
 
-    setBody(data) {
-        let reborn = this.options.born.call(this.unit, data) || {}
-        for (let key of this.propertyNames) {
-            this.unit[key] = reborn[key] === undefined ? this.unit[key] : reborn[key]
-        }
-        this.eachRefs((sprite, key) => {
-            sprite.isReady() ? sprite.setBody(reborn[key]) : sprite.born(reborn[key])
-        })
-    }
-
-    eachRefs(callback) {
-        for (let key in this.refs) {
-            let result = callback(this.refs[key], key)
-            if (result === '_break') {
-                break
-            }
-        }
-    }
-
-    distortion(name) {
-        if (this.isLive()) {
-            if (this.base.states[name] == null) {
-                return this.$systemError('distortion', `Name(${name}) not found.`)
-            }
-            this.state = this.base.states[name]
-            this.eachRefs(s => s.distortion(name))
-            return this
-        }
-    }
-
-    born(data) {
-        if (this.isReady()) {
-            this.$systemError('born', 'Sprite is ready.')
-        }
-        if (this.isLive()) {
-            this.setBody(data)
-            this.rawBody = JSON.stringify(this.body)
-            this.rawData = JSON.stringify(data)
-            this.base.options.created.call(this.unit)
-            this.status.ready = true
-            return this
-        }
-    }
-
-    init() {
-        this.initUnit()
-        this.initBody()
-        this.checkBody()
-        this.initStatus()
-        this.rawBody = JSON.stringify(this.body)
-        this.rawData = JSON.stringify(this.toOrigin())
-        this.propertyNames = Object.keys(this.body)
-        this.status.init = true
-    }
-
-    initStatus() {
-        this.status = {
-            live: true,
-            init: false,
-            ready: false,
-            reference: false
-        }
-    }
-
-    initUnit() {
-        this.unit = new Unit(this)
-        this.unit.$fn = this.getMethods()
-        this.unit.$views = {}
-        for (let key in this.base.options.views) {
-            let view = this.base.options.views[key].bind(this.unit)
-            Object.defineProperty(this.unit.$views, key, { get: view })
-        }
-    }
-
-    initBody() {
-        let refs = this.options.refs
-        let body = this.options.body.call(this.unit)
-        for (let key in body) {
-            this.body[key] = body[key]
-            Object.defineProperty(this.unit, key, {
-                get: this.getDefineProperty('body', key),
-                set: this.setDefineProperty(key)
-            })
-        }
-        for (let key in refs) {
-            this.refs[key] = this.base.container.make(refs[key])
-            this.refs[key].status.reference = true
-            Object.defineProperty(this.unit, key, {
-                get: this.getDefineProperty('refs', key),
-                set: this.setDefineProperty(key, true)
-            })
-        }
-    }
-
-    checkBody() {
-        for (let key in this.body) {
-            let value = this.body[key]
-            let type = Helper.getType(value)
-            if (type === 'function') {
-                this.$systemError('checkBody', `Body ${key} can't be a function.`)
-            }
-            if (key[0] === '$' || key[0] === '_') {
-                this.$systemError('checkBody', `Body ${key} has system symbol $ and _.`)
-            }
-        }
-    }
-
-    getMethods() {
-        let fn = {}
-        let containerMethods = this.base.container.options.methods
-        for (let key in containerMethods) {
-            fn[key] = containerMethods[key].bind(this.unit)
-        }
-        let methods = this.base.options.methods
-        for (let key in methods) {
-            fn[key] = methods[key].bind(this.unit)
-        }
-        return fn
-    }
-
-    getRules(name, extra = []) {
-        let rules = this.base.options.rules[name]
-        if (rules == null) {
-            this.$systemError('getRules', `Rule name(${name}) not found.`)
-        }
-        return this.base.container.getRules(this.unit, rules.concat(extra))
-    }
-
-    validate(name) {
-        let value = this.getProperty(name)
-        let rules = this.base.options.rules[name]
-        return this.base.container.validate(this.unit, value, rules)
-    }
-
-    validateAll() {
-        let keys = Object.keys(this.base.options.rules)
-        let result = {}
-        let success = true
-        for (let name of keys) {
-            let check = this.validate(name)
-            if (check !== true) {
-                result[name] = check
-                success = false
-            }
-        }
-        this.eachRefs((sprite, name) => {
-            result[name] = sprite.validateAll()
-            if (result[name].success !== true) {
-                success = false
-            }
-        })
-        return { result, success }
-    }
-
-    getDefineProperty(name, key) {
-        if (name === 'refs') {
-            return () => this.refs[key].unit
-        } else {
-            return () => this.body[key]
-        }
-    }
-
-    setDefineProperty(key, protect) {
-        return (value) => {
-            let trans
-            if (this.isLive() === false) {
-                return this.$systemError('set', 'This Sprite is dead.')
-            }
-            if (protect) {
-                return this.$systemError('set', `This property(${key}) is protect.`)
-            }
-            if (this.isInitialization() && this.watch[key]) {
-                trans = this.watch[key].call(this.unit, value, this.body[key])
-            }
-            this.body[key] = trans === undefined ? value : trans
-        }
+    $distortion(name) {
+        return getUnit(this._sprite.distortion(name))
     }
 }
 

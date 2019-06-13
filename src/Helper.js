@@ -1,59 +1,92 @@
+/**
+ * Main export class
+ * @hideconstructor
+ */
+
 class Helper {
     /**
-     * @function jpjs(obj)
+     * JSON.parse(JSON.stringify)的深拷貝方法
      * @static
-     * @desc 深拷貝一個物件，並回傳此物件
+     * @param {*} data 任何可以JSON.stringify的物件
      */
 
-    static jpjs(obj) {
-        return JSON.parse(JSON.stringify(obj))
+    static jpjs(data) {
+        return JSON.parse(JSON.stringify(data))
     }
 
     /**
-     * @function getType
+     * 獲取型別
      * @static
-     * @desc 獲取型別
+     * @param {*} target 任何型態都行
+     * @returns {string} example之外的型態則回傳typeof的值
+     * @example
+     * getType([]) // array
+     * getType(null) // empty
+     * getType(undefined) // empty
+     * getType(NaN) // NaN
+     * getType(/test/) // regexp
      */
 
-    static getType(value) {
-        let type = typeof value
-        if (Array.isArray(value)) {
+    static getType(target) {
+        let type = typeof target
+        if (Array.isArray(target)) {
             return 'array'
         }
-        if (value == null) {
+        if (target == null) {
             return 'empty'
         }
-        if (type === 'number' && isNaN(value)) {
+        if (type === 'number' && isNaN(target)) {
             return 'NaN'
         }
-        if (value instanceof RegExp) {
+        if (target instanceof RegExp) {
             return 'regexp'
         }
         return type
     }
 
     /**
-     * @function isEmpty
+     * 是否為空值
      * @static
-     * @desc 是否為空值
+     * @param {*} target 標的物
+     * @returns {boolean}
+     * @example
+     * isEmpty(0) //false
+     * isEmpty('') // true
+     * isEmpty([]) // true
+     * isEmpty({}) // true
+     * isEmpty(null) // true
+     * isEmpty(undefined) // true
      */
 
-    static isEmpty(value) {
-        let type = Helper.getType(value)
+    static isEmpty(target) {
+        let type = Helper.getType(target)
         if (type === 'empty') {
             return true
         }
-        if (type === 'array' && value.length === 0) {
+        if (type === 'array' && target.length === 0) {
             return true
         }
-        if (type === 'object' && Object.keys(value).length === 0) {
+        if (type === 'object' && Object.keys(target).length === 0) {
             return true
         }
-        if (type === 'string' && value === '') {
+        if (type === 'string' && target === '') {
             return true
         }
         return false
     }
+
+    /**
+     * 是否為精靈
+     * @static
+     * @param {*} target 標的物
+     * @returns {boolean}
+     */
+
+    static isSprite(target) {
+        return target instanceof Sprite
+    }
 }
 
 module.exports = Helper
+
+const Sprite = require('./Sprite')

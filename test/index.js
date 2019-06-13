@@ -70,8 +70,8 @@ describe('#Core', () => {
     it('make sprite unit', function() {
         let unit = this.oobe.make('CognitoUser', 'user').$born(RawData)
         expect(unit.name).to.equal('admin')
-        expect(Oobe.isSprite(unit.name)).to.equal(false)
-        expect(Oobe.isSprite(unit.attributes)).to.equal(true)
+        expect(Oobe.helper.isSprite(unit.name)).to.equal(false)
+        expect(Oobe.helper.isSprite(unit.attributes)).to.equal(true)
     })
 
     it('tset bridge', function() {
@@ -132,7 +132,7 @@ describe('#Sprite', () => {
 
     it('copy', function() {
         let sprite = this.user.$copy()
-        expect(Oobe.isSprite(sprite)).to.equal(true)
+        expect(Oobe.helper.isSprite(sprite)).to.equal(true)
     })
 
     it('distortions', function() {

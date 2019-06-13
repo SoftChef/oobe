@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>開始 · oobe</title>
+        <title>協助 · oobe</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="rule_and_locale.html" />
+    <link rel="next" href="sprite.html" />
     
+    
+    <link rel="prev" href="rule_and_locale.html" />
     
 
     </head>
@@ -121,7 +123,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="2.1.1" data-path="getting_started.html">
+        <li class="chapter " data-level="2.1.1" data-path="getting_started.html">
             
                 <a href="getting_started.html">
             
@@ -147,7 +149,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.1.3" data-path="helper.html">
+        <li class="chapter active" data-level="2.1.3" data-path="helper.html">
             
                 <a href="helper.html">
             
@@ -286,7 +288,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >開始</a>
+        <a href=".." >協助</a>
     </h1>
 </div>
 
@@ -301,56 +303,58 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="&#x958B;&#x59CB;">&#x958B;&#x59CB;</h1>
-<p>&#x96D6;&#x7136;<code>oobe</code>&#x865F;&#x7A31;&#x958B;&#x7BB1;&#x5373;&#x7528;&#xFF0C;&#x4F46;&#x8981;&#x771F;&#x6B63;&#x958B;&#x59CB;&#x9084;&#x771F;&#x7684;&#x4E0D;&#x592A;&#x5BB9;&#x6613;&#xFF0C;&#x4EE5;&#x4E0B;&#x4EE5;&#x4E00;&#x500B;&#x54E1;&#x5DE5;&#x7CFB;&#x7D71;&#x505A;&#x4F8B;&#x5B50;&#x3002;</p>
-<p><a href="https://github.com/SoftChef/oobe/tree/master/web" target="_blank">&#x9EDE;&#x6B64;&#x4E86;&#x89E3;web&#x7BC4;&#x4F8B;&#x67B6;&#x69CB;</a></p>
-<h2 id="&#x8A2D;&#x5B9A;&#x7B2C;&#x4E00;&#x96BB;&#x7CBE;&#x9748;sprite">&#x8A2D;&#x5B9A;&#x7B2C;&#x4E00;&#x96BB;&#x7CBE;&#x9748;(Sprite)</h2>
-<p>&#x7CBE;&#x9748;&#x662F;<code>oobe</code>&#x7684;&#x6700;&#x5C0F;&#x55AE;&#x4F4D;&#xFF0C;&#x4E5F;&#x662F;<code>model</code>&#x7684;&#x539F;&#x578B;&#x3002;</p>
+                                <h1 id="helper">Helper</h1>
+<p>Helper&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E9B;&#x7C21;&#x6613;&#x7684;&#x65B9;&#x6CD5;&#x5354;&#x52A9;&#x512A;&#x5316;&#x7A0B;&#x5F0F;&#x78BC;&#xFF0C;&#x4F46;&#x4E5F;&#x50C5;&#x6B62;&#x65BC;&#x5982;&#x6B64;&#x3002;</p>
 <blockquote>
-<p>body&#x7684;&#x53C3;&#x6578;&#x7121;&#x6CD5;&#x63A5;&#x53D7;&#x958B;&#x982D;&#x4EE5;<code>$</code>&#x8207;<code>_</code>&#x547D;&#x540D;&#x7684;&#x8B8A;&#x6578;&#x3002;</p>
+<p>helper&#x7686;&#x70BA;&#x6307;&#x5411;&#x540C;&#x4E00;&#x500B;&#x5C0D;&#x8C61;&#xFF0C;&#x610F;&#x5473;&#x8457;&#x4F60;&#x53EF;&#x4EE5;&#x85C9;&#x7531;&#x5168;&#x5C40;&#x64F4;&#x5C55;&#x5C6C;&#x6027;&#xFF0C;&#x4F46;&#x6211;&#x4E0D;&#x5EFA;&#x8B70;&#x9019;&#x9EBC;&#x505A;&#xFF0C;&#x9019;&#x7A2E;&#x9AD8;&#x8026;&#x5408;&#x7684;&#x4F5C;&#x6CD5;&#x9055;&#x80CC;oobe&#x7684;&#x7CBE;&#x795E;&#x3002;</p>
 </blockquote>
-<pre><code class="lang-js"><span class="hljs-keyword">let</span> staff = {
-    <span class="hljs-comment">// body&#x5B9A;&#x7FA9;sprite&#x7684;&#x7D50;&#x69CB;&#x8207;&#x9810;&#x8A2D;&#x503C;</span>
-    body() {
-        <span class="hljs-keyword">return</span> {
-            name: <span class="hljs-string">&apos;&apos;</span>,
-            age: <span class="hljs-number">0</span>,
-            country_code: <span class="hljs-string">&apos;+886&apos;</span>,
-            phone_number: <span class="hljs-string">&apos;&apos;</span>,
-            gender: <span class="hljs-string">&apos;men&apos;</span>
-        }
-    }
-}
+<h2 id="&#x5982;&#x4F55;&#x4F7F;&#x7528;">&#x5982;&#x4F55;&#x4F7F;&#x7528;</h2>
+<p>&#x5728;sprite&#x4E2D;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> sprite = oobe.make(<span class="hljs-string">&apos;container&apos;</span>, <span class="hljs-string">&apos;sprite&apos;</span>)
+<span class="hljs-built_in">console</span>.log(sprite.$helper) <span class="hljs-comment">// functions</span>
+</code></pre>
+<p>&#x5168;&#x5C40;&#x4F7F;&#x7528;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> oobe <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;oobe&apos;</span>
+<span class="hljs-built_in">console</span>.log(oobe.helper) <span class="hljs-comment">// functions</span>
+</code></pre>
+<h2 id="functions">Functions</h2>
+<h3 id="jpjsobject">jpjs(object)</h3>
+<p>&#x610F;&#x601D;&#x70BA;<code>JSON.parse(JSON.stringify(obj))</code>&#xFF0C;&#x4E00;&#x500B;js&#x6B77;&#x4E45;&#x4E0D;&#x8870;&#x7684;&#x6578;&#x503C;&#x62F7;&#x8C9D;&#x65B9;&#x6CD5;&#x3002;</p>
+<pre><code class="lang-js">object <span class="hljs-string">&apos;required&apos;</span> {any}
+<span class="hljs-keyword">return</span> object
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> a = { b: <span class="hljs-number">5</span> }
+<span class="hljs-keyword">let</span> b = oobe.helper.jpjs(a)
+b.b = <span class="hljs-number">7</span>
+<span class="hljs-built_in">console</span>.log(a.b) <span class="hljs-comment">// 5</span>
+<span class="hljs-built_in">console</span>.log(b.b) <span class="hljs-comment">// 7</span>
 </code></pre>
 <hr>
-<h2 id="&#x5C07;&#x7CBE;&#x9748;&#x88DD;&#x5165;&#x5BB9;&#x5668;container">&#x5C07;&#x7CBE;&#x9748;&#x88DD;&#x5165;&#x5BB9;&#x5668;(Container)</h2>
-<p>Container&#x662F;&#x4E00;&#x500B;&#x88DD;&#x8F09;Sprite&#x8207;&#x8A2D;&#x5B9A;&#x901A;&#x7528;&#x53C3;&#x6578;&#x7684;&#x7269;&#x4EF6;&#x3002;</p>
-<pre><code class="lang-js"><span class="hljs-keyword">let</span> company = {
-    sprites: { staff }
-}
+<h3 id="gettypetarget">getType(target)</h3>
+<p>&#x7372;&#x53D6;&#x985E;&#x578B;&#xFF0C;&#x80FD;&#x7372;&#x53D6;&#x6BD4;<code>typeof</code>&#x66F4;&#x591A;&#x7684;&#x5C6C;&#x6027;&#x3002;</p>
+<pre><code class="lang-js">object <span class="hljs-string">&apos;required&apos;</span> {any}
+<span class="hljs-keyword">return</span> string
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x9664;&#x4E86;&#x5E95;&#x4E0B;&#x4E94;&#x7A2E;&#x4F8B;&#x5B50;&#x5916;&#xFF0C;&#x5176;&#x4ED6;&#x7686;&#x56DE;&#x50B3;typeof&#x7684;&#x503C;</span>
+oobe.helper.getType([]) <span class="hljs-comment">// array</span>
+oobe.helper.getType(<span class="hljs-literal">NaN</span>) <span class="hljs-comment">// NaN</span>
+oobe.helper.getType(<span class="hljs-literal">null</span>) <span class="hljs-comment">// empty</span>
+oobe.helper.getType(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// empty</span>
+oobe.helper.getType(<span class="hljs-regexp">/test/</span>) <span class="hljs-comment">// regexp</span>
 </code></pre>
 <hr>
-<h2 id="core&#x8A3B;&#x518A;container">Core&#x8A3B;&#x518A;Container</h2>
-<p>&#x8981;&#x771F;&#x6B63;&#x7684;&#x4F7F;&#x7528;Sprite&#xFF0C;&#x5FC5;&#x9808;&#x5C07;&#x4E0A;&#x8FF0;&#x6240;&#x8A2D;&#x5B9A;&#x7684;&#x7269;&#x4EF6;&#x8A3B;&#x518A;&#x81F3;core&#x3002;</p>
-<pre><code class="lang-js"><span class="hljs-keyword">let</span> oobe = <span class="hljs-keyword">new</span> Oobe()
-oobe.join(<span class="hljs-string">&apos;company&apos;</span>, company)
+<h3 id="isemptytarget">isEmpty(target)</h3>
+<p>&#x662F;&#x5426;&#x70BA;&#x7A7A;&#xFF0C;&#x9019;&#x88E1;&#x7684;&#x7A7A;&#x6D89;&#x7565;&#x7BC4;&#x570D;&#x751A;&#x5EE3;&#x3002;</p>
+<pre><code class="lang-js">object <span class="hljs-string">&apos;required&apos;</span> {any}
+<span class="hljs-keyword">return</span> string
 </code></pre>
-<hr>
-<h2 id="&#x5EFA;&#x7ACB;&#x7B2C;&#x4E00;&#x96BB;&#x7CBE;&#x9748;">&#x5EFA;&#x7ACB;&#x7B2C;&#x4E00;&#x96BB;&#x7CBE;&#x9748;</h2>
-<pre><code class="lang-js"><span class="hljs-keyword">let</span> staff = oobe.make(<span class="hljs-string">&apos;company&apos;</span>, <span class="hljs-string">&apos;staff&apos;</span>).$born({
-    name: <span class="hljs-string">&apos;james&apos;</span>,
-    age: <span class="hljs-number">30</span>,
-    phone_number: <span class="hljs-string">&apos;928000000&apos;</span>
-    gender: <span class="hljs-string">&apos;men&apos;</span>,
-    city: <span class="hljs-string">&apos;tokyo&apos;</span>
-})
-
-<span class="hljs-built_in">console</span>.log(staff.name) <span class="hljs-comment">// james</span>
-<span class="hljs-built_in">console</span>.log(staff.country_code) <span class="hljs-comment">// +886</span>
-<span class="hljs-built_in">console</span>.log(staff.city) <span class="hljs-comment">// undefined</span>
+<pre><code class="lang-js">oobe.helper.isEmpty({}) <span class="hljs-comment">// true</span>
+oobe.helper.isEmpty([]) <span class="hljs-comment">// true</span>
+oobe.helper.isEmpty(<span class="hljs-string">&apos;&apos;</span>) <span class="hljs-comment">// true</span>
+oobe.helper.isEmpty(<span class="hljs-literal">null</span>) <span class="hljs-comment">// true</span>
+oobe.helper.isEmpty(<span class="hljs-literal">undefined</span>) <span class="hljs-comment">// true</span>
+oobe.helper.isEmpty(<span class="hljs-number">0</span>) <span class="hljs-comment">// false</span>
 </code></pre>
-<p>&#x5F9E;&#x4E0A;&#x8FF0;&#x4F8B;&#x5B50;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;&#xFF0C;&#x672A;&#x88AB;body&#x5B9A;&#x7FA9;&#x7684;&#x503C;&#x50B3;&#x5165;&#x662F;&#x7121;&#x6548;&#x7684;&#xFF0C;&#x800C;&#x672A;&#x8CE6;&#x4E88;&#x7684;&#x503C;&#x6703;&#x63A1;&#x53D6;&#x9810;&#x8A2D;&#x3002;</p>
-<p>&#x4EE5;&#x4E0A;&#x5C31;&#x662F;&#x5EFA;&#x7ACB;&#x6574;&#x500B;&#x57FA;&#x790E;oobe&#x8A2D;&#x65BD;&#x7684;&#x904E;&#x7A0B;&#xFF0C;&#x4F46;&#x4ECD;&#x7565;&#x986F;&#x967D;&#x6625;&#xFF0C;&#x5728;&#x958B;&#x59CB;&#x9032;&#x968E;&#x529F;&#x80FD;&#x524D;&#xFF0C;&#x5148;&#x8A8D;&#x8B58;<a href="rule_and_locale.html">rule&#x548C;locale</a>&#x3002;</p>
 
                                 
                                 </section>
@@ -378,8 +382,12 @@ oobe.join(<span class="hljs-string">&apos;company&apos;</span>, company)
 
             
                 
+                <a href="rule_and_locale.html" class="navigation navigation-prev " aria-label="Previous page: 語系與規則">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="rule_and_locale.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 語系與規則">
+                
+                <a href="sprite.html" class="navigation navigation-next " aria-label="Next page: 精靈">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -390,7 +398,7 @@ oobe.join(<span class="hljs-string">&apos;company&apos;</span>, company)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"開始","level":"2.1.1","depth":2,"next":{"title":"語系與規則","level":"2.1.2","depth":2,"path":"pages/rule_and_locale.md","ref":"./pages/rule_and_locale.md","articles":[]},"previous":{"title":"教學","level":"2.1","depth":1,"ref":"","articles":[{"title":"開始","level":"2.1.1","depth":2,"path":"pages/getting_started.md","ref":"./pages/getting_started.md","articles":[]},{"title":"語系與規則","level":"2.1.2","depth":2,"path":"pages/rule_and_locale.md","ref":"./pages/rule_and_locale.md","articles":[]},{"title":"協助","level":"2.1.3","depth":2,"path":"pages/helper.md","ref":"./pages/helper.md","articles":[]},{"title":"精靈","level":"2.1.4","depth":2,"path":"pages/sprite.md","ref":"./pages/sprite.md","articles":[]},{"title":"容器","level":"2.1.5","depth":2,"path":"pages/container.md","ref":"./pages/container.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/getting_started.md","mtime":"2019-06-11T02:38:32.750Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-06-13T13:13:01.285Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"協助","level":"2.1.3","depth":2,"next":{"title":"精靈","level":"2.1.4","depth":2,"path":"pages/sprite.md","ref":"./pages/sprite.md","articles":[]},"previous":{"title":"語系與規則","level":"2.1.2","depth":2,"path":"pages/rule_and_locale.md","ref":"./pages/rule_and_locale.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/helper.md","mtime":"2019-06-10T09:58:58.890Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-06-13T13:13:01.285Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

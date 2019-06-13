@@ -1,6 +1,19 @@
 const Base = require('./Base')
 const SpriteBase = require('./SpriteBase')
 
+/**
+ * @namespace Container
+ * @property {object.<SpriteBase>} sprites 精靈組
+ * @property {array.<string>} [states] 擴展狀態集
+ * @property {object.<fn>} [rules] 私有規則
+ * @property {object} [utils] 擴充工具
+ * @property {object} [locales] 語系組
+ * @property {object} [configs] 通用設定
+ * @property {object.<fn>} [methods] 通用方法
+ * @property {function} [install] 在加入core時觸發
+ * @see {@link SpriteBase}
+ */
+
 class Container extends Base {
     constructor(core, name, options = {}) {
         super('Container')

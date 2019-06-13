@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha",
     "book": "gitbook build ./book ./document",
-    "docs": "./node_modules/.bin/jsdoc ./src/",
+    "docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "prod": "npm run build && npm run book && npm run docs",
     "build": "mocha && cross-env webpack --progress --hide-modules"
   },
@@ -34,6 +34,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "jsdoc": "^3.6.2",
+    "minami": "^1.2.3",
     "mocha": "^6.1.4",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2"

@@ -1,0 +1,733 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>精靈 · oobe</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="container.html" />
+    
+    
+    <link rel="prev" href="helper.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    教學
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="getting_started.html">
+            
+                <a href="getting_started.html">
+            
+                    
+                    開始
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="rule_and_locale.html">
+            
+                <a href="rule_and_locale.html">
+            
+                    
+                    語系與規則
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="helper.html">
+            
+                <a href="helper.html">
+            
+                    
+                    協助
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.1.4" data-path="sprite.html">
+            
+                <a href="sprite.html">
+            
+                    
+                    精靈
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5" data-path="container.html">
+            
+                <a href="container.html">
+            
+                    
+                    容器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    資源
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" >
+            
+                <span>
+            
+                    
+                    document
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" >
+            
+                <span>
+            
+                    
+                    npm
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" >
+            
+                <span>
+            
+                    
+                    github
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >精靈</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="sprite">Sprite</h1>
+<p>Sprite&#x5C31;&#x662F;Model&#xFF0C;&#x826F;&#x597D;&#x7684;&#x5B9A;&#x7FA9;&#x7CBE;&#x9748;&#x80FD;&#x5920;&#x5E6B;&#x52A9;&#x524D;&#x5F8C;&#x7AEF;&#x5DE5;&#x7A0B;&#x5E2B;&#x4E0A;&#x5929;&#x5802;&#x3002;</p>
+<h2 id="methods">Methods</h2>
+<p>&#x9019;&#x6B21;&#x6211;&#x5011;&#x70BA;&#x54E1;&#x5DE5;&#x7684;&#x672C;&#x8CEA;&#x6DFB;&#x52A0;&#x4E00;&#x7B46;&#x8CC7;&#x6599;<code>clock_on_list</code>&#xFF0C;&#x4F86;&#x4E86;&#x89E3;&#x8A72;&#x54E1;&#x5DE5;&#x6BCF;&#x5929;&#x7684;&#x6253;&#x5361;&#x6642;&#x9593;&#xFF0C;&#x4E26;&#x4E14;&#x70BA;&#x8A72;&#x54E1;&#x5DE5;&#x5EFA;&#x7ACB;&#x4E00;&#x500B;&#x6253;&#x5361;&#x7684;<code>method</code>&#x3002;</p>
+<blockquote>
+<p>&#x6240;&#x6709;&#x7684;method&#x6703;&#x88AB;&#x5305;&#x5728;$fn&#x7684;&#x5C6C;&#x6027;&#x5167;&#x3002;</p>
+</blockquote>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> sprite = {
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-string">&apos;&apos;</span>,
+            clock_on_list: []
+        }
+    },
+    methods: {
+        clockOn() {
+            <span class="hljs-keyword">this</span>.clock_on.push(<span class="hljs-built_in">Date</span>.now())
+        }
+    }
+}
+</code></pre>
+<p>&#x6211;&#x5011;&#x5EFA;&#x7ACB;&#x4E00;&#x500B;&#x6703;&#x54E1;Dave&#xFF0C;&#x4E26;&#x70BA;&#x4ED6;&#x6253;&#x4E0A;&#x4EBA;&#x751F;&#x7B2C;&#x4E00;&#x5F35;&#x5361;&#xFF0C;&#x606D;&#x559C;&#x6210;&#x70BA;&#x793E;&#x755C;Dave!</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> dave = oobe.make(<span class="hljs-string">&apos;company&apos;</span>, <span class="hljs-string">&apos;staff&apos;</span>).$born({
+    name: <span class="hljs-string">&apos;Dave&apos;</span>
+})
+dave.$fn.clockOn()
+<span class="hljs-built_in">console</span>.log(dave.clock_on_list[<span class="hljs-number">0</span>]) <span class="hljs-comment">// 12345...</span>
+</code></pre>
+<hr>
+<h2 id="views">Views</h2>
+<p>&#x73FE;&#x5728;&#x78BA;&#x5BE6;&#x53EF;&#x4EE5;&#x8ABF;&#x95B1;Dave&#x7684;&#x6253;&#x5361;&#x8CC7;&#x6599;&#x4E86;&#xFF0C;&#x4F46;&#x9019;&#x4E00;&#x4E32;&#x6578;&#x5B57;&#x662F;&#x4EC0;&#x9EBC;&#xFF1F;&#x8001;&#x95C6;&#x770B;&#x4E0D;&#x61C2;&#x554A;&#x3002;</p>
+<blockquote>
+<p>view&#x662F;&#x5C08;&#x70BA;&#x8996;&#x5716;&#x800C;&#x751F;&#x9078;&#x9805;&#xFF0C;&#x57FA;&#x65BC;<code>get</code>&#x7684;&#x6A21;&#x5F0F;&#x5EFA;&#x69CB;&#x3002;</p>
+</blockquote>
+<pre><code class="lang-js">sprite = {
+    views: {
+        clock_on_list() {
+            <span class="hljs-keyword">let</span> list = <span class="hljs-keyword">this</span>.clock_on_list.map(c =&gt; (<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(c)).toISOString())
+            <span class="hljs-keyword">return</span> list.join(<span class="hljs-string">&apos;,&apos;</span>)
+        }
+    }
+}
+<span class="hljs-built_in">console</span>.log(staff.$views.clock_on_list) <span class="hljs-comment">// 20xx-06-10T10:34:48.827Z</span>
+</code></pre>
+<p>&#x592A;&#x597D;&#x4E86;&#xFF0C;&#x9019;&#x4E0B;&#x5B50;&#x8001;&#x95C6;&#x7D42;&#x65BC;&#x770B;&#x61C2;&#x4E86;&#xFF0C;&#x624D;&#x525B;&#x6253;&#x5361;&#xFF1F;&#x5728;&#x6DF7;&#x963F;Dave&#x3002;</p>
+<hr>
+<h2 id="watch">Watch</h2>
+<p>&#x7D93;&#x904E;&#x4E00;&#x756A;&#x6298;&#x9A30;&#xFF0C;Dave&#x7D42;&#x65BC;&#x53EF;&#x4EE5;&#x4E0A;&#x5DE5;&#x4E86;&#xFF0C;&#x4ED6;&#x7684;&#x5DE5;&#x4F5C;&#x662F;&#x628A;&#x6240;&#x6709;&#x7684;&#x6578;&#x503C;&#x90FD;&#x8F49;&#x6210;&#x6578;&#x5B57;&#xFF0C;&#x70BA;&#x4E86;&#x89C0;&#x5BDF;&#x4ED6;&#x7684;&#x7E3E;&#x6548;&#xFF0C;&#x6211;&#x5011;&#x5E6B;&#x4ED6;&#x52A0;&#x4E0A;&#x4E00;&#x7D44;<code>&#x7522;&#x51FA;(output)</code>&#x5C6C;&#x6027;&#x3002;</p>
+<p>&#x4F46;Dave&#x7562;&#x7ADF;&#x4ECA;&#x5929;&#x624D;&#x4E0A;&#x5DE5;&#xFF0C;&#x6211;&#x5011;&#x4E0D;&#x80FD;&#x4FDD;&#x8B49;&#x5B83;&#x80FD;&#x628A;&#x5DE5;&#x4F5C;&#x505A;&#x597D;&#xFF0C;&#x6211;&#x5011;&#x9700;&#x8981;<code>watch</code>&#x4ED6;&#x3002;</p>
+<pre><code class="lang-js">sprite = {
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-string">&apos;&apos;</span>,
+            output: <span class="hljs-literal">null</span>,
+            clock_on_list: []
+        }
+    },
+    watch: {
+        output(value) {
+            <span class="hljs-built_in">console</span>.log(value)
+        }
+    }
+}
+</code></pre>
+<pre><code class="lang-js">dave.output = <span class="hljs-string">&apos;1234&apos;</span> <span class="hljs-comment">// log =&gt; &apos;1234&apos;</span>
+</code></pre>
+<p>&#x770B;&#x5427;&#xFF0C;Dave&#x7522;&#x51FA;&#x7684;&#x8CC7;&#x6599;&#x61C9;&#x8A72;&#x662F;&#x6578;&#x5B57;&#x800C;&#x4E0D;&#x662F;&#x4E00;&#x7D44;&#x5B57;&#x4E32;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x5011;&#x9700;&#x8981;&#x5354;&#x52A9;&#x6539;&#x5BEB;&#x5B83;&#x3002;</p>
+<blockquote>
+<p>&#x7576;watch&#x4F7F;&#x7528;&#x95DC;&#x9375;&#x5B57;<code>return</code>&#x6642;&#xFF0C;&#x6700;&#x5F8C;&#x63A5;&#x6536;&#x7684;&#x503C;&#x6703;&#x4EE5;&#x56DE;&#x50B3;&#x503C;&#x70BA;&#x4E3B;&#x3002;</p>
+</blockquote>
+<pre><code class="lang-js">sprite = {
+    watch: {
+        output(value) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(value)
+        }
+    }
+}
+dave.output = <span class="hljs-string">&apos;1234&apos;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> dave.output) <span class="hljs-comment">// number</span>
+</code></pre>
+<h3 id="&#x6A5F;&#x5236;">&#x6A5F;&#x5236;</h3>
+<p>&#x7531;&#x65BC;<code>oobe</code>&#x63A1;&#x7528;&#x7684;&#x662F;<code>defineproperty</code>&#x7684;<code>get</code>&#x8207;<code>set</code>&#x4F5C;&#x70BA;<code>watch</code>&#x7684;&#x6A5F;&#x5236;&#xFF0C;&#x800C;&#x975E;<code>proxy</code>&#xFF0C;&#x56E0;&#x6B64;&#x6703;&#x6709;&#x4EE5;&#x4E0B;&#x72C0;&#x6CC1;&#x767C;&#x751F;&#xFF1A;</p>
+<pre><code class="lang-js">sprite = {
+    body() {
+        <span class="hljs-keyword">return</span> {
+            array: [],
+            object: {
+                demo: <span class="hljs-string">&apos;&apos;</span>
+            }
+        }
+    },
+    watch: {
+        array(value) {
+            <span class="hljs-built_in">console</span>.log(value)
+        }
+    }
+}
+<span class="hljs-comment">// &#x9019;&#x6A23;&#x4E26;&#x4E0D;&#x6703;&#x6709;&#x4EFB;&#x4F55;&#x4E8B;&#x4EF6;&#x89F8;&#x767C;</span>
+sprite.array.push(<span class="hljs-string">&apos;123&apos;</span>)
+sprite.object.demo = <span class="hljs-number">5</span>
+<span class="hljs-comment">// &#x5E95;&#x4E0B;&#x6703;&#x89F8;&#x767C;console.log(5)</span>
+sprite.array = <span class="hljs-number">5</span>
+</code></pre>
+<p>&#x5C0D;&#x65BC;array&#x7684;watch&#xFF0C;&#x6B63;&#x5728;&#x8003;&#x616E;&#x662F;&#x5426;&#x8981;&#x4F7F;&#x7528;proxy&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x91DD;&#x5C0D;object&#x7684;&#x8A71;&#xFF0C;&#x8ACB;&#x4F7F;&#x7528;<code>refs</code>&#x3002;</p>
+<h2 id="refs">Refs</h2>
+<p>&#x591A;&#x5C64;&#x7269;&#x4EF6;&#x662F;&#x96E3;&#x4EE5;&#x907F;&#x514D;&#x7684;&#xFF0C;&#x628A;&#x6BCF;&#x500B;&#x5C64;&#x7D1A;&#x7684;&#x7269;&#x4EF6;&#x90FD;&#x8996;&#x70BA;sprite&#x662F;&#x6700;&#x597D;&#x7684;&#x5BE6;&#x8E10;&#xFF0C;&#x63A5;&#x4E0B;&#x4F86;&#x6211;&#x5011;&#x628A;Dave&#x8ABF;&#x5F80;&#x81F3;&#x67D0;&#x500B;&#x55AE;&#x4F4D;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> body = () =&gt; { <span class="hljs-keyword">return</span> { name: <span class="hljs-string">&apos;&apos;</span> } }
+<span class="hljs-keyword">let</span> unit = {
+    body,
+    views: {
+        detail() {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;work unit is &apos;</span> + <span class="hljs-keyword">this</span>.name
+        }
+    }
+}
+<span class="hljs-keyword">let</span> staff = {
+    body,
+    refs: {
+        work_unit: <span class="hljs-string">&apos;unit&apos;</span> <span class="hljs-comment">// work_unit&#x6307;&#x5411;unit sprite</span>
+    }
+}
+<span class="hljs-keyword">let</span> company = {
+    sprites: {
+        unit,
+        staff
+    }
+}
+oobe.join(<span class="hljs-string">&apos;company&apos;</span>, company)
+<span class="hljs-keyword">let</span> dave = oobe.make(<span class="hljs-string">&apos;company&apos;</span>, <span class="hljs-string">&apos;staff&apos;</span>).$born({
+    name: <span class="hljs-string">&apos;Dave&apos;</span>,
+    work_unit: {
+        name: <span class="hljs-string">&apos;Assembler&apos;</span>
+    }
+})
+<span class="hljs-built_in">console</span>.log(dave.work_unit.$views.detail)  <span class="hljs-comment">// work unit is Assembler</span>
+</code></pre>
+<h2 id="states">States</h2>
+<p>&#x5348;&#x4F11;&#x6642;&#x9593;&#x5230;&#xFF0C;Dave&#x662F;&#x9700;&#x8981;&#x597D;&#x597D;&#x7684;&#x4F11;&#x606F;&#x4E86;&#x3002;</p>
+<p><code>states</code>&#x5B9A;&#x7FA9;&#x4E86;&#x7576;&#x4E0B;sprite&#x7684;&#x72C0;&#x614B;&#x3002;</p>
+<blockquote>
+<p>oobe &#x9810;&#x8A2D;4&#x500B;&#x72C0;&#x614B;&#xFF0C;&#x5206;&#x5225;&#x70BA;read(&#x9810;&#x8A2D;)&#x3001;create&#x3001;update&#x3001;dalete&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x64F4;&#x5145;&#x5247;&#x9700;&#x85C9;&#x7531;Container&#x5B9A;&#x7FA9;&#x3002;</p>
+</blockquote>
+<pre><code class="lang-js">sprite = {
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-string">&apos;&apos;</span>,
+            create_at: <span class="hljs-built_in">Date</span>.now()
+        }
+    },
+    states: {
+        read: {
+            fixed: <span class="hljs-string">&apos;*&apos;</span>,
+            hidden: []
+        },
+        create: {
+            hidden: [<span class="hljs-string">&apos;create_at&apos;</span>]
+        },
+        <span class="hljs-keyword">delete</span>: {
+            <span class="hljs-keyword">export</span>() {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="fixed-and-hidden">Fixed and Hidden</h2>
+<p>&#x9019;&#x5169;&#x500B;&#x5C6C;&#x6027;&#x4E26;&#x4E0D;&#x6703;&#x771F;&#x6B63;&#x7684;&#x505A;&#x4EFB;&#x4F55;&#x4E8B;&#xFF0C;&#x662F;&#x70BA;view&#x800C;&#x751F;&#x7684;&#x5C6C;&#x6027;&#xFF0C;&#x4E0B;&#x9762;&#x4EE5;<code>vue</code>&#x505A;&#x4F8B;&#x5B50;&#x3002;</p>
+<blockquote>
+<p>&#x8CE6;&#x4E88;<code>*</code>&#x610F;&#x5473;&#x8457;&#x6C38;&#x9060;&#x8FD4;&#x56DE;<code>true</code></p>
+</blockquote>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-show</span>=<span class="hljs-string">&quot;dave.$show(&apos;name&apos;)&quot;</span> <span class="hljs-attr">:disable</span>=<span class="hljs-string">&quot;dave.$isFixed(&apos;name&apos;)&quot;</span>&gt;</span>
+</code></pre>
+<h2 id="&#x5207;&#x63DB;&#x72C0;&#x614B;">&#x5207;&#x63DB;&#x72C0;&#x614B;</h2>
+<p>&#x4F7F;&#x7528;<code>distortion</code>&#x5207;&#x63DB;&#x73FE;&#x6709;&#x72C0;&#x614B;&#x3002;</p>
+<blockquote>
+<p>refs&#x7684;sprite&#x6703;&#x96A8;&#x8457;&#x4E3B;sprite&#x8B8A;&#x63DB;&#x72C0;&#x614B;</p>
+</blockquote>
+<pre><code class="lang-js">dave.$isFixed(<span class="hljs-string">&apos;name&apos;</span>) <span class="hljs-comment">// true</span>
+dave.$distortion(<span class="hljs-string">&apos;create&apos;</span>)
+dave.$isFixed(<span class="hljs-string">&apos;name&apos;</span>) <span class="hljs-comment">// false</span>
+dave.$distortion(<span class="hljs-string">&apos;delete&apos;</span>)
+dave.$<span class="hljs-keyword">export</span>() <span class="hljs-comment">// Dave</span>
+</code></pre>
+<hr>
+<h2 id="&#x751F;&#x547D;&#x9031;&#x671F;">&#x751F;&#x547D;&#x9031;&#x671F;</h2>
+<p>![life_cycle][life_cycle]</p>
+<h3 id="born-&#x8207;-origin">Born &#x8207; Origin</h3>
+<p>&#x4EBA;&#x8CC7;&#x5E0C;&#x671B;&#x4E86;&#x89E3;&#x66F4;&#x591A;Dave&#x7684;&#x4E8B;&#xFF0C;&#x5E0C;&#x671B;Dave&#x586B;&#x5165;&#x559C;&#x611B;&#x7684;&#x98DF;&#x7269;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> staff = {
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-string">&apos;&apos;</span>,
+            favorite_food: <span class="hljs-literal">null</span>
+        }
+    }
+}
+</code></pre>
+<p>Dave&#x7D66;&#x6211;&#x5011;&#x7684;&#x7B54;&#x6848;&#x662F;<code>&#x5317;&#x90E8;&#x7CBD;</code>&#xFF0C;&#x7531;&#x65BC;&#x8CC7;&#x6599;&#x5EAB;&#x4E2D;&#x6C92;&#x6709;<code>&#x5317;&#x90E8;&#x7CBD;</code>&#x9019;&#x500B;&#x9078;&#x64C7;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x5011;&#x5FC5;&#x9808;&#x6514;&#x622A;&#x6210;&#x6B63;&#x5E38;&#x4EBA;&#x6BD4;&#x8F03;&#x6240;&#x77E5;&#x7684;&#x8CC7;&#x6599;&#x3002;</p>
+<blockquote>
+<p>born&#x662F;&#x63A5;&#x6536;&#x8CC7;&#x6599;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x53EA;&#x80FD;&#x5BA3;&#x544A;&#x4E00;&#x6B21;&#xFF0C;&#x5728;&#x5BA3;&#x544A;&#x524D;&#x6709;&#x5927;&#x90E8;&#x5206;&#x7684;&#x529F;&#x80FD;&#x662F;&#x7121;&#x6CD5;&#x4F7F;&#x7528;&#x7684;&#x3002;</p>
+</blockquote>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> born = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-keyword">let</span> favorite_food = data.favorite_food
+    <span class="hljs-keyword">if</span> (favorite_food === <span class="hljs-string">&apos;&#x5317;&#x90E8;&#x7CBD;&apos;</span>) {
+        favorite_food = <span class="hljs-string">&apos;3D&#x6CB9;&#x98EF;&apos;</span>
+    }
+    <span class="hljs-keyword">return</span> {
+        name: data.name,
+        favorite_food
+    }
+}
+
+<span class="hljs-keyword">let</span> staff = {
+    born,
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-string">&apos;&apos;</span>,
+            favorite_food: <span class="hljs-literal">null</span>
+        }
+    }
+}
+</code></pre>
+<p>&#x4F46;&#x7576;Dave&#x60F3;&#x8981;&#x6821;&#x95B1;&#x57FA;&#x672C;&#x8CC7;&#x6599;&#x6642;&#x6211;&#x5011;&#x4ECD;&#x5FC5;&#x9808;&#x63D0;&#x4F9B;&#x7576;&#x521D;&#x8F38;&#x5165;&#x7684;&#x6587;&#x5B57;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> origin = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">let</span> favorite_food = <span class="hljs-keyword">this</span>.favorite_food
+    <span class="hljs-keyword">if</span> (favorite_food === <span class="hljs-string">&apos;3D&#x6CB9;&#x98EF;&apos;</span>) {
+        favorite_food = <span class="hljs-string">&apos;&#x5317;&#x90E8;&#x7CBD;&apos;</span>
+    }
+    <span class="hljs-keyword">return</span> {
+        name: <span class="hljs-keyword">this</span>.name,
+        favorite_food 
+    }
+}
+
+<span class="hljs-keyword">let</span> staff = {
+    born,
+    origin,
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-string">&apos;&apos;</span>,
+            favorite_food: <span class="hljs-literal">null</span>
+        }
+    }
+}
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> dave = oobe.make(<span class="hljs-string">&apos;company&apos;</span>, <span class="hljs-string">&apos;staff&apos;</span>).$born({
+    name: <span class="hljs-string">&apos;Dave&apos;</span>,
+    favorite_food: <span class="hljs-string">&apos;&#x5317;&#x90E8;&#x7CBD;&apos;</span>
+})
+<span class="hljs-keyword">let</span> origin = dave.$toOrigin()
+<span class="hljs-built_in">console</span>.log(dave.favorite_food) <span class="hljs-comment">// 3D&#x6CB9;&#x98EF;</span>
+<span class="hljs-built_in">console</span>.log(origin.favorite_food) <span class="hljs-comment">// &#x5317;&#x90E8;&#x7CBD;</span>
+</code></pre>
+<h3 id="out-&#x8207;-revive">Out &#x8207; Revive</h3>
+<p>&#x5C0D;&#x65BC;&#x8868;&#x55AE;&#x64CD;&#x4F5C;&#x4E0A;&#xFF0C;&#x6211;&#x5011;&#x5FC5;&#x9808;&#x907F;&#x514D;&#x8CC7;&#x6599;&#x5728;&#x5B58;&#x6A94;&#x524D;&#x88AB;&#x66F4;&#x52D5;&#xFF0C;&#x4F46;&#x5728;&#x96D9;&#x5411;&#x7D81;&#x5B9A;&#x7684;&#x67B6;&#x69CB;&#x4E0A;&#x5F88;&#x96E3;&#x907F;&#x514D;&#x6B64;&#x72C0;&#x6CC1;&#x767C;&#x751F;&#xFF0C;&#x9019;&#x6642;&#x53EF;&#x4EE5;&#x63A1;&#x7528;<code>out</code>&#x4F86;&#x8907;&#x88FD;&#x4E00;&#x4EFD;<code>sprite</code>&#xFF0C;&#x5F85;&#x78BA;&#x5B9A;&#x66F4;&#x52D5;&#x76EE;&#x6A19;&#x5F8C;&#x518D;&#x5BA3;&#x544A;<code>revive</code>&#x628A;&#x8CC7;&#x6599;&#x8907;&#x5BEB;&#x56DE;&#x672C;&#x9AD4;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> outDave = dave.$out()
+<span class="hljs-comment">// &#x5831;&#x932F;&#xFF0C;&#x672C;&#x5C0A;dave&#x5DF2;&#x7D93;&#x9748;&#x9B42;&#x51FA;&#x7AC5;&#x6B7B;&#x53BB;&#x4E86;&#x3002;</span>
+dave.name = <span class="hljs-string">&apos;James&apos;</span>
+<span class="hljs-comment">// &#x628A;Dave&#x66F4;&#x63DB;&#x6210;James&#x3002;</span>
+outDave.name = <span class="hljs-string">&apos;James&apos;</span>
+outDave.$revive()
+<span class="hljs-comment">// &#x5831;&#x932F;&#xFF0C;&#x672C;&#x5C0A;dave&#x5DF2;&#x7D93;&#x5FA9;&#x6D3B;&#x3002;</span>
+outDave.name = <span class="hljs-string">&apos;Bob&apos;</span>
+<span class="hljs-built_in">console</span>.log(dave.name) <span class="hljs-comment">// James</span>
+</code></pre>
+<p>&#x4F46;Dave&#x5C31;&#x4E0D;&#x662F;James&#x963F;&#xFF0C;&#x6C92;&#x554F;&#x984C;&#xFF0C;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>reset</code>&#x56DE;&#x5FA9;&#x539F;&#x59CB;&#x8CC7;&#x6599;&#x3002;</p>
+<pre><code class="lang-js">dave.$reset()
+<span class="hljs-built_in">console</span>.log(dave.name) <span class="hljs-comment">// Dave</span>
+</code></pre>
+<p>&#x4E0D;&#x904E;&#x7B49;&#x8CC7;&#x6599;&#x8F38;&#x51FA;&#x5728;reset&#x662F;&#x500B;&#x5F88;&#x611A;&#x8822;&#x7684;&#x884C;&#x70BA;&#xFF0C;&#x53EF;&#x4EE5;&#x5229;&#x7528;<code>dead</code>&#x4F86;&#x653E;&#x68C4;&#x9019;&#x6B21;&#x7684;&#x8B8A;&#x66F4;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> outDave = dave.$out()
+outDave.name = <span class="hljs-string">&apos;James&apos;</span>
+outDave.$dead()
+<span class="hljs-built_in">console</span>.log(dave.name) <span class="hljs-comment">// Dave</span>
+</code></pre>
+<hr>
+<h2 id="&#x7E3D;&#x7D50;">&#x7E3D;&#x7D50;</h2>
+<p>&#x606D;&#x559C;&#x4E0B;&#x73ED;&#xFF0C;Dave&#x8F9B;&#x82E6;&#x4E86;&#xFF0C;&#x6211;&#x5011;&#x4F86;&#x770B;&#x770B;Staff&#x9019;&#x500B;sprite&#x6700;&#x7D42;&#x5448;&#x73FE;&#x7684;&#x6A21;&#x6A23;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> unit = {
+    body,
+    views: {
+        detail() {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;work unit is &apos;</span> + <span class="hljs-keyword">this</span>.name
+        }
+    }
+}
+<span class="hljs-keyword">let</span> staff = {
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-string">&apos;&apos;</span>,
+            output: <span class="hljs-literal">null</span>,
+            create_at: <span class="hljs-built_in">Date</span>.now(),
+            favorite_food: <span class="hljs-string">&apos;&apos;</span>,
+            clock_on_list: []
+        }
+    },
+    refs: {
+        work_unit: <span class="hljs-string">&apos;unit&apos;</span>
+    },
+    methods: {
+        clockOn() {
+            <span class="hljs-keyword">this</span>.clock_on.push(<span class="hljs-built_in">Date</span>.now())
+        }
+    },
+    watch: {
+        output(value) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(value)
+        }
+    },
+    views: {
+        clock_on_list() {
+            <span class="hljs-keyword">let</span> list = <span class="hljs-keyword">this</span>.clock_on_list.map(c =&gt; (<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(c)).toISOString())
+            <span class="hljs-keyword">return</span> list.join(<span class="hljs-string">&apos;,&apos;</span>)
+        }
+    },
+    born(data) {
+        <span class="hljs-keyword">let</span> favorite_food = data.favorite_food
+        <span class="hljs-keyword">if</span> (favorite_food === <span class="hljs-string">&apos;&#x5317;&#x90E8;&#x7CBD;&apos;</span>) {
+            favorite_food = <span class="hljs-string">&apos;3D&#x6CB9;&#x98EF;&apos;</span>
+        }
+        <span class="hljs-keyword">return</span> {
+            name: data.name,
+            favorite_food
+        }
+    },
+    origin() {
+        <span class="hljs-keyword">let</span> favorite_food = <span class="hljs-keyword">this</span>.favorite_food
+        <span class="hljs-keyword">if</span> (favorite_food === <span class="hljs-string">&apos;3D&#x6CB9;&#x98EF;&apos;</span>) {
+            favorite_food = <span class="hljs-string">&apos;&#x5317;&#x90E8;&#x7CBD;&apos;</span>
+        }
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-keyword">this</span>.name,
+            favorite_food 
+        }
+    },
+    states: {
+        read: {
+            fixed: <span class="hljs-string">&apos;*&apos;</span>,
+            hidden: []
+        },
+        create: {
+            hidden: [<span class="hljs-string">&apos;create_at&apos;</span>]
+        },
+        <span class="hljs-keyword">delete</span>: {
+            <span class="hljs-keyword">export</span>() {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name
+            }
+        }
+    }
+}
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="helper.html" class="navigation navigation-prev " aria-label="Previous page: 協助">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="container.html" class="navigation navigation-next " aria-label="Next page: 容器">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"精靈","level":"2.1.4","depth":2,"next":{"title":"容器","level":"2.1.5","depth":2,"path":"pages/container.md","ref":"./pages/container.md","articles":[]},"previous":{"title":"協助","level":"2.1.3","depth":2,"path":"pages/helper.md","ref":"./pages/helper.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/sprite.md","mtime":"2019-06-13T02:58:35.464Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-06-13T13:13:01.285Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

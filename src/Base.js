@@ -3,24 +3,12 @@ class Base {
         this._base = { name }
     }
 
-    /**
-     * @function $systemError(functionName,maessage,object)
-     * @private
-     * @desc 於console呼叫錯誤，中斷程序並顯示錯誤的物件
-     */
-
     $systemError(functionName, message, object = '$_no_error') {
         if (object !== '$_no_error') {
             console.log('error data => ', object)
         }
         throw new Error(`(☉д⊙)!! Oobe::${this._base.name} => ${functionName} -> ${message}`)
     }
-
-    /**
-     * @function $verify
-     * @private
-     * @desc 驗證格式是否正確
-     */
 
     $verify(data, validates) {
         let newData = {}
