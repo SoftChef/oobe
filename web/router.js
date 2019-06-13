@@ -1,7 +1,7 @@
 export default function(components) {
     return new VueRouter({
         mode: 'history',
-        base: 'https://softchef.github.io/oobe',
+        base: '/oobe/web',
         routes: [
             {
                 path: '*',
@@ -13,17 +13,17 @@ export default function(components) {
                 component: components['commodity-list']
             },
             {
-                path: 'create',
+                path: '/create',
                 name: 'commodity.create',
                 component: components['commodity-create']
             },
             {
-                path: 'overview',
+                path: '/overview',
                 name: 'commodity.overview',
                 component: components['commodity-read']
             },
             {
-                path: 'update',
+                path: '/update',
                 name: 'commodity.update',
                 component: components['commodity-update']
             }

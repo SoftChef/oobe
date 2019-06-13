@@ -1,6 +1,5 @@
 <template>
     <nav class="nav nav-pills pt-3 justify-content-center">
-        <router-link class="nav-link" active-class="active" :to="{ name: 'commodity.list' }">{{ $t('commodity') }}</router-link>
         <a class="nav-link" @click.stop="switchLang()" href="javascript:void(0)">Language:{{ locale === 'zh-tw' ? '中文' : 'English' }}</a>
     </nav>
 </template>
