@@ -22,8 +22,7 @@ v0.0.3:
     ✔ 不允許body出現$字號和function @done(19-06-06 14:21)
     ✔ prefix的總體設計 @done(19-06-08 18:57)
     ✔ $view @done(19-06-09 10:09)
-    ☐ proxy 代理
-    ☐ 懶加載
+    ✔ 懶加載 @done(19-06-13 23:45)
     ✔ 複數建立 @done(19-06-11 21:41)
 
     Test:
@@ -34,6 +33,7 @@ v0.0.3:
         ✔ core addon @done(19-05-20 10:17)
 
 不明的未來版本:
+    ☐ proxy
     ☐ collection
     ☐ interchange
     ☐ event

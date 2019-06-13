@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
-    "book": "gitbook build ./book ./document",
+    "book": "gitbook build ./book ./started",
     "docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "prod": "npm run build && npm run book && npm run docs",
     "build": "mocha && cross-env webpack --progress --hide-modules"

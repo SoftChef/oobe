@@ -8,6 +8,6 @@
     * [容器](./pages/container.md)
 ***
 * 資源
-    * [document]()
-    * [npm]()
-    * [github]()
+    * [document](https://softchef.github.io/oobe/docs/)
+    * [npm](https://www.npmjs.com/package/oobe)
+    * [github](https://github.com/SoftChef/oobe)
