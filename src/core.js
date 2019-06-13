@@ -1,5 +1,6 @@
 const Base = require('./Base')
 const Rule = require('./Rule')
+const Helper = require('./Helper')
 const Message = require('./Message')
 const Configs = require('./Configs')
 const Container = require('./Container')
@@ -110,7 +111,7 @@ class Core extends Base {
 
     make(containerName, spriteName) {
         if (this.bridge) {
-            this.bridge(this, containerName, spriteName)
+            this.bridge(containerName, spriteName)
         }
         let container = this.containers[containerName]
         if (container == null) {
