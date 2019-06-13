@@ -9,5 +9,6 @@
 ***
 * 資源
     * [document](https://softchef.github.io/oobe/docs/)
+    * [demo](https://softchef.github.io/oobe/web/)
     * [npm](https://www.npmjs.com/package/oobe)
     * [github](https://github.com/SoftChef/oobe)

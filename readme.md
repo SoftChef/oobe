@@ -8,7 +8,9 @@
 
 [document](https://softchef.github.io/oobe/docs/)
 
-[getting started](https://softchef.github.io/oobe/started)
+[getting started](https://softchef.github.io/oobe/started/)
+
+[demo](https://softchef.github.io/oobe/web/)
 
 oobe目的為原始資料與控制器之間的中介者，具有資料轉換與驗證方法。
 
