@@ -1,6 +1,6 @@
 const expect = require('chai').expect
 const Oobe = require('../src/Main')
-const Plugin = require('../package/rules')
+const Plugin = require('./fake/rules')
 const RawData = require('./fake/data.json')
 const CognitoUser = require('./fake')
 const TestRawOrigin = JSON.stringify({
