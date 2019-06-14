@@ -1,6 +1,6 @@
 <p align="center"><img src="https://softchef.github.io/oobe/assets/logo.png"></p>
 
-<p align="center" style="font-size:2em">javascript model library</p>
+<p align="center" style="font-size:2.5em">javascript model library</p>
 
 ---
 
