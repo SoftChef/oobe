@@ -1,4 +1,5 @@
 const Base = require('./Base')
+const Helper = require('./Helper')
 const SpriteBase = require('./SpriteBase')
 
 /**
@@ -21,7 +22,7 @@ class Container extends Base {
         this.name = name
         this.prefix = '$' + this.name + '.'
         this.spriteBases = {}
-        this.options = this.$verify(options, {
+        this.options = Helper.verify(options, {
             rules: [false, ['object'], {}],
             utils: [false, ['object'], {}],
             states: [false, ['array'], []],

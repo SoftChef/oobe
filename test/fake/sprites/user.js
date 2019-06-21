@@ -1,9 +1,7 @@
 module.exports = {
     body() {
         return {
-            name: '',
-            watchTest: '',
-            watchTrans: 0
+            name: ''
         }
     },
 
@@ -20,15 +18,6 @@ module.exports = {
 
     views: {
         testViews() { return this.name + 'test' }
-    },
-
-    watch: {
-        name(newVale, oldValue) {
-            this.watchTest = oldValue + newVale
-        },
-        watchTrans(newVale, oldValue) {
-            return Number(newVale)
-        }
     },
 
     born(rawData) {

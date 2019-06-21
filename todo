@@ -32,15 +32,16 @@ v0.0.3:
         ✔ sprite hidden @done(19-05-20 10:22)
         ✔ core addon @done(19-05-20 10:17)
 
+v0.0.4:
+    ✔ 移除watch @done(19-06-21 14:30)
+    ✔ reset(key) @done(19-06-21 15:21)
+    ✔ isChange(key) @done(19-06-21 15:21)
+    ✔ Helper.verify @done(19-06-21 16:59)
+
 不明的未來版本:
     ☐ proxy
     ☐ collection
     ☐ interchange
     ☐ event
-    ☐ reset(key)
-    ☐ isChange(key)
     ☐ diff
     ☐ mixins
-    ☐ load body
-    ☐ helper isSame
-    ☐ helper verify

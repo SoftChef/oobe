@@ -90,21 +90,6 @@ class Oobe {
     setLocale(locale) {
         this._core.setLocale(locale)
     }
-
-    /**
-     * @callback bridge
-     * @param {string} containerName
-     * @param {string} spriteName
-     */
-
-    /**
-     * 設定make之前的hook，為的是nodejs的動態載入環境
-     * @param {bridge} bridge 指定的回乎函數
-     */
-
-    setBridge(bridge) {
-        this._core.setBridge(bridge)
-    }
 }
 
 /**

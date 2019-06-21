@@ -17,7 +17,7 @@ export default {
         },
         'zh-tw': {
             'require': '必填。',
-            'number': '必須為數字.'
+            'number': '必須為數字。'
         }
     }
 }

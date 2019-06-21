@@ -10,7 +10,6 @@ class Core extends Base {
         super('Core')
         this.rule = new Rule()
         this.message = new Message()
-        this.bridge = null
         this.containers = {}
         this.init()
     }
@@ -45,7 +44,7 @@ class Core extends Base {
     }
 
     addon(optinos) {
-        let plugin = this.$verify(optinos, {
+        let plugin = Helper.verify(optinos, {
             name: [true, ['string']],
             rules: [false, ['object'], {}],
             locales: [false, ['object'], {}]
@@ -86,13 +85,6 @@ class Core extends Base {
         this.message.setLocale(locale)
     }
 
-    setBridge(bridge) {
-        if (Helper.getType(bridge) !== 'function') {
-            return this.$systemError('setBridge', 'Arg not a function')
-        }
-        this.bridge = bridge
-    }
-
     // ===================
     //
     // methods
@@ -110,9 +102,6 @@ class Core extends Base {
     //
 
     make(containerName, spriteName) {
-        if (this.bridge) {
-            this.bridge(containerName, spriteName)
-        }
         let container = this.containers[containerName]
         if (container == null) {
             return this.$systemError('make', `Container name(${containerName}) not found.`)

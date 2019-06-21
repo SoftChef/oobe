@@ -1,4 +1,4 @@
-import locale from './locale.js'
+import locales from './locales.js'
 import commodity from './sprites/commodity.js'
 
 export default {
@@ -10,7 +10,7 @@ export default {
         moment
     },
 
-    locale,
+    locales,
 
     configs: {
         commodityCategories: [

@@ -85,6 +85,46 @@ class Helper {
     static isSprite(target) {
         return target instanceof Sprite
     }
+
+    /**
+     * 驗證和回傳預設與付值結果
+     * @static
+     * @param {object} data 標的物
+     * @param {object.<array>} validates 驗證模型[required:boolean, types:array, default:*]
+     * @returns {object}
+     * @example
+     * let options = verify({ a: 5 }, {
+     *      a: [true, ['number'], 0],
+     *      b: [false, ['number'], 'test']
+     * })
+     * console.log(options.b) // test
+     */
+
+    static verify(data, validates) {
+        let newData = {}
+        for (let key in validates) {
+            let target = data[key]
+            let validate = validates[key]
+            let required = validate[0]
+            let types = validate[1]
+            let defaultValue = validate[2]
+            let type = Helper.getType(target)
+            if (Helper.getType(required) !== 'boolean') {
+                throw new Error(`Helper::verify => Required must be a boolean`)
+            }
+            if (Helper.getType(types) !== 'array') {
+                throw new Error(`Helper::verify => Types must be a array`)
+            }
+            if (required && target == null) {
+                throw new Error(`Helper::verify => Key(${key}) is required`)
+            }
+            if (types && target != null && !types.includes(type)) {
+                throw new Error(`Helper::verify => Type(${key}::${type}) error, need ${types.join(' or ')}`)
+            }
+            newData[key] = target || defaultValue
+        }
+        return newData
+    }
 }
 
 module.exports = Helper

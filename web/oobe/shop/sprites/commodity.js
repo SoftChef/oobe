@@ -17,15 +17,6 @@ export default {
         categories: ['#sc.require']
     },
 
-    watch: {
-        no(value) {
-            return Number(value)
-        },
-        price(value) {
-            return Number(value)
-        }
-    },
-
     methods: {
         addTag() {
             this.tags.push('')

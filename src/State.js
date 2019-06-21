@@ -1,10 +1,11 @@
 const Base = require('./Base')
+const Helper = require('./Helper')
 
 class State extends Base {
     constructor(name, options = {}) {
         super('States')
         this.name = name
-        this.options = this.$verify(options, {
+        this.options = Helper.verify(options, {
             fixed: [false, ['array', 'string'], []],
             hidden: [false, ['array', 'string'], []],
             export: [false, ['function'], function() { return this.$toOrigin() }]

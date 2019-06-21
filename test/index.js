@@ -17,8 +17,6 @@ const TestRawOrigin = JSON.stringify({
 
 const TestRawBody = JSON.stringify({
     name: 'admin',
-    watchTest: '',
-    watchTrans: 0,
     attributes: {
         'sub': 'aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa',
         'name': 'admin',
@@ -31,11 +29,7 @@ const TestRawBody = JSON.stringify({
 
 describe('#Core', () => {
     before(function() {
-        this.tsetBridge = null
         this.oobe = new Oobe()
-        this.oobe.setBridge((containerName, spriteName) => {
-            this.tsetBridge = containerName + spriteName
-        })
     })
 
     it('addon and addRules and add locale', function() {
@@ -74,9 +68,6 @@ describe('#Core', () => {
         expect(Oobe.helper.isSprite(unit.attributes)).to.equal(true)
     })
 
-    it('tset bridge', function() {
-        expect(this.tsetBridge).to.equal('CognitoUser' + 'user')
-    })
 })
 
 describe('#Sprite', () => {
@@ -120,6 +111,26 @@ describe('#Sprite', () => {
     it('reset', function() {
         this.user.$reset()
         expect(this.user.$isChange()).to.equal(false)
+    })
+
+    it('isChange of key', function() {
+        this.user.attributes.$reset()
+        expect(this.user.attributes.$isChange()).to.equal(false)
+        this.user.attributes.email = '1234'
+        expect(this.user.attributes.$isChange('phone_number')).to.equal(false)
+        expect(this.user.attributes.$isChange('email')).to.equal(true)
+        this.user.attributes.$reset()
+    })
+
+    it('reset of key', function() {
+        this.user.attributes.phone_number = '000000008'
+        this.user.attributes.email = '1234'
+        expect(this.user.attributes.email).to.equal('1234')
+        this.user.attributes.$reset('email')
+        expect(this.user.attributes.email).to.equal('admin@gmail.com')
+        expect(this.user.attributes.phone_number).to.equal('000000008')
+        this.user.attributes.$reset()
+        expect(this.user.attributes.phone_number).to.equal('000000000')
     })
 
     it('container methods', function() {
@@ -192,7 +203,6 @@ describe('#Sprite', () => {
     it('keys', function() {
         let keys = this.user.$keys()
         expect(keys.includes('name')).to.equal(true)
-        expect(keys.includes('watchTest')).to.equal(true)
         expect(keys.includes('attributes')).to.equal(true)
     })
 
@@ -222,23 +232,11 @@ describe('#Sprite', () => {
         expect(user.name).to.equal('123')
     })
 
-    it('transform', function() {
-        this.user.watchTrans = '1'
-        expect(this.user.watchTrans).to.equal(1)
-    })
-
     it('meg', function() {
         expect(this.user.$meg('aaaa')).to.equal('big')
         expect(this.user.$meg('#sc.require', { value: 123 })).to.equal('Value 123 must be required.')
         this.oobe.setLocale('zh-tw')
         expect(this.user.$meg('aaaa')).to.equal('巨')
-    })
-
-    it('watch', function() {
-        let ov = this.user.name
-        let nv = 'aaa'
-        this.user.name = nv
-        expect(this.user.watchTest).to.equal(ov + nv)
     })
 
     it('views', function() {
@@ -278,5 +276,35 @@ describe('#Helper', () => {
         expect(this.user.$helper.isEmpty(null)).to.equal(true)
         expect(this.user.$helper.isEmpty(undefined)).to.equal(true)
         expect(this.user.$helper.isEmpty(0)).to.equal(false)
+    })
+
+    it('verify', function() {
+        let options = {
+            a: 5,
+            b: '7'
+        }
+        let reslut = this.user.$helper.verify(options, {
+            a: [true, ['number']],
+            b: [true, ['string']]
+        })
+        expect(reslut.a).to.equal(5)
+        expect(reslut.b).to.equal('7')
+        expect(() => {
+            this.user.$helper.verify(options, {
+                a: [true, ['number']],
+                b: [true, ['string']],
+                c: [true, ['string']]
+            })
+        }).to.throw(Error)
+        expect(() => {
+            this.user.$helper.verify(options, {
+                a: [123, ['number']]
+            })
+        }).to.throw(Error)
+        expect(() => {
+            this.user.$helper.verify(options, {
+                a: [true, 123]
+            })
+        }).to.throw(Error)
     })
 })

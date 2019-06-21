@@ -4,8 +4,10 @@
             <legend>{{ $t('update_commodity') }}</legend>
             <commodity-form :sprite="sprite"></commodity-form>
             <button
+                v-if="sprite"
                 type="button"
                 class="btn btn-outline-primary mb-3"
+                :disabled="!sprite.$isChange()"
                 @click.stop="submit()">
                 {{ $t('update') }}
             </button>

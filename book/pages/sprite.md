@@ -56,82 +56,6 @@ console.log(staff.$views.clock_on_list) // 20xx-06-10T10:34:48.827Z
 
 太好了，這下子老闆終於看懂了，才剛打卡？在混阿Dave。
 
----
-
-## Watch
-
-經過一番折騰，Dave終於可以上工了，他的工作是把所有的數值都轉成數字，為了觀察他的績效，我們幫他加上一組`產出(output)`屬性。
-
-但Dave畢竟今天才上工，我們不能保證它能把工作做好，我們需要`watch`他。
-
-```js
-sprite = {
-    body() {
-        return {
-            name: '',
-            output: null,
-            clock_on_list: []
-        }
-    },
-    watch: {
-        output(value) {
-            console.log(value)
-        }
-    }
-}
-```
-
-```js
-dave.output = '1234' // log => '1234'
-```
-
-看吧，Dave產出的資料應該是數字而不是一組字串，因此我們需要協助改寫它。
-
-> 當watch使用關鍵字`return`時，最後接收的值會以回傳值為主。
-
-```js
-sprite = {
-    watch: {
-        output(value) {
-            return Number(value)
-        }
-    }
-}
-dave.output = '1234'
-console.log(typeof dave.output) // number
-```
-
-### 機制
-
-由於`oobe`採用的是`defineproperty`的`get`與`set`作為`watch`的機制，而非`proxy`，因此會有以下狀況發生：
-
-```js
-sprite = {
-    body() {
-        return {
-            array: [],
-            object: {
-                demo: ''
-            }
-        }
-    },
-    watch: {
-        array(value) {
-            console.log(value)
-        }
-    }
-}
-// 這樣並不會有任何事件觸發
-sprite.array.push('123')
-sprite.object.demo = 5
-// 底下會觸發console.log(5)
-sprite.array = 5
-```
-
-對於array的watch，正在考慮是否要使用proxy的方法。
-
-針對object的話，請使用`refs`。
-
 ## Refs
 
 多層物件是難以避免的，把每個層級的物件都視為sprite是最好的實踐，接下來我們把Dave調往至某個單位。
@@ -373,11 +297,6 @@ let staff = {
     methods: {
         clockOn() {
             this.clock_on.push(Date.now())
-        }
-    },
-    watch: {
-        output(value) {
-            return Number(value)
         }
     },
     views: {

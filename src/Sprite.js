@@ -94,10 +94,11 @@ class Sprite {
 
     /**
      * 把值切回born賦予的狀態
+     * @param {string} [key] 是否針對某個屬性重設
      */
 
-    $reset() {
-        this._sprite.reset()
+    $reset(key) {
+        this._sprite.reset(key)
     }
 
     /**
@@ -171,11 +172,12 @@ class Sprite {
 
     /**
      * 狀態是否與born時的狀態相異
+     * @param {string} [key] 是否針對某個屬性作判別
      * @returns {boolean}
      */
 
-    $isChange() {
-        return this._sprite.isChange()
+    $isChange(key) {
+        return this._sprite.isChange(key)
     }
 
     /**

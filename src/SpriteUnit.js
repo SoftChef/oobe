@@ -11,7 +11,6 @@ class SpriteUnit extends Base {
         this.from = null
         this.base = base
         this.state = base.states.read
-        this.watch = base.options.watch
         this.options = base.options
         this.rawBody = ''
         this.rawData = null
@@ -60,16 +59,25 @@ class SpriteUnit extends Base {
         return !!this.status.init
     }
 
-    isChange() {
-        let change = this.rawBody !== JSON.stringify(this.body)
-        if (change) return true
-        this.eachRefs((sprite) => {
-            change = sprite.isChange()
-            if (change) {
-                return '_break'
+    isChange(key) {
+        if (key && this.getProperty(key)) {
+            let target = this.unit[key]
+            if (Helper.isSprite(target)) {
+                return target.isChange()
+            } else {
+                return target !== JSON.parse(this.rawBody)[key]
             }
-        })
-        return change
+        } else {
+            let change = this.rawBody !== JSON.stringify(this.body)
+            if (change) return true
+            this.eachRefs((sprite) => {
+                change = sprite.isChange()
+                if (change) {
+                    return '_break'
+                }
+            })
+            return change
+        }
     }
 
     export(name) {
@@ -147,9 +155,15 @@ class SpriteUnit extends Base {
         this.setBody(origin)
     }
 
-    reset() {
+    reset(key) {
         if (this.isLive()) {
-            this.setBody(JSON.parse(this.rawData))
+            if (key) {
+                if (this.getProperty(key)) {
+                    this.unit[key] = JSON.parse(this.rawBody)[key]
+                }
+            } else {
+                this.setBody(JSON.parse(this.rawData))
+            }
         }
     }
 
@@ -317,17 +331,13 @@ class SpriteUnit extends Base {
 
     setDefineProperty(key, protect) {
         return (value) => {
-            let trans
             if (this.isLive() === false) {
                 return this.$systemError('set', 'This Sprite is dead.')
             }
             if (protect) {
                 return this.$systemError('set', `This property(${key}) is protect.`)
             }
-            if (this.isInitialization() && this.watch[key]) {
-                trans = this.watch[key].call(this.unit, value, this.body[key])
-            }
-            this.body[key] = trans === undefined ? value : trans
+            this.body[key] = value
         }
     }
 }
