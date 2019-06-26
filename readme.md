@@ -4,7 +4,6 @@
 
 <p align="center" style="font-size:2.5em">javascript model library</p>
 
-<br>
 ---
 
 [![NPM Version][npm-image]][npm-url]
@@ -28,6 +27,10 @@ oobe目的為原始資料與控制器之間的中介者，具有資料轉換與�
 以下圖可以理解oobe在每個地方所擔任的腳色：
 
 ![flow](https://softchef.github.io/oobe/assets/flow.png)
+
+下圖可以理解使用oobe的心情：
+
+![fat_guy](https://softchef.github.io/oobe/assets/happy_fat_guy.png)
 
 ---
 
