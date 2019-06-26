@@ -30,7 +30,7 @@ oobe目的為原始資料與控制器之間的中介者，具有資料轉換與�
 
 下圖可以理解使用oobe的心情：
 
-![fat_guy](https://softchef.github.io/oobe/assets/happy_fat_guy.png)
+![fat_guy](https://softchef.github.io/oobe/assets/happy_fat_guy.gif)
 
 ---
 
