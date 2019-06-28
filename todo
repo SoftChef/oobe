@@ -38,6 +38,9 @@ v0.0.4:
     ✔ isChange(key) @done(19-06-21 15:21)
     ✔ Helper.verify @done(19-06-21 16:59)
 
+v0.0.5:
+    ☐ $fn不在使用bind，而是this.sprite，減少記憶體消耗
+
 不明的未來版本:
     ☐ proxy
     ☐ collection

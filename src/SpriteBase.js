@@ -42,6 +42,7 @@ class SpriteBase extends Base {
 
     init() {
         this.initStates()
+        this.initMethods()
     }
 
     initStates() {
@@ -49,6 +50,29 @@ class SpriteBase extends Base {
         for (let name of states) {
             this.states[name] = new State(name, this.options.states[name])
         }
+    }
+
+    initMethods() {
+        let self = this
+        this.Methods = function(unit) {
+            this.self = unit
+            this.methods = self.options.methods
+            this.containerMethods = self.container.options.methods
+        }
+        for (let key in this.container.options.methods) {
+            this.Methods.prototype[key] = function() {
+                return this.containerMethods[key].apply(this.self, arguments)
+            }
+        }
+        for (let key in this.options.methods) {
+            this.Methods.prototype[key] = function() {
+                return this.methods[key].apply(this.self, arguments)
+            }
+        }
+    }
+
+    getMethods(unit) {
+        return new this.Methods(unit)
     }
 
     create() {

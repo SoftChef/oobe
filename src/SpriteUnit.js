@@ -233,11 +233,12 @@ class SpriteUnit extends Base {
 
     initUnit() {
         this.unit = new Sprite(this)
-        this.unit.$fn = this.getMethods()
+        this.unit.$fn = this.base.getMethods(this.unit)
         this.unit.$views = {}
         for (let key in this.base.options.views) {
-            let view = this.base.options.views[key].bind(this.unit)
-            Object.defineProperty(this.unit.$views, key, { get: view })
+            Object.defineProperty(this.unit.$views, key, {
+                get: this.base.options.views[key].bind(this.unit)
+            })
         }
     }
 
@@ -272,19 +273,6 @@ class SpriteUnit extends Base {
                 this.$systemError('checkBody', `Body ${key} has system symbol $ and _.`)
             }
         }
-    }
-
-    getMethods() {
-        let fn = {}
-        let containerMethods = this.base.container.options.methods
-        for (let key in containerMethods) {
-            fn[key] = containerMethods[key].bind(this.unit)
-        }
-        let methods = this.base.options.methods
-        for (let key in methods) {
-            fn[key] = methods[key].bind(this.unit)
-        }
-        return fn
     }
 
     getRules(name, extra = []) {
