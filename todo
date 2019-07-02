@@ -39,10 +39,12 @@ v0.0.4:
     ✔ Helper.verify @done(19-06-21 16:59)
 
 v0.0.5:
-    ☐ $fn不在使用bind，而是this.sprite，減少記憶體消耗
+    ✔ $fn不在使用bind，而是new method，減少記憶體消耗 @done(19-07-02 14:09)
+    ☐ interface
+    ✔ book的精靈的生命週期圖片掛了 @done(19-07-02 14:04)
+    ✔ doc的樣式更新 @done(19-07-02 14:03)
 
 不明的未來版本:
-    ☐ proxy
     ☐ collection
     ☐ interchange
     ☐ event

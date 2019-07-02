@@ -30,7 +30,8 @@ class Container extends Base {
             locales: [false, ['object'], {}],
             configs: [false, ['object'], {}],
             methods: [false, ['object'], {}],
-            install: [false, ['function'], () => {}]
+            install: [false, ['function'], () => {}],
+            interface: [false, ['object'], {}]
         })
         this.init()
     }
@@ -42,6 +43,7 @@ class Container extends Base {
 
     init() {
         this.initRules()
+        this.initInterface()
         this.initSprites()
         this.initMessage()
     }
@@ -52,12 +54,56 @@ class Container extends Base {
 
     initSprites() {
         for (let key in this.options.sprites) {
-            this.spriteBases[key] = new SpriteBase(this, key, this.options.sprites[key])
+            let options = this.options.sprites[key]
+            let checkInterface = this.checkInterface(options)
+            if (checkInterface !== true) {
+                this.$systemError('initSprites', checkInterface)
+            }
+            this.spriteBases[key] = new SpriteBase(this, key, options)
         }
     }
 
     initMessage() {
         this.core.message.add(this.options.locales, this.prefix)
+    }
+
+    initInterface() {
+        this.interface = Helper.verify(this.options.interface, {
+            views: [false, ['array'], []],
+            states: [false, ['array'], []],
+            methods: [false, ['array'], []]
+        })
+    }
+
+    checkInterface(options) {
+        let views = this.verifyInterface('views', options)
+        let states = this.verifyInterface('states', options)
+        let methods = this.verifyInterface('methods', options)
+        if ((views.length + states.length + methods.length) === 0) {
+            return true
+        }
+        let message = 'Interface error for : '
+        if (views.length !== 0) {
+            message += `\nviews[${views.join()}]`
+        }
+        if (states.length !== 0) {
+            message += `\nstates[${states.join()}]`
+        }
+        if (methods.length !== 0) {
+            message += `\nmethods[${methods.join()}]`
+        }
+        return message
+    }
+
+    verifyInterface(name, options) {
+        let keys = Object.keys(options[name] || {})
+        let output = []
+        for (let key of this.interface[name]) {
+            if (keys.includes(key) === false) {
+                output.push(key)
+            }
+        }
+        return output
     }
 
     // ===================

@@ -154,8 +154,6 @@ dave.$export() // Dave
 
 ## 生命週期
 
-![life_cycle][life_cycle]
-
 ### Born 與 Origin
 
 人資希望了解更多Dave的事，希望Dave填入喜愛的食物。
@@ -257,7 +255,7 @@ dave.$reset()
 console.log(dave.name) // Dave
 ```
 
-不過等資料輸出在reset是個很愚蠢的行為，可以利用`dead`來放棄這次的變更。
+不過等資料輸出再reset是個很愚蠢的行為，可以利用`dead`來放棄這次的變更。
 
 ```js
 let outDave = dave.$out()

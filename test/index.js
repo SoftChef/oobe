@@ -27,6 +27,46 @@ const TestRawBody = JSON.stringify({
     }
 })
 
+const InterfaceTest = {
+    sprites: {
+        s: {
+            body() {},
+            views: {
+                test() {}
+            },
+            methods: {
+                test() {}
+            },
+            states: {
+                update() {}
+            }
+        }
+    },
+    interface: {
+        views: ['test'],
+        states: ['update'],
+        methods: ['test']
+    }
+}
+
+const InterfaceTestError = {
+    sprites: {
+        s: {
+            body() {},
+            views: {
+                test() {}
+            },
+            methods: {},
+            states: {}
+        }
+    },
+    interface: {
+        views: ['test', 'running'],
+        states: ['update'],
+        methods: ['test']
+    }
+}
+
 describe('#Core', () => {
     before(function() {
         this.oobe = new Oobe()
@@ -67,7 +107,6 @@ describe('#Core', () => {
         expect(Oobe.helper.isSprite(unit.name)).to.equal(false)
         expect(Oobe.helper.isSprite(unit.attributes)).to.equal(true)
     })
-
 })
 
 describe('#Sprite', () => {
@@ -246,6 +285,14 @@ describe('#Sprite', () => {
     it('checkbody', function() {
         expect(() => {
             this.oobe.make('CognitoUser', 'checkbody')
+        }).to.throw(Error)
+    })
+
+    it('interface', function() {
+        let oobe = new Oobe()
+        oobe.join('if', InterfaceTest)
+        expect(() => {
+            oobe.join('ife', InterfaceTestError)
         }).to.throw(Error)
     })
 })
