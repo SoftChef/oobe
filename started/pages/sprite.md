@@ -154,8 +154,6 @@ dave.$export() // Dave
 
 ## 生命週期
 
-![life_cycle][life_cycle]
-
 ### Born 與 Origin
 
 人資希望了解更多Dave的事，希望Dave填入喜愛的食物。
@@ -173,7 +171,7 @@ let staff = {
 
 Dave給我們的答案是`北部粽`，由於資料庫中沒有`北部粽`這個選擇，所以我們必須攔截成正常人比較所知的資料。
 
-> born是接收資料的接口，只能宣告一次，在宣告前有大部分的功能是無法使用的。
+> `$born`是接收資料的接口，只能宣告一次，在宣告前有大部分的功能是無法使用的。
 
 ```js
 let born = function(data) {
@@ -257,7 +255,7 @@ dave.$reset()
 console.log(dave.name) // Dave
 ```
 
-不過等資料輸出在reset是個很愚蠢的行為，可以利用`dead`來放棄這次的變更。
+不過等資料輸出再reset是個很愚蠢的行為，可以利用`dead`來放棄這次的變更。
 
 ```js
 let outDave = dave.$out()

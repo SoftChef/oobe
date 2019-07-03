@@ -323,7 +323,7 @@
 </code></pre>
 <h2 id="&#x8207;sprite&#x4E92;&#x52D5;">&#x8207;Sprite&#x4E92;&#x52D5;</h2>
 <p><code>container</code>&#x662F;&#x4E00;&#x500B;&#x7D44;(Group)&#xFF0C;&#x610F;&#x5473;&#x8457;&#x5B83;&#x53EF;&#x4EE5;&#x5B9A;&#x7FA9;&#x901A;&#x7528;&#x8CC7;&#x6599;&#x65BC;&#x540C;&#x7FA4;&#x7D44;<code>sprite</code>&#x4E2D;&#xFF0C;&#x5305;&#x62EC;&#x5728;<a href="rule_and_locale.html">rule&amp;locale</a>&#x7AE0;&#x7BC0;&#x4E2D;&#x63D0;&#x5230;&#x7684;&#x898F;&#x5247;&#x8207;&#x8A9E;&#x7CFB;&#x5171;&#x4EAB;&#x3002;</p>
-<h3 id="&#x8A2D;&#x5B9A;config">&#x8A2D;&#x5B9A;(Config)</h3>
+<h3 id="&#x8A2D;&#x5B9A;---config">&#x8A2D;&#x5B9A; - Config</h3>
 <p><code>Config</code>&#x5354;&#x52A9;&#x6211;&#x5011;&#x5B9A;&#x7FA9;&#x4E00;&#x4E9B;&#x958B;&#x767C;&#x74B0;&#x5883;&#x6216;&#x8005;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#x8CC7;&#x6599;&#xFF0C;&#x4F8B;&#x5982;&#x516C;&#x53F8;&#x7D71;&#x7DE8;&#x3002;</p>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> company = {
     sprites: { staff, unit },
@@ -333,7 +333,7 @@
 }
 <span class="hljs-built_in">console</span>.log(dave.$configs.vat_number) <span class="hljs-comment">// 94879487</span>
 </code></pre>
-<h4 id="&#x8CC7;&#x6599;&#x4EA4;&#x63DB;install">&#x8CC7;&#x6599;&#x4EA4;&#x63DB;(Install)</h4>
+<h4 id="&#x8CC7;&#x6599;&#x4EA4;&#x63DB;---install">&#x8CC7;&#x6599;&#x4EA4;&#x63DB; - Install</h4>
 <p>&#x4F46;&#x662F;&#x9019;&#x500B;&#x6A21;&#x578B;&#x53EF;&#x80FD;&#x6703;&#x5957;&#x7528;&#x5728;&#x773E;&#x591A;&#x516C;&#x53F8;&#x7684;&#x7CFB;&#x7D71;&#x4E0A;&#xFF0C;&#x7D71;&#x7DE8;&#x5C31;&#x4E0D;&#x80FD;&#x5BEB;&#x6B7B;&#xFF0C;<code>install</code>&#x9019;&#x500B;&#x9031;&#x671F;&#x6703;&#x5728;&#x5F15;&#x5165;core&#x6642;&#x89F8;&#x767C;&#xFF0C;&#x4E26;&#x5354;&#x52A9;&#x4EA4;&#x63DB;<code>configs</code>&#x3002;</p>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> company = {
     sprites: { staff, unit },
@@ -351,7 +351,7 @@
 <span class="hljs-built_in">console</span>.log(result) <span class="hljs-comment">// &apos;success&apos;</span>
 <span class="hljs-built_in">console</span>.log(dave.$configs.vat_number) <span class="hljs-comment">// 54875487</span>
 </code></pre>
-<h3 id="&#x901A;&#x7528;&#x65B9;&#x6CD5;method">&#x901A;&#x7528;&#x65B9;&#x6CD5;(Method)</h3>
+<h3 id="&#x901A;&#x7528;&#x65B9;&#x6CD5;---method">&#x901A;&#x7528;&#x65B9;&#x6CD5; - Method</h3>
 <p>&#x5728;<code>container</code>&#x5B9A;&#x7FA9;&#x7684;&#x65B9;&#x6CD5;&#x6703;&#x5728;&#x5EFA;&#x7ACB;<code>sprite</code>&#x6642;&#x8F49;&#x79FB;&#x904E;&#x53BB;&#xFF0C;&#x82E5;<code>sprite</code>&#x5B9A;&#x7FA9;&#x4E86;&#x76F8;&#x540C;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5247;<code>sprite</code>&#x512A;&#x5148;&#x3002;</p>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> company = {
     sprites: { staff, unit },
@@ -368,7 +368,7 @@
 }
 */</span>
 </code></pre>
-<h3 id="&#x5DE5;&#x5177;&#x7D44;util">&#x5DE5;&#x5177;&#x7D44;(Util)</h3>
+<h3 id="&#x5DE5;&#x5177;&#x7D44;---util">&#x5DE5;&#x5177;&#x7D44; - Util</h3>
 <p><code>Util</code>&#x662F;&#x4E00;&#x500B;&#x64F4;&#x5C55;&#x5916;&#x639B;&#x63A5;&#x53E3;&#xFF0C;&#x8207;method&#x4E0D;&#x540C;&#x7684;&#x9EDE;&#x5728;&#x65BC;&#x5B83;&#x4E26;&#x4E0D;&#x6703;&#x5F37;&#x5236;&#x5C07;<code>this</code>&#x5C0E;&#x5411;<code>sprite</code>&#xFF0C;&#x53E6;&#x4E00;&#x500B;&#x76EE;&#x7684;&#x662F;&#x6211;&#x5011;&#x4E26;&#x4E0D;&#x9F13;&#x52F5;&#x628A;&#x5957;&#x4EF6;&#x5F9E;&#x7CBE;&#x9748;&#x5F15;&#x5165;&#xFF0C;&#x9019;&#x6A23;&#x6703;&#x4F7F;&#x7684;&#x958B;&#x767C;&#x4EBA;&#x54E1;&#x6709;&#x6A5F;&#x6703;&#x7684;&#x932F;&#x904E;&#x67D0;&#x9805;&#x4F9D;&#x8CF4;&#x5957;&#x4EF6;&#x3002;</p>
 <pre><code class="lang-js"><span class="hljs-comment">// &#x5728; container &#x5BA3;&#x544A;&#x5F15;&#x7528;moment&#x53EF;&#x4EE5;&#x5E6B;&#x52A9;&#x958B;&#x767C;&#x4EBA;&#x54E1;&#x4E86;&#x89E3;&#x4F9D;&#x8CF4;&#x5957;&#x4EF6;&#x3002;</span>
 <span class="hljs-keyword">import</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;moment&apos;</span>
@@ -378,13 +378,40 @@
 }
 <span class="hljs-built_in">console</span>.log(dave.$utils.moment) <span class="hljs-comment">// print moment module</span>
 </code></pre>
-<h2 id="&#x66F4;&#x591A;&#x7684;&#x72C0;&#x614B;states">&#x66F4;&#x591A;&#x7684;&#x72C0;&#x614B;(States)</h2>
+<h2 id="&#x72C0;&#x614B;---states">&#x72C0;&#x614B; - States</h2>
 <p>&#x9664;&#x4E86;&#x7CFB;&#x7D71;&#x5EFA;&#x69CB;&#x7684;CRUD state&#x4E4B;&#x5916;&#xFF0C;&#x96A8;&#x610F;&#x547C;&#x53EB;&#x4EFB;&#x4F55;&#x7684;<code>distortion</code>&#x90FD;&#x6703;&#x64F2;&#x51FA;&#x932F;&#x8AA4;&#xFF0C;&#x82E5;&#x9700;&#x8981;&#x64F4;&#x5C55;&#x66F4;&#x591A;&#x7684;&#x72C0;&#x614B;&#xFF0C;&#x5FC5;&#x9808;&#x5728;<code>container</code>&#x4E2D;&#x5BA3;&#x544A;&#x3002;</p>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> company = {
     sprites: { staff, unit },
     states: [<span class="hljs-string">&apos;adminUpdate&apos;</span>]
 }
 dave.$distortion(<span class="hljs-string">&apos;adminUpdate&apos;</span>) <span class="hljs-comment">// success</span>
+</code></pre>
+<h2 id="&#x898F;&#x7BC4;&#x4ECB;&#x9762;---interface">&#x898F;&#x7BC4;&#x4ECB;&#x9762; - Interface</h2>
+<p>Interface&#x53EF;&#x4EE5;&#x898F;&#x7BC4;Sprite&#x5FC5;&#x9808;&#x5BE6;&#x4F5C;&#x67D0;&#x4E9B;&#x65B9;&#x6CD5;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> interface = {
+    views: [<span class="hljs-string">&apos;name&apos;</span>],
+    states: [<span class="hljs-string">&apos;update&apos;</span>],
+    methods: [<span class="hljs-string">&apos;rename&apos;</span>]
+}
+<span class="hljs-keyword">let</span> sprite = {
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name
+        }
+    },
+    states: {
+        update: {}
+    },
+    methods: {
+        rename() {}
+    }
+}
+<span class="hljs-keyword">let</span> container = {
+    sprites: { sprtie },
+    interface
+}
+
+oobe.join(<span class="hljs-string">&apos;interface&apos;</span>, container) <span class="hljs-comment">// (&#x2609;&#x434;&#x2299;)!! Oobe::Container =&gt; initSprites -&gt; Interface error for : views[name]</span>
 </code></pre>
 <h2 id="&#x7E3D;&#x7D50;">&#x7E3D;&#x7D50;</h2>
 <p>&#x4EE5;&#x4E0B;&#x958B;&#x59CB;&#x6280;&#x8853;&#x7E3D;&#x7D50;&#xFF1A;</p>
@@ -447,7 +474,7 @@ dave.$distortion(<span class="hljs-string">&apos;adminUpdate&apos;</span>) <span
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"容器","level":"2.1.5","depth":2,"next":{"title":"資源","level":"3.1","depth":1,"ref":"","articles":[{"title":"document","level":"3.1.1","depth":2,"url":"https://softchef.github.io/oobe/docs/","ref":"https://softchef.github.io/oobe/docs/","articles":[]},{"title":"demo","level":"3.1.2","depth":2,"url":"https://softchef.github.io/oobe/web/","ref":"https://softchef.github.io/oobe/web/","articles":[]},{"title":"npm","level":"3.1.3","depth":2,"url":"https://www.npmjs.com/package/oobe","ref":"https://www.npmjs.com/package/oobe","articles":[]},{"title":"github","level":"3.1.4","depth":2,"url":"https://github.com/SoftChef/oobe","ref":"https://github.com/SoftChef/oobe","articles":[]}]},"previous":{"title":"精靈","level":"2.1.4","depth":2,"path":"pages/sprite.md","ref":"./pages/sprite.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/container.md","mtime":"2019-06-18T02:17:42.153Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-06-21T09:43:20.123Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"容器","level":"2.1.5","depth":2,"next":{"title":"資源","level":"3.1","depth":1,"ref":"","articles":[{"title":"document","level":"3.1.1","depth":2,"url":"https://softchef.github.io/oobe/docs/","ref":"https://softchef.github.io/oobe/docs/","articles":[]},{"title":"demo","level":"3.1.2","depth":2,"url":"https://softchef.github.io/oobe/web/","ref":"https://softchef.github.io/oobe/web/","articles":[]},{"title":"npm","level":"3.1.3","depth":2,"url":"https://www.npmjs.com/package/oobe","ref":"https://www.npmjs.com/package/oobe","articles":[]},{"title":"github","level":"3.1.4","depth":2,"url":"https://github.com/SoftChef/oobe","ref":"https://github.com/SoftChef/oobe","articles":[]}]},"previous":{"title":"精靈","level":"2.1.4","depth":2,"path":"pages/sprite.md","ref":"./pages/sprite.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/container.md","mtime":"2019-07-03T06:35:11.258Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-03T09:20:52.083Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
