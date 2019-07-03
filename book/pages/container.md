@@ -14,7 +14,7 @@ let company = {
 
 `container`是一個組(Group)，意味著它可以定義通用資料於同群組`sprite`中，包括在[rule&locale](./rule_and_locale.md)章節中提到的規則與語系共享。
 
-### 設定(Config)
+### 設定 - Config
 
 `Config`協助我們定義一些開發環境或者是固定的資料，例如公司統編。
 
@@ -28,7 +28,7 @@ let company = {
 console.log(dave.$configs.vat_number) // 94879487
 ```
 
-#### 資料交換(Install)
+#### 資料交換 - Install
 
 但是這個模型可能會套用在眾多公司的系統上，統編就不能寫死，`install`這個週期會在引入core時觸發，並協助交換`configs`。
 
@@ -50,7 +50,7 @@ console.log(result) // 'success'
 console.log(dave.$configs.vat_number) // 54875487
 ```
 
-### 通用方法(Method)
+### 通用方法 - Method
 
 在`container`定義的方法會在建立`sprite`時轉移過去，若`sprite`定義了相同的方法，則`sprite`優先。
 
@@ -71,7 +71,7 @@ console.log(dave.$fn.bodyToPrettyJSON())
 */
 ```
 
-### 工具組(Util)
+### 工具組 - Util
 
 `Util`是一個擴展外掛接口，與method不同的點在於它並不會強制將`this`導向`sprite`，另一個目的是我們並不鼓勵把套件從精靈引入，這樣會使的開發人員有機會的錯過某項依賴套件。
 
@@ -85,7 +85,7 @@ let company = {
 console.log(dave.$utils.moment) // print moment module
 ```
 
-## 更多的狀態(States)
+## 狀態 - States
 
 除了系統建構的CRUD state之外，隨意呼叫任何的`distortion`都會擲出錯誤，若需要擴展更多的狀態，必須在`container`中宣告。
 
@@ -95,6 +95,37 @@ let company = {
     states: ['adminUpdate']
 }
 dave.$distortion('adminUpdate') // success
+```
+
+## 規範介面 - Interface
+
+Interface可以規範Sprite必須實作某些方法。
+
+```js
+let interface = {
+    views: ['name'],
+    states: ['update'],
+    methods: ['rename']
+}
+let sprite = {
+    body() {
+        return {
+            name
+        }
+    },
+    states: {
+        update: {}
+    },
+    methods: {
+        rename() {}
+    }
+}
+let container = {
+    sprites: { sprtie },
+    interface
+}
+
+oobe.join('interface', container) // (☉д⊙)!! Oobe::Container => initSprites -> Interface error for : views[name]
 ```
 
 ## 總結

@@ -12,7 +12,15 @@ const SpriteBase = require('./SpriteBase')
  * @property {object} [configs] 通用設定
  * @property {object.<fn>} [methods] 通用方法
  * @property {function} [install] 在加入core時觸發
+ * @property {object.<array>} [interface] 建立設計規範，不符合規範的精靈會被擲出錯誤
  * @see {@link SpriteBase}
+ * @example
+ * // interface
+ * let interface = {
+ *     views: ['...'],
+ *     states: ['...'],
+ *     methods: ['...']
+ * }
  */
 
 class Container extends Base {
@@ -96,10 +104,10 @@ class Container extends Base {
     }
 
     verifyInterface(name, options) {
-        let keys = Object.keys(options[name] || {})
+        let target = options[name] || {}
         let output = []
         for (let key of this.interface[name]) {
-            if (keys.includes(key) === false) {
+            if (target[key] == null) {
                 output.push(key)
             }
         }
