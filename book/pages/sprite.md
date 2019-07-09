@@ -264,6 +264,22 @@ outDave.$dead()
 console.log(dave.name) // Dave
 ```
 
+### 綁定方法
+
+我得承認，呼叫methods非常醜，有違咱們工程師的美感，基本上我們會試著這樣簡化。
+
+```js
+let clockOn = dave.$fn.clockOn
+clockOn() // 這樣會報錯，原因在於this導向的問題
+```
+
+這時候使用`$bind`就可以完美執行了
+
+```js
+let clockOn = dave.$bind('clockOn')
+clockOn() // 讚
+```
+
 ---
 
 ## 總結

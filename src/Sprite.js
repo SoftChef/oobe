@@ -75,6 +75,15 @@ class Sprite {
     }
 
     /**
+     * 綁定一個method
+     * @returns {function}
+     */
+
+    $bind(name) {
+        return this._sprite.bind(name)
+    }
+
+    /**
      * 獲取body的所有值(為複製對象)
      * @returns {object}
      */

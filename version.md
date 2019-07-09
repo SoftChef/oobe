@@ -10,3 +10,12 @@
 4. 移除bridge：考慮使用event來取代
 2. reset & isChange 可以針對key來做微調
 3. helper verify：一個簡單的驗證功能
+
+## ver 0.0.5
+
+1. 加入interface
+
+## ver 0.0.6
+
+1. 加入$bind
+2. 優化程式碼

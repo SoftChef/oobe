@@ -180,6 +180,13 @@ describe('#Sprite', () => {
         expect(this.user.$fn.getName()).to.equal('admin')
     })
 
+    it('bind', function() {
+        let getName = this.user.$fn.getName
+        let getNameBind = this.user.$bind('getName')
+        expect(() => { getName() }).to.throw(Error)
+        expect(getNameBind()).to.equal('admin')
+    })
+
     it('copy', function() {
         let sprite = this.user.$copy()
         expect(Oobe.helper.isSprite(sprite)).to.equal(true)

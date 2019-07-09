@@ -197,6 +197,14 @@ class SpriteUnit extends Base {
         }
     }
 
+    bind(name) {
+        let target = this.unit.$fn[name]
+        if (target == null) {
+            return this.$systemError('bind', `Method(${name}) not found`)
+        }
+        return this.unit.$fn[name].bind(this.unit.$fn)
+    }
+
     born(data) {
         if (this.isReady()) {
             this.$systemError('born', 'Sprite is ready.')

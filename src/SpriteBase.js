@@ -53,20 +53,17 @@ class SpriteBase extends Base {
     }
 
     initMethods() {
-        let self = this
+        let methods = {
+            ...this.container.options.methods,
+            ...this.options.methods
+        }
         this.Methods = function(unit) {
-            this.self = unit
-            this.methods = self.options.methods
-            this.containerMethods = self.container.options.methods
+            this._target = unit
+            this._methods = methods
         }
-        for (let key in this.container.options.methods) {
+        for (let key in methods) {
             this.Methods.prototype[key] = function() {
-                return this.containerMethods[key].apply(this.self, arguments)
-            }
-        }
-        for (let key in this.options.methods) {
-            this.Methods.prototype[key] = function() {
-                return this.methods[key].apply(this.self, arguments)
+                return this._methods[key].apply(this._target, arguments)
             }
         }
     }
