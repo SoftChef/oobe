@@ -23,3 +23,4 @@
 ## ver 0.0.7
 
 1. 修復$rule
+2. 加入instanceof
