@@ -40,13 +40,15 @@ v0.0.4:
 
 v0.0.5:
     ✔ $fn不在使用bind，而是new method，減少記憶體消耗 @done(19-07-02 14:09)
-    ☐ interface
+    ✔ interface @done(19-07-15 16:25)
     ✔ book的精靈的生命週期圖片掛了 @done(19-07-02 14:04)
     ✔ doc的樣式更新 @done(19-07-02 14:03)
+
+v0.0.7:
+    ✔ instanceof @done(19-07-15 17:54)
 
 不明的未來版本:
     ☐ collection
     ☐ interchange
     ☐ event
-    ☐ diff
     ☐ mixins

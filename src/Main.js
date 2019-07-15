@@ -1,3 +1,4 @@
+const Base = require('./Base')
 const Core = require('./Core')
 const Helper = require('./Helper')
 
@@ -5,8 +6,9 @@ const Helper = require('./Helper')
  * Main export class
  */
 
-class Oobe {
+class Oobe extends Base {
     constructor() {
+        super('Oobe')
         this._core = new Core()
     }
 
@@ -89,6 +91,25 @@ class Oobe {
 
     setLocale(locale) {
         this._core.setLocale(locale)
+    }
+
+    /**
+     * 驗證該sprite是否為指定的精靈
+     * @param {string} containerName 指定container
+     * @param {string} name 精靈name
+     * @param {sprite} target 目標對象
+     * @returns {boolean}
+     */
+
+    instanceof(containerName, name, target) {
+        if (Helper.isSprite(target) === false) {
+            this.$systemError('instanceof', `Target not a sprite.`)
+        }
+        let container = target._container
+        let spriteBase = target._sprite.base
+        let targetContainer = this._core.containers[containerName]
+        let targetSpriteBase = targetContainer.spriteBases[name]
+        return container === targetContainer && spriteBase === targetSpriteBase
     }
 }
 

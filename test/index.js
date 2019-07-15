@@ -107,6 +107,13 @@ describe('#Core', () => {
         expect(Oobe.helper.isSprite(unit.name)).to.equal(false)
         expect(Oobe.helper.isSprite(unit.attributes)).to.equal(true)
     })
+
+    it('instanceof', function() {
+        let unit = this.oobe.make('CognitoUser', 'user').$born(RawData)
+        expect(this.oobe.instanceof('CognitoUser', 'user', unit)).to.equal(true)
+        expect(this.oobe.instanceof('CognitoUser', 'attributes', unit.attributes)).to.equal(true)
+        expect(this.oobe.instanceof('CognitoUser', 'attributes', unit)).to.equal(false)
+    })
 })
 
 describe('#Sprite', () => {
@@ -215,7 +222,12 @@ describe('#Sprite', () => {
         expect(user.$export('delete')).to.equal('delete')
     })
 
-    it('container rules and validate', function() {
+    it('container rule', function() {
+        let rules = this.user.$rules('name')
+        expect(Array.isArray(rules)).to.equal(true)
+    })
+
+    it('container validate', function() {
         this.user.name = 'ffff'
         expect(this.user.$validate().success).to.equal(true)
         this.user.name = 'ff--ff'

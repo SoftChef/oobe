@@ -280,8 +280,6 @@ let clockOn = dave.$bind('clockOn')
 clockOn() // 讚
 ```
 
----
-
 ## 總結
 
 恭喜下班，Dave辛苦了，我們來看看Staff這個sprite最終呈現的模樣。

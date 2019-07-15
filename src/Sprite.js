@@ -107,7 +107,7 @@ class Sprite {
      */
 
     $reset(key) {
-        this._sprite.reset(key)
+        return this._sprite.reset(key)
     }
 
     /**
@@ -118,7 +118,7 @@ class Sprite {
      */
 
     $rules(name, extra = []) {
-        this._sprite.getRules(name, extra)
+        return this._sprite.getRules(name, extra)
     }
 
     /**
