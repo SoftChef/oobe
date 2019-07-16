@@ -20,11 +20,11 @@ class Helper {
      * @param {*} target 任何型態都行
      * @returns {string} example之外的型態則回傳typeof的值
      * @example
-     * getType([]) // array
-     * getType(null) // empty
-     * getType(undefined) // empty
-     * getType(NaN) // NaN
-     * getType(/test/) // regexp
+     *  getType([]) // array
+     *  getType(null) // empty
+     *  getType(undefined) // empty
+     *  getType(NaN) // NaN
+     *  getType(/test/) // regexp
      */
 
     static getType(target) {
@@ -50,12 +50,12 @@ class Helper {
      * @param {*} target 標的物
      * @returns {boolean}
      * @example
-     * isEmpty(0) //false
-     * isEmpty('') // true
-     * isEmpty([]) // true
-     * isEmpty({}) // true
-     * isEmpty(null) // true
-     * isEmpty(undefined) // true
+     *  isEmpty(0) //false
+     *  isEmpty('') // true
+     *  isEmpty([]) // true
+     *  isEmpty({}) // true
+     *  isEmpty(null) // true
+     *  isEmpty(undefined) // true
      */
 
     static isEmpty(target) {
@@ -93,11 +93,11 @@ class Helper {
      * @param {object.<array>} validates 驗證模型[required:boolean, types:array, default:*]
      * @returns {object}
      * @example
-     * let options = verify({ a: 5 }, {
+     *  let options = verify({ a: 5 }, {
      *      a: [true, ['number'], 0],
      *      b: [false, ['number'], 'test']
-     * })
-     * console.log(options.b) // test
+     *  })
+     *  console.log(options.b) // test
      */
 
     static verify(data, validates) {
@@ -124,6 +124,48 @@ class Helper {
             newData[key] = target || defaultValue
         }
         return newData
+    }
+
+    /**
+     * 能夠針對更細項的物件做合成
+     * @static
+     * @param {object} target 合成物件
+     * @param {object} sources 合成來源
+     * @returns {object}
+     * @example
+     *  let target = {
+     *      a: 5,
+     *      b: 10,
+     *      c: {
+     *          a: 7,
+     *          b: 8
+     *      }
+     *  }
+     *  let output = deepObjectAssign(target, {
+     *      a: 8,
+     *      c: {
+     *          a: 10
+     *      }
+     *  })
+     *  console.log(output.a) // 8
+     *  console.log(output.b) // 10
+     *  console.log(output.c.a) // 10
+     *  console.log(output.c.b) // 8
+     */
+
+    static deepObjectAssign(target, sources = {}) {
+        let output = {}
+        for (let key in target) {
+            let data = target[key]
+            let sour = sources[key]
+            let type = Helper.getType(data)
+            if (type === 'object') {
+                output[key] = Helper.deepObjectAssign(data, sour)
+            } else {
+                output[key] = sour === undefined ? data : sour
+            }
+        }
+        return output
     }
 }
 

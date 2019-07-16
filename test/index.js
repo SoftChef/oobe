@@ -290,6 +290,15 @@ describe('#Sprite', () => {
         expect(user.name).to.equal('123')
     })
 
+    it('raw', function() {
+        let data = this.user.$raw()
+        expect(data.Username).to.equal('admin')
+        let newData = this.user.$raw({
+            Username: '1234'
+        })
+        expect(newData.Username).to.equal('1234')
+    })
+
     it('meg', function() {
         expect(this.user.$meg('aaaa')).to.equal('big')
         expect(this.user.$meg('#sc.require', { value: 123 })).to.equal('Value 123 must be required.')
@@ -372,5 +381,26 @@ describe('#Helper', () => {
                 a: [true, 123]
             })
         }).to.throw(Error)
+    })
+
+    it('deepObjectAssign', function() {
+        let target = {
+            a: 5,
+            b: 10,
+            c: {
+                a: 7,
+                b: 8
+            }
+        }
+        let output = Oobe.helper.deepObjectAssign(target, {
+            a: 8,
+            c: {
+                a: 10
+            }
+        })
+        expect(output.a).to.equal(8)
+        expect(output.b).to.equal(10)
+        expect(output.c.a).to.equal(10)
+        expect(output.c.b).to.equal(8)
     })
 })

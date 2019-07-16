@@ -28,6 +28,15 @@ class Sprite {
     }
 
     /**
+     * 獲取原始資料
+     * @returns {*}
+     */
+
+    $raw(assign) {
+        return this._sprite.getRawdata(assign)
+    }
+
+    /**
      * 獲取語系資源
      * @param {string} name 語系的對應key
      * @param {object} [value] 動態參數

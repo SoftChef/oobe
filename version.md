@@ -24,3 +24,8 @@
 
 1. 修復$rule
 2. 加入instanceof
+
+## ver 0.0.8
+
+1. 加入$raw
+2. 加入helper deepObjectAssign

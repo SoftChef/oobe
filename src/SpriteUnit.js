@@ -291,6 +291,11 @@ class SpriteUnit extends Base {
         return this.base.container.getRules(this.unit, rules.concat(extra))
     }
 
+    getRawdata(assign) {
+        let data = JSON.parse(this.rawData)
+        return assign ? Helper.deepObjectAssign(data, assign) : data
+    }
+
     validate(name) {
         let value = this.getProperty(name)
         let rules = this.base.options.rules[name]
