@@ -56,6 +56,24 @@ let container = {
     }
 }
 ```
+---
+
+### 所有的方法都會忽略空值
+
+空值不做驗證，可以用以下方法使空值也做檢查。
+
+> 空值的定義可以參考[helper.isEmpty](./helper.md)
+
+```js
+let container = {
+    rules: {
+        max: {
+            handler: max,
+            allowEmpty: false
+        }
+    }
+}
+```
 
 ---
 

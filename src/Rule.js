@@ -1,4 +1,5 @@
 const Base = require('./Base')
+const Helper = require('./Helper')
 
 class Rule extends Base {
     constructor() {
@@ -7,13 +8,16 @@ class Rule extends Base {
     }
 
     add(name, rule) {
-        if (typeof rule !== 'function') {
-            this.$systemError('add', `Rule not a function.`)
-        }
         if (this.items[name]) {
             this.$systemError('add', `The name(${name}) already exists.`)
         }
-        this.items[name] = rule
+        if (typeof rule === 'function') {
+            rule = { handler: rule }
+        }
+        this.items[name] = Helper.verify(rule, {
+            handler: [true, ['function']],
+            allowEmpty: [false, ['boolean'], true]
+        })
     }
 
     addMultiple(rules, prefix = '') {
@@ -35,7 +39,10 @@ class Rule extends Base {
             params[data[0]] = data[1] === undefined ? true : data[1]
         }
         return function(value) {
-            return rule.call(target, value, params)
+            if (rule.allowEmpty && Helper.isEmpty(value)) {
+                return true
+            }
+            return rule.handler.call(target, value, params)
         }
     }
 

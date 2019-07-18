@@ -99,6 +99,7 @@ describe('#Core', () => {
         expect(rules[1]('')).to.equal(true)
         expect(rules[1]('test')).to.equal(true)
         expect(rules[1](1234)).to.equal('error')
+        expect(rules[1]('')).to.equal(true)
     })
 
     it('make sprite unit', function() {

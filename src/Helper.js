@@ -121,7 +121,7 @@ class Helper {
             if (types && target != null && !types.includes(type)) {
                 throw new Error(`Helper::verify => Type(${key}::${type}) error, need ${types.join(' or ')}`)
             }
-            newData[key] = target || defaultValue
+            newData[key] = target === undefined ? defaultValue : target
         }
         return newData
     }

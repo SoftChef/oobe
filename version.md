@@ -29,3 +29,9 @@
 
 1. 加入$raw
 2. 加入helper deepObjectAssign
+
+## ver 0.0.9
+
+1. 驗證預設允許為空值
+2. rule新的表示法
+3. 修復verify的預設值無法回傳0, false, ''等錯誤

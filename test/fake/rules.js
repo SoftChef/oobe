@@ -1,9 +1,12 @@
 module.exports = {
     name: 'sc',
     rules: {
-        require(value, params) {
-            let message = this.$meg('#sc.require', { value })
-            return this.$helper.isEmpty(value) ? message : true
+        require: {
+            allowEmpty: false,
+            handler(value, params) {
+                let message = this.$meg('#sc.require', { value })
+                return this.$helper.isEmpty(value) ? message : true
+            }
         },
         string(value) {
             return typeof value === 'string' ? true : 'error'
