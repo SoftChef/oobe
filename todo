@@ -47,6 +47,11 @@ v0.0.5:
 v0.0.7:
     ✔ instanceof @done(19-07-15 17:54)
 
+v0.1.0:
+    ☐ 自定義驗證錯誤
+    ☐ 未實體化驗證
+    ☐ self
+
 不明的未來版本:
     ☐ collection
     ☐ interchange
