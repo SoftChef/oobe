@@ -152,6 +152,15 @@ class Container extends Base {
         return this.core.rule.validate(target, value, this.getNames(array))
     }
 
+    validateForSprite(baseName, data) {
+        let base = this.spriteBases[baseName]
+        if (base == null) {
+            return this.$systemError('make', `Sprite ${baseName} not found.`)
+        }
+        let sprites = base.create()
+        return sprites.validateAll(data)
+    }
+
     // ===================
     //
     // public

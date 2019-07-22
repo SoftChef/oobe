@@ -296,25 +296,25 @@ class SpriteUnit extends Base {
         return assign ? Helper.deepObjectAssign(data, assign) : data
     }
 
-    validate(name) {
-        let value = this.getProperty(name)
+    validate(value, name) {
         let rules = this.base.options.rules[name]
         return this.base.container.validate(this.unit, value, rules)
     }
 
-    validateAll() {
+    validateAll(target) {
         let keys = Object.keys(this.base.options.rules)
         let result = {}
         let success = true
         for (let name of keys) {
-            let check = this.validate(name)
+            let value = target[name]
+            let check = this.validate(value, name)
             if (check !== true) {
                 result[name] = check
                 success = false
             }
         }
         this.eachRefs((sprite, name) => {
-            result[name] = sprite.validateAll()
+            result[name] = sprite.validateAll(target[name])
             if (result[name].success !== true) {
                 success = false
             }

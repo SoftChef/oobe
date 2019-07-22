@@ -115,6 +115,13 @@ describe('#Core', () => {
         expect(this.oobe.instanceof('CognitoUser', 'attributes', unit.attributes)).to.equal(true)
         expect(this.oobe.instanceof('CognitoUser', 'attributes', unit)).to.equal(false)
     })
+
+    it('validateForSprite', function() {
+        let validateBad = this.oobe.validateForSprite('CognitoUser', 'user', {})
+        expect(validateBad.success).to.equal(false)
+        let validateGood = this.oobe.validateForSprite('CognitoUser', 'user', { name: '123456' })
+        expect(validateGood.success).to.equal(true)
+    })
 })
 
 describe('#Sprite', () => {

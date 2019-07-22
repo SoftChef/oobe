@@ -35,3 +35,7 @@
 1. 驗證預設允許為空值
 2. rule新的表示法
 3. 修復verify的預設值無法回傳0, false, ''等錯誤
+
+## ver 0.1.0
+
+1. validateForSprite指定某個sprite的驗證規則

@@ -76,6 +76,14 @@ class Core extends Base {
         return this.rule.getMore(this.systemSprite, array)
     }
 
+    validateForSprite(containerName, spriteName, data) {
+        let container = this.containers[containerName]
+        if (container == null) {
+            return this.$systemError('validateForSprite', `Container name(${containerName}) not found.`)
+        }
+        return container.validateForSprite(spriteName, data)
+    }
+
     // ===================
     //
     // set
