@@ -280,6 +280,36 @@ let clockOn = dave.$bind('clockOn')
 clockOn() // 讚
 ```
 
+### Self
+
+body關係到資料存取，所以我們放了一個self來存垃圾。
+
+> self接收一個參數，是與born相同的資料源，意味著self是在觸發born後才會建立。
+
+> 注意！reset會把self重新執行一次。
+
+```js
+let staff = {
+    body() {
+        return {
+            name: ''
+        }
+    },
+    self(data) {
+        return {
+            name: this.name,
+            createdAt: data.createdAt
+        }
+    }
+}
+console.log(dave.$self.name) // 報錯，$self還沒被建構
+let dave = oobe.make('company', 'staff').$born({
+    name: 'dave',
+    createdAt: 123456
+})
+console.log(dave.$self.name) // 'dave'
+```
+
 ## 總結
 
 恭喜下班，Dave辛苦了，我們來看看Staff這個sprite最終呈現的模樣。

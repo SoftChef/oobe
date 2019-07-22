@@ -175,6 +175,7 @@ class SpriteUnit extends Base {
         this.eachRefs((sprite, key) => {
             sprite.isReady() ? sprite.setBody(reborn[key]) : sprite.born(reborn[key])
         })
+        this.unit.$self = this.base.options.self.call(this.unit, data)
     }
 
     eachRefs(callback) {

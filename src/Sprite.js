@@ -19,6 +19,7 @@ class Sprite {
     constructor(sprite) {
         this._sprite = sprite
         this._container = this._sprite.base.container
+        this.$self = null
         this.$utils = this._container.options.utils
         this.$helper = Helper
         this.$configs = this._container.getConfigs()

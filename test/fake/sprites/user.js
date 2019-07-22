@@ -5,6 +5,13 @@ module.exports = {
         }
     },
 
+    self() {
+        return {
+            name: this.name,
+            test: 'test'
+        }
+    },
+
     refs: {
         attributes: 'attributes'
     },

@@ -29,6 +29,7 @@ class SpriteBase extends Base {
         this.options = Helper.verify(options, {
             body: [true, ['function']],
             refs: [false, ['object'], {}],
+            self: [false, ['function'], () => { return {} }],
             born: [false, ['function'], function(data) { return data }],
             views: [false, ['object'], {}],
             rules: [false, ['object'], {}],

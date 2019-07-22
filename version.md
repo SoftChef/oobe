@@ -39,3 +39,7 @@
 ## ver 0.1.0
 
 1. validateForSprite指定某個sprite的驗證規則
+
+## ver 0.1.1
+
+1. self function

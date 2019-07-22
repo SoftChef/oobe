@@ -207,6 +207,14 @@ describe('#Sprite', () => {
         expect(Oobe.helper.isSprite(sprite)).to.equal(true)
     })
 
+    it('self', function() {
+        expect(this.user.$self.name).to.equal('admin')
+        expect(this.user.$self.test).to.equal('test')
+        this.user.$self.name = '我4垃圾'
+        this.user.$reset()
+        expect(this.user.$self.name).to.equal('admin')
+    })
+
     it('distortions', function() {
         let user = this.user.$copy().$distortion('create')
         expect(user.$state).to.equal('create')
