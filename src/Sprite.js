@@ -30,6 +30,7 @@ class Sprite {
 
     /**
      * 獲取原始資料
+     * @param {object} assign 使用deepObjectAssign取代原始資料值
      * @returns {*}
      */
 
@@ -216,6 +217,16 @@ class Sprite {
 
     $distortion(name) {
         return getUnit(this._sprite.distortion(name))
+    }
+
+    /**
+     * 轉換狀態，$distortion的縮寫
+     * @param {string} name 指定狀態名稱
+     * @returns {this}
+     */
+
+    $dist(name) {
+        return this.$distortion(name)
     }
 }
 

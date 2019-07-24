@@ -42,4 +42,9 @@
 
 ## ver 0.1.1
 
-1. self function
+1. self
+
+## ver 0.1.2
+
+1. 修正json parse對於undefined的錯誤
+2. $distortion縮寫$dist

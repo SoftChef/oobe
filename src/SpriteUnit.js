@@ -18,6 +18,14 @@ class SpriteUnit extends Base {
         this.init()
     }
 
+    dataParse(data = null) {
+        return JSON.parse(data)
+    }
+
+    dataStringify(data) {
+        return JSON.stringify(data) || ''
+    }
+
     getBody() {
         let output = Helper.jpjs(this.body)
         this.eachRefs((ref, key) => {
@@ -65,10 +73,10 @@ class SpriteUnit extends Base {
             if (Helper.isSprite(target)) {
                 return target.isChange()
             } else {
-                return target !== JSON.parse(this.rawBody)[key]
+                return target !== this.dataParse(this.rawBody)[key]
             }
         } else {
-            let change = this.rawBody !== JSON.stringify(this.body)
+            let change = this.rawBody !== this.dataStringify(this.body)
             if (change) return true
             this.eachRefs((sprite) => {
                 change = sprite.isChange()
@@ -159,10 +167,10 @@ class SpriteUnit extends Base {
         if (this.isLive()) {
             if (key) {
                 if (this.getProperty(key)) {
-                    this.unit[key] = JSON.parse(this.rawBody)[key]
+                    this.unit[key] = this.dataParse(this.rawBody)[key]
                 }
             } else {
-                this.setBody(JSON.parse(this.rawData))
+                this.setBody(this.dataParse(this.rawData))
             }
         }
     }
@@ -212,8 +220,8 @@ class SpriteUnit extends Base {
         }
         if (this.isLive()) {
             this.setBody(data)
-            this.rawBody = JSON.stringify(this.body)
-            this.rawData = JSON.stringify(data)
+            this.rawBody = this.dataStringify(this.body)
+            this.rawData = this.dataStringify(data)
             this.base.options.created.call(this.unit)
             this.status.ready = true
             return this
@@ -225,8 +233,8 @@ class SpriteUnit extends Base {
         this.initBody()
         this.checkBody()
         this.initStatus()
-        this.rawBody = JSON.stringify(this.body)
-        this.rawData = JSON.stringify(this.toOrigin())
+        this.rawBody = this.dataStringify(this.body)
+        this.rawData = this.dataStringify(this.toOrigin())
         this.propertyNames = Object.keys(this.body)
         this.status.init = true
     }
@@ -293,7 +301,7 @@ class SpriteUnit extends Base {
     }
 
     getRawdata(assign) {
-        let data = JSON.parse(this.rawData)
+        let data = this.dataParse(this.rawData)
         return assign ? Helper.deepObjectAssign(data, assign) : data
     }
 

@@ -339,6 +339,11 @@ describe('#Sprite', () => {
             oobe.join('ife', InterfaceTestError)
         }).to.throw(Error)
     })
+
+    it('raw data is null', function() {
+        let rawnull = this.oobe.make('CognitoUser', 'rawnull').$born()
+        rawnull.$raw()
+    })
 })
 
 describe('#Helper', () => {

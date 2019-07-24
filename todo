@@ -51,11 +51,15 @@ v0.1.0:
     ✔ 未實體化驗證 @done(19-07-22 11:07)
 
 v0.1.1:
-    ☐ self
+    ✔ self @done(19-07-23 10:30)
+
+v0.1.2:
     ☐ 資料交易
+    ☐ collection
+    ☐ raw的doc沒有解釋完畢
 
 不明的未來版本:
-    ☐ collection
+    
     ☐ interchange
     ☐ event
     ☐ mixins

@@ -1,11 +1,13 @@
 const user = require('./sprites/user')
 const locales = require('./locales')
+const rawnull = require('./sprites/rawnull')
 const attributes = require('./sprites/attributes')
 const checkbody = require('./sprites/checkbody')
 
 module.exports = {
     sprites: {
         user,
+        rawnull,
         checkbody,
         attributes
     },
