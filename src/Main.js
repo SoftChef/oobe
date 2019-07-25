@@ -18,7 +18,7 @@ class Oobe extends Base {
      * @param {object} params 傳遞參數
      */
 
-    $on(channelName, name, callback) {
+    on(channelName, name, callback) {
         return this._core.event.on(channelName, name, callback)
     }
 
@@ -28,7 +28,7 @@ class Oobe extends Base {
      * @param {string} name 事件id
      */
 
-    $off(channelName, name) {
+    off(channelName, name) {
         return this._core.event.off(channelName, name)
     }
 
@@ -38,7 +38,7 @@ class Oobe extends Base {
      * @param {object} params 傳遞參數
      */
 
-    $emit(channelName, params) {
+    emit(channelName, params) {
         return this._core.event.emit(this, channelName, params)
     }
 

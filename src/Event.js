@@ -28,15 +28,15 @@ class Event extends Base {
         this.getChannel(channelName).removeListener(name)
     }
 
-    emit(target, channelName, params) {
+    emit(target, channelName, params = {}) {
         this.trigger(channelName, target, params)
     }
 
-    trigger(channelName, target, data) {
-        let context = { ...this.profile, data }
-        this.getChannel(channelName).broadcast(target, context)
+    trigger(channelName, target, data, context) {
+        let newContext = { channelName, target, ...this.profile, context }
+        this.getChannel(channelName).broadcast(target, newContext, data)
         if (this.parent) {
-            this.parent.trigger(this.type + '.' + channelName, target, context)
+            this.parent.trigger(this.type + '.' + channelName, target, data, newContext)
         }
     }
 }
@@ -58,18 +58,20 @@ class Channel extends Base {
         if (typeof callback !== 'function') {
             this.$systemError('addListener', `Callback must be a function`, callback)
         }
-        this.checkListener(name)
+        if (this.listeners[name]) {
+            this.$systemError('addListener', `Listener ${name} already exists.`)
+        }
         this.listeners[name] = new Listener(this, name, callback)
     }
 
-    removeListener() {
+    removeListener(name) {
         this.checkListener(name)
         delete this.listeners[name]
     }
 
-    broadcast(target, context) {
+    broadcast(target, data, context) {
         for (let listener of Object.values(this.listeners)) {
-            listener.trigger(target, context)
+            listener.trigger(target, data, context)
         }
     }
 }
@@ -82,8 +84,8 @@ class Listener extends Base {
         this.callback = callback
     }
 
-    trigger(target, context) {
-        this.callback.call(target, context)
+    trigger(target, data, context) {
+        this.callback.call(target, data, context)
     }
 }
 

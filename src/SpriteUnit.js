@@ -24,7 +24,7 @@ class SpriteUnit extends Base {
     }
 
     dataStringify(data) {
-        return JSON.stringify(data) || ''
+        return JSON.stringify(data)
     }
 
     getBody() {
@@ -103,11 +103,7 @@ class SpriteUnit extends Base {
     }
 
     toOrigin() {
-        let output = this.options.origin.call(this.unit)
-        this.eachRefs((ref, key) => {
-            output[key] = ref.toOrigin()
-        })
-        return output
+        return this.options.origin.call(this.unit)
     }
 
     out() {
@@ -229,6 +225,7 @@ class SpriteUnit extends Base {
             this.rawData = this.dataStringify(data)
             this.base.options.created.call(this.unit)
             this.status.ready = true
+            this.emit('$ready')
             return this
         }
     }
@@ -370,7 +367,7 @@ class SpriteUnit extends Base {
     }
 
     emit(channelName, params) {
-        this.event.emit(this.sprite, channelName, params)
+        this.event.emit(this.unit, channelName, params)
     }
 }
 
