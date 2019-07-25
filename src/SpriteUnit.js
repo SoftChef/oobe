@@ -1,4 +1,5 @@
 const Base = require('./Base')
+const Event = require('./Event')
 const Sprite = require('./Sprite')
 const Helper = require('./Helper')
 
@@ -102,7 +103,11 @@ class SpriteUnit extends Base {
     }
 
     toOrigin() {
-        return this.options.origin.call(this.unit)
+        let output = this.options.origin.call(this.unit)
+        this.eachRefs((ref, key) => {
+            output[key] = ref.toOrigin()
+        })
+        return output
     }
 
     out() {
@@ -232,11 +237,16 @@ class SpriteUnit extends Base {
         this.initUnit()
         this.initBody()
         this.checkBody()
+        this.initEvent()
         this.initStatus()
         this.rawBody = this.dataStringify(this.body)
         this.rawData = this.dataStringify(this.toOrigin())
         this.propertyNames = Object.keys(this.body)
         this.status.init = true
+    }
+
+    initEvent() {
+        this.event = new Event('sprite', this.base.event, {})
     }
 
     initStatus() {
@@ -349,6 +359,18 @@ class SpriteUnit extends Base {
             }
             this.body[key] = value
         }
+    }
+
+    on(channelName, name, callback) {
+        this.event.on(channelName, name, callback)
+    }
+
+    off(channelName, name) {
+        this.event.off(channelName, name)
+    }
+
+    emit(channelName, params) {
+        this.event.emit(this.sprite, channelName, params)
     }
 }
 

@@ -1,4 +1,5 @@
 const Base = require('./Base')
+const Event = require('./Event')
 const State = require('./State')
 const Helper = require('./Helper')
 const Configs = require('./Configs')
@@ -42,8 +43,15 @@ class SpriteBase extends Base {
     }
 
     init() {
+        this.initEvent()
         this.initStates()
         this.initMethods()
+    }
+
+    initEvent() {
+        this.event = new Event('base', this.container.event, {}, {
+            name: this.name
+        })
     }
 
     initStates() {

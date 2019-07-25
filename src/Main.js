@@ -13,6 +13,36 @@ class Oobe extends Base {
     }
 
     /**
+     * 觸發一個事件
+     * @param {string} channelName 事件名稱
+     * @param {object} params 傳遞參數
+     */
+
+    $on(channelName, name, callback) {
+        return this._core.event.on(channelName, name, callback)
+    }
+
+    /**
+     * 移除一個事件
+     * @param {string} channelName 事件名稱
+     * @param {string} name 事件id
+     */
+
+    $off(channelName, name) {
+        return this._core.event.off(channelName, name)
+    }
+
+    /**
+     * 發送一個事件
+     * @param {string} channelName 事件名稱
+     * @param {object} params 傳遞參數
+     */
+
+    $emit(channelName, params) {
+        return this._core.event.emit(this, channelName, params)
+    }
+
+    /**
      * 獲取語系資源
      * @param {string} name 語系的對應key
      * @param {object} [value] 動態參數

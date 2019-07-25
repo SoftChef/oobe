@@ -1,5 +1,6 @@
 const Base = require('./Base')
 const Rule = require('./Rule')
+const Event = require('./Event')
 const Helper = require('./Helper')
 const Message = require('./Message')
 const Configs = require('./Configs')
@@ -20,7 +21,12 @@ class Core extends Base {
     //
 
     init() {
+        this.initEvent()
         this.initSystemContainer()
+    }
+
+    initEvent() {
+        this.event = new Event('core', null, {}, {})
     }
 
     initSystemContainer() {

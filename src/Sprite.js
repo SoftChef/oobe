@@ -29,6 +29,36 @@ class Sprite {
     }
 
     /**
+     * 觸發一個事件
+     * @param {string} channelName 事件名稱
+     * @param {object} params 傳遞參數
+     */
+
+    $on(channelName, name, callback) {
+        return this._sprite.on(channelName, name, callback)
+    }
+
+    /**
+     * 移除一個事件
+     * @param {string} channelName 事件名稱
+     * @param {string} name 事件id
+     */
+
+    $off(channelName, name) {
+        return this._sprite.off(channelName, name)
+    }
+
+    /**
+     * 發送一個事件
+     * @param {string} channelName 事件名稱
+     * @param {object} params 傳遞參數
+     */
+
+    $emit(channelName, params) {
+        return this._sprite.emit(channelName, params)
+    }
+
+    /**
      * 獲取原始資料
      * @param {object} assign 使用deepObjectAssign取代原始資料值
      * @returns {*}

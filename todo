@@ -54,12 +54,15 @@ v0.1.1:
     ✔ self @done(19-07-23 10:30)
 
 v0.1.2:
-    ☐ 資料交易
+    ✔ event @done(19-07-25 17:00)
+    ✔ 資料交易 @done(19-07-25 10:01)
+    ✔ raw的doc沒有解釋完畢 @done(19-07-25 10:01)
+    ☐ event測試還沒寫
+
+v0.1.3:    
     ☐ collection
-    ☐ raw的doc沒有解釋完畢
+    ☐ interchange
+    
 
 不明的未來版本:
-    
-    ☐ interchange
-    ☐ event
     ☐ mixins

@@ -1,4 +1,5 @@
 const Base = require('./Base')
+const Event = require('./Event')
 const Helper = require('./Helper')
 const SpriteBase = require('./SpriteBase')
 
@@ -50,10 +51,17 @@ class Container extends Base {
     //
 
     init() {
+        this.initEvent()
         this.initRules()
         this.initInterface()
         this.initSprites()
         this.initMessage()
+    }
+
+    initEvent() {
+        this.event = new Event('container', this.core.event, {}, {
+            name: this.name
+        })
     }
 
     initRules() {

@@ -48,3 +48,5 @@
 
 1. 修正json parse對於undefined的錯誤
 2. $distortion縮寫$dist
+3. 修正toOrigin不會獲取ref的錯誤
+4. event
