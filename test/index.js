@@ -348,16 +348,16 @@ describe('#Sprite', () => {
     it('event', function() {
         let count = 0
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
-        this.oobe.on('container.base.sprite.ready', 'key', (context) => {
+        this.oobe.on('container.sprite.unit.$ready', 'key', (context) => {
             count += 1
         })
-        rawnull.$on('ready', 'readyTest', (context) => {
+        rawnull.$on('$ready', 'readyTest', (context) => {
             count += 1
         })
-        rawnull.$on('ready', 'readyTest2', (context) => {
+        rawnull.$on('$ready', 'readyTest2', (context) => {
             count += 1
         })
-        rawnull.$off('ready', 'readyTest')
+        rawnull.$off('$ready', 'readyTest')
         rawnull.$born()
         expect(count).to.equal(2)
     })

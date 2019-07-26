@@ -49,7 +49,7 @@ class SpriteBase extends Base {
     }
 
     initEvent() {
-        this.event = new Event('base', this.container.event, {}, {
+        this.event = new Event('sprite', this.container.event, {}, {
             name: this.name
         })
     }

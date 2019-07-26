@@ -1,4 +1,4 @@
-* [介紹](README.md).
+* [介紹](README.md)
 ***
 * 教學
     * [開始](./pages/getting_started.md)
@@ -6,10 +6,13 @@
     * [協助](./pages/helper.md)
     * [精靈](./pages/sprite.md)
     * [容器](./pages/container.md)
-***
-* 進階
     * [事件](./pages/event.md)
-    * [集合](./pages/collection.md)
+***
+* 集合
+    * [定義](./pages/collection.md)
+    * [加入]
+    * [交易]
+    * [獲取]
 ***
 * 資源
     * [document](https://softchef.github.io/oobe/docs/)

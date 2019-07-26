@@ -243,7 +243,7 @@ class SpriteUnit extends Base {
     }
 
     initEvent() {
-        this.event = new Event('sprite', this.base.event, {})
+        this.event = new Event('unit', this.base.event, {})
     }
 
     initStatus() {
