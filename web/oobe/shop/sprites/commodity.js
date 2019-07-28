@@ -1,17 +1,17 @@
 export default {
     body() {
         return {
-            no: 0,
+            id: this.$helper.generateId(),
             name: '',
             tags: [],
             price: 0,
-            created_at: 0,
+            createdAt: Date.now(),
             categories: []
         }
     },
 
     rules: {
-        no: ['#sc.require', '#sc.number'],
+        id: ['#sc.require'],
         name: ['#sc.require'],
         price: ['#sc.require', '#sc.number'],
         categories: ['#sc.require']
@@ -30,8 +30,8 @@ export default {
         tags() {
             return this.tags.join(', ')
         },
-        created_at() {
-            return this.$utils.moment(this.created_at).format('YYYY-MM-DD HH:mm:ss')
+        createdAt() {
+            return this.$utils.moment(this.createdAt).format('YYYY-MM-DD HH:mm:ss')
         },
         categories() {
             let output = []
@@ -47,11 +47,15 @@ export default {
             fixed: '*'
         },
         create: {
-            fixed: ['no'],
+            fixed: ['id'],
             hidden: ['created_at']
         },
         update: {
-            fixed: ['no', 'name']
+            fixed: ['id', 'name']
         }
+    },
+
+    collection: {
+        key: 'id'
     }
 }

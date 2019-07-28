@@ -98,7 +98,7 @@ let target = {
         b: 8
     }
 }
-let output = deepObjectAssign(target, {
+let output = oobe.helper.deepObjectAssign(target, {
     a: 8,
     c: {
         a: 10
@@ -108,4 +108,15 @@ console.log(output.a) // 8
 console.log(output.b) // 10
 console.log(output.c.a) // 10
 console.log(output.c.b) // 8
+```
+
+---
+
+### generateId()
+
+產生一組仿uuid隨機字串。
+
+```js
+let text = oobe.helper.generateId()
+console.log(text) // f1c5aaaa-a8a8-4394-9bcf-3272678efbb7
 ```

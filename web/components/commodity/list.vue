@@ -6,10 +6,11 @@
             @click.stop="push({name: 'commodity.create'})">
             {{ $t('create') }}
         </button>
-        <table class="table">
+        <div v-if="!list">Loading...</div>
+        <table v-else class="table">
             <thead>
                 <tr>
-                    <th scope="col">{{ $oobe.meg('$shop.no') }}</th>
+                    <th scope="col">{{ $oobe.meg('$shop.id') }}</th>
                     <th scope="col">{{ $oobe.meg('$shop.name') }}</th>
                     <th scope="col">{{ $oobe.meg('$shop.price') }}</th>
                     <th scope="col">{{ $oobe.meg('$shop.tags') }}</th>
@@ -18,16 +19,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in items" :key="'key' + index">
-                    <td>{{ item.no }}</td>
+                <tr v-for="(item, index) in list" :key="'key' + index">
+                    <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.price }}</td>
                     <td>{{ item.$views.tags }}</td>
                     <td>{{ item.$views.categories }}</td>
                     <td>
-                        <button type="button" @click.stop="push({name: 'commodity.overview', query: { no: item.no }})">{{ $t('view') }}</button>
-                        <button type="button" @click.stop="push({name: 'commodity.update', query: { no: item.no }})">{{ $t('edit') }}</button>
-                        <button type="button" @click.stop="items.splice(index, 1)">{{ $t('delete') }}</button>
+                        <button type="button" @click.stop="push({name: 'commodity.overview', query: { id: item.id }})">{{ $t('view') }}</button>
+                        <button type="button" @click.stop="push({name: 'commodity.update', query: { id: item.id }})">{{ $t('edit') }}</button>
+                        <button type="button" @click.stop="remove(item.id)">{{ $t('delete') }}</button>
                     </td>
                 </tr>
             </tbody>
@@ -37,8 +38,13 @@
 
 <script>
     module.exports = {
-        computed: Vuex.mapState({
-            items: state => state.items
-        })
+        mounted () {
+            this.fetchList()
+        },
+        methods: Vuex.mapActions(['fetchList', 'remove']),
+        computed: Vuex.mapGetters(['list']),
+        destroyed() {
+            this.$store.commit('destroyed')
+        }
     }
 </script>

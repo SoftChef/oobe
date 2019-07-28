@@ -1,7 +1,8 @@
 const Base = require('./Base')
+const Helper = require('./Helper')
 
 class Event extends Base {
-    constructor(type, parent, profile) {
+    constructor(type, parent, profile = {}) {
         super('Event')
         this.type = type
         this.parent = parent
@@ -20,23 +21,27 @@ class Event extends Base {
         return this.channels[name]
     }
 
-    on(channelName, name, callback) {
-        this.getChannel(channelName).addListener(name, callback)
+    on(channelName, callback) {
+        return this.getChannel(channelName).addListener(callback)
     }
 
-    off(channelName, name) {
-        this.getChannel(channelName).removeListener(name)
+    off(channelName, target) {
+        let event = typeof target === 'string' ? target : target.id
+        this.getChannel(channelName).removeListener(event)
     }
 
-    emit(target, channelName, params = {}) {
+    emit(target, channelName, params = []) {
+        if (Array.isArray(params) === false) {
+            this.$systemError('emit', 'Params not a array.')
+        }
         this.trigger(channelName, target, params)
     }
 
-    trigger(channelName, target, data, context) {
+    trigger(channelName, target, params, context) {
         let newContext = { channelName, target, ...this.profile, context }
-        this.getChannel(channelName).broadcast(target, newContext, data)
+        this.getChannel(channelName).broadcast(target, newContext, params)
         if (this.parent) {
-            this.parent.trigger(this.type + '.' + channelName, target, data, newContext)
+            this.parent.trigger(this.type + '.' + channelName, target, params, newContext)
         }
     }
 }
@@ -48,44 +53,47 @@ class Channel extends Base {
         this.listenerKeys = null
     }
 
-    checkListener(name) {
-        if (this.listeners[name] == null) {
-            this.$systemError('checkListener', `Listener name(${name}) not found.`)
+    checkListener(id) {
+        if (this.listeners[id] == null) {
+            this.$systemError('checkListener', `Listener id(${id}) not found.`)
         }
     }
 
-    addListener(name, callback) {
+    addListener(callback) {
         if (typeof callback !== 'function') {
             this.$systemError('addListener', `Callback must be a function`, callback)
         }
-        if (this.listeners[name]) {
-            this.$systemError('addListener', `Listener ${name} already exists.`)
-        }
-        this.listeners[name] = new Listener(this, name, callback)
+        let id = Helper.generateId()
+        this.listeners[id] = new Listener(this, id, callback)
+        return this.listeners[id].export
     }
 
-    removeListener(name) {
-        this.checkListener(name)
-        delete this.listeners[name]
+    removeListener(id) {
+        this.checkListener(id)
+        delete this.listeners[id]
     }
 
-    broadcast(target, data, context) {
+    broadcast(target, context, params) {
         for (let listener of Object.values(this.listeners)) {
-            listener.trigger(target, data, context)
+            listener.trigger(target, context, params)
         }
     }
 }
 
 class Listener extends Base {
-    constructor(channel, name, callback) {
+    constructor(channel, id, callback) {
         super('Listener')
-        this.name = name
+        this.id = id
         this.channel = channel
         this.callback = callback
+        this.export = {
+            id: this.id,
+            off: () => { this.channel.removeListener(this.id) }
+        }
     }
 
-    trigger(target, data, context) {
-        this.callback.call(target, data, context)
+    trigger(target, context, params) {
+        this.callback.call(target, { listener: this.export, ...context }, ...params)
     }
 }
 

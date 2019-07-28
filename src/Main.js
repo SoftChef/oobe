@@ -18,8 +18,8 @@ class Oobe extends Base {
      * @param {object} params 傳遞參數
      */
 
-    on(channelName, name, callback) {
-        return this._core.event.on(channelName, name, callback)
+    on(channelName, callback) {
+        return this._core.event.on(channelName, callback)
     }
 
     /**
@@ -38,7 +38,7 @@ class Oobe extends Base {
      * @param {object} params 傳遞參數
      */
 
-    emit(channelName, params) {
+    emit(channelName, ...params) {
         return this._core.event.emit(this, channelName, params)
     }
 
@@ -75,6 +75,18 @@ class Oobe extends Base {
 
     batch(containerName, spriteName, data) {
         return this._core.batch(containerName, spriteName, data)
+    }
+
+    /**
+     * 建立精靈集合。
+     * @param {string} containerName container的名稱
+     * @param {string} spriteName sprite的名稱
+     * @param {object} optnios collection的選項
+     * @returns {@link Collection}
+     */
+
+    collection(containerName, spriteName, optnios) {
+        return this._core.makeCollection(containerName, spriteName, optnios)
     }
 
     /**

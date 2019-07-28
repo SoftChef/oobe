@@ -23,29 +23,50 @@ class Sprite {
         this.$utils = this._container.options.utils
         this.$helper = Helper
         this.$configs = this._container.getConfigs()
-        Object.defineProperty(this, '$live', { get: () => this._sprite.status.live })
-        Object.defineProperty(this, '$state', { get: () => this._sprite.state.name })
-        Object.defineProperty(this, '$ready', { get: () => this._sprite.status.ready })
+    }
+
+    /**
+     * 是否宣告過out且沒有dead and reborn
+     */
+
+    get $live() {
+        return this._sprite.status.live
+    }
+
+    /**
+     * 獲取目前狀態
+     */
+
+    get $state() {
+        return this._sprite.state.name
+    }
+
+    /**
+     * 是否宣告完born
+     */
+
+    get $ready() {
+        return this._sprite.status.ready
     }
 
     /**
      * 觸發一個事件
      * @param {string} channelName 事件名稱
-     * @param {object} params 傳遞參數
+     * @param {object} callback 觸發事件
      */
 
-    $on(channelName, name, callback) {
-        return this._sprite.on(channelName, name, callback)
+    $on(channelName, callback) {
+        return this._sprite.event.on(channelName, callback)
     }
 
     /**
      * 移除一個事件
      * @param {string} channelName 事件名稱
-     * @param {string} name 事件id
+     * @param {string} id 事件id
      */
 
-    $off(channelName, name) {
-        return this._sprite.off(channelName, name)
+    $off(channelName, id) {
+        return this._sprite.event.off(channelName, id)
     }
 
     /**
@@ -54,8 +75,8 @@ class Sprite {
      * @param {object} params 傳遞參數
      */
 
-    $emit(channelName, params) {
-        return this._sprite.emit(channelName, params)
+    $emit(channelName, ...params) {
+        return this._sprite.event.emit(this, channelName, params)
     }
 
     /**

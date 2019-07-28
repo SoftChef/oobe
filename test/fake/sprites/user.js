@@ -50,6 +50,10 @@ module.exports = {
         }
     },
 
+    collection: {
+        key: 'name'
+    },
+
     states: {
         read: {
             fixed: [],

@@ -4,6 +4,7 @@ const State = require('./State')
 const Helper = require('./Helper')
 const Configs = require('./Configs')
 const SpriteUnit = require('./SpriteUnit')
+const CollectionUnit = require('./CollectionUnit')
 
 /**
  * @namespace SpriteBase
@@ -37,19 +38,21 @@ class SpriteBase extends Base {
             origin: [false, ['function'], function() { return this.$body() }],
             states: [false, ['object'], {}],
             methods: [false, ['object'], {}],
-            created: [false, ['function'], () => {}]
+            created: [false, ['function'], () => {}],
+            collection: [false, ['object'], {}]
         })
         this.init()
     }
 
     init() {
         this.initEvent()
+        this.initViews()
         this.initStates()
         this.initMethods()
     }
 
     initEvent() {
-        this.event = new Event('sprite', this.container.event, {}, {
+        this.event = new Event('sprite', this.container.event, {
             name: this.name
         })
     }
@@ -58,6 +61,21 @@ class SpriteBase extends Base {
         let states = this.container.options.states.concat(Configs.defaultState)
         for (let name of states) {
             this.states[name] = new State(name, this.options.states[name])
+        }
+    }
+
+    initViews() {
+        let views = this.options.views
+        this.Views = function(unit) {
+            this._views = views
+            this._target = unit
+        }
+        for (let key in views) {
+            Object.defineProperty(this.Views.prototype, key, {
+                get: function() {
+                    return this._views[key].apply(this._target, arguments)
+                }
+            })
         }
     }
 
@@ -77,12 +95,20 @@ class SpriteBase extends Base {
         }
     }
 
+    getViews(unit) {
+        return new this.Views(unit)
+    }
+
     getMethods(unit) {
         return new this.Methods(unit)
     }
 
     create() {
         return new SpriteUnit(this)
+    }
+
+    createCollection() {
+        return new CollectionUnit(this)
     }
 }
 

@@ -87,6 +87,17 @@ class Helper {
     }
 
     /**
+     * 是否為集合
+     * @static
+     * @param {*} target 標的物
+     * @returns {boolean}
+     */
+
+    static isCollection(target) {
+        return target instanceof Collection
+    }
+
+    /**
      * 驗證和回傳預設與付值結果
      * @static
      * @param {object} data 標的物
@@ -105,9 +116,7 @@ class Helper {
         for (let key in validates) {
             let target = data[key]
             let validate = validates[key]
-            let required = validate[0]
-            let types = validate[1]
-            let defaultValue = validate[2]
+            let [required, types, defaultValue] = validate
             let type = Helper.getType(target)
             if (Helper.getType(required) !== 'boolean') {
                 throw new Error(`Helper::verify => Required must be a boolean`)
@@ -167,8 +176,27 @@ class Helper {
         }
         return output
     }
+
+    /**
+     * 模擬uuid的建構方法，但不是真的uuid，不保證不會重複，但很難重複
+     * @static
+     * @returns {string}
+     */
+
+    static generateId() {
+        var now = Date.now()
+        if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+            now += performance.now()
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = (now + Math.random() * 16) % 16 | 0
+            now = Math.floor(now / 16)
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
+        })
+    }
 }
 
 module.exports = Helper
 
 const Sprite = require('./Sprite')
+const Collection = require('./Collection')

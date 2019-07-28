@@ -141,11 +141,13 @@ sprite = {
 
 > refs的sprite會隨著主sprite變換狀態
 
+> `dist`是`distortion`的簡寫指令
+
 ```js
 dave.$isFixed('name') // true
 dave.$distortion('create')
 dave.$isFixed('name') // false
-dave.$distortion('delete')
+dave.$dist('delete')
 dave.$export() // Dave
 ```
 

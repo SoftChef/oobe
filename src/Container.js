@@ -59,7 +59,7 @@ class Container extends Base {
     }
 
     initEvent() {
-        this.event = new Event('container', this.core.event, {}, {
+        this.event = new Event('container', this.core.event, {
             name: this.name
         })
     }
@@ -180,6 +180,14 @@ class Container extends Base {
             return this.$systemError('make', `Sprite ${baseName} not found.`)
         }
         return base.create()
+    }
+
+    makeCollection(baseName, options) {
+        let base = this.spriteBases[baseName]
+        if (base == null) {
+            return this.$systemError('makeCollection', `Sprite ${baseName} not found.`)
+        }
+        return base.createCollection(options)
     }
 }
 

@@ -1,10 +1,10 @@
 <template>
     <div class="row justify-content-md-center">
-        <div v-if="sprite">
+        <div v-if="!sprite">Loading...</div>
+        <div v-else>
             <legend>{{ $t('update_commodity') }}</legend>
             <commodity-form :sprite="sprite"></commodity-form>
             <button
-                v-if="sprite"
                 type="button"
                 class="btn btn-outline-primary mb-3"
                 :disabled="!sprite.$isChange()"
@@ -19,32 +19,26 @@
     module.exports = {
         data() {
             return {
-                sprite: null
+                sprite: this.$oobe.make('shop', 'commodity').$dist('update')
             }
         },
-        computed: Vuex.mapState({
-            items: state => state.items
-        }),
-        mounted () {
-            this.$store.dispatch('first', this.$route.query.no).then((sprite) => {
-                this.sprite = sprite.$out().$distortion('update')
-            })
-        },
         methods: {
+            ...Vuex.mapActions(['fetch']),
             submit() {
                 let validate = this.sprite.$validate()
                 if (validate.success) {
-                    this.sprite.$revive()
+                    this.$store.dispatch('update', this.sprite.$export())
                     this.$router.push({ name: 'commodity.list' })
                 } else {
                     alert(JSON.stringify(validate.result, null, 4))
                 }
             }
         },
-        destroyed () {
-            if (this.sprite.$live) {
-                this.sprite.$dead()
-            }
+        mounted () {
+            this.fetch(this.$route.query.id)
+                .then((data) => {
+                    this.sprite.$born(data)
+                })
         }
     }
 </script>

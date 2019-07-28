@@ -225,7 +225,7 @@ class SpriteUnit extends Base {
             this.rawData = this.dataStringify(data)
             this.base.options.created.call(this.unit)
             this.status.ready = true
-            this.emit('$ready')
+            this.event.emit(this.unit, '$ready')
             return this
         }
     }
@@ -243,7 +243,7 @@ class SpriteUnit extends Base {
     }
 
     initEvent() {
-        this.event = new Event('unit', this.base.event, {})
+        this.event = new Event('unit', this.base.event)
     }
 
     initStatus() {
@@ -258,12 +258,7 @@ class SpriteUnit extends Base {
     initUnit() {
         this.unit = new Sprite(this)
         this.unit.$fn = this.base.getMethods(this.unit)
-        this.unit.$views = {}
-        for (let key in this.base.options.views) {
-            Object.defineProperty(this.unit.$views, key, {
-                get: this.base.options.views[key].bind(this.unit)
-            })
-        }
+        this.unit.$views = this.base.getViews(this.unit)
     }
 
     initBody() {
@@ -356,18 +351,6 @@ class SpriteUnit extends Base {
             }
             this.body[key] = value
         }
-    }
-
-    on(channelName, name, callback) {
-        this.event.on(channelName, name, callback)
-    }
-
-    off(channelName, name) {
-        this.event.off(channelName, name)
-    }
-
-    emit(channelName, params) {
-        this.event.emit(this.unit, channelName, params)
     }
 }
 

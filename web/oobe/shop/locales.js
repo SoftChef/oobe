@@ -1,6 +1,6 @@
 export default {
     'en-us': {
-        'no': 'No',
+        'id': 'Id',
         'tags': 'Tags',
         'name': 'Name',
         'price': 'Price',

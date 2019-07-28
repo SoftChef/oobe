@@ -348,18 +348,87 @@ describe('#Sprite', () => {
     it('event', function() {
         let count = 0
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
-        this.oobe.on('container.sprite.unit.$ready', 'key', (context) => {
+        this.oobe.on('container.sprite.unit.$ready', (context) => {
             count += 1
         })
-        rawnull.$on('$ready', 'readyTest', (context) => {
+        rawnull.$on('$ready', (context) => {
             count += 1
         })
-        rawnull.$on('$ready', 'readyTest2', (context) => {
+        let raw = rawnull.$on('$ready', (context) => {
             count += 1
         })
-        rawnull.$off('$ready', 'readyTest')
+        raw.off()
+        let raw2 = rawnull.$on('$ready', (context) => {
+            count += 1
+        })
+        rawnull.$off('$ready', raw2.id)
+        let raw3 = rawnull.$on('$ready', (context) => {
+            count += 1
+        })
+        rawnull.$off('$ready', raw3)
         rawnull.$born()
         expect(count).to.equal(2)
+    })
+})
+
+describe('#Collection', () => {
+    before(function() {
+        this.oobe = new Oobe()
+        this.oobe.join('CognitoUser', CognitoUser)
+    })
+
+    it('create', function() {
+        this.collection = this.oobe.collection('CognitoUser', 'user')
+        expect(Oobe.helper.isCollection(this.collection)).to.equal(true)
+    })
+
+    it('write', function() {
+        expect(this.collection.size).to.equal(0)
+        this.collection.write(RawData)
+        this.collection.write(RawData)
+        expect(this.collection.size).to.equal(1)
+        let newData = Oobe.helper.jpjs(RawData)
+        newData.Username = '5487'
+        this.collection.write(newData)
+        expect(this.collection.size).to.equal(2)
+        expect(this.collection.has('5487')).to.equal(true)
+    })
+
+    it('batch write', function() {
+        let collection = this.oobe.collection('CognitoUser', 'user')
+        let newData = Oobe.helper.jpjs(RawData)
+        newData.Username = '5487'
+        collection.batchWrite([RawData, RawData, newData])
+        expect(collection.size).to.equal(2)
+    })
+
+    it('fetch', function() {
+        expect(Oobe.helper.isSprite(this.collection.fetch('admin'))).to.equal(true)
+        expect(Oobe.helper.isSprite(this.collection.fetch('5487'))).to.equal(true)
+        expect(Oobe.helper.isSprite(this.collection.fetch('3064'))).to.equal(false)
+    })
+
+    it('list', function() {
+        expect(this.collection.list()).to.be.a('array')
+    })
+
+    it('remove', function() {
+        this.collection.remove('5487')
+        expect(this.collection.size).to.equal(1)
+    })
+
+    it('event', function() {
+        let count = 0
+        this.collection.on('$fetch', () => {
+            count += 1
+        })
+        this.collection.on('$fetch', ({ listener }) => {
+            count += 1
+            listener.off()
+        })
+        this.collection.fetch('admin')
+        this.collection.fetch('admin')
+        expect(count).to.equal(3)
     })
 })
 
@@ -440,5 +509,9 @@ describe('#Helper', () => {
         expect(output.b).to.equal(10)
         expect(output.c.a).to.equal(10)
         expect(output.c.b).to.equal(8)
+    })
+
+    it('generateId', function() {
+        expect(this.user.$helper.generateId()).to.be.a('string')
     })
 })

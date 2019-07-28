@@ -141,11 +141,13 @@ sprite = {
 
 > refs的sprite會隨著主sprite變換狀態
 
+> `dist`是`distortion`的簡寫指令
+
 ```js
 dave.$isFixed('name') // true
 dave.$distortion('create')
 dave.$isFixed('name') // false
-dave.$distortion('delete')
+dave.$dist('delete')
 dave.$export() // Dave
 ```
 
@@ -282,7 +284,7 @@ clockOn() // 讚
 
 ### Self
 
-body關係到資料存取，所以我們放了一個self來存垃圾。
+body關係到資料存取，所以我們放了一個self來存非直接操作的對象，意味著self雖然是暴露出來的，但請不要在sprite外部操作這個屬性。
 
 > self接收一個參數，是與born相同的資料源，意味著self是在觸發born後才會建立。
 
@@ -298,6 +300,7 @@ let staff = {
     self(data) {
         return {
             name: this.name,
+
             createdAt: data.createdAt
         }
     }

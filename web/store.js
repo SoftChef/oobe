@@ -1,17 +1,50 @@
+import oobe from './oobe/index.js'
+import ajax from './fakeRequest.js'
+
 export default new Vuex.Store({
     state: {
-        items: [],
-        count: 0
+        collection: null
     },
     actions: {
-        first(context, no) {
-            let id = Number(no)
-            return context.state.items.find(i => i.no === id)
+        fetch({ commit, dispatch }, key) {
+            return ajax.get(key)
         },
-        create(context, sprtie) {
-            context.state.count += 1
-            context.state.items.push(sprtie)
+        fetchList({ dispatch }) {
+            ajax.list()
+                .then((result) => {
+                    dispatch('writeCollection', result)
+                })
+        },
+        create(context, data) {
+            return ajax.create(data)
+        },
+        update(context, data) {
+            return ajax.update(data)
+        },
+        remove({ commit, dispatch }, key) {
+            commit('destroyed')
+            ajax.remove(key).then(() => {
+                dispatch('fetchList')
+            })
+        },
+        writeCollection({ commit, state, dispatch }, item) {
+            if (state.collection == null) {
+                state.collection = oobe.collection('shop', 'commodity')
+            }
+            commit('write', item)
         }
     },
-    mutations: {}
+    mutations: {
+        write(state, item) {
+            state.collection.batchWrite(Array.isArray(item) ? item : [item])
+        },
+        destroyed(state) {
+            state.collection = null
+        }
+    },
+    getters: {
+        list(state) {
+            return state.collection ? state.collection.list() : null
+        }
+    }
 })

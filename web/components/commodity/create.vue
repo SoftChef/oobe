@@ -17,22 +17,14 @@
     module.exports = {
         data() {
             return {
-                sprite: this.$oobe.make('shop', 'commodity')
+                sprite: this.$oobe.make('shop', 'commodity').$born().$dist('create')
             }
-        },
-        computed: Vuex.mapState({
-            items: state => state.items,
-            count: state => state.count
-        }),
-        mounted () {
-            this.sprite.$born({ no: this.count }).$distortion('create')
         },
         methods: {
             submit() {
                 let validate = this.sprite.$validate()
                 if (validate.success) {
-                    this.sprite.created_at = Date.now()
-                    this.$store.dispatch('create', this.sprite)
+                    this.$store.dispatch('create', this.sprite.$export())
                     this.$router.push({ name: 'commodity.list' })
                 } else {
                     alert(JSON.stringify(validate.result, null, 4))

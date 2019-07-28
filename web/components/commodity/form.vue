@@ -3,10 +3,10 @@
         <div class="mb-2" v-if="sprite.$show('created_at')">
             {{ $t('created_at') }} : {{ sprite.$views.created_at }}
         </div>
-        <!-- No -->
-        <div class="mb-2" v-show="sprite.$show('no')">
-            <label>{{sprite.$meg('no')}}：</label><br>
-            <input type="text" :disabled="sprite.$isFixed('no')" v-model="sprite.no">
+        <!-- Id -->
+        <div class="mb-2" v-show="sprite.$show('id')">
+            <label>{{sprite.$meg('id')}}：</label><br>
+            <input type="text" :disabled="sprite.$isFixed('id')" v-model="sprite.id">
         </div>
         <!-- Name -->
         <div class="mb-2" v-show="sprite.$show('name')">
@@ -61,6 +61,6 @@
 
 <script>
     module.exports = {
-        props: ['sprite']
+        props: ['sprite', 'type']
     }
 </script>

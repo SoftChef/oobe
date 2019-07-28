@@ -26,7 +26,7 @@ class Core extends Base {
     }
 
     initEvent() {
-        this.event = new Event('core', null, {}, {})
+        this.event = new Event('core')
     }
 
     initSystemContainer() {
@@ -123,17 +123,24 @@ class Core extends Base {
         return container.make(spriteName).unit
     }
 
-    batch(containerName, spriteName, data) {
-        let type = Helper.getType(data)
+    batch(containerName, spriteName, items) {
+        let type = Helper.getType(items)
         let output = []
-        if (type === 'array') {
-            data.forEach((d) => {
-                output.push(this.make(containerName, spriteName).$born(d))
-            })
-            return output
-        } else {
+        if (type !== 'array') {
             this.$systemError('batch', 'Data must be a array.', data)
         }
+        items.forEach((item) => {
+            output.push(this.make(containerName, spriteName).$born(item))
+        })
+        return output
+    }
+
+    makeCollection(containerName, spriteName, options) {
+        let container = this.containers[containerName]
+        if (container == null) {
+            return this.$systemError('makeCollection', `Container name(${containerName}) not found.`)
+        }
+        return container.makeCollection(spriteName, options).unit
     }
 }
 

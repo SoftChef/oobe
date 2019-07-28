@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>Collection.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,78 +32,84 @@
 
 <div id="main">
     
+    <h1 class="page-title">Collection.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Collection {
+    constructor(collection) {
+        this._collection = collection
+    }
 
+    get size() {
+        return this._collection.size
+    }
 
-    <section class="package">
-        <h3> </h3>		
+    /**
+     * 觸發一個事件
+     * @param {string} channelName 事件名稱
+     * @param {object} callback 觸發事件
+     */
+
+    on(channelName, callback) {
+        return this._collection.event.on(channelName, callback)
+    }
+
+    /**
+     * 移除一個事件
+     * @param {string} channelName 事件名稱
+     * @param {string} id 事件id
+     */
+
+    off(channelName, id) {
+        return this._collection.event.off(channelName, id)
+    }
+
+    /**
+     * 發送一個事件
+     * @param {string} channelName 事件名稱
+     * @param {object} params 傳遞參數
+     */
+
+    emit(channelName, ...params) {
+        return this._collection.event.emit(channelName, params)
+    }
+
+    has(key) {
+        return this._collection.has(key)
+    }
+
+    fetch(key) {
+        return this._collection.fetch(key)
+    }
+
+    list() {
+        return this._collection.list()
+    }
+
+    write(data) {
+        return this._collection.write(data)
+    }
+
+    batchWrite(data) {
+        return this._collection.batchWrite(data)
+    }
+
+    remove(key) {
+        return this._collection.remove(key)
+    }
+}
+
+module.exports = Collection
+</code></pre>
+        </article>
     </section>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    <section class="readme">
-        <article><br>
-<p align="center"><img src="https://softchef.github.io/oobe/assets/logo.png"></p>
-<p align="center" style="font-size:2.5em">javascript model library</p>
-<hr>
-<p><a href="https://npmjs.org/package/oobe"><img src="https://img.shields.io/npm/v/oobe.svg" alt="NPM Version"></a></p>
-<p><a href="https://softchef.github.io/oobe/docs/">document</a></p>
-<p><a href="https://softchef.github.io/oobe/started/">getting started</a></p>
-<p><a href="https://softchef.github.io/oobe/web/">demo</a></p>
-<p>oobe目的為原始資料與控制器之間的中介者，具有資料轉換與驗證方法。</p>
-<p>他將為你帶來：</p>
-<ul>
-<li>降低前後端的耦合。</li>
-<li>模組化提高通用性。</li>
-<li>為表單操作帶來良好的開發體驗。</li>
-<li>驗證、狀態等模式提高操作安全。</li>
-<li>具有model的特性，可統一 js 與 nodejs 前後端的組件運作。</li>
-</ul>
-<p>以下圖可以理解oobe在每個地方所擔任的腳色：</p>
-<p><img src="https://softchef.github.io/oobe/assets/flow.png" alt="flow"></p>
-<p>下圖可以理解使用oobe的心情：</p>
-<p><img src="https://softchef.github.io/oobe/assets/happy_fat_guy.gif" alt="fat_guy"></p>
-<hr>
-<h2>Installation</h2>
-<h3>Web</h3>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;./dist/index.js&quot;>&lt;/script>
-&lt;script>
-    let core = new oobe()
-&lt;/script>
-</code></pre>
-<h3>Webpack</h3>
-<pre class="prettyprint source lang-bash"><code>$npm i --save oobe
-</code></pre>
-<pre class="prettyprint source lang-js"><code>import oobe from 'oobe'
-let core = new oobe()
-</code></pre>
-<h3>Node</h3>
-<pre class="prettyprint source lang-bash"><code>$npm i --save oobe
-</code></pre>
-<pre class="prettyprint source lang-js"><code>let oobe = require('oobe')
-let core = new oobe()
-</code></pre>
-<hr>
-<h2>Other</h2>
-<p><a href="https://softchef.github.io/oobe/version">Version</a></p></article>
-    </section>
-
-
 
 
 
