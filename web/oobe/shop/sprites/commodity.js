@@ -56,6 +56,6 @@ export default {
     },
 
     collection: {
-        key: 'id'
+        key: sprite => sprite.id
     }
 }

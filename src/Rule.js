@@ -9,7 +9,7 @@ class Rule extends Base {
 
     add(name, rule) {
         if (this.items[name]) {
-            this.$systemError('add', `The name(${name}) already exists.`)
+            this.$devError('add', `The name(${name}) already exists.`)
         }
         if (typeof rule === 'function') {
             rule = { handler: rule }
@@ -32,7 +32,7 @@ class Rule extends Base {
         let rule = this.items[name]
         let params = {}
         if (rule == null) {
-            this.$systemError('get', `Form rule list name(${name}) not found.`)
+            this.$devError('get', `Form rule list name(${name}) not found.`)
         }
         for (let value of args) {
             let data = value.split(':')

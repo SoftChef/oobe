@@ -12,7 +12,10 @@ export default new Vuex.Store({
         fetchList({ dispatch }) {
             ajax.list()
                 .then((result) => {
-                    dispatch('writeCollection', result)
+                    if (state.collection == null) {
+                        state.collection = oobe.collection('shop', 'commodity')
+                    }
+                    commit('list', result)
                 })
         },
         create(context, data) {
@@ -26,17 +29,11 @@ export default new Vuex.Store({
             ajax.remove(key).then(() => {
                 dispatch('fetchList')
             })
-        },
-        writeCollection({ commit, state, dispatch }, item) {
-            if (state.collection == null) {
-                state.collection = oobe.collection('shop', 'commodity')
-            }
-            commit('write', item)
         }
     },
     mutations: {
-        write(state, item) {
-            state.collection.batchWrite(Array.isArray(item) ? item : [item])
+        list(state, items) {
+            state.collection.batchWrite(items)
         },
         destroyed(state) {
             state.collection = null

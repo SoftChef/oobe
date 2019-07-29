@@ -10,7 +10,7 @@ class Message extends Base {
 
     setLocale(locale) {
         if (typeof locale !== 'string') {
-            return this.$systemError('setLocale', `Locale(${locale}) not be string.`)
+            return this.$devError('setLocale', `Locale(${locale}) not be string.`)
         }
         this.messages = this.getStore(locale)
     }
@@ -24,7 +24,7 @@ class Message extends Base {
 
     add(data, prefix = '') {
         if (typeof data !== 'object') {
-            return this.$systemError('set', 'Data not a object', data)
+            return this.$devError('set', 'Data not a object', data)
         }
         for (let key in data) {
             let store = this.getStore(key)

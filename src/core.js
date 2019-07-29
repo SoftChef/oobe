@@ -41,10 +41,10 @@ class Core extends Base {
 
     getPrefix(name) {
         if (name === '') {
-            this.$systemError('getPrefix', `This name(${name}) is empty.`)
+            this.$devError('getPrefix', `This name(${name}) is empty.`)
         }
         if (Configs.protectPrefix.includes(name) === true) {
-            this.$systemError('getPrefix', `This name(${name}) is protect.`)
+            this.$devError('getPrefix', `This name(${name}) is protect.`)
         }
         return '#' + name + '.'
     }
@@ -67,7 +67,7 @@ class Core extends Base {
 
     addContainer(name, container) {
         if (this.containers[name]) {
-            return this.$systemError('addContainer', `Name(${name}) already exists.`)
+            return this.$devError('addContainer', `Name(${name}) already exists.`)
         }
         this.containers[name] = new Container(this, name, container)
         return this.containers[name]
@@ -85,7 +85,7 @@ class Core extends Base {
     validateForSprite(containerName, spriteName, data) {
         let container = this.containers[containerName]
         if (container == null) {
-            return this.$systemError('validateForSprite', `Container name(${containerName}) not found.`)
+            return this.$devError('validateForSprite', `Container name(${containerName}) not found.`)
         }
         return container.validateForSprite(spriteName, data)
     }
@@ -118,7 +118,7 @@ class Core extends Base {
     make(containerName, spriteName) {
         let container = this.containers[containerName]
         if (container == null) {
-            return this.$systemError('make', `Container name(${containerName}) not found.`)
+            return this.$devError('make', `Container name(${containerName}) not found.`)
         }
         return container.make(spriteName).unit
     }
@@ -127,7 +127,7 @@ class Core extends Base {
         let type = Helper.getType(items)
         let output = []
         if (type !== 'array') {
-            this.$systemError('batch', 'Data must be a array.', data)
+            this.$devError('batch', 'Data must be a array.', data)
         }
         items.forEach((item) => {
             output.push(this.make(containerName, spriteName).$born(item))
@@ -138,7 +138,7 @@ class Core extends Base {
     makeCollection(containerName, spriteName, options) {
         let container = this.containers[containerName]
         if (container == null) {
-            return this.$systemError('makeCollection', `Container name(${containerName}) not found.`)
+            return this.$devError('makeCollection', `Container name(${containerName}) not found.`)
         }
         return container.makeCollection(spriteName, options).unit
     }

@@ -430,6 +430,11 @@ describe('#Collection', () => {
         this.collection.fetch('admin')
         expect(count).to.equal(3)
     })
+
+    it('clear', function() {
+        this.collection.clear()
+        expect(this.collection.size).to.equal(0)
+    })
 })
 
 describe('#Helper', () => {

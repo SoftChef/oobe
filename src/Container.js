@@ -73,7 +73,7 @@ class Container extends Base {
             let options = this.options.sprites[key]
             let checkInterface = this.checkInterface(options)
             if (checkInterface !== true) {
-                this.$systemError('initSprites', checkInterface)
+                this.$devError('initSprites', checkInterface)
             }
             this.spriteBases[key] = new SpriteBase(this, key, options)
         }
@@ -163,7 +163,7 @@ class Container extends Base {
     validateForSprite(baseName, data) {
         let base = this.spriteBases[baseName]
         if (base == null) {
-            return this.$systemError('make', `Sprite ${baseName} not found.`)
+            return this.$devError('make', `Sprite ${baseName} not found.`)
         }
         let sprites = base.create()
         return sprites.validateAll(data)
@@ -177,7 +177,7 @@ class Container extends Base {
     make(baseName) {
         let base = this.spriteBases[baseName]
         if (base == null) {
-            return this.$systemError('make', `Sprite ${baseName} not found.`)
+            return this.$devError('make', `Sprite ${baseName} not found.`)
         }
         return base.create()
     }
@@ -185,7 +185,7 @@ class Container extends Base {
     makeCollection(baseName, options) {
         let base = this.spriteBases[baseName]
         if (base == null) {
-            return this.$systemError('makeCollection', `Sprite ${baseName} not found.`)
+            return this.$devError('makeCollection', `Sprite ${baseName} not found.`)
         }
         return base.createCollection(options)
     }

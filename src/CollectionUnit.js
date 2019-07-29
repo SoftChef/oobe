@@ -11,7 +11,7 @@ class CollectionUnit extends Base {
         this.unit = new Collection(this)
         this.event = new Event('collection', this.base.event)
         this.options = Helper.verify(base.options.collection, {
-            key: [false, ['string'], '*']
+            key: [false, ['function', 'string'], '*']
         })
     }
 
@@ -21,20 +21,19 @@ class CollectionUnit extends Base {
 
     write(data) {
         if (Helper.getType(data) !== 'object') {
-            this.$systemError('write', 'Source not a object')
+            this.$devError('write', 'Source not a object')
         }
-        let key = this.options.key
         let sprite = this.base.create().unit.$born(data)
-        let hashKey = key !== '*' ? sprite[key] : Helper.generateId()
+        let hashKey = this.options.key !== '*' ? this.options.key(sprite) : Helper.generateId()
         if (Helper.getType(hashKey) !== 'string') {
-            this.$systemError('write', `Write key(${hashKey}) not a string`)
+            this.$devError('write', `Write key(${hashKey}) not a string`)
         }
         this.map.set(hashKey, sprite)
     }
 
     batchWrite(items) {
         if (Helper.getType(items) !== 'array') {
-            this.$systemError('batchWrite', 'Data not a array.')
+            this.$devError('batchWrite', 'Data not a array.')
         }
         for (let item of items) {
             this.write(item)
@@ -54,9 +53,27 @@ class CollectionUnit extends Base {
         return output
     }
 
+    /**
+     * 獲取對象且有真實對象時觸發
+     * @event Collection#$fetch
+     * @property {object} context
+     * @property {sprite} 獲取的精靈
+     */
+
+    /**
+     * 獲取對象為空時觸發
+     * @event Collection#$fetchFail
+     * @property {object} context
+     * @property {string} 獲取的key
+     */
+
     fetch(key) {
         let sprite = this.map.get(key)
-        this.event.emit(this.unit, '$fetch', [ sprite ])
+        if (sprite) {
+            this.event.emit(this.unit, '$fetch', [ sprite ])
+        } else {
+            this.event.emit(this.unit, '$fetchFail', [ key ])
+        }
         return sprite
     }
 

@@ -1,8 +1,12 @@
-![logo][logo]
+<br>
 
-# javascript model library
+<p align="center"><img src="https://softchef.github.io/oobe/assets/logo.png"></p>
 
-[![NPM Version][npm-image]][npm-url]
+<p align="center" style="font-size:2.5em">javascript view model library</p>
+
+<p align="center">
+    <a href="https://www.npmjs.com/package/packhouse"><img src="https://img.shields.io/npm/v/oobe.svg"></a>
+</p>
 
 ***
 

@@ -49,3 +49,6 @@
 1. 修正json parse對於undefined的錯誤
 2. $distortion縮寫$dist
 3. event
+4. collection
+5. 區分系統錯誤與開發者錯誤
+6. helper generateId

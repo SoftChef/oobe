@@ -51,7 +51,7 @@ module.exports = {
     },
 
     collection: {
-        key: 'name'
+        key: sprite => sprite.name
     },
 
     states: {

@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Helper.js - Documentation</title>
+    <title>CollectionUnit.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,7 +32,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Helper.js</h1>
+    <h1 class="page-title">CollectionUnit.js</h1>
     
 
     
@@ -42,208 +42,95 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Main export class
- * @hideconstructor
- */
+            <pre class="prettyprint source linenums"><code>const Base = require('./Base')
+const Event = require('./Event')
+const Helper = require('./Helper')
+const Collection = require('./Collection')
 
-class Helper {
-    /**
-     * JSON.parse(JSON.stringify)的深拷貝方法
-     * @static
-     * @param {*} data 任何可以JSON.stringify的物件
-     */
-
-    static jpjs(data) {
-        return JSON.parse(JSON.stringify(data))
+class CollectionUnit extends Base {
+    constructor(base) {
+        super('Collection')
+        this.map = new Map()
+        this.base = base
+        this.unit = new Collection(this)
+        this.event = new Event('collection', this.base.event)
+        this.options = Helper.verify(base.options.collection, {
+            key: [false, ['function', 'string'], '*']
+        })
     }
 
-    /**
-     * 獲取型別
-     * @static
-     * @param {*} target 任何型態都行
-     * @returns {string} example之外的型態則回傳typeof的值
-     * @example
-     *  getType([]) // array
-     *  getType(null) // empty
-     *  getType(undefined) // empty
-     *  getType(NaN) // NaN
-     *  getType(/test/) // regexp
-     */
-
-    static getType(target) {
-        let type = typeof target
-        if (Array.isArray(target)) {
-            return 'array'
-        }
-        if (target == null) {
-            return 'empty'
-        }
-        if (type === 'number' &amp;&amp; isNaN(target)) {
-            return 'NaN'
-        }
-        if (target instanceof RegExp) {
-            return 'regexp'
-        }
-        return type
+    get size() {
+        return this.map.size
     }
 
-    /**
-     * 是否為空值
-     * @static
-     * @param {*} target 標的物
-     * @returns {boolean}
-     * @example
-     *  isEmpty(0) //false
-     *  isEmpty('') // true
-     *  isEmpty([]) // true
-     *  isEmpty({}) // true
-     *  isEmpty(null) // true
-     *  isEmpty(undefined) // true
-     */
-
-    static isEmpty(target) {
-        let type = Helper.getType(target)
-        if (type === 'empty') {
-            return true
+    write(data) {
+        if (Helper.getType(data) !== 'object') {
+            this.$devError('write', 'Source not a object')
         }
-        if (type === 'array' &amp;&amp; target.length === 0) {
-            return true
+        let sprite = this.base.create().unit.$born(data)
+        let hashKey = this.options.key !== '*' ? this.options.key(sprite) : Helper.generateId()
+        if (Helper.getType(hashKey) !== 'string') {
+            this.$devError('write', `Write key(${hashKey}) not a string`)
         }
-        if (type === 'object' &amp;&amp; Object.keys(target).length === 0) {
-            return true
-        }
-        if (type === 'string' &amp;&amp; target === '') {
-            return true
-        }
-        return false
+        this.map.set(hashKey, sprite)
     }
 
-    /**
-     * 是否為精靈
-     * @static
-     * @param {*} target 標的物
-     * @returns {boolean}
-     */
-
-    static isSprite(target) {
-        return target instanceof Sprite
-    }
-
-    /**
-     * 是否為集合
-     * @static
-     * @param {*} target 標的物
-     * @returns {boolean}
-     */
-
-    static isCollection(target) {
-        return target instanceof Collection
-    }
-
-    /**
-     * 驗證和回傳預設與付值結果
-     * @static
-     * @param {object} data 標的物
-     * @param {object.&lt;array>} validates 驗證模型[required:boolean, types:array, default:*]
-     * @returns {object}
-     * @example
-     *  let options = verify({ a: 5 }, {
-     *      a: [true, ['number'], 0],
-     *      b: [false, ['number'], 'test']
-     *  })
-     *  console.log(options.b) // test
-     */
-
-    static verify(data, validates) {
-        let newData = {}
-        for (let key in validates) {
-            let target = data[key]
-            let validate = validates[key]
-            let [required, types, defaultValue] = validate
-            let type = Helper.getType(target)
-            if (Helper.getType(required) !== 'boolean') {
-                throw new Error(`Helper::verify => Required must be a boolean`)
-            }
-            if (Helper.getType(types) !== 'array') {
-                throw new Error(`Helper::verify => Types must be a array`)
-            }
-            if (required &amp;&amp; target == null) {
-                throw new Error(`Helper::verify => Key(${key}) is required`)
-            }
-            if (types &amp;&amp; target != null &amp;&amp; !types.includes(type)) {
-                throw new Error(`Helper::verify => Type(${key}::${type}) error, need ${types.join(' or ')}`)
-            }
-            newData[key] = target === undefined ? defaultValue : target
+    batchWrite(items) {
+        if (Helper.getType(items) !== 'array') {
+            this.$devError('batchWrite', 'Data not a array.')
         }
-        return newData
+        for (let item of items) {
+            this.write(item)
+        }
     }
 
-    /**
-     * 能夠針對更細項的物件做合成
-     * @static
-     * @param {object} target 合成物件
-     * @param {object} sources 合成來源
-     * @returns {object}
-     * @example
-     *  let target = {
-     *      a: 5,
-     *      b: 10,
-     *      c: {
-     *          a: 7,
-     *          b: 8
-     *      }
-     *  }
-     *  let output = deepObjectAssign(target, {
-     *      a: 8,
-     *      c: {
-     *          a: 10
-     *      }
-     *  })
-     *  console.log(output.a) // 8
-     *  console.log(output.b) // 10
-     *  console.log(output.c.a) // 10
-     *  console.log(output.c.b) // 8
-     */
+    has(key) {
+        return this.map.has(key)
+    }
 
-    static deepObjectAssign(target, sources = {}) {
-        let output = {}
-        for (let key in target) {
-            let data = target[key]
-            let sour = sources[key]
-            let type = Helper.getType(data)
-            if (type === 'object') {
-                output[key] = Helper.deepObjectAssign(data, sour)
-            } else {
-                output[key] = sour === undefined ? data : sour
-            }
+    list() {
+        let keys = this.map.keys()
+        let output = []
+        for (let key of keys) {
+            output.push(this.fetch(key))
         }
         return output
     }
 
     /**
-     * 模擬uuid的建構方法，但不是真的uuid，不保證不會重複，但很難重複
-     * @static
-     * @returns {string}
+     * 獲取對象且有真實對象時觸發
+     * @event Collection#$fetch
+     * @property {object} context
+     * @property {sprite} 獲取的精靈
      */
 
-    static generateId() {
-        var now = Date.now()
-        if (typeof performance !== 'undefined' &amp;&amp; typeof performance.now === 'function') {
-            now += performance.now()
+    /**
+     * 獲取對象為空時觸發
+     * @event Collection#$fetchFail
+     * @property {object} context
+     * @property {string} 獲取的key
+     */
+
+    fetch(key) {
+        let sprite = this.map.get(key)
+        if (sprite) {
+            this.event.emit(this.unit, '$fetch', [ sprite ])
+        } else {
+            this.event.emit(this.unit, '$fetchFail', [ key ])
         }
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = (now + Math.random() * 16) % 16 | 0
-            now = Math.floor(now / 16)
-            return (c === 'x' ? r : (r &amp; 0x3 | 0x8)).toString(16)
-        })
+        return sprite
+    }
+
+    clear() {
+        this.map.clear()
+    }
+
+    remove(key) {
+        this.map.delete(key)
     }
 }
 
-module.exports = Helper
-
-const Sprite = require('./Sprite')
-const Collection = require('./Collection')
+module.exports = CollectionUnit
 </code></pre>
         </article>
     </section>

@@ -44,13 +44,13 @@ class SpriteUnit extends Base {
         if (this.propertyNames.includes(name)) {
             return this.unit[name]
         } else {
-            this.$systemError('getProperty', `Property name(${name}) not found.`)
+            this.$devError('getProperty', `Property name(${name}) not found.`)
         }
     }
 
     isLive() {
         if (this.status.live === false) {
-            this.$systemError('isLive', 'This Sprite is dead.')
+            this.$devError('isLive', 'This Sprite is dead.')
             return false
         }
         return true
@@ -94,7 +94,7 @@ class SpriteUnit extends Base {
         if (name) {
             state = this.base.states[name]
             if (state == null) {
-                this.$systemError('export', `State(${name}) not found.`)
+                this.$devError('export', `State(${name}) not found.`)
             }
         } else {
             state = this.state
@@ -131,7 +131,7 @@ class SpriteUnit extends Base {
                 this.from.reborn(this.toOrigin())
                 return this.dead()
             } else {
-                this.$systemError('revive', 'This Sprite is root.')
+                this.$devError('revive', 'This Sprite is root.')
             }
         }
     }
@@ -140,7 +140,7 @@ class SpriteUnit extends Base {
         if (this.isReady()) {
             return this.base.create().born(this.toOrigin()).distortion(this.state.name)
         } else {
-            this.$systemError('copy', 'Sprite no ready.')
+            this.$devError('copy', 'Sprite not ready.')
         }
     }
 
@@ -154,7 +154,7 @@ class SpriteUnit extends Base {
                 this.sleep()
                 return from
             } else {
-                this.$systemError('dead', 'This Sprite is root.')
+                this.$devError('dead', 'This Sprite is root.')
             }
         }
     }
@@ -199,7 +199,7 @@ class SpriteUnit extends Base {
     distortion(name) {
         if (this.isLive()) {
             if (this.base.states[name] == null) {
-                return this.$systemError('distortion', `Name(${name}) not found.`)
+                return this.$devError('distortion', `Name(${name}) not found.`)
             }
             this.state = this.base.states[name]
             this.eachRefs(s => s.distortion(name))
@@ -210,14 +210,20 @@ class SpriteUnit extends Base {
     bind(name) {
         let target = this.unit.$fn[name]
         if (target == null) {
-            return this.$systemError('bind', `Method(${name}) not found`)
+            return this.$devError('bind', `Method(${name}) not found`)
         }
         return this.unit.$fn[name].bind(this.unit.$fn)
     }
 
+    /**
+     * 觸發born時觸發
+     * @event Sprite#$ready
+     * @property {object} context
+     */
+
     born(data) {
         if (this.isReady()) {
-            this.$systemError('born', 'Sprite is ready.')
+            this.$devError('born', 'Sprite is ready.')
         }
         if (this.isLive()) {
             this.setBody(data)
@@ -286,10 +292,10 @@ class SpriteUnit extends Base {
             let value = this.body[key]
             let type = Helper.getType(value)
             if (type === 'function') {
-                this.$systemError('checkBody', `Body ${key} can't be a function.`)
+                this.$devError('checkBody', `Body ${key} can't be a function.`)
             }
             if (key[0] === '$' || key[0] === '_') {
-                this.$systemError('checkBody', `Body ${key} has system symbol $ and _.`)
+                this.$devError('checkBody', `Body ${key} has system symbol $ and _.`)
             }
         }
     }
@@ -297,7 +303,7 @@ class SpriteUnit extends Base {
     getRules(name, extra = []) {
         let rules = this.base.options.rules[name]
         if (rules == null) {
-            this.$systemError('getRules', `Rule name(${name}) not found.`)
+            this.$devError('getRules', `Rule name(${name}) not found.`)
         }
         return this.base.container.getRules(this.unit, rules.concat(extra))
     }
@@ -344,10 +350,10 @@ class SpriteUnit extends Base {
     setDefineProperty(key, protect) {
         return (value) => {
             if (this.isLive() === false) {
-                return this.$systemError('set', 'This Sprite is dead.')
+                return this.$devError('set', 'This Sprite is dead.')
             }
             if (protect) {
-                return this.$systemError('set', `This property(${key}) is protect.`)
+                return this.$devError('set', `This property(${key}) is protect.`)
             }
             this.body[key] = value
         }

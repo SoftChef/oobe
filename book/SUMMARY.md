@@ -7,12 +7,7 @@
     * [精靈](./pages/sprite.md)
     * [容器](./pages/container.md)
     * [事件](./pages/event.md)
-***
-* 集合
-    * [定義](./pages/collection.md)
-    * [加入]
-    * [交易]
-    * [獲取]
+    * [集合](./pages/collection.md)
 ***
 * 資源
     * [document](https://softchef.github.io/oobe/docs/)

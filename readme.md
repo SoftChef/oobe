@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://softchef.github.io/oobe/assets/logo.png"></p>
 
-<p align="center" style="font-size:2.5em">javascript model library</p>
+<p align="center" style="font-size:2.5em">javascript view model library</p>
 
 ---
 
@@ -23,10 +23,6 @@ oobe目的為原始資料與控制器之間的中介者，具有資料轉換與�
 * 為表單操作帶來良好的開發體驗。
 * 驗證、狀態等模式提高操作安全。
 * 具有model的特性，可統一 js 與 nodejs 前後端的組件運作。
-
-以下圖可以理解oobe在每個地方所擔任的腳色：
-
-![flow](https://softchef.github.io/oobe/assets/flow.png)
 
 下圖可以理解使用oobe的心情：
 
