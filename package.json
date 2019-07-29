@@ -1,6 +1,6 @@
 {
   "name": "oobe",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Wow, write form so fantastic, so fun.",
   "main": "dist/index.js",
   "scripts": {

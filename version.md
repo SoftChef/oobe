@@ -52,3 +52,7 @@
 4. collection
 5. 區分系統錯誤與開發者錯誤
 6. helper generateId
+
+## ver 0.1.3
+
+1. 在born之前不會有raw data這個屬性

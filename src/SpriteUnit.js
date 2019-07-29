@@ -243,7 +243,7 @@ class SpriteUnit extends Base {
         this.initEvent()
         this.initStatus()
         this.rawBody = this.dataStringify(this.body)
-        this.rawData = this.dataStringify(this.toOrigin())
+        this.rawData = null
         this.propertyNames = Object.keys(this.body)
         this.status.init = true
     }
