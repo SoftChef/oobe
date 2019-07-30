@@ -56,6 +56,27 @@ console.log(staff.$views.clock_on_list) // 20xx-06-10T10:34:48.827Z
 
 太好了，這下子老闆終於看懂了，才剛打卡？在混阿Dave。
 
+### Default View
+
+當views沒有被宣告時可以藉由defaultView來返回值，觸發defaultView的時機為key沒被宣告或者是view對象返回值為!value(例如null或空字串)。
+
+> Default View會使用es6的proxy，意味著如果你使用Default View時`IE`就正式宣告死亡。
+
+```js
+sprite = {
+    views: {
+        clock_on_list() {
+            let list = this.clock_on_list.map(c => (new Date(c)).toISOString())
+            return list.join(',')
+        }
+    },
+    defaultView({ key }) {
+        return key
+    }
+}
+console.log(staff.$views['123']) // 123
+```
+
 ## Refs
 
 多層物件是難以避免的，把每個層級的物件都視為sprite是最好的實踐，接下來我們把Dave調往至某個單位。

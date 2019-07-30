@@ -39,7 +39,8 @@ class SpriteBase extends Base {
             states: [false, ['object'], {}],
             methods: [false, ['object'], {}],
             created: [false, ['function'], () => {}],
-            collection: [false, ['object'], {}]
+            collection: [false, ['object'], {}],
+            defaultView: [false, ['function'], null]
         })
         this.init()
     }

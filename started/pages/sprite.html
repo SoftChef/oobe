@@ -387,6 +387,24 @@ dave.$fn.clockOn()
 <span class="hljs-built_in">console</span>.log(staff.$views.clock_on_list) <span class="hljs-comment">// 20xx-06-10T10:34:48.827Z</span>
 </code></pre>
 <p>&#x592A;&#x597D;&#x4E86;&#xFF0C;&#x9019;&#x4E0B;&#x5B50;&#x8001;&#x95C6;&#x7D42;&#x65BC;&#x770B;&#x61C2;&#x4E86;&#xFF0C;&#x624D;&#x525B;&#x6253;&#x5361;&#xFF1F;&#x5728;&#x6DF7;&#x963F;Dave&#x3002;</p>
+<h3 id="default-view">Default View</h3>
+<p>&#x7576;views&#x6C92;&#x6709;&#x88AB;&#x5BA3;&#x544A;&#x6642;&#x53EF;&#x4EE5;&#x85C9;&#x7531;defaultView&#x4F86;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x89F8;&#x767C;defaultView&#x7684;&#x6642;&#x6A5F;&#x70BA;key&#x6C92;&#x88AB;&#x5BA3;&#x544A;&#x6216;&#x8005;&#x662F;view&#x5C0D;&#x8C61;&#x8FD4;&#x56DE;&#x503C;&#x70BA;!value(&#x4F8B;&#x5982;null&#x6216;&#x7A7A;&#x5B57;&#x4E32;)&#x3002;</p>
+<blockquote>
+<p>Default View&#x6703;&#x4F7F;&#x7528;es6&#x7684;proxy&#xFF0C;&#x610F;&#x5473;&#x8457;&#x5982;&#x679C;&#x4F60;&#x4F7F;&#x7528;Default View&#x6642;<code>IE</code>&#x5C31;&#x6B63;&#x5F0F;&#x5BA3;&#x544A;&#x6B7B;&#x4EA1;&#x3002;</p>
+</blockquote>
+<pre><code class="lang-js">sprite = {
+    views: {
+        clock_on_list() {
+            <span class="hljs-keyword">let</span> list = <span class="hljs-keyword">this</span>.clock_on_list.map(c =&gt; (<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(c)).toISOString())
+            <span class="hljs-keyword">return</span> list.join(<span class="hljs-string">&apos;,&apos;</span>)
+        }
+    },
+    defaultView({ key }) {
+        <span class="hljs-keyword">return</span> key
+    }
+}
+<span class="hljs-built_in">console</span>.log(staff.$views[<span class="hljs-string">&apos;123&apos;</span>]) <span class="hljs-comment">// 123</span>
+</code></pre>
 <h2 id="refs">Refs</h2>
 <p>&#x591A;&#x5C64;&#x7269;&#x4EF6;&#x662F;&#x96E3;&#x4EE5;&#x907F;&#x514D;&#x7684;&#xFF0C;&#x628A;&#x6BCF;&#x500B;&#x5C64;&#x7D1A;&#x7684;&#x7269;&#x4EF6;&#x90FD;&#x8996;&#x70BA;sprite&#x662F;&#x6700;&#x597D;&#x7684;&#x5BE6;&#x8E10;&#xFF0C;&#x63A5;&#x4E0B;&#x4F86;&#x6211;&#x5011;&#x628A;Dave&#x8ABF;&#x5F80;&#x81F3;&#x67D0;&#x500B;&#x55AE;&#x4F4D;&#x3002;</p>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> body = () =&gt; { <span class="hljs-keyword">return</span> { name: <span class="hljs-string">&apos;&apos;</span> } }
@@ -707,7 +725,7 @@ clockOn() <span class="hljs-comment">// &#x8B9A;</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"精靈","level":"2.1.4","depth":2,"next":{"title":"容器","level":"2.1.5","depth":2,"path":"pages/container.md","ref":"./pages/container.md","articles":[]},"previous":{"title":"協助","level":"2.1.3","depth":2,"path":"pages/helper.md","ref":"./pages/helper.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/sprite.md","mtime":"2019-07-29T02:07:46.999Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-29T09:22:38.463Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"精靈","level":"2.1.4","depth":2,"next":{"title":"容器","level":"2.1.5","depth":2,"path":"pages/container.md","ref":"./pages/container.md","articles":[]},"previous":{"title":"協助","level":"2.1.3","depth":2,"path":"pages/helper.md","ref":"./pages/helper.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/sprite.md","mtime":"2019-07-30T04:25:32.873Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-30T04:25:46.577Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

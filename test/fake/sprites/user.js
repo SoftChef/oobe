@@ -27,6 +27,10 @@ module.exports = {
         testViews() { return this.name + 'test' }
     },
 
+    defaultView({ key }) {
+        return key
+    },
+
     born(rawData) {
         return {
             name: rawData['Username'],

@@ -264,7 +264,24 @@ class SpriteUnit extends Base {
     initUnit() {
         this.unit = new Sprite(this)
         this.unit.$fn = this.base.getMethods(this.unit)
-        this.unit.$views = this.base.getViews(this.unit)
+        if (this.base.options.defaultView) {
+            let defaultView = this.base.options.defaultView
+            // proxy需要支援es6 我是很想放棄es5拉 但...唉
+            this.unit.$views = new Proxy(this.base.getViews(this.unit), {
+                get: (target, key) => {
+                    let value = null
+                    if (target[key]) {
+                        value = target[key]
+                    }
+                    if (!value) {
+                        value = defaultView.call(this.unit, { key })
+                    }
+                    return value
+                }
+            })
+        } else {
+            this.unit.$views = this.base.getViews(this.unit)
+        }
     }
 
     initBody() {

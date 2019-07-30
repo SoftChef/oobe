@@ -60,3 +60,7 @@
 ## ver 0.1.4
 
 1. 在born之前不會有raw data這個屬性
+
+## ver 0.1.5
+
+1. Default View

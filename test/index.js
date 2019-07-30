@@ -326,6 +326,10 @@ describe('#Sprite', () => {
         expect(this.user.$views.testViews).to.equal(this.user.name + 'test')
     })
 
+    it('default views', function() {
+        expect(this.user.$views['123']).to.equal('123')
+    })
+
     it('checkbody', function() {
         expect(() => {
             this.oobe.make('CognitoUser', 'checkbody')

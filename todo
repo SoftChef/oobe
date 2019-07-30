@@ -61,7 +61,10 @@ v0.1.2:
     ✔ collection @done(19-07-28 20:51)
     ✔ helper generateId @done(19-07-28 20:51)
 
-v0.1.3:
+v0.1.5:
+    ✔ Default View @done(19-07-30 12:27)
+
+v0.1.X:
     ☐ fixed property
     ☐ hidden property
 
