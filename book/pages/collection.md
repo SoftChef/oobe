@@ -15,6 +15,11 @@ let sprite = {
             name: ''
         }
     },
+    methods: {
+        look() {
+            return '誇沙'
+        }
+    },
     collection: {
         key: (sprite) => { return sprite.name }
     }
@@ -31,4 +36,21 @@ let sprite = {
 let oobe = new Oobe()
 oobe.join('demo', { sprites: { sprite } })
 let collection = oobe.collection('demo', 'sprite')
+```
+
+### 存取對象
+
+存入
+
+```js
+collection.write({
+    name: '1234'
+})
+```
+
+獲取
+
+```js
+let sprite = collection.fetch('1234')
+sprite.$fn.look() // 誇沙
 ```

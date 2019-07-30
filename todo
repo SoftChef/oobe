@@ -64,9 +64,12 @@ v0.1.2:
 v0.1.5:
     ✔ Default View @done(19-07-30 12:27)
 
-v0.1.X:
+v0.1.6:
     ☐ fixed property
     ☐ hidden property
-
-☐ collection的說明
-☐ event的說明
+    ☐ collection $write
+    ☐ collection $writeReject
+    ☐ collection 通過和拒絕
+    ✔ collection的說明 @done(19-07-31 01:52)
+    ✔ event的說明 @done(19-07-31 01:52)
+    ☐ vue實戰
