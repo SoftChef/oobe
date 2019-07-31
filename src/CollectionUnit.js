@@ -11,7 +11,8 @@ class CollectionUnit extends Base {
         this.unit = new Collection(this)
         this.event = new Event('collection', this.base.event)
         this.options = Helper.verify(base.options.collection, {
-            key: [false, ['function', 'string'], '*']
+            key: [false, ['function', 'string'], '*'],
+            write: [false, ['function'], ({ success }) => { success() }]
         })
     }
 
@@ -19,16 +20,30 @@ class CollectionUnit extends Base {
         return this.map.size
     }
 
-    write(data) {
-        if (Helper.getType(data) !== 'object') {
+    /**
+     * 寫入資料被拒絕時觸發
+     * @event Collection#$rejectWrite
+     * @property {object} context
+     * @property {string} key key
+     * @property {sprite} sprite 精靈
+     * @property {object} source 原資料
+     */
+
+    write(source) {
+        if (Helper.getType(source) !== 'object') {
             this.$devError('write', 'Source not a object')
         }
-        let sprite = this.base.create().unit.$born(data)
-        let hashKey = this.options.key !== '*' ? this.options.key(sprite) : Helper.generateId()
-        if (Helper.getType(hashKey) !== 'string') {
-            this.$devError('write', `Write key(${hashKey}) not a string`)
+        let sprite = this.base.create().unit.$born(source)
+        let key = this.options.key !== '*' ? this.options.key(sprite) : Helper.generateId()
+        if (Helper.getType(key) !== 'string') {
+            this.$devError('write', `Write key(${key}) not a string`)
         }
-        this.map.set(hashKey, sprite)
+        this.options.write.call(this.unit, {
+            key,
+            sprite,
+            reject: (message) => this.event.emit(this.unit, '$rejectWrite', [{ message, key, sprite, source }]),
+            success: () => this.map.set(hashKey, sprite)
+        })
     }
 
     batchWrite(items) {

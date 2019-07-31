@@ -65,9 +65,7 @@ v0.1.5:
     ✔ Default View @done(19-07-30 12:27)
 
 v0.1.6:
-    ☐ collection write
-    ☐ collection fetchHook
-    ☐ collection fetch promise
+    ✔ collection write @done(19-07-31 23:05)
 
 ✔ event的說明 @done(19-07-31 14:21)
 ✔ collection的說明 @done(19-07-31 14:21)

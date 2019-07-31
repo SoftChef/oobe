@@ -50,6 +50,10 @@ sprite.$on('$ready', ({ listener }) => {
 
 獲取sprite的對象不存在時觸發。
 
+#### $rejectWrite
+
+write事件觸發reject時成立
+
 ---
 
 ## 自訂事件
