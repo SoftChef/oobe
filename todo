@@ -64,9 +64,10 @@ v0.1.2:
 v0.1.5:
     ✔ Default View @done(19-07-30 12:27)
 
-v0.1.X:
-    ☐ fixed property
-    ☐ hidden property
+v0.1.6:
+    ☐ collection write
+    ☐ collection fetchHook
+    ☐ collection fetch promise
 
-☐ collection的說明
-☐ event的說明
+✔ event的說明 @done(19-07-31 14:21)
+✔ collection的說明 @done(19-07-31 14:21)

@@ -60,10 +60,6 @@ class SpriteUnit extends Base {
         return !!this.status.ready
     }
 
-    isReference() {
-        return !!this.status.reference
-    }
-
     isInitialization() {
         return !!this.status.init
     }
