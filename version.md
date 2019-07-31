@@ -64,3 +64,5 @@
 ## ver 0.1.5
 
 1. Default View
+
+## ver 0.1.6
