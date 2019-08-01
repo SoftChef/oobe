@@ -25,7 +25,9 @@ loader.onload((components) => {
             }
         }
     })
-    for (var key in components) { Vue.component(key, components[key]) }
+    for (var key in components) {
+        Vue.component(key, components[key])
+    }
     window.system = new Vue({
         i18n,
         store,

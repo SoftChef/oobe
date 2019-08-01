@@ -1,7 +1,7 @@
 export default function(components) {
     return new VueRouter({
         mode: 'history',
-        base: '/oobe/web',
+        base: '/oobe/example',
         routes: [
             {
                 path: '*',

@@ -33,9 +33,9 @@ class Loader {
         var component = {}
         for (let key in this.component) {
             if (this.component[key].type === 'text') {
-                component[key] = await httpVueLoader.readText(this.component[key].data)
+                component[key] = await (await httpVueLoader.readText(this.component[key].data))()
             } else {
-                component[key] = await httpVueLoader(this.component[key].data)
+                component[key] = await (await httpVueLoader(this.component[key].data))()
             }
         }
         callback(component)

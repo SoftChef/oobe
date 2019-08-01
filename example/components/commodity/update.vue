@@ -21,7 +21,10 @@
         computed: Vuex.mapGetters(['sprite', 'error']),
         mounted () {
             this.fetch(this.$route.query.id)
-                .then(() => this.sprite.$dist('update'))
+            this.sprite.$on('$ready', ({ listener }) => {
+                this.sprite.$dist('update')
+                listener.off()
+            })
         },
         methods: {
             ...Vuex.mapActions(['fetch']),

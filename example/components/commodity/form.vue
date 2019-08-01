@@ -1,5 +1,5 @@
 <template>
-    <form class="form-group" v-if="sprite && sprite.$ready">
+    <form class="form-group">
         <div class="mb-2" v-if="sprite.$show('createdAt')">
             {{ $t('createdAt') }} : {{ sprite.$views.createdAt }}
         </div>
@@ -61,6 +61,6 @@
 
 <script>
     module.exports = {
-        props: ['sprite', 'type']
+        props: ['sprite']
     }
 </script>
