@@ -8,12 +8,7 @@
     * [容器](./pages/container.md)
     * [事件](./pages/event.md)
     * [集合](./pages/collection.md)
-***
-* Vue實戰
-    * [vue](./experience/vue.md)
-    * [vuex](./experience/vuex.md)
-    * [oobe](./experience/oobe.md)
-    * [整合結果](./experience/integration.md)
+    * [實戰](./pages/experience.md)
 ***
 * 資源
     * [document](https://softchef.github.io/oobe/docs/)

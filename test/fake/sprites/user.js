@@ -55,7 +55,13 @@ module.exports = {
     },
 
     collection: {
-        key: sprite => sprite.name
+        key: sprite => sprite.name,
+        write({ key, sprite, success, reject }) {
+            if (key === '123456789') {
+                return reject('test')
+            }
+            success()
+        }
     },
 
     states: {

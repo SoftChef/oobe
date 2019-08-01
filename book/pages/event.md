@@ -22,37 +22,28 @@ sprite.$on('$ready', () => {
 sprite.$born() // OuO
 ```
 
-建構once事件：
+## 移除事件
+
+不知道為啥，移除事件的方法多元的跟鬼一樣。
 
 ```js
+// 使用context內的listener
 sprite.$on('$ready', ({ listener }) => {
-    listener.off() // 可以關閉這個listener
+    listener.off()
 })
+
+// 使用外部的listener
+let listener = sprite.$on('$ready', () => {
+    console.log('OuO')
+})
+sprite.$off('$ready', listener)
+sprite.$off('$ready', listener.id)
+listener.off()
 ```
 
 ## 系統事件
 
-### sprite
-
-#### $ready
-
-當宣告sprite的born時觸發。
-
----
-
-### collection
-
-#### $fetch
-
-獲取sprite時觸發。
-
-#### $fetchFail
-
-獲取sprite的對象不存在時觸發。
-
-#### $rejectWrite
-
-write事件觸發reject時成立
+系統事件會以`$`字號做開頭，由程式內部操作時觸發，有什麼可用的系統事件請參閱文件。
 
 ---
 

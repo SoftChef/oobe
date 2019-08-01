@@ -66,3 +66,5 @@
 1. Default View
 
 ## ver 0.1.6
+
+1. collection write

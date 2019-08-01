@@ -435,6 +435,19 @@ describe('#Collection', () => {
         expect(count).to.equal(3)
     })
 
+    it('write', function() {
+        let count = 0
+        this.collection.on('$writeReject', (context, reslut) => {
+            expect(reslut.message).to.equal('test')
+            count += 1
+        })
+        this.collection.write({
+            ...RawData,
+            Username: '123456789'
+        })
+        expect(count).to.equal(1)
+    })
+
     it('clear', function() {
         this.collection.clear()
         expect(this.collection.size).to.equal(0)

@@ -174,7 +174,6 @@ dave.$export() // Dave
 
 ---
 
-
 ## 生命週期
 
 ### Born 與 Origin

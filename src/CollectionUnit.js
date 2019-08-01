@@ -22,7 +22,7 @@ class CollectionUnit extends Base {
 
     /**
      * 寫入資料被拒絕時觸發
-     * @event Collection#$rejectWrite
+     * @event Collection#$writeReject
      * @property {object} context
      * @property {string} key key
      * @property {sprite} sprite 精靈
@@ -41,8 +41,8 @@ class CollectionUnit extends Base {
         this.options.write.call(this.unit, {
             key,
             sprite,
-            reject: (message) => this.event.emit(this.unit, '$rejectWrite', [{ message, key, sprite, source }]),
-            success: () => this.map.set(hashKey, sprite)
+            reject: (message) => this.event.emit(this.unit, '$writeReject', [{ message, key, sprite, source }]),
+            success: () => this.map.set(key, sprite)
         })
     }
 

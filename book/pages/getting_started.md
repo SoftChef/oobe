@@ -2,8 +2,6 @@
 
 雖然`oobe`號稱開箱即用，但要真正開始還真的不太容易，以下以一個員工系統做例子。
 
-[點此了解web範例架構](https://github.com/SoftChef/oobe/tree/master/web)
-
 ## 設定第一隻精靈(Sprite)
 
 精靈是`oobe`的最小單位，也是`model`的原型。

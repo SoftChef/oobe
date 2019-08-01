@@ -214,6 +214,19 @@
             
         </li>
     
+        <li class="chapter " data-level="2.1.8" data-path="experience.html">
+            
+                <a href="experience.html">
+            
+                    
+                    實戰
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -344,19 +357,72 @@
                                 
                                 <h1 id="event">Event</h1>
 <p><em>&#x1F52C;Event&#x662F;&#x4E00;&#x500B;&#x5BE6;&#x9A57;&#x6027;&#x529F;&#x80FD;&#xFF0C;&#x6211;&#x5011;&#x5C07;&#x983B;&#x7E41;&#x66F4;&#x52D5;&#x4E14;&#x9700;&#x8981;&#x60A8;&#x7684;&#x56DE;&#x994B;&#x3002;</em></p>
-<h2 id="&#x5192;&#x6CE1;&#x50B3;&#x905E;">&#x5192;&#x6CE1;&#x50B3;&#x905E;</h2>
-<p>&#x52A0;&#x5DE5;&#x4E2D;...</p>
-<hr>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> oobe = <span class="hljs-keyword">new</span> Oobe()
+oobe.join(<span class="hljs-string">&apos;demo&apos;</span>, {
+    sprites: {
+        sprite: {
+            body() {
+                <span class="hljs-keyword">return</span> {
+                    name: <span class="hljs-string">&apos;&apos;</span>
+                }
+            }
+        }
+    }
+})
+<span class="hljs-keyword">let</span> sprite = oobe.make(<span class="hljs-string">&apos;demo&apos;</span>, <span class="hljs-string">&apos;sprite&apos;</span>)
+sprite.$on(<span class="hljs-string">&apos;$ready&apos;</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;OuO&apos;</span>)
+})
+sprite.$born() <span class="hljs-comment">// OuO</span>
+</code></pre>
+<h2 id="&#x79FB;&#x9664;&#x4E8B;&#x4EF6;">&#x79FB;&#x9664;&#x4E8B;&#x4EF6;</h2>
+<p>&#x4E0D;&#x77E5;&#x9053;&#x70BA;&#x5565;&#xFF0C;&#x79FB;&#x9664;&#x4E8B;&#x4EF6;&#x7684;&#x65B9;&#x6CD5;&#x591A;&#x5143;&#x7684;&#x8DDF;&#x9B3C;&#x4E00;&#x6A23;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x4F7F;&#x7528;context&#x5167;&#x7684;listener</span>
+sprite.$on(<span class="hljs-string">&apos;$ready&apos;</span>, ({ listener }) =&gt; {
+    listener.off()
+})
+
+<span class="hljs-comment">// &#x4F7F;&#x7528;&#x5916;&#x90E8;&#x7684;listener</span>
+<span class="hljs-keyword">let</span> listener = sprite.$on(<span class="hljs-string">&apos;$ready&apos;</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;OuO&apos;</span>)
+})
+sprite.$off(<span class="hljs-string">&apos;$ready&apos;</span>, listener)
+sprite.$off(<span class="hljs-string">&apos;$ready&apos;</span>, listener.id)
+listener.off()
+</code></pre>
 <h2 id="&#x7CFB;&#x7D71;&#x4E8B;&#x4EF6;">&#x7CFB;&#x7D71;&#x4E8B;&#x4EF6;</h2>
-<h3 id="sprite">sprite</h3>
-<h4 id="ready">$ready</h4>
-<hr>
-<h3 id="collection">collection</h3>
-<h4 id="fetch">$fetch</h4>
-<h4 id="fetchfail">$fetchFail</h4>
+<p>&#x7CFB;&#x7D71;&#x4E8B;&#x4EF6;&#x6703;&#x4EE5;<code>$</code>&#x5B57;&#x865F;&#x505A;&#x958B;&#x982D;&#xFF0C;&#x7531;&#x7A0B;&#x5F0F;&#x5167;&#x90E8;&#x64CD;&#x4F5C;&#x6642;&#x89F8;&#x767C;&#xFF0C;&#x6709;&#x4EC0;&#x9EBC;&#x53EF;&#x7528;&#x7684;&#x7CFB;&#x7D71;&#x4E8B;&#x4EF6;&#x8ACB;&#x53C3;&#x95B1;&#x6587;&#x4EF6;&#x3002;</p>
 <hr>
 <h2 id="&#x81EA;&#x8A02;&#x4E8B;&#x4EF6;">&#x81EA;&#x8A02;&#x4E8B;&#x4EF6;</h2>
-<p>&#x52A0;&#x5DE5;&#x4E2D;...</p>
+<p>&#x4F7F;&#x7528;<code>$emit</code>&#x767C;&#x9001;&#x4E8B;&#x4EF6;&#x53EF;&#x4EE5;&#x89F8;&#x767C;&#x81EA;&#x8A02;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
+<pre><code class="lang-js">sprite.$on(<span class="hljs-string">&apos;myEvent&apos;</span>, (context, param1, param2) =&gt; {
+    <span class="hljs-built_in">console</span>.log(param1) <span class="hljs-comment">// 1234</span>
+    <span class="hljs-built_in">console</span>.log(param2) <span class="hljs-comment">// 5678</span>
+})
+sprite.$emit(<span class="hljs-string">&apos;myEvent&apos;</span>, <span class="hljs-string">&apos;1234&apos;</span>, <span class="hljs-string">&apos;5678&apos;</span>)
+</code></pre>
+<hr>
+<h2 id="&#x5192;&#x6CE1;&#x50B3;&#x905E;">&#x5192;&#x6CE1;&#x50B3;&#x905E;</h2>
+<p>&#x6240;&#x6709;&#x7684;&#x4E8B;&#x4EF6;&#x90FD;&#x6703;&#x5411;&#x4E0A;&#x50B3;&#x905E;&#xFF0C;&#x6700;&#x5F8C;&#x50B3;&#x5230;core&#x88AB;&#x89F8;&#x767C;&#x3002;</p>
+<p>&#x5192;&#x6CE1;&#x9014;&#x5F91;&#x662F;&#x9019;&#x6A23;&#x7684;&#xFF1A;</p>
+<p>unit(&#x5BE6;&#x4F8B;&#x5316;&#x5C0D;&#x8C61;) -&gt; sprite or collection -&gt; container -&gt; core</p>
+<p>&#x6240;&#x4EE5;&#x8981;&#x5728;core&#x76E3;&#x807D;&#x5230;sprite born&#x4E8B;&#x4EF6;&#xFF0C;&#x53EA;&#x8981;&#x5982;&#x4E0B;&#x5B9A;&#x7FA9;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> oobe = <span class="hljs-keyword">new</span> Oobe()
+<span class="hljs-keyword">let</span> sprite = {
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-string">&apos;&apos;</span>
+        }
+    }
+}
+oobe.join(<span class="hljs-string">&apos;demo&apos;</span>, {
+    sprites: { sprite }
+})
+oobe.on(<span class="hljs-string">&apos;container.sprite.unit.$ready&apos;</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;OuO&apos;</span>)
+})
+oobe.make(<span class="hljs-string">&apos;demo&apos;</span>, <span class="hljs-string">&apos;sprite&apos;</span>).$born() <span class="hljs-comment">// OuO</span>
+</code></pre>
 
                                 
                                 </section>
@@ -400,7 +466,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"事件","level":"2.1.6","depth":2,"next":{"title":"集合","level":"2.1.7","depth":2,"path":"pages/collection.md","ref":"./pages/collection.md","articles":[]},"previous":{"title":"容器","level":"2.1.5","depth":2,"path":"pages/container.md","ref":"./pages/container.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/event.md","mtime":"2019-07-29T03:11:19.311Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-30T04:25:46.577Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"事件","level":"2.1.6","depth":2,"next":{"title":"集合","level":"2.1.7","depth":2,"path":"pages/collection.md","ref":"./pages/collection.md","articles":[]},"previous":{"title":"容器","level":"2.1.5","depth":2,"path":"pages/container.md","ref":"./pages/container.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/event.md","mtime":"2019-08-01T07:25:21.815Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-01T09:56:07.107Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
