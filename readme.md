@@ -12,7 +12,7 @@
 
 [getting started](https://softchef.github.io/oobe/started/)
 
-[demo](https://softchef.github.io/oobe/web/)
+[example](https://softchef.github.io/oobe/example/)
 
 oobe目的為原始資料與控制器之間的中介者，具有資料轉換與驗證方法。
 
