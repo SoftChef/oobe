@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>CollectionUnit.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Collection.html">Collection</a><ul class='methods'><li data-type='method'><a href="Collection.html#batchWrite">batchWrite</a></li><li data-type='method'><a href="Collection.html#clear">clear</a></li><li data-type='method'><a href="Collection.html#emit">emit</a></li><li data-type='method'><a href="Collection.html#fetch">fetch</a></li><li data-type='method'><a href="Collection.html#has">has</a></li><li data-type='method'><a href="Collection.html#list">list</a></li><li data-type='method'><a href="Collection.html#off">off</a></li><li data-type='method'><a href="Collection.html#on">on</a></li><li data-type='method'><a href="Collection.html#remove">remove</a></li><li data-type='method'><a href="Collection.html#write">write</a></li></ul></li><li><a href="Helper.html">Helper</a><ul class='methods'><li data-type='method'><a href="Helper.html#.deepObjectAssign">deepObjectAssign</a></li><li data-type='method'><a href="Helper.html#.generateId">generateId</a></li><li data-type='method'><a href="Helper.html#.getType">getType</a></li><li data-type='method'><a href="Helper.html#.isCollection">isCollection</a></li><li data-type='method'><a href="Helper.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="Helper.html#.isSprite">isSprite</a></li><li data-type='method'><a href="Helper.html#.jpjs">jpjs</a></li><li data-type='method'><a href="Helper.html#.verify">verify</a></li></ul></li><li><a href="Oobe.html">Oobe</a><ul class='methods'><li data-type='method'><a href="Oobe.html#addon">addon</a></li><li data-type='method'><a href="Oobe.html#batch">batch</a></li><li data-type='method'><a href="Oobe.html#collection">collection</a></li><li data-type='method'><a href="Oobe.html#emit">emit</a></li><li data-type='method'><a href="Oobe.html#getRules">getRules</a></li><li data-type='method'><a href="Oobe.html#instanceof">instanceof</a></li><li data-type='method'><a href="Oobe.html#join">join</a></li><li data-type='method'><a href="Oobe.html#make">make</a></li><li data-type='method'><a href="Oobe.html#meg">meg</a></li><li data-type='method'><a href="Oobe.html#off">off</a></li><li data-type='method'><a href="Oobe.html#on">on</a></li><li data-type='method'><a href="Oobe.html#setLocale">setLocale</a></li><li data-type='method'><a href="Oobe.html#validateForSprite">validateForSprite</a></li></ul></li><li><a href="Sprite.html">Sprite</a><ul class='methods'><li data-type='method'><a href="Sprite.html#$bind">$bind</a></li><li data-type='method'><a href="Sprite.html#$body">$body</a></li><li data-type='method'><a href="Sprite.html#$born">$born</a></li><li data-type='method'><a href="Sprite.html#$copy">$copy</a></li><li data-type='method'><a href="Sprite.html#$dead">$dead</a></li><li data-type='method'><a href="Sprite.html#$dist">$dist</a></li><li data-type='method'><a href="Sprite.html#$distortion">$distortion</a></li><li data-type='method'><a href="Sprite.html#$emit">$emit</a></li><li data-type='method'><a href="Sprite.html#$export">$export</a></li><li data-type='method'><a href="Sprite.html#$isChange">$isChange</a></li><li data-type='method'><a href="Sprite.html#$isFixed">$isFixed</a></li><li data-type='method'><a href="Sprite.html#$isHidden">$isHidden</a></li><li data-type='method'><a href="Sprite.html#$keys">$keys</a></li><li data-type='method'><a href="Sprite.html#$meg">$meg</a></li><li data-type='method'><a href="Sprite.html#$off">$off</a></li><li data-type='method'><a href="Sprite.html#$on">$on</a></li><li data-type='method'><a href="Sprite.html#$out">$out</a></li><li data-type='method'><a href="Sprite.html#$raw">$raw</a></li><li data-type='method'><a href="Sprite.html#$reset">$reset</a></li><li data-type='method'><a href="Sprite.html#$revive">$revive</a></li><li data-type='method'><a href="Sprite.html#$rules">$rules</a></li><li data-type='method'><a href="Sprite.html#$show">$show</a></li><li data-type='method'><a href="Sprite.html#$toOrigin">$toOrigin</a></li><li data-type='method'><a href="Sprite.html#$validate">$validate</a></li></ul></li></ul><h3>Events</h3><ul><li><a href="Collection.html#event:$fetch">$fetch</a></li><li><a href="Collection.html#event:$fetchFail">$fetchFail</a></li><li><a href="Collection.html#event:$writeReject">$writeReject</a></li><li><a href="Sprite.html#event:$ready">$ready</a></li></ul><h3>Namespaces</h3><ul><li><a href="Container.html">Container</a></li><li><a href="SpriteBase.html">SpriteBase</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">CollectionUnit.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Base = require('./Base')
+const Event = require('./Event')
+const Helper = require('./Helper')
+const Collection = require('./Collection')
+
+class CollectionUnit extends Base {
+    constructor(base) {
+        super('Collection')
+        this.map = new Map()
+        this.base = base
+        this.unit = new Collection(this)
+        this.event = new Event('collection', this.base.event)
+        this.options = Helper.verify(base.options.collection, {
+            key: [false, ['function', 'string'], '*'],
+            write: [false, ['function'], ({ success }) => { success() }]
+        })
+    }
+
+    get size() {
+        return this.map.size
+    }
+
+    /**
+     * 寫入資料被拒絕時觸發
+     * @event Collection#$writeReject
+     * @property {object} context
+     * @property {string} key key
+     * @property {sprite} sprite 精靈
+     * @property {object} source 原資料
+     */
+
+    write(source) {
+        if (Helper.getType(source) !== 'object') {
+            this.$devError('write', 'Source not a object')
+        }
+        let sprite = this.base.create().unit.$born(source)
+        let key = this.options.key !== '*' ? this.options.key(sprite) : Helper.generateId()
+        if (Helper.getType(key) !== 'string') {
+            this.$devError('write', `Write key(${key}) not a string`)
+        }
+        this.options.write.call(this.unit, {
+            key,
+            sprite,
+            reject: (message) => this.event.emit(this.unit, '$writeReject', [{ message, key, sprite, source }]),
+            success: () => this.map.set(key, sprite)
+        })
+    }
+
+    batchWrite(items) {
+        if (Helper.getType(items) !== 'array') {
+            this.$devError('batchWrite', 'Data not a array.')
+        }
+        for (let item of items) {
+            this.write(item)
+        }
+    }
+
+    has(key) {
+        return this.map.has(key)
+    }
+
+    list() {
+        let keys = this.map.keys()
+        let output = []
+        for (let key of keys) {
+            output.push(this.fetch(key))
+        }
+        return output
+    }
+
+    /**
+     * 獲取對象且有真實對象時觸發
+     * @event Collection#$fetch
+     * @property {object} context
+     * @property {sprite} 獲取的精靈
+     */
+
+    /**
+     * 獲取對象為空時觸發
+     * @event Collection#$fetchFail
+     * @property {object} context
+     * @property {string} 獲取的key
+     */
+
+    fetch(key) {
+        let sprite = this.map.get(key)
+        if (sprite) {
+            this.event.emit(this.unit, '$fetch', [ sprite ])
+        } else {
+            this.event.emit(this.unit, '$fetchFail', [ key ])
+        }
+        return sprite
+    }
+
+    clear() {
+        this.map.clear()
+    }
+
+    remove(key) {
+        this.map.delete(key)
+    }
+}
+
+module.exports = CollectionUnit
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Fri Aug 02 2019 14:56:30 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

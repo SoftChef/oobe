@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Helper.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Collection.html">Collection</a><ul class='methods'><li data-type='method'><a href="Collection.html#batchWrite">batchWrite</a></li><li data-type='method'><a href="Collection.html#clear">clear</a></li><li data-type='method'><a href="Collection.html#emit">emit</a></li><li data-type='method'><a href="Collection.html#fetch">fetch</a></li><li data-type='method'><a href="Collection.html#has">has</a></li><li data-type='method'><a href="Collection.html#list">list</a></li><li data-type='method'><a href="Collection.html#off">off</a></li><li data-type='method'><a href="Collection.html#on">on</a></li><li data-type='method'><a href="Collection.html#remove">remove</a></li><li data-type='method'><a href="Collection.html#write">write</a></li></ul></li><li><a href="Helper.html">Helper</a><ul class='methods'><li data-type='method'><a href="Helper.html#.deepObjectAssign">deepObjectAssign</a></li><li data-type='method'><a href="Helper.html#.generateId">generateId</a></li><li data-type='method'><a href="Helper.html#.getType">getType</a></li><li data-type='method'><a href="Helper.html#.isCollection">isCollection</a></li><li data-type='method'><a href="Helper.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="Helper.html#.isSprite">isSprite</a></li><li data-type='method'><a href="Helper.html#.jpjs">jpjs</a></li><li data-type='method'><a href="Helper.html#.verify">verify</a></li></ul></li><li><a href="Oobe.html">Oobe</a><ul class='methods'><li data-type='method'><a href="Oobe.html#addon">addon</a></li><li data-type='method'><a href="Oobe.html#batch">batch</a></li><li data-type='method'><a href="Oobe.html#collection">collection</a></li><li data-type='method'><a href="Oobe.html#emit">emit</a></li><li data-type='method'><a href="Oobe.html#getRules">getRules</a></li><li data-type='method'><a href="Oobe.html#instanceof">instanceof</a></li><li data-type='method'><a href="Oobe.html#join">join</a></li><li data-type='method'><a href="Oobe.html#make">make</a></li><li data-type='method'><a href="Oobe.html#meg">meg</a></li><li data-type='method'><a href="Oobe.html#off">off</a></li><li data-type='method'><a href="Oobe.html#on">on</a></li><li data-type='method'><a href="Oobe.html#setLocale">setLocale</a></li><li data-type='method'><a href="Oobe.html#validateForSprite">validateForSprite</a></li></ul></li><li><a href="Sprite.html">Sprite</a><ul class='methods'><li data-type='method'><a href="Sprite.html#$bind">$bind</a></li><li data-type='method'><a href="Sprite.html#$body">$body</a></li><li data-type='method'><a href="Sprite.html#$born">$born</a></li><li data-type='method'><a href="Sprite.html#$copy">$copy</a></li><li data-type='method'><a href="Sprite.html#$dead">$dead</a></li><li data-type='method'><a href="Sprite.html#$dist">$dist</a></li><li data-type='method'><a href="Sprite.html#$distortion">$distortion</a></li><li data-type='method'><a href="Sprite.html#$emit">$emit</a></li><li data-type='method'><a href="Sprite.html#$export">$export</a></li><li data-type='method'><a href="Sprite.html#$isChange">$isChange</a></li><li data-type='method'><a href="Sprite.html#$isFixed">$isFixed</a></li><li data-type='method'><a href="Sprite.html#$isHidden">$isHidden</a></li><li data-type='method'><a href="Sprite.html#$keys">$keys</a></li><li data-type='method'><a href="Sprite.html#$meg">$meg</a></li><li data-type='method'><a href="Sprite.html#$off">$off</a></li><li data-type='method'><a href="Sprite.html#$on">$on</a></li><li data-type='method'><a href="Sprite.html#$out">$out</a></li><li data-type='method'><a href="Sprite.html#$raw">$raw</a></li><li data-type='method'><a href="Sprite.html#$reset">$reset</a></li><li data-type='method'><a href="Sprite.html#$revive">$revive</a></li><li data-type='method'><a href="Sprite.html#$rules">$rules</a></li><li data-type='method'><a href="Sprite.html#$show">$show</a></li><li data-type='method'><a href="Sprite.html#$toOrigin">$toOrigin</a></li><li data-type='method'><a href="Sprite.html#$validate">$validate</a></li></ul></li></ul><h3>Events</h3><ul><li><a href="Collection.html#event:$fetch">$fetch</a></li><li><a href="Collection.html#event:$fetchFail">$fetchFail</a></li><li><a href="Collection.html#event:$writeReject">$writeReject</a></li><li><a href="Sprite.html#event:$ready">$ready</a></li></ul><h3>Namespaces</h3><ul><li><a href="Container.html">Container</a></li><li><a href="SpriteBase.html">SpriteBase</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Helper.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Main export class
+ * @hideconstructor
+ */
+
+class Helper {
+    /**
+     * JSON.parse(JSON.stringify)的深拷貝方法
+     * @static
+     * @param {*} data 任何可以JSON.stringify的物件
+     */
+
+    static jpjs(data) {
+        return JSON.parse(JSON.stringify(data))
+    }
+
+    /**
+     * 獲取型別
+     * @static
+     * @param {*} target 任何型態都行
+     * @returns {string} example之外的型態則回傳typeof的值
+     * @example
+     *  getType([]) // array
+     *  getType(null) // empty
+     *  getType(undefined) // empty
+     *  getType(NaN) // NaN
+     *  getType(/test/) // regexp
+     */
+
+    static getType(target) {
+        let type = typeof target
+        if (Array.isArray(target)) {
+            return 'array'
+        }
+        if (target == null) {
+            return 'empty'
+        }
+        if (type === 'number' &amp;&amp; isNaN(target)) {
+            return 'NaN'
+        }
+        if (target instanceof RegExp) {
+            return 'regexp'
+        }
+        return type
+    }
+
+    /**
+     * 是否為空值
+     * @static
+     * @param {*} target 標的物
+     * @returns {boolean}
+     * @example
+     *  isEmpty(0) //false
+     *  isEmpty('') // true
+     *  isEmpty([]) // true
+     *  isEmpty({}) // true
+     *  isEmpty(null) // true
+     *  isEmpty(undefined) // true
+     */
+
+    static isEmpty(target) {
+        let type = Helper.getType(target)
+        if (type === 'empty') {
+            return true
+        }
+        if (type === 'array' &amp;&amp; target.length === 0) {
+            return true
+        }
+        if (type === 'object' &amp;&amp; Object.keys(target).length === 0) {
+            return true
+        }
+        if (type === 'string' &amp;&amp; target === '') {
+            return true
+        }
+        return false
+    }
+
+    /**
+     * 是否為精靈
+     * @static
+     * @param {*} target 標的物
+     * @returns {boolean}
+     */
+
+    static isSprite(target) {
+        return target instanceof Sprite
+    }
+
+    /**
+     * 是否為集合
+     * @static
+     * @param {*} target 標的物
+     * @returns {boolean}
+     */
+
+    static isCollection(target) {
+        return target instanceof Collection
+    }
+
+    /**
+     * 驗證和回傳預設與付值結果
+     * @static
+     * @param {object} data 標的物
+     * @param {object.&lt;array>} validates 驗證模型[required:boolean, types:array, default:*]
+     * @returns {object}
+     * @example
+     *  let options = verify({ a: 5 }, {
+     *      a: [true, ['number'], 0],
+     *      b: [false, ['number'], 'test']
+     *  })
+     *  console.log(options.b) // test
+     */
+
+    static verify(data, validates) {
+        let newData = {}
+        for (let key in validates) {
+            let target = data[key]
+            let validate = validates[key]
+            let [required, types, defaultValue] = validate
+            let type = Helper.getType(target)
+            if (Helper.getType(required) !== 'boolean') {
+                throw new Error(`Helper::verify => Required must be a boolean`)
+            }
+            if (Helper.getType(types) !== 'array') {
+                throw new Error(`Helper::verify => Types must be a array`)
+            }
+            if (required &amp;&amp; target == null) {
+                throw new Error(`Helper::verify => Key(${key}) is required`)
+            }
+            if (types &amp;&amp; target != null &amp;&amp; !types.includes(type)) {
+                throw new Error(`Helper::verify => Type(${key}::${type}) error, need ${types.join(' or ')}`)
+            }
+            newData[key] = target === undefined ? defaultValue : target
+        }
+        return newData
+    }
+
+    /**
+     * 能夠針對更細項的物件做合成
+     * @static
+     * @param {object} target 合成物件
+     * @param {object} sources 合成來源
+     * @returns {object}
+     * @example
+     *  let target = {
+     *      a: 5,
+     *      b: 10,
+     *      c: {
+     *          a: 7,
+     *          b: 8
+     *      }
+     *  }
+     *  let output = deepObjectAssign(target, {
+     *      a: 8,
+     *      c: {
+     *          a: 10
+     *      }
+     *  })
+     *  console.log(output.a) // 8
+     *  console.log(output.b) // 10
+     *  console.log(output.c.a) // 10
+     *  console.log(output.c.b) // 8
+     */
+
+    static deepObjectAssign(target, sources = {}) {
+        let output = {}
+        for (let key in target) {
+            let data = target[key]
+            let sour = sources[key]
+            let type = Helper.getType(data)
+            if (type === 'object') {
+                output[key] = Helper.deepObjectAssign(data, sour)
+            } else {
+                output[key] = sour === undefined ? data : sour
+            }
+        }
+        return output
+    }
+
+    /**
+     * 模擬uuid的建構方法，但不是真的uuid，不保證不會重複，但很難重複
+     * @static
+     * @returns {string}
+     */
+
+    static generateId() {
+        var now = Date.now()
+        if (typeof performance !== 'undefined' &amp;&amp; typeof performance.now === 'function') {
+            now += performance.now()
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = (now + Math.random() * 16) % 16 | 0
+            now = Math.floor(now / 16)
+            return (c === 'x' ? r : (r &amp; 0x3 | 0x8)).toString(16)
+        })
+    }
+}
+
+module.exports = Helper
+
+const Sprite = require('./Sprite')
+const Collection = require('./Collection')
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Fri Aug 02 2019 14:56:30 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

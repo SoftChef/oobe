@@ -1,0 +1,72 @@
+v0.0.2:
+    ✔ $export 可以指定shape name @done(19-05-16 19:41)
+    ✔ $copy and $out 必須複製當前的shape @done(19-05-16 19:41)
+    ✔ create @done(19-05-16 23:36)
+
+v0.0.3:
+    ✔ hidden 狀態 @done(19-05-17 23:15)
+    ✔ 將 status 切割出 $raws @done(19-05-17 23:00)
+    ✔ helper key map @done(19-05-18 02:25)
+    ✔ 移除fixed的實際功能 @done(19-05-17 23:31)
+    ✔ 載入錯誤處理 @done(19-05-21 19:32)
+    ✔ checkbox 的 array 寫入 @done(19-05-27 00:52)
+    ✔ 重構生命週期處理 @done(19-05-26 18:38)
+    ✔ book @done(19-05-26 18:37)
+    ✔ 把Live移至status @done(19-05-26 10:12)
+    ✔ each create @done(19-05-24 08:34)
+    ✔ helper is空 @done(19-05-25 00:01)
+    ✔ 將state抽出 @done(19-05-26 09:51)
+    ✔ 把validate轉入rule @done(19-05-26 09:51)
+    ✔ $set 且移除 rawdata @done(19-06-05 20:31)
+    ✔ $set 才會 $ready @done(19-06-05 20:31)
+    ✔ 不允許body出現$字號和function @done(19-06-06 14:21)
+    ✔ prefix的總體設計 @done(19-06-08 18:57)
+    ✔ $view @done(19-06-09 10:09)
+    ✔ 懶加載 @done(19-06-13 23:45)
+    ✔ 複數建立 @done(19-06-11 21:41)
+
+    Test:
+        ✔ sprite $raws @done(19-05-20 10:21)
+        ✔ sprite $meg @done(19-05-20 10:21)
+        ✔ sprite watch @done(19-05-20 10:30)
+        ✔ sprite hidden @done(19-05-20 10:22)
+        ✔ core addon @done(19-05-20 10:17)
+
+v0.0.4:
+    ✔ 移除watch @done(19-06-21 14:30)
+    ✔ reset(key) @done(19-06-21 15:21)
+    ✔ isChange(key) @done(19-06-21 15:21)
+    ✔ Helper.verify @done(19-06-21 16:59)
+
+v0.0.5:
+    ✔ $fn不在使用bind，而是new method，減少記憶體消耗 @done(19-07-02 14:09)
+    ✔ interface @done(19-07-15 16:25)
+    ✔ book的精靈的生命週期圖片掛了 @done(19-07-02 14:04)
+    ✔ doc的樣式更新 @done(19-07-02 14:03)
+
+v0.0.7:
+    ✔ instanceof @done(19-07-15 17:54)
+
+v0.1.0:
+    ✔ 未實體化驗證 @done(19-07-22 11:07)
+
+v0.1.1:
+    ✔ self @done(19-07-23 10:30)
+
+v0.1.2:
+    ✔ event @done(19-07-25 17:00)
+    ✔ raw的doc沒有解釋完畢 @done(19-07-25 10:01)
+    ✔ event測試還沒寫 @done(19-07-26 21:59)
+    ✔ 警告不要在外部操作self @done(19-07-27 17:38)
+    ✔ collection @done(19-07-28 20:51)
+    ✔ helper generateId @done(19-07-28 20:51)
+
+v0.1.5:
+    ✔ Default View @done(19-07-30 12:27)
+
+v0.1.6:
+    ✔ collection write @done(19-07-31 23:05)
+    ✔ write test @done(19-08-01 18:07)
+
+✔ event的說明 @done(19-07-31 14:21)
+✔ collection的說明 @done(19-07-31 14:21)

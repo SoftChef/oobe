@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Sprite.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Collection.html">Collection</a><ul class='methods'><li data-type='method'><a href="Collection.html#batchWrite">batchWrite</a></li><li data-type='method'><a href="Collection.html#clear">clear</a></li><li data-type='method'><a href="Collection.html#emit">emit</a></li><li data-type='method'><a href="Collection.html#fetch">fetch</a></li><li data-type='method'><a href="Collection.html#has">has</a></li><li data-type='method'><a href="Collection.html#list">list</a></li><li data-type='method'><a href="Collection.html#off">off</a></li><li data-type='method'><a href="Collection.html#on">on</a></li><li data-type='method'><a href="Collection.html#remove">remove</a></li><li data-type='method'><a href="Collection.html#write">write</a></li></ul></li><li><a href="Helper.html">Helper</a><ul class='methods'><li data-type='method'><a href="Helper.html#.deepObjectAssign">deepObjectAssign</a></li><li data-type='method'><a href="Helper.html#.generateId">generateId</a></li><li data-type='method'><a href="Helper.html#.getType">getType</a></li><li data-type='method'><a href="Helper.html#.isCollection">isCollection</a></li><li data-type='method'><a href="Helper.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="Helper.html#.isSprite">isSprite</a></li><li data-type='method'><a href="Helper.html#.jpjs">jpjs</a></li><li data-type='method'><a href="Helper.html#.verify">verify</a></li></ul></li><li><a href="Oobe.html">Oobe</a><ul class='methods'><li data-type='method'><a href="Oobe.html#addon">addon</a></li><li data-type='method'><a href="Oobe.html#batch">batch</a></li><li data-type='method'><a href="Oobe.html#collection">collection</a></li><li data-type='method'><a href="Oobe.html#emit">emit</a></li><li data-type='method'><a href="Oobe.html#getRules">getRules</a></li><li data-type='method'><a href="Oobe.html#instanceof">instanceof</a></li><li data-type='method'><a href="Oobe.html#join">join</a></li><li data-type='method'><a href="Oobe.html#make">make</a></li><li data-type='method'><a href="Oobe.html#meg">meg</a></li><li data-type='method'><a href="Oobe.html#off">off</a></li><li data-type='method'><a href="Oobe.html#on">on</a></li><li data-type='method'><a href="Oobe.html#setLocale">setLocale</a></li><li data-type='method'><a href="Oobe.html#validateForSprite">validateForSprite</a></li></ul></li><li><a href="Sprite.html">Sprite</a><ul class='methods'><li data-type='method'><a href="Sprite.html#$bind">$bind</a></li><li data-type='method'><a href="Sprite.html#$body">$body</a></li><li data-type='method'><a href="Sprite.html#$born">$born</a></li><li data-type='method'><a href="Sprite.html#$copy">$copy</a></li><li data-type='method'><a href="Sprite.html#$dead">$dead</a></li><li data-type='method'><a href="Sprite.html#$dist">$dist</a></li><li data-type='method'><a href="Sprite.html#$distortion">$distortion</a></li><li data-type='method'><a href="Sprite.html#$emit">$emit</a></li><li data-type='method'><a href="Sprite.html#$export">$export</a></li><li data-type='method'><a href="Sprite.html#$isChange">$isChange</a></li><li data-type='method'><a href="Sprite.html#$isFixed">$isFixed</a></li><li data-type='method'><a href="Sprite.html#$isHidden">$isHidden</a></li><li data-type='method'><a href="Sprite.html#$keys">$keys</a></li><li data-type='method'><a href="Sprite.html#$meg">$meg</a></li><li data-type='method'><a href="Sprite.html#$off">$off</a></li><li data-type='method'><a href="Sprite.html#$on">$on</a></li><li data-type='method'><a href="Sprite.html#$out">$out</a></li><li data-type='method'><a href="Sprite.html#$raw">$raw</a></li><li data-type='method'><a href="Sprite.html#$reset">$reset</a></li><li data-type='method'><a href="Sprite.html#$revive">$revive</a></li><li data-type='method'><a href="Sprite.html#$rules">$rules</a></li><li data-type='method'><a href="Sprite.html#$show">$show</a></li><li data-type='method'><a href="Sprite.html#$toOrigin">$toOrigin</a></li><li data-type='method'><a href="Sprite.html#$validate">$validate</a></li></ul></li></ul><h3>Events</h3><ul><li><a href="Collection.html#event:$fetch">$fetch</a></li><li><a href="Collection.html#event:$fetchFail">$fetchFail</a></li><li><a href="Collection.html#event:$writeReject">$writeReject</a></li><li><a href="Sprite.html#event:$ready">$ready</a></li></ul><h3>Namespaces</h3><ul><li><a href="Container.html">Container</a></li><li><a href="SpriteBase.html">SpriteBase</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Sprite.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Helper = require('./Helper')
+
+function getUnit(target) {
+    return target instanceof Sprite ? target : target.unit
+}
+
+/**
+ * export sprite
+ * @hideconstructor
+ * @property {object} utils 來自container utils物件
+ * @property {Helper} helper helper的接口
+ * @property {object} configs 來自container configs物件
+ * @property {string} state 現在狀態
+ * @property {boolean} live 目前是否為激活狀態
+ * @property {boolean} ready 是否宣告過born
+ */
+
+class Sprite {
+    constructor(sprite) {
+        this._sprite = sprite
+        this._container = this._sprite.base.container
+        this.$self = null
+        this.$utils = this._container.options.utils
+        this.$helper = Helper
+        this.$configs = this._container.getConfigs()
+    }
+
+    /**
+     * 是否宣告過out且沒有dead and reborn
+     */
+
+    get $live() {
+        return this._sprite.status.live
+    }
+
+    /**
+     * 獲取目前狀態
+     */
+
+    get $state() {
+        return this._sprite.state.name
+    }
+
+    /**
+     * 是否宣告完born
+     */
+
+    get $ready() {
+        return this._sprite.status.ready
+    }
+
+    /**
+     * 觸發一個事件
+     * @param {string} channelName 事件名稱
+     * @param {object} callback 觸發事件
+     */
+
+    $on(channelName, callback) {
+        return this._sprite.event.on(channelName, callback)
+    }
+
+    /**
+     * 移除一個事件
+     * @param {string} channelName 事件名稱
+     * @param {string} id 事件id
+     */
+
+    $off(channelName, id) {
+        return this._sprite.event.off(channelName, id)
+    }
+
+    /**
+     * 發送一個事件
+     * @param {string} channelName 事件名稱
+     * @param {object} params 傳遞參數
+     */
+
+    $emit(channelName, ...params) {
+        return this._sprite.event.emit(this, channelName, params)
+    }
+
+    /**
+     * 獲取原始資料
+     * @param {object} assign 使用deepObjectAssign取代原始資料值
+     * @returns {*}
+     */
+
+    $raw(assign) {
+        return this._sprite.getRawdata(assign)
+    }
+
+    /**
+     * 獲取語系資源
+     * @param {string} name 語系的對應key
+     * @param {object} [value] 動態參數
+     * @returns {string}
+     */
+
+    $meg(name, value) {
+        return this._container.getMessage(name, value)
+    }
+
+    /**
+     * 複製一份sprite並休眠宣告對象
+     * @returns {outSprite}
+     */
+
+    $out() {
+        return getUnit(this._sprite.out())
+    }
+
+    /**
+     * 關閉這個sprite並喚醒宣告此sprite的對象(無對象的sprite無法宣告)
+     * @returns {originSprite}
+     */
+
+    $dead() {
+        return getUnit(this._sprite.dead())
+    }
+
+    /**
+     * 初始化並賦予值，並將ready宣告成true
+     * @returns {this}
+     */
+
+    $born(data) {
+        return getUnit(this._sprite.born(data))
+    }
+
+    /**
+     * 複製當前sprite
+     * @returns {sprite}
+     */
+
+    $copy() {
+        return getUnit(this._sprite.copy())
+    }
+
+    /**
+     * 綁定一個method
+     * @returns {function}
+     */
+
+    $bind(name) {
+        return this._sprite.bind(name)
+    }
+
+    /**
+     * 獲取body的所有值(為複製對象)
+     * @returns {object}
+     */
+
+    $body() {
+        return this._sprite.getBody()
+    }
+
+    /**
+     * 獲取body與refs的鍵值
+     * @returns {array.&lt;string>}
+     */
+
+    $keys() {
+        return this._sprite.getKeys()
+    }
+
+    /**
+     * 把值切回born賦予的狀態
+     * @param {string} [key] 是否針對某個屬性重設
+     */
+
+    $reset(key) {
+        return this._sprite.reset(key)
+    }
+
+    /**
+     * 獲取指定屬性的規則集
+     * @param {string} name 指定屬性
+     * @param {array.&lt;string|fn>} [extra] 擴充規則
+     * @returns {array.&lt;fn>}
+     */
+
+    $rules(name, extra = []) {
+        return this._sprite.getRules(name, extra)
+    }
+
+    /**
+     * 把out sprite的資料回歸至origin sprite
+     * @returns {originSprite}
+     */
+
+    $revive() {
+        return getUnit(this._sprite.revive())
+    }
+
+    /**
+     * 輸出當前狀態指定的export
+     * @param {string} [name] 指定狀態
+     * @returns {object}
+     */
+
+    $export(name) {
+        return this._sprite.export(name)
+    }
+
+    /**
+     * 當前狀態的屬性是否有fixed屬性
+     * @param {string} name 指定屬性名稱
+     * @returns {boolean}
+     */
+
+    $isFixed(name) {
+        return this._sprite.state.isFixed(name)
+    }
+
+    /**
+     * 當前狀態的屬性是否有hidden屬性
+     * @param {string} name 指定屬性名稱
+     * @returns {boolean}
+     */
+
+    $isHidden(name) {
+        return this._sprite.state.isHidden(name)
+    }
+
+    /**
+     * 當前狀態的屬性是否沒hidden屬性
+     * @param {string} name 指定屬性名稱
+     * @returns {boolean}
+     */
+
+    $show(name) {
+        return !this._sprite.state.isHidden(name)
+    }
+
+    /**
+     * 執行origin參數並回傳結果
+     * @returns {object}
+     */
+
+    $toOrigin() {
+        return this._sprite.toOrigin()
+    }
+
+    /**
+     * 狀態是否與born時的狀態相異
+     * @param {string} [key] 是否針對某個屬性作判別
+     * @returns {boolean}
+     */
+
+    $isChange(key) {
+        return this._sprite.isChange(key)
+    }
+
+    /**
+     * 驗證當下參數是否符合驗證規則
+     * @returns {object}
+     */
+
+    $validate() {
+        return this._sprite.validateAll(this)
+    }
+
+    /**
+     * 轉換狀態
+     * @param {string} name 指定狀態名稱
+     * @returns {this}
+     */
+
+    $distortion(name) {
+        return getUnit(this._sprite.distortion(name))
+    }
+
+    /**
+     * 轉換狀態，$distortion的縮寫
+     * @param {string} name 指定狀態名稱
+     * @returns {this}
+     */
+
+    $dist(name) {
+        return this.$distortion(name)
+    }
+}
+
+module.exports = Sprite
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Fri Aug 02 2019 14:56:30 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

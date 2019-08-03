@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>SpriteBase.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Collection.html">Collection</a><ul class='methods'><li data-type='method'><a href="Collection.html#batchWrite">batchWrite</a></li><li data-type='method'><a href="Collection.html#clear">clear</a></li><li data-type='method'><a href="Collection.html#emit">emit</a></li><li data-type='method'><a href="Collection.html#fetch">fetch</a></li><li data-type='method'><a href="Collection.html#has">has</a></li><li data-type='method'><a href="Collection.html#list">list</a></li><li data-type='method'><a href="Collection.html#off">off</a></li><li data-type='method'><a href="Collection.html#on">on</a></li><li data-type='method'><a href="Collection.html#remove">remove</a></li><li data-type='method'><a href="Collection.html#write">write</a></li></ul></li><li><a href="Helper.html">Helper</a><ul class='methods'><li data-type='method'><a href="Helper.html#.deepObjectAssign">deepObjectAssign</a></li><li data-type='method'><a href="Helper.html#.generateId">generateId</a></li><li data-type='method'><a href="Helper.html#.getType">getType</a></li><li data-type='method'><a href="Helper.html#.isCollection">isCollection</a></li><li data-type='method'><a href="Helper.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="Helper.html#.isSprite">isSprite</a></li><li data-type='method'><a href="Helper.html#.jpjs">jpjs</a></li><li data-type='method'><a href="Helper.html#.verify">verify</a></li></ul></li><li><a href="Oobe.html">Oobe</a><ul class='methods'><li data-type='method'><a href="Oobe.html#addon">addon</a></li><li data-type='method'><a href="Oobe.html#batch">batch</a></li><li data-type='method'><a href="Oobe.html#collection">collection</a></li><li data-type='method'><a href="Oobe.html#emit">emit</a></li><li data-type='method'><a href="Oobe.html#getRules">getRules</a></li><li data-type='method'><a href="Oobe.html#instanceof">instanceof</a></li><li data-type='method'><a href="Oobe.html#join">join</a></li><li data-type='method'><a href="Oobe.html#make">make</a></li><li data-type='method'><a href="Oobe.html#meg">meg</a></li><li data-type='method'><a href="Oobe.html#off">off</a></li><li data-type='method'><a href="Oobe.html#on">on</a></li><li data-type='method'><a href="Oobe.html#setLocale">setLocale</a></li><li data-type='method'><a href="Oobe.html#validateForSprite">validateForSprite</a></li></ul></li><li><a href="Sprite.html">Sprite</a><ul class='methods'><li data-type='method'><a href="Sprite.html#$bind">$bind</a></li><li data-type='method'><a href="Sprite.html#$body">$body</a></li><li data-type='method'><a href="Sprite.html#$born">$born</a></li><li data-type='method'><a href="Sprite.html#$copy">$copy</a></li><li data-type='method'><a href="Sprite.html#$dead">$dead</a></li><li data-type='method'><a href="Sprite.html#$dist">$dist</a></li><li data-type='method'><a href="Sprite.html#$distortion">$distortion</a></li><li data-type='method'><a href="Sprite.html#$emit">$emit</a></li><li data-type='method'><a href="Sprite.html#$export">$export</a></li><li data-type='method'><a href="Sprite.html#$isChange">$isChange</a></li><li data-type='method'><a href="Sprite.html#$isFixed">$isFixed</a></li><li data-type='method'><a href="Sprite.html#$isHidden">$isHidden</a></li><li data-type='method'><a href="Sprite.html#$keys">$keys</a></li><li data-type='method'><a href="Sprite.html#$meg">$meg</a></li><li data-type='method'><a href="Sprite.html#$off">$off</a></li><li data-type='method'><a href="Sprite.html#$on">$on</a></li><li data-type='method'><a href="Sprite.html#$out">$out</a></li><li data-type='method'><a href="Sprite.html#$raw">$raw</a></li><li data-type='method'><a href="Sprite.html#$reset">$reset</a></li><li data-type='method'><a href="Sprite.html#$revive">$revive</a></li><li data-type='method'><a href="Sprite.html#$rules">$rules</a></li><li data-type='method'><a href="Sprite.html#$show">$show</a></li><li data-type='method'><a href="Sprite.html#$toOrigin">$toOrigin</a></li><li data-type='method'><a href="Sprite.html#$validate">$validate</a></li></ul></li></ul><h3>Events</h3><ul><li><a href="Collection.html#event:$fetch">$fetch</a></li><li><a href="Collection.html#event:$fetchFail">$fetchFail</a></li><li><a href="Collection.html#event:$writeReject">$writeReject</a></li><li><a href="Sprite.html#event:$ready">$ready</a></li></ul><h3>Namespaces</h3><ul><li><a href="Container.html">Container</a></li><li><a href="SpriteBase.html">SpriteBase</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">SpriteBase.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Base = require('./Base')
+const Event = require('./Event')
+const State = require('./State')
+const Helper = require('./Helper')
+const Configs = require('./Configs')
+const SpriteUnit = require('./SpriteUnit')
+const CollectionUnit = require('./CollectionUnit')
+
+/**
+ * @namespace SpriteBase
+ * @property {function} body 定義結構與預設值
+ * @property {object.&lt;string>} [refs] 該屬性參照其他精靈
+ * @property {object.&lt;fn>} [views] 經過計算後能夠呈現的值
+ * @property {object.&lt;array>} [rules] 屬性驗證規則組
+ * @property {object} [states] 狀態
+ * @property {array.&lt;string>} [states[].fixed] 目標值是否有fixed屬性
+ * @property {array.&lt;string>} [states[].hidden] 目標值是否有hidden屬性
+ * @property {function} [states[].export] 該狀態下的輸出產物
+ * @property {object.&lt;fn>} [methods] 私有方法
+ * @property {function} [born] 攔截rawdata經運算再擲出
+ * @property {function} [origin] 將資料轉換成原始資料再擲出
+ * @property {function} [created] born後會觸發，一次sprite只會觸發一次
+ */
+
+class SpriteBase extends Base {
+    constructor(container, name, options = {}) {
+        super('Sprite')
+        this.name = name
+        this.states = {}
+        this.container = container
+        this.options = Helper.verify(options, {
+            body: [true, ['function']],
+            refs: [false, ['object'], {}],
+            self: [false, ['function'], () => { return {} }],
+            born: [false, ['function'], function(data) { return data }],
+            views: [false, ['object'], {}],
+            rules: [false, ['object'], {}],
+            origin: [false, ['function'], function() { return this.$body() }],
+            states: [false, ['object'], {}],
+            methods: [false, ['object'], {}],
+            created: [false, ['function'], () => {}],
+            collection: [false, ['object'], {}],
+            defaultView: [false, ['function'], null]
+        })
+        this.init()
+    }
+
+    init() {
+        this.initEvent()
+        this.initViews()
+        this.initStates()
+        this.initMethods()
+    }
+
+    initEvent() {
+        this.event = new Event('sprite', this.container.event, {
+            name: this.name
+        })
+    }
+
+    initStates() {
+        let states = this.container.options.states.concat(Configs.defaultState)
+        for (let name of states) {
+            this.states[name] = new State(name, this.options.states[name])
+        }
+    }
+
+    initViews() {
+        let views = this.options.views
+        this.Views = function(unit) {
+            this._views = views
+            this._target = unit
+        }
+        for (let key in views) {
+            Object.defineProperty(this.Views.prototype, key, {
+                get: function() {
+                    return this._views[key].apply(this._target, arguments)
+                }
+            })
+        }
+    }
+
+    initMethods() {
+        let methods = {
+            ...this.container.options.methods,
+            ...this.options.methods
+        }
+        this.Methods = function(unit) {
+            this._target = unit
+            this._methods = methods
+        }
+        for (let key in methods) {
+            this.Methods.prototype[key] = function() {
+                return this._methods[key].apply(this._target, arguments)
+            }
+        }
+    }
+
+    getViews(unit) {
+        return new this.Views(unit)
+    }
+
+    getMethods(unit) {
+        return new this.Methods(unit)
+    }
+
+    create() {
+        return new SpriteUnit(this)
+    }
+
+    createCollection() {
+        return new CollectionUnit(this)
+    }
+}
+
+module.exports = SpriteBase
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Fri Aug 02 2019 14:56:30 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
