@@ -2,7 +2,7 @@
 
 `oobe`原本是定義在前後端都能使用的model system，但最後還是決定主力在前端了，畢竟後端有一個目標為非同步加載的model實在是太恐怖惹，怎麼死的都不知道。
 
-> 但oobe並沒有跟DOM互動，且未來開發都會允許在server端正常運行，心臟大顆的同學們可以試試，也可以說說你的經歷來給我們笑笑。
+> 但oobe並沒有跟DOM互動，且未來開發都會允許在server端正常運行，心臟大顆的朋友們可以試試。
 
 在接下來的實戰演練中，你必須具備ES6以上版本的基本常識，我會以前端工程師的角度說明，並使用vue開發作為例子，畢竟oobe是在vue環境中誕生的，如果是使用其他框架的朋友願意使用也可以一起參與開發。
 
@@ -10,7 +10,7 @@
 
 `oobe`成形的主因跟cloud service脫離不了關係，從他們的API所獲取的資料格式可以讓我們清楚的知道他們內部山頭林立，各大派系誰也不讓誰，不過沒關係，我們碼農可是整地界的翹楚。
 
-接下來，我們把後端工程師視為用香蕉請來的猴子，他建立了一支建立User的API，需要的格式如下：
+接下來，我們被要求寫一個建立User的表單，需要的格式如下：
 
 ### User的資料結構
 
@@ -52,7 +52,7 @@
 
 ## 定義好oobe
 
-### oobe/index.js
+#### oobe/index.js
 
 ```js
 import user from './user/index.js'
@@ -63,7 +63,7 @@ let oobe = new Oobe()
 Vue.prototype.$oobe = oobe
 ```
 
-### oobe/user/index.js
+#### oobe/user/index.js
 
 ```js
 import user from './user.js'
@@ -76,7 +76,7 @@ export default {
 }
 ```
 
-### oobe/user/user.js
+#### oobe/user/user.js
 
 ```js
 export default {
@@ -116,7 +116,7 @@ export default {
 }
 ```
 
-### oobe/user/user_attributes.js
+#### oobe/user/user_attributes.js
 
 ```js
 export default {
@@ -151,9 +151,7 @@ export default {
 
 下列的例子可得知，如果我們要把原始資料直接寫vue非常痛苦，閱讀性非常不好，所以我們把資料處裡交給oobe，讓vue file只需要針對body做處理。
 
-> 因此，如果你是一位切版，讓你應該引入oobe，讓你有更好的理由把鍋甩給前端工程師。
-
-### components/form.vue
+#### components/form.vue
 
 ```html
 <template>
@@ -187,7 +185,7 @@ export default {
 </script>
 ```
 
-### pages/create.vue
+#### pages/create.vue
 
 ```html
 <template>

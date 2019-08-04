@@ -16,8 +16,8 @@ let sprite = {
         }
     },
     methods: {
-        look() {
-            return '誇沙'
+        foo() {
+            return 'bar'
         }
     },
     collection: {
@@ -58,5 +58,5 @@ collection.write({
 
 ```js
 let sprite = collection.fetch('1234')
-sprite.$fn.look() // 誇沙
+sprite.$fn.foo() // bar
 ```
