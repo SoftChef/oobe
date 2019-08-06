@@ -233,6 +233,11 @@ describe('#Sprite', () => {
         expect(user.$export()).to.equal('test')
     })
 
+    it('export join data', function() {
+        let user = this.user.$copy()
+        expect(user.$export('delete', '1234')).to.equal('delete1234')
+    })
+
     it('export assign mode', function() {
         let user = this.user.$copy().$distortion('create')
         expect(user.$export('delete')).to.equal('delete')
@@ -372,6 +377,26 @@ describe('#Sprite', () => {
         rawnull.$off('$ready', raw3)
         rawnull.$born()
         expect(count).to.equal(2)
+    })
+
+    it('put', function() {
+        let user = this.oobe.make('CognitoUser', 'user').$born(RawData).$put({
+            name: '1234',
+            attributes: {
+                sub: '5487'
+            }
+        })
+        expect(user.name).to.equal('1234')
+        expect(user.attributes.sub).to.equal('5487')
+        expect(user.attributes['custom:level']).to.equal('admin')
+    })
+
+    it('toObject', function() {
+        let user = this.oobe.make('CognitoUser', 'user').$born(RawData)
+        let object = user.$toObject()
+        user.name = '5487'
+        expect(user.name).to.equal('5487')
+        expect(object.name).to.equal('admin')
     })
 })
 

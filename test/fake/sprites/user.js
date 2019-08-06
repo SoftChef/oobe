@@ -87,8 +87,8 @@ module.exports = {
             }
         },
         delete: {
-            export() {
-                return 'delete'
+            export(text = '') {
+                return 'delete' + text
             }
         }
     }

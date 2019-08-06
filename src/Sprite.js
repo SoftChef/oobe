@@ -80,6 +80,15 @@ class Sprite {
     }
 
     /**
+     * 更新對應key的body
+     * @param {object} data
+     */
+
+    $put(data) {
+        return getUnit(this._sprite.put(data))
+    }
+
+    /**
      * 獲取原始資料
      * @param {object} assign 使用deepObjectAssign取代原始資料值
      * @returns {*}
@@ -184,6 +193,15 @@ class Sprite {
     }
 
     /**
+     * 回傳一個含某些oobe屬性的物件，可用於調適
+     * @returns {object}
+     */
+
+    $toObject() {
+        return this._sprite.toObject()
+    }
+
+    /**
      * 把out sprite的資料回歸至origin sprite
      * @returns {originSprite}
      */
@@ -198,8 +216,8 @@ class Sprite {
      * @returns {object}
      */
 
-    $export(name) {
-        return this._sprite.export(name)
+    $export(name, ...args) {
+        return this._sprite.export(name, args)
     }
 
     /**

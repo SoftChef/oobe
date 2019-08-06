@@ -7,9 +7,9 @@
 ## ver 0.0.4
 
 1. 移除watch屬性：這東西對後端來說太危險了
-4. 移除bridge：考慮使用event來取代
-2. reset & isChange 可以針對key來做微調
-3. helper verify：一個簡單的驗證功能
+2. 移除bridge：考慮使用event來取代
+3. reset & isChange 可以針對key來做微調
+4. helper verify：一個簡單的驗證功能
 
 ## ver 0.0.5
 
@@ -72,3 +72,9 @@
 ## ver 0.1.7
 
 1. 更新readme
+
+## ver 0.1.8
+
+1. sprite $put
+2. sprite $toObject
+3. export 指定name之外還能傳遞數值

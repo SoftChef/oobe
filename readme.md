@@ -91,7 +91,9 @@ let oobe = new Oobe()
 
 ## Other
 
-[Version](https://softchef.github.io/oobe/version)
+[medium]()
+
+[versions](https://softchef.github.io/oobe/version)
 
 [npm-image]: https://img.shields.io/npm/v/oobe.svg
 [npm-url]: https://npmjs.org/package/oobe

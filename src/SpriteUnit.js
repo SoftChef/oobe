@@ -85,7 +85,7 @@ class SpriteUnit extends Base {
         }
     }
 
-    export(name) {
+    export(name, args) {
         let state = null
         if (name) {
             state = this.base.states[name]
@@ -95,7 +95,7 @@ class SpriteUnit extends Base {
         } else {
             state = this.state
         }
-        return state.options.export.call(this.unit)
+        return state.options.export.apply(this.unit, args)
     }
 
     toOrigin() {
@@ -183,6 +183,22 @@ class SpriteUnit extends Base {
         this.unit.$self = this.base.options.self.call(this.unit, data)
     }
 
+    put(data) {
+        if (this.isLive()) {
+            for (let key of this.propertyNames) {
+                if (data[key] !== undefined) {
+                    this.unit[key] = data[key]
+                }
+            }
+            this.eachRefs((sprite, key) => {
+                if (data[key] !== undefined) {
+                    sprite.put(data[key])
+                }
+            })
+        }
+        return this
+    }
+
     eachRefs(callback) {
         for (let key in this.refs) {
             let result = callback(this.refs[key], key)
@@ -232,6 +248,20 @@ class SpriteUnit extends Base {
         }
     }
 
+    toObject() {
+        let object = this.getBody()
+        object.$self = {}
+        object.$views = {}
+        object.$status = Helper.jpjs(this.status)
+        for (let key in this.base.$views) {
+            object.$views[key] = this.unit.$views[key]
+        }
+        for (let key in this.unit.$self) {
+            object.$self[key] = this.unit.$self[key]
+        }
+        return object
+    }
+
     init() {
         this.initUnit()
         this.initBody()
@@ -253,7 +283,7 @@ class SpriteUnit extends Base {
             live: true,
             init: false,
             ready: false,
-            reference: false
+            isReference: false
         }
     }
 
@@ -292,7 +322,7 @@ class SpriteUnit extends Base {
         }
         for (let key in refs) {
             this.refs[key] = this.base.container.make(refs[key])
-            this.refs[key].status.reference = true
+            this.refs[key].status.isReference = true
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('refs', key),
                 set: this.setDefineProperty(key, true)
