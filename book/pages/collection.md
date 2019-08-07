@@ -23,7 +23,7 @@ let sprite = {
     collection: {
         key: sprite => sprite.name,
         write({ key, sprite, success, reject }) {
-            if (key.name !== '') {
+            if (key !== '') {
                 return success()
             }
             reject('Name is empty.')

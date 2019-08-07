@@ -2,7 +2,9 @@
 /**
  * export collection
  * @hideconstructor
+ * @property {array} items collection的資料集
  * @property {number} size collection內部長度
+ * @property {boolean} isDirty 是否被寫入過資料
  */
 
 class Collection {
@@ -11,7 +13,15 @@ class Collection {
     }
 
     get size() {
-        return this._collection.size
+        return this._collection.items.length
+    }
+
+    get items() {
+        return this._collection.items.slice()
+    }
+
+    get dirty() {
+        return this._collection.status.dirty
     }
 
     /**
@@ -60,14 +70,6 @@ class Collection {
 
     fetch(key) {
         return this._collection.fetch(key)
-    }
-
-    /**
-     * 獲取一組對象，實質上是批次觸發fetch
-     */
-
-    list() {
-        return this._collection.list()
     }
 
     /**

@@ -411,6 +411,13 @@ describe('#Collection', () => {
         expect(Oobe.helper.isCollection(this.collection)).to.equal(true)
     })
 
+    it('dirty', function() {
+        let collection = this.oobe.collection('CognitoUser', 'user')
+        expect(collection.dirty).to.equal(false)
+        collection.write(RawData)
+        expect(collection.dirty).to.equal(true)
+    })
+
     it('write', function() {
         expect(this.collection.size).to.equal(0)
         this.collection.write(RawData)
@@ -437,8 +444,8 @@ describe('#Collection', () => {
         expect(Oobe.helper.isSprite(this.collection.fetch('3064'))).to.equal(false)
     })
 
-    it('list', function() {
-        expect(this.collection.list()).to.be.a('array')
+    it('items', function() {
+        expect(this.collection.items).to.be.a('array')
     })
 
     it('remove', function() {
@@ -466,11 +473,15 @@ describe('#Collection', () => {
             expect(reslut.message).to.equal('test')
             count += 1
         })
+        this.collection.on('$writeSuccess', () => {
+            count += 1
+        })
         this.collection.write({
             ...RawData,
             Username: '123456789'
         })
-        expect(count).to.equal(1)
+        this.collection.write(RawData)
+        expect(count).to.equal(2)
     })
 
     it('clear', function() {

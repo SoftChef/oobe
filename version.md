@@ -78,3 +78,10 @@
 1. sprite $put
 2. sprite $toObject
 3. export 指定name之外還能傳遞數值
+
+## ver 0.1.9
+
+1. 移除 collection list
+2. 新增 collection items
+3. 新增 collection wirteSuccess event
+4. 新增 collection dirty

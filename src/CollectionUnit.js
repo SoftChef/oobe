@@ -6,27 +6,69 @@ const Collection = require('./Collection')
 class CollectionUnit extends Base {
     constructor(base) {
         super('Collection')
-        this.map = new Map()
+        this.map = {}
         this.base = base
         this.unit = new Collection(this)
+        this.items = []
         this.event = new Event('collection', this.base.event)
+        this.status = {
+            dirty: false
+        }
         this.options = Helper.verify(base.options.collection, {
             key: [false, ['function', 'string'], '*'],
             write: [false, ['function'], ({ success }) => { success() }]
         })
     }
 
-    get size() {
-        return this.map.size
+    toPKey(key) {
+        return '$' + key
+    }
+
+    getKeyIndex(key) {
+        let target = this.get(key)
+        if (target) {
+            return this.items.findIndex(sprite => sprite === target)
+        }
+        this.$systemError('getKeyIndex', `Key(${key}) not found.`)
+    }
+
+    put(key, sprite) {
+        if (this.has(key) === false) {
+            this.items.push(sprite)
+        } else {
+            this.items[this.getKeyIndex(key)] = sprite
+        }
+        this.map[this.toPKey(key)] = sprite
+        this.status.dirty = true
+    }
+
+    has(key) {
+        return !!this.get(key)
+    }
+
+    get(key) {
+        return this.map[this.toPKey(key)]
     }
 
     /**
      * 寫入資料被拒絕時觸發
      * @event Collection#$writeReject
      * @property {object} context
-     * @property {string} key key
-     * @property {sprite} sprite 精靈
-     * @property {object} source 原資料
+     * @property {object} content
+     * @property {object} content.message 錯誤訊息
+     * @property {string} content.key key
+     * @property {sprite} content.sprite 精靈
+     * @property {object} content.source 原資料
+     */
+
+    /**
+     * 寫入資料成功被觸發
+     * @event Collection#$writeSuccess
+     * @property {object} context
+     * @property {object} content
+     * @property {string} content.key key
+     * @property {sprite} content.sprite 精靈
+     * @property {object} content.source 原資料
      */
 
     write(source) {
@@ -38,11 +80,15 @@ class CollectionUnit extends Base {
         if (Helper.getType(key) !== 'string') {
             this.$devError('write', `Write key(${key}) not a string`)
         }
+        let eventData = { key, sprite, source }
         this.options.write.call(this.unit, {
             key,
             sprite,
-            reject: (message) => this.event.emit(this.unit, '$writeReject', [{ message, key, sprite, source }]),
-            success: () => this.map.set(key, sprite)
+            reject: message => this.event.emit(this.unit, '$writeReject', [{ message, ...eventData }]),
+            success: () => {
+                this.put(key, sprite)
+                this.event.emit(this.unit, '$writeSuccess', [eventData])
+            }
         })
     }
 
@@ -53,19 +99,6 @@ class CollectionUnit extends Base {
         for (let item of items) {
             this.write(item)
         }
-    }
-
-    has(key) {
-        return this.map.has(key)
-    }
-
-    list() {
-        let keys = this.map.keys()
-        let output = []
-        for (let key of keys) {
-            output.push(this.fetch(key))
-        }
-        return output
     }
 
     /**
@@ -83,7 +116,7 @@ class CollectionUnit extends Base {
      */
 
     fetch(key) {
-        let sprite = this.map.get(key)
+        let sprite = this.get(key)
         if (sprite) {
             this.event.emit(this.unit, '$fetch', [ sprite ])
         } else {
@@ -93,11 +126,17 @@ class CollectionUnit extends Base {
     }
 
     clear() {
-        this.map.clear()
+        this.map = {}
+        this.items = []
     }
 
     remove(key) {
-        this.map.delete(key)
+        if (this.has(key)) {
+            this.items.splice(this.getKeyIndex(key), 1)
+            delete this.map[this.toPKey(key)]
+        } else {
+            this.$devError('remove', `Key(${key}) not found.`)
+        }
     }
 }
 
