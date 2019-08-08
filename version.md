@@ -85,3 +85,7 @@
 2. 新增 collection items
 3. 新增 collection wirteSuccess event
 4. 新增 collection dirty
+
+## ver 0.2.0
+
+1. 新增官方包

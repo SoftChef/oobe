@@ -14,6 +14,7 @@ module.exports = {
         'no-undef': [0, { 'typeof': true }],
         'handle-callback-err': [0],
         'prefer-promise-reject-errors': ['error', { 'allowEmptyReject': true }],
-        'space-before-function-paren': ['error', 'never']
+        'space-before-function-paren': ['error', 'never'],
+        "requireStringLiterals": false
     }
 }
