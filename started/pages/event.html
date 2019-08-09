@@ -324,7 +324,6 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="event">Event</h1>
-<p><em>&#x1F52C;Event&#x662F;&#x4E00;&#x500B;&#x5BE6;&#x9A57;&#x6027;&#x529F;&#x80FD;&#xFF0C;&#x6211;&#x5011;&#x5C07;&#x983B;&#x7E41;&#x66F4;&#x52D5;&#x4E14;&#x9700;&#x8981;&#x60A8;&#x7684;&#x56DE;&#x994B;&#x3002;</em></p>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> oobe = <span class="hljs-keyword">new</span> Oobe()
 oobe.join(<span class="hljs-string">&apos;demo&apos;</span>, {
     sprites: {
@@ -357,6 +356,12 @@ sprite.$on(<span class="hljs-string">&apos;$ready&apos;</span>, ({ listener }) =
 sprite.$off(<span class="hljs-string">&apos;$ready&apos;</span>, listener)
 sprite.$off(<span class="hljs-string">&apos;$ready&apos;</span>, listener.id)
 listener.off()
+</code></pre>
+<h2 id="&#x55AE;&#x6B21;&#x76E3;&#x807D;">&#x55AE;&#x6B21;&#x76E3;&#x807D;</h2>
+<p>&#x89F8;&#x767C;&#x4E8B;&#x4EF6;&#x5F8C;&#x53EA;&#x6703;&#x57F7;&#x884C;&#x4E00;&#x6B21;&#x4FBF;&#x95DC;&#x9589;&#x3002;</p>
+<pre><code class="lang-js">sprite.$onOnce(<span class="hljs-string">&apos;$ready&apos;</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;OuO&apos;</span>)
+})
 </code></pre>
 <h2 id="&#x7CFB;&#x7D71;&#x4E8B;&#x4EF6;">&#x7CFB;&#x7D71;&#x4E8B;&#x4EF6;</h2>
 <p>&#x7CFB;&#x7D71;&#x4E8B;&#x4EF6;&#x6703;&#x4EE5;<code>$</code>&#x5B57;&#x865F;&#x505A;&#x958B;&#x982D;&#xFF0C;&#x7531;&#x7A0B;&#x5F0F;&#x5167;&#x90E8;&#x64CD;&#x4F5C;&#x6642;&#x89F8;&#x767C;&#xFF0C;&#x6709;&#x4EC0;&#x9EBC;&#x53EF;&#x7528;&#x7684;&#x7CFB;&#x7D71;&#x4E8B;&#x4EF6;&#x8ACB;&#x53C3;&#x95B1;&#x6587;&#x4EF6;&#x3002;</p>
@@ -434,7 +439,7 @@ oobe.make(<span class="hljs-string">&apos;demo&apos;</span>, <span class="hljs-s
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"事件","level":"1.7","depth":1,"next":{"title":"集合","level":"1.8","depth":1,"path":"pages/collection.md","ref":"./pages/collection.md","articles":[]},"previous":{"title":"容器","level":"1.6","depth":1,"path":"pages/container.md","ref":"./pages/container.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/event.md","mtime":"2019-08-03T09:27:30.956Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-08T03:30:23.734Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"事件","level":"1.7","depth":1,"next":{"title":"集合","level":"1.8","depth":1,"path":"pages/collection.md","ref":"./pages/collection.md","articles":[]},"previous":{"title":"容器","level":"1.6","depth":1,"path":"pages/container.md","ref":"./pages/container.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/event.md","mtime":"2019-08-09T06:32:41.122Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-09T17:04:12.588Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -25,13 +25,23 @@ class Collection {
     }
 
     /**
-     * 觸發一個事件
+     * 監聽一個事件，但只觸發一次
      * @param {string} channelName 事件名稱
      * @param {object} callback 觸發事件
      */
 
     on(channelName, callback) {
         return this._collection.event.on(channelName, callback)
+    }
+
+    /**
+     * 監聽一個事件，但只觸發一次
+     * @param {string} channelName 事件名稱
+     * @param {object} callback 觸發事件
+     */
+
+    onOnce(channelName, callback) {
+        return this._collection.event.once(channelName, callback)
     }
 
     /**

@@ -8,6 +8,7 @@ module.exports = {
             properties: 'never',
             ignoreDestructuring: true
         }],
+        'no-callback-literal': 0,
         'no-extra-boolean-cast': 0,
         'no-unused-vars': ['warn'],
         'no-new': 0,

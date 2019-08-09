@@ -1,7 +1,5 @@
 # Event
 
-*🔬Event是一個實驗性功能，我們將頻繁更動且需要您的回饋。*
-
 ```js
 let oobe = new Oobe()
 oobe.join('demo', {
@@ -39,6 +37,16 @@ let listener = sprite.$on('$ready', () => {
 sprite.$off('$ready', listener)
 sprite.$off('$ready', listener.id)
 listener.off()
+```
+
+## 單次監聽
+
+觸發事件後只會執行一次便關閉。
+
+```js
+sprite.$onOnce('$ready', () => {
+    console.log('OuO')
+})
 ```
 
 ## 系統事件

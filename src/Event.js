@@ -25,6 +25,13 @@ class Event extends Base {
         return this.getChannel(channelName).addListener(callback)
     }
 
+    once(channelName, callback) {
+        return this.on(channelName, function(...args) {
+            callback.apply(this, args)
+            args[0].listener.off()
+        })
+    }
+
     off(channelName, target) {
         let event = typeof target === 'string' ? target : target.id
         this.getChannel(channelName).removeListener(event)

@@ -354,6 +354,22 @@ describe('#Sprite', () => {
         rawnull.$raw()
     })
 
+    it('event once', function() {
+        let count = 0
+        let rawnull = this.oobe.make('CognitoUser', 'rawnull')
+        rawnull.$on('$export', () => {
+            count += 1
+        })
+        rawnull.$onOnce('$export', (context, result) => {
+            expect(result.state).to.equal('read')
+            count += 1
+        })
+        rawnull.$born()
+        rawnull.$export()
+        rawnull.$export()
+        expect(count).to.equal(3)
+    })
+
     it('event', function() {
         let count = 0
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
@@ -397,6 +413,7 @@ describe('#Sprite', () => {
         user.name = '5487'
         expect(user.name).to.equal('5487')
         expect(object.name).to.equal('admin')
+        expect(object.$views.testViews).to.equal('admintest')
     })
 })
 
@@ -451,6 +468,16 @@ describe('#Collection', () => {
     it('remove', function() {
         this.collection.remove('5487')
         expect(this.collection.size).to.equal(1)
+    })
+
+    it('event once', function() {
+        let count = 0
+        this.collection.onOnce('$fetch', () => {
+            count += 1
+        })
+        this.collection.fetch('admin')
+        this.collection.fetch('admin')
+        expect(count).to.equal(1)
     })
 
     it('event', function() {

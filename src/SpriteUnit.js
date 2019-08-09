@@ -85,6 +85,12 @@ class SpriteUnit extends Base {
         }
     }
 
+    /**
+     * 呼叫export時觸發
+     * @event Sprite#$export
+     * @property {object} context
+     */
+
     export(name, args) {
         let state = null
         if (name) {
@@ -95,7 +101,9 @@ class SpriteUnit extends Base {
         } else {
             state = this.state
         }
-        return state.options.export.apply(this.unit, args)
+        let result = state.options.export.apply(this.unit, args)
+        this.event.emit(this.unit, '$export', [{ result, state: state.name }])
+        return result
     }
 
     toOrigin() {
@@ -228,7 +236,7 @@ class SpriteUnit extends Base {
     }
 
     /**
-     * 觸發born時觸發
+     * 呼叫born時觸發
      * @event Sprite#$ready
      * @property {object} context
      */
@@ -253,7 +261,7 @@ class SpriteUnit extends Base {
         object.$self = {}
         object.$views = {}
         object.$status = Helper.jpjs(this.status)
-        for (let key in this.base.$views) {
+        for (let key in this.base.options.views) {
             object.$views[key] = this.unit.$views[key]
         }
         for (let key in this.unit.$self) {

@@ -225,4 +225,27 @@ console.log(oobe.meg('$demo.age', 20)) // $demo.age 未定義情境下，會顯�
 
 ---
 
+## 使用官方配件包
+
+### ob
+
+ob攜帶了我們常用的驗證方法並提供了en-us與zh-tw兩個語系
+
+```js
+import ob from 'oobe/packages/ob'
+oobe.addon(ob)
+```
+
+#### 擴充語系
+
+ob只是提供一個物件，可以藉由下列方法擴充語系：
+
+```js
+ob.locales['ja'] = {
+    'key': '免っがわ來じっ套'
+}
+```
+
+---
+
 該開始了嗎？別急，再來認識[Helper](./helper.md)吧。

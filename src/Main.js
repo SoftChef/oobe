@@ -13,13 +13,23 @@ class Oobe extends Base {
     }
 
     /**
-     * 觸發一個事件
+     * 監聽一個事件
      * @param {string} channelName 事件名稱
      * @param {object} params 傳遞參數
      */
 
     on(channelName, callback) {
         return this._core.event.on(channelName, callback)
+    }
+
+    /**
+     * 監聽一個事件，但只觸發一次
+     * @param {string} channelName 事件名稱
+     * @param {object} callback 觸發事件
+     */
+
+    onOnce(channelName, callback) {
+        return this._core.event.once(channelName, callback)
     }
 
     /**

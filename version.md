@@ -89,3 +89,10 @@
 ## ver 0.2.0
 
 1. 新增官方包
+
+## ver 0.2.1
+
+1. onOnce
+2. sprite export event
+3. 修正toObject 沒有辦法拿到views的錯誤
+4. event移除實驗狀態
