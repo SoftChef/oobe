@@ -172,7 +172,13 @@ class Oobe extends Base {
         let container = target._container
         let spriteBase = target._sprite.base
         let targetContainer = this._core.containers[containerName]
+        if (targetContainer == null) {
+            this.$devError('instanceof', `Container(${containerName}) not found`)
+        }
         let targetSpriteBase = targetContainer.spriteBases[name]
+        if (targetSpriteBase == null) {
+            this.$devError('instanceof', `Sprite(${containerName}) not found`)
+        }
         return container === targetContainer && spriteBase === targetSpriteBase
     }
 }

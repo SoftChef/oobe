@@ -96,3 +96,4 @@
 2. sprite export event
 3. 修正toObject 沒有辦法拿到views的錯誤
 4. event移除實驗狀態
+5. instanceof找不到對象時擲出錯誤
