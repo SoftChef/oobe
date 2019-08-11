@@ -4,7 +4,7 @@
  * @hideconstructor
  * @property {array} items collection的資料集
  * @property {number} size collection內部長度
- * @property {boolean} isDirty 是否被寫入過資料
+ * @property {boolean} dirty 是否宣告過write
  */
 
 class Collection {

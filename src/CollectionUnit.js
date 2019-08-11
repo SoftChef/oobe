@@ -39,7 +39,6 @@ class CollectionUnit extends Base {
             this.items[this.getKeyIndex(key)] = sprite
         }
         this.map[this.toPKey(key)] = sprite
-        this.status.dirty = true
     }
 
     has(key) {
@@ -81,6 +80,7 @@ class CollectionUnit extends Base {
             this.$devError('write', `Write key(${key}) not a string`)
         }
         let eventData = { key, sprite, source }
+        this.status.dirty = true
         this.options.write.call(this.unit, {
             key,
             sprite,
@@ -96,6 +96,7 @@ class CollectionUnit extends Base {
         if (Helper.getType(items) !== 'array') {
             this.$devError('batchWrite', 'Data not a array.')
         }
+        this.status.dirty = true
         for (let item of items) {
             this.write(item)
         }
