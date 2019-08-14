@@ -74,8 +74,11 @@ class CollectionUnit extends Base {
         if (Helper.getType(source) !== 'object') {
             this.$devError('write', 'Source not a object')
         }
-        let sprite = this.base.create().unit.$born(source)
+        let sprite = Helper.isSprite(source) ? source : this.base.create().unit.$born(source)
         let key = this.options.key !== '*' ? this.options.key(sprite) : Helper.generateId()
+        if (this.base.isUs(sprite) === false) {
+            this.$devError('write', `Source not a ${this.base.name} sprite.`)
+        }
         if (Helper.getType(key) !== 'string') {
             this.$devError('write', `Write key(${key}) not a string`)
         }

@@ -5,10 +5,13 @@ class Message extends Base {
         super('Locale')
         this.store = { 'en-us': {} }
         this.default = this.store['en-us']
-        this.setLocale('en-us')
+        this.setLocale()
     }
 
     setLocale(locale) {
+        if (locale == null) {
+            locale = 'en-us'
+        }
         if (typeof locale !== 'string') {
             return this.$devError('setLocale', `Locale(${locale}) not be string.`)
         }

@@ -110,6 +110,23 @@ class Core extends Base {
         }
     }
 
+    instanceof(containerName, name, target) {
+        if (Helper.isSprite(target) === false) {
+            this.$devError('instanceof', `Target not a sprite.`)
+        }
+        let container = target._container
+        let spriteBase = target._sprite.base
+        let targetContainer = this.containers[containerName]
+        if (targetContainer == null) {
+            this.$devError('instanceof', `Container(${containerName}) not found`)
+        }
+        let targetSpriteBase = targetContainer.spriteBases[name]
+        if (targetSpriteBase == null) {
+            this.$devError('instanceof', `Sprite(${containerName}) not found`)
+        }
+        return container === targetContainer && spriteBase === targetSpriteBase
+    }
+
     // ===================
     //
     // public

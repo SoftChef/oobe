@@ -98,3 +98,9 @@
 4. event移除實驗狀態
 5. instanceof找不到對象時擲出錯誤
 6. collection write 或 batchWrite 只要觸發就會更動 dirty屬性
+
+## ver 0.2.2
+
+1. 設定語系為null時會採取en-us
+2. collection允許直接寫入精靈
+3. 實例化的oobe core也有helper的接口了，目的是Container install沒有verify可以用很不方便...

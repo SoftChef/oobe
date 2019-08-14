@@ -54,6 +54,13 @@ collection.write({
 })
 ```
 
+也可以直接寫入sprite
+
+```js
+let sprite = oobe.make('demo', 'sprite').$born({ name: '1234' })
+collection.write(sprite)
+```
+
 獲取
 
 ```js

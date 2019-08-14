@@ -84,7 +84,7 @@ class Collection {
 
     /**
      * 寫入一組資料，當有重複的key鍵則取代
-     * @param {object} data source data
+     * @param {object|sprite} data source data
      */
 
     write(data) {

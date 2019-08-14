@@ -132,6 +132,12 @@ describe('#Sprite', () => {
         this.user = this.oobe.make('CognitoUser', 'user')
     })
 
+    it('isUs', function() {
+        let rawnull = this.oobe.make('CognitoUser', 'rawnull')
+        expect(this.user._sprite.base.isUs(this.user)).to.equal(true)
+        expect(this.user._sprite.base.isUs(rawnull)).to.equal(false)
+    })
+
     it('batch make', function() {
         let items = this.oobe.batch('CognitoUser', 'user', [RawData, RawData])
         expect(items[0].$ready).to.equal(true)
@@ -321,6 +327,7 @@ describe('#Sprite', () => {
     })
 
     it('meg', function() {
+        this.oobe.setLocale()
         expect(this.user.$meg('aaaa')).to.equal('big')
         expect(this.user.$meg('#sc.require', { value: 123 })).to.equal('Value 123 must be required.')
         this.oobe.setLocale('zh-tw')
@@ -509,6 +516,15 @@ describe('#Collection', () => {
         })
         this.collection.write(RawData)
         expect(count).to.equal(2)
+    })
+
+    it('write sprite', function() {
+        let user = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '548754875487' })
+        let rawnull = this.oobe.make('CognitoUser', 'rawnull').$born()
+        let size = this.collection.size
+        this.collection.write(user)
+        expect(() => this.collection.write(rawnull)).to.throw(Error)
+        expect(this.collection.size - size).to.equal(1)
     })
 
     it('clear', function() {

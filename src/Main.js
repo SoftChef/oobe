@@ -10,6 +10,7 @@ class Oobe extends Base {
     constructor() {
         super('Oobe')
         this._core = new Core()
+        this.helper = Helper
     }
 
     /**
@@ -166,20 +167,7 @@ class Oobe extends Base {
      */
 
     instanceof(containerName, name, target) {
-        if (Helper.isSprite(target) === false) {
-            this.$devError('instanceof', `Target not a sprite.`)
-        }
-        let container = target._container
-        let spriteBase = target._sprite.base
-        let targetContainer = this._core.containers[containerName]
-        if (targetContainer == null) {
-            this.$devError('instanceof', `Container(${containerName}) not found`)
-        }
-        let targetSpriteBase = targetContainer.spriteBases[name]
-        if (targetSpriteBase == null) {
-            this.$devError('instanceof', `Sprite(${containerName}) not found`)
-        }
-        return container === targetContainer && spriteBase === targetSpriteBase
+        return this._core.instanceof(containerName, name, target)
     }
 }
 

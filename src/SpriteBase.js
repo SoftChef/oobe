@@ -96,6 +96,10 @@ class SpriteBase extends Base {
         }
     }
 
+    isUs(sprite) {
+        return sprite._sprite.base === this
+    }
+
     getViews(unit) {
         return new this.Views(unit)
     }
