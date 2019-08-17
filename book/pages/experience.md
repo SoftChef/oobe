@@ -100,7 +100,7 @@ export default {
             UserAttributes: this.attributes.$toOrigin()
         }
     },
-    states: {
+    dists: {
         read: {
             fixed: '*'
         },

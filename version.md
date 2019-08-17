@@ -104,3 +104,9 @@
 1. 設定語系為null時會採取en-us
 2. collection允許直接寫入精靈
 3. 實例化的oobe core也有helper的接口了，目的是Container install沒有verify可以用很不方便...
+
+## ver 0.2.3
+
+* 0.2.3將state轉名為dist，這過程有點痛R
+
+1. collection write取代能觸發vue的反應

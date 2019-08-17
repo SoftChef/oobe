@@ -113,11 +113,11 @@ let dave = oobe.make('company', 'staff').$born({
 console.log(dave.work_unit.$views.detail)  // work unit is Assembler
 ```
 
-## States
+## Distortion
 
 午休時間到，Dave是需要好好的休息了。
 
-`states`定義了當下sprite的狀態。
+`dists`定義了當下sprite的模式。
 
 > oobe 預設4個狀態，分別為read(預設)、create、update、dalete，如果需要擴充則需藉由Container定義。
 
@@ -129,7 +129,7 @@ sprite = {
             create_at: Date.now()
         }
     },
-    states: {
+    dists: {
         read: {
             fixed: '*',
             hidden: []
@@ -390,7 +390,7 @@ let staff = {
             favorite_food 
         }
     },
-    states: {
+    dists: {
         read: {
             fixed: '*',
             hidden: []

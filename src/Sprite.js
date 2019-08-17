@@ -10,7 +10,7 @@ function getUnit(target) {
  * @property {object} utils 來自container utils物件
  * @property {Helper} helper helper的接口
  * @property {object} configs 來自container configs物件
- * @property {string} state 現在狀態
+ * @property {string} distName 現在狀態
  * @property {boolean} live 目前是否為激活狀態
  * @property {boolean} ready 是否宣告過born
  */
@@ -37,8 +37,8 @@ class Sprite {
      * 獲取目前狀態
      */
 
-    get $state() {
-        return this._sprite.state.name
+    get $distName() {
+        return this._sprite.dist.name
     }
 
     /**
@@ -237,7 +237,7 @@ class Sprite {
      */
 
     $isFixed(name) {
-        return this._sprite.state.isFixed(name)
+        return this._sprite.dist.isFixed(name)
     }
 
     /**
@@ -247,7 +247,7 @@ class Sprite {
      */
 
     $isHidden(name) {
-        return this._sprite.state.isHidden(name)
+        return this._sprite.dist.isHidden(name)
     }
 
     /**
@@ -257,7 +257,7 @@ class Sprite {
      */
 
     $show(name) {
-        return !this._sprite.state.isHidden(name)
+        return !this._sprite.dist.isHidden(name)
     }
 
     /**

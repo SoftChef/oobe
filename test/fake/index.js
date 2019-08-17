@@ -31,7 +31,7 @@ module.exports = {
         }
     },
 
-    states: [
+    dists: [
         'adminRead',
         'create',
         'delete',

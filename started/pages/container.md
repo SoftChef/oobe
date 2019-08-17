@@ -85,14 +85,14 @@ let company = {
 console.log(dave.$utils.moment) // print moment module
 ```
 
-## 狀態 - States
+## 限制歧變 - Dists
 
-除了系統建構的CRUD state之外，隨意呼叫任何的`distortion`都會擲出錯誤，若需要擴展更多的狀態，必須在`container`中宣告。
+除了系統建構的CRUD之外，隨意呼叫任何的`distortion`都會擲出錯誤，若需要擴展更多的狀態，必須在`container`中宣告。
 
 ```js
 let company = {
     sprites: { staff, unit },
-    states: ['adminUpdate']
+    dists: ['adminUpdate']
 }
 dave.$distortion('adminUpdate') // success
 ```
@@ -104,7 +104,7 @@ Interface可以規範Sprite必須實作某些方法。
 ```js
 let interface = {
     views: ['name'],
-    states: ['update'],
+    dists: ['update'],
     methods: ['rename']
 }
 let sprite = {
@@ -113,7 +113,7 @@ let sprite = {
             name
         }
     },
-    states: {
+    dists: {
         update: {}
     },
     methods: {
@@ -149,7 +149,7 @@ let company = {
         }
     },
     utils: { moment },
-    states: ['adminUpdate']
+    dists: ['adminUpdate']
 }
 ```
 

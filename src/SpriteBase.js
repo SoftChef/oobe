@@ -1,9 +1,9 @@
 const Base = require('./Base')
 const Event = require('./Event')
-const State = require('./State')
 const Helper = require('./Helper')
 const Configs = require('./Configs')
 const SpriteUnit = require('./SpriteUnit')
+const Distortion = require('./Distortion')
 const CollectionUnit = require('./CollectionUnit')
 
 /**
@@ -12,10 +12,10 @@ const CollectionUnit = require('./CollectionUnit')
  * @property {object.<string>} [refs] 該屬性參照其他精靈
  * @property {object.<fn>} [views] 經過計算後能夠呈現的值
  * @property {object.<array>} [rules] 屬性驗證規則組
- * @property {object} [states] 狀態
- * @property {array.<string>} [states[].fixed] 目標值是否有fixed屬性
- * @property {array.<string>} [states[].hidden] 目標值是否有hidden屬性
- * @property {function} [states[].export] 該狀態下的輸出產物
+ * @property {object} [dist] distortions模式
+ * @property {array.<string>} [dist[].fixed] 目標值是否有fixed屬性
+ * @property {array.<string>} [dist[].hidden] 目標值是否有hidden屬性
+ * @property {function} [dist[].export] 該狀模式下的輸出產物
  * @property {object.<fn>} [methods] 私有方法
  * @property {function} [born] 攔截rawdata經運算再擲出
  * @property {function} [origin] 將資料轉換成原始資料再擲出
@@ -26,7 +26,7 @@ class SpriteBase extends Base {
     constructor(container, name, options = {}) {
         super('Sprite')
         this.name = name
-        this.states = {}
+        this.dists = {}
         this.container = container
         this.options = Helper.verify(options, {
             body: [true, ['function']],
@@ -34,21 +34,24 @@ class SpriteBase extends Base {
             self: [false, ['function'], () => { return {} }],
             born: [false, ['function'], function(data) { return data }],
             views: [false, ['object'], {}],
+            dists: [false, ['object'], {}],
             rules: [false, ['object'], {}],
             origin: [false, ['function'], function() { return this.$body() }],
-            states: [false, ['object'], {}],
             methods: [false, ['object'], {}],
             created: [false, ['function'], () => {}],
             collection: [false, ['object'], {}],
             defaultView: [false, ['function'], null]
         })
+        if (options.states) {
+            throw new Error('States already rename to dists.')
+        }
         this.init()
     }
 
     init() {
         this.initEvent()
         this.initViews()
-        this.initStates()
+        this.initDistortion()
         this.initMethods()
     }
 
@@ -58,10 +61,10 @@ class SpriteBase extends Base {
         })
     }
 
-    initStates() {
-        let states = this.container.options.states.concat(Configs.defaultState)
-        for (let name of states) {
-            this.states[name] = new State(name, this.options.states[name])
+    initDistortion() {
+        let distortions = this.container.options.dists.concat(Configs.defaultDistortion)
+        for (let name of distortions) {
+            this.dists[name] = new Distortion(name, this.options.dists[name])
         }
     }
 

@@ -6,7 +6,7 @@ const SpriteBase = require('./SpriteBase')
 /**
  * @namespace Container
  * @property {object.<SpriteBase>} sprites 精靈組
- * @property {array.<string>} [states] 擴展狀態集
+ * @property {array.<string>} [dists] 擴展狀態集
  * @property {object.<fn>} [rules] 私有規則
  * @property {object} [utils] 擴充工具
  * @property {object} [locales] 語系組
@@ -19,7 +19,7 @@ const SpriteBase = require('./SpriteBase')
  * // interface
  * let interface = {
  *     views: ['...'],
- *     states: ['...'],
+ *     dists: ['...'],
  *     methods: ['...']
  * }
  */
@@ -34,7 +34,7 @@ class Container extends Base {
         this.options = Helper.verify(options, {
             rules: [false, ['object'], {}],
             utils: [false, ['object'], {}],
-            states: [false, ['array'], []],
+            dists: [false, ['array'], []],
             sprites: [true, ['object']],
             locales: [false, ['object'], {}],
             configs: [false, ['object'], {}],
@@ -86,24 +86,24 @@ class Container extends Base {
     initInterface() {
         this.interface = Helper.verify(this.options.interface, {
             views: [false, ['array'], []],
-            states: [false, ['array'], []],
+            dists: [false, ['array'], []],
             methods: [false, ['array'], []]
         })
     }
 
     checkInterface(options) {
         let views = this.verifyInterface('views', options)
-        let states = this.verifyInterface('states', options)
+        let dists = this.verifyInterface('dists', options)
         let methods = this.verifyInterface('methods', options)
-        if ((views.length + states.length + methods.length) === 0) {
+        if ((views.length + dists.length + methods.length) === 0) {
             return true
         }
         let message = 'Interface error for : '
         if (views.length !== 0) {
             message += `\nviews[${views.join()}]`
         }
-        if (states.length !== 0) {
-            message += `\nstates[${states.join()}]`
+        if (dists.length !== 0) {
+            message += `\ndists[${dists.join()}]`
         }
         if (methods.length !== 0) {
             message += `\nmethods[${methods.join()}]`

@@ -70,5 +70,12 @@ v0.1.6:
     ✔ event的說明 @done(19-07-31 14:21)
     ✔ collection的說明 @done(19-07-31 14:21)
 
-v0.2.1
-    ☐ 使用官方配件包說明
+v0.2.1:
+    ✔ 使用官方配件包說明 @done(19-08-15 15:30)
+
+v0.2.3:
+    ☐ $state
+    ☐ $state.error
+    ☐ $setError
+    ☐ $putOrigin
+    ☐ $on('error')

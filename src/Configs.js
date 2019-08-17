@@ -1,5 +1,5 @@
 module.exports = {
-    defaultState: ['read', 'create', 'delete', 'update'],
+    defaultDistortion: ['read', 'create', 'delete', 'update'],
     protectPrefix: ['self'],
     systemContainer: {
         sprites: {

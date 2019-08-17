@@ -37,14 +37,14 @@ const InterfaceTest = {
             methods: {
                 test() {}
             },
-            states: {
+            dists: {
                 update() {}
             }
         }
     },
     interface: {
         views: ['test'],
-        states: ['update'],
+        dists: ['update'],
         methods: ['test']
     }
 }
@@ -57,12 +57,12 @@ const InterfaceTestError = {
                 test() {}
             },
             methods: {},
-            states: {}
+            dists: {}
         }
     },
     interface: {
         views: ['test', 'running'],
-        states: ['update'],
+        dists: ['update'],
         methods: ['test']
     }
 }
@@ -223,7 +223,7 @@ describe('#Sprite', () => {
 
     it('distortions', function() {
         let user = this.user.$copy().$distortion('create')
-        expect(user.$state).to.equal('create')
+        expect(user.$distName).to.equal('create')
         expect(user.$show('name')).to.equal(false)
         expect(user.$isFixed('name')).to.equal(true)
         expect(user.$isHidden('name')).to.equal(true)
@@ -368,7 +368,7 @@ describe('#Sprite', () => {
             count += 1
         })
         rawnull.$onOnce('$export', (context, result) => {
-            expect(result.state).to.equal('read')
+            expect(result.dist).to.equal('read')
             count += 1
         })
         rawnull.$born()

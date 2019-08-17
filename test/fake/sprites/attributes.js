@@ -36,7 +36,7 @@ module.exports = {
     methods: {
     },
 
-    distortion: {
+    dists: {
         read: {},
         create: {},
         update: {},

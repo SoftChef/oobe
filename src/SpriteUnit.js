@@ -11,7 +11,7 @@ class SpriteUnit extends Base {
         this.soul = null
         this.from = null
         this.base = base
-        this.state = base.states.read
+        this.dist = base.dists.read
         this.options = base.options
         this.rawBody = ''
         this.rawData = null
@@ -92,17 +92,17 @@ class SpriteUnit extends Base {
      */
 
     export(name, args) {
-        let state = null
+        let dist = null
         if (name) {
-            state = this.base.states[name]
-            if (state == null) {
-                this.$devError('export', `State(${name}) not found.`)
+            dist = this.base.dists[name]
+            if (dist == null) {
+                this.$devError('export', `Dist(${name}) not found.`)
             }
         } else {
-            state = this.state
+            dist = this.dist
         }
-        let result = state.options.export.apply(this.unit, args)
-        this.event.emit(this.unit, '$export', [{ result, state: state.name }])
+        let result = dist.options.export.apply(this.unit, args)
+        this.event.emit(this.unit, '$export', [{ result, dist: dist.name }])
         return result
     }
 
@@ -142,7 +142,7 @@ class SpriteUnit extends Base {
 
     copy() {
         if (this.isReady()) {
-            return this.base.create().born(this.toOrigin()).distortion(this.state.name)
+            return this.base.create().born(this.toOrigin()).distortion(this.dist.name)
         } else {
             this.$devError('copy', 'Sprite not ready.')
         }
@@ -218,10 +218,10 @@ class SpriteUnit extends Base {
 
     distortion(name) {
         if (this.isLive()) {
-            if (this.base.states[name] == null) {
+            if (this.base.dists[name] == null) {
                 return this.$devError('distortion', `Name(${name}) not found.`)
             }
-            this.state = this.base.states[name]
+            this.dist = this.base.dists[name]
             this.eachRefs(s => s.distortion(name))
             return this
         }

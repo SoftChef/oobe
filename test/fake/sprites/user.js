@@ -64,7 +64,7 @@ module.exports = {
         }
     },
 
-    states: {
+    dists: {
         read: {
             fixed: [],
             export() {
