@@ -74,8 +74,7 @@ v0.2.1:
     ✔ 使用官方配件包說明 @done(19-08-15 15:30)
 
 v0.2.3:
-    ☐ $state
-    ☐ $state.error
-    ☐ $setError
-    ☐ $putOrigin
-    ☐ $on('error')
+    ✔ $error @done(19-08-19 10:26)
+    ✔ $setError @done(19-08-19 10:26)
+    ✔ $putOrigin @done(19-08-19 10:31)
+    ✔ $on('$error') @done(19-08-19 10:31)

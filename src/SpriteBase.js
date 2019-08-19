@@ -32,7 +32,7 @@ class SpriteBase extends Base {
             body: [true, ['function']],
             refs: [false, ['object'], {}],
             self: [false, ['function'], () => { return {} }],
-            born: [false, ['function'], function(data) { return data }],
+            born: [false, ['function'], data => data],
             views: [false, ['object'], {}],
             dists: [false, ['object'], {}],
             rules: [false, ['object'], {}],
@@ -40,7 +40,8 @@ class SpriteBase extends Base {
             methods: [false, ['object'], {}],
             created: [false, ['function'], () => {}],
             collection: [false, ['object'], {}],
-            defaultView: [false, ['function'], null]
+            defaultView: [false, ['function'], null],
+            errorMessage: [false, ['function'], data => data]
         })
         if (options.states) {
             throw new Error('States already rename to dists.')

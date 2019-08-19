@@ -40,6 +40,10 @@ class SpriteUnit extends Base {
         return this.propertyNames.concat(refs)
     }
 
+    getErrorMessage() {
+        return this.base.options.errorMessage(this.status.error)
+    }
+
     getProperty(name) {
         if (this.propertyNames.includes(name)) {
             return this.unit[name]
@@ -53,11 +57,19 @@ class SpriteUnit extends Base {
             this.$devError('isLive', 'This Sprite is dead.')
             return false
         }
+        if (this.isError()) {
+            this.$devError('isLive', 'This Sprite is error.')
+            return false
+        }
         return true
     }
 
     isReady() {
         return !!this.status.ready
+    }
+
+    isError() {
+        return !!this.status.error
     }
 
     isInitialization() {
@@ -191,6 +203,11 @@ class SpriteUnit extends Base {
         this.unit.$self = this.base.options.self.call(this.unit, data)
     }
 
+    setError(data) {
+        this.status.error = data || 'Unknown error'
+        this.event.emit(this.unit, '$error', [data])
+    }
+
     put(data) {
         if (this.isLive()) {
             for (let key of this.propertyNames) {
@@ -290,6 +307,7 @@ class SpriteUnit extends Base {
         this.status = {
             live: true,
             init: false,
+            error: null,
             ready: false,
             isReference: false
         }

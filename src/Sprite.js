@@ -50,6 +50,14 @@ class Sprite {
     }
 
     /**
+     * 是否錯誤，有回傳錯誤訊息
+     */
+
+    get $error() {
+        return this._sprite.getErrorMessage()
+    }
+
+    /**
      * 監聽一個事件
      * @param {string} channelName 事件名稱
      * @param {object} callback 觸發事件
@@ -306,6 +314,15 @@ class Sprite {
 
     $dist(name) {
         return this.$distortion(name)
+    }
+
+    /**
+     * 將sprite設定為錯誤
+     * @param {*} data 錯誤資料
+     */
+
+    $setError(data) {
+        return this._sprite.setError(data)
     }
 }
 

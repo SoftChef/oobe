@@ -107,6 +107,9 @@
 
 ## ver 0.2.3
 
-* 0.2.3將state轉名為dist，這過程有點痛R
+* 0.2.3將state轉名為dist，這過程有點痛R，主因是因為distortion是主動轉換，但state比較像是被動轉換
 
 1. collection write取代能觸發vue的反應
+2. 新的error狀態
+3. 新的putOrigin功能
+4. 新的$error event

@@ -16,7 +16,9 @@ module.exports = {
             target[attr.Name] = attr.Value
         }
         let country_code = target['custom:country_code']
-        target.phone_number = target.phone_number.replace(country_code, '')
+        if (target.phone_number) {
+            target.phone_number = target.phone_number.replace(country_code, '')
+        }
         return target
     },
 

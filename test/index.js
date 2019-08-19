@@ -296,6 +296,18 @@ describe('#Sprite', () => {
         expect(TestRawBody === JSON.stringify(this.user.$body())).to.equal(true)
     })
 
+    it('error', function() {
+        let check = false
+        let user = this.user.$copy()
+        user.$onOnce('$error', (context, error) => {
+            check = true
+        })
+        expect(user.$error).to.equal(null)
+        user.$setError('1234')
+        expect(user.$error).to.equal('1234')
+        expect(check).to.equal(true)
+    })
+
     it('out revive', function() {
         let user = this.user.$copy()
         let soul = user.$out()
