@@ -91,7 +91,7 @@ let oobe = new Oobe()
 
 ## Other
 
-[medium]()
+[medium](https://medium.com/sensor-live/oobe-javascript-view-model-library-a6ada8d56566)
 
 [versions](https://softchef.github.io/oobe/version)
 
