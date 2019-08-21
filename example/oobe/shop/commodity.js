@@ -42,7 +42,7 @@ export default {
         }
     },
 
-    states: {
+    dists: {
         read: {
             fixed: '*'
         },

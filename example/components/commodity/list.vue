@@ -1,12 +1,12 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="collection">
         <button
             type="button"
             class="btn btn-outline-primary mb-3"
             @click.stop="push({name: 'commodity.create'})">
             {{ $t('create') }}
         </button>
-        <div v-if="!list">Loading...</div>
+        <div v-if="!collection.dirty">Loading...</div>
         <table v-else class="table">
             <thead>
                 <tr>
@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in list" :key="'key' + index">
+                <tr v-for="(item, index) in collection.items" :key="'key' + index">
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.price }}</td>
@@ -42,7 +42,7 @@
             this.fetchList()
         },
         methods: Vuex.mapActions(['fetchList', 'remove']),
-        computed: Vuex.mapGetters(['list']),
+        computed: Vuex.mapGetters(['collection']),
         destroyed() {
             this.$store.commit('destroyed')
         }

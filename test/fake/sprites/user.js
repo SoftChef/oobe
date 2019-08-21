@@ -39,8 +39,6 @@ module.exports = {
         }
     },
 
-    create() {},
-
     origin() {
         return {
             Username: this.name,

@@ -59,8 +59,8 @@ export default new Vuex.Store({
         }
     },
     getters: {
-        list(state) {
-            return state.collection ? state.collection.list() : null
+        collection(state) {
+            return state.collection
         },
         sprite(state) {
             return state.sprite

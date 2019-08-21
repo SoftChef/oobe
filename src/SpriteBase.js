@@ -19,7 +19,7 @@ const CollectionUnit = require('./CollectionUnit')
  * @property {object.<fn>} [methods] 私有方法
  * @property {function} [born] 攔截rawdata經運算再擲出
  * @property {function} [origin] 將資料轉換成原始資料再擲出
- * @property {function} [created] born後會觸發，一次sprite只會觸發一次
+ * @property {function} [created] born後會觸發，sprite一生只會觸發一次
  */
 
 class SpriteBase extends Base {
