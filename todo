@@ -78,3 +78,7 @@ v0.2.3:
     ✔ $setError @done(19-08-19 10:26)
     ✔ $putOrigin @done(19-08-19 10:31)
     ✔ $on('$error') @done(19-08-19 10:31)
+
+v0.2.4:
+    ✔ frag片段處理 @done(19-08-23 10:30)
+    ✔ frag close @done(19-08-23 10:30)

@@ -203,6 +203,13 @@ class SpriteUnit extends Base {
         this.unit.$self = this.base.options.self.call(this.unit, data)
     }
 
+    /**
+     * 呼叫setError時觸發
+     * @event Fragment#$error
+     * @property {object} context
+     * @property {*} errorData
+     */
+
     setError(data) {
         this.status.error = data || 'Unknown error'
         this.event.emit(this.unit, '$error', [data])

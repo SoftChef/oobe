@@ -25,6 +25,8 @@ class Helper {
      *  getType(undefined) // empty
      *  getType(NaN) // NaN
      *  getType(/test/) // regexp
+     *  getType(new Promise(() => {})) // promise
+     *  getType(Buffer.from('123')) // buffer
      */
 
     static getType(target) {
@@ -40,6 +42,12 @@ class Helper {
         }
         if (target instanceof RegExp) {
             return 'regexp'
+        }
+        if (target && typeof target.then === 'function') {
+            return 'promise'
+        }
+        if (typeof Buffer !== 'undefined' && Buffer.isBuffer(target)) {
+            return 'buffer'
         }
         return type
     }
@@ -194,9 +202,14 @@ class Helper {
             return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
         })
     }
+
+    static frag(options) {
+        return new Fragment(options)
+    }
 }
 
 module.exports = Helper
 
 const Sprite = require('./Sprite')
+const Fragment = require('./Fragment')
 const Collection = require('./Collection')

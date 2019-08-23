@@ -113,3 +113,8 @@
 2. 新的error狀態
 3. 新的putOrigin功能
 4. 新的$error event
+
+## ver 0.2.4
+
+1. getType新增promise and buffer
+2. 新的Fragment物件

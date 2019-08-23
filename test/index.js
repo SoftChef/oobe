@@ -628,3 +628,60 @@ describe('#Helper', () => {
         expect(this.user.$helper.generateId()).to.be.a('string')
     })
 })
+
+describe('#Fragment', () => {
+    it('normal', function() {
+        let count = 0
+        let frag = Oobe.helper.frag()
+        frag.add((done) => {
+            count += 1
+            done('1234')
+        })
+        frag.add((done) => {
+            count += 1
+            done('1234')
+        })
+        expect(count).to.equal(2)
+    })
+    it('real', function(close) {
+        let now = Date.now()
+        let frag = Oobe.helper.frag({ parallel: 2 })
+        frag.add((done) => {
+            setTimeout(() => {
+                done()
+            }, 100)
+        })
+        frag.add((done) => {
+            setTimeout(() => {
+                done()
+            }, 100)
+        })
+        frag.add((done) => {
+            setTimeout(() => {
+                expect((Date.now() - now) < 300).to.equal(true)
+                done()
+                close()
+            }, 100)
+        })
+    })
+    it('each', function() {
+        let count = 0
+        let frag = Oobe.helper.frag()
+        frag.each([1, 1, 1, 1, 2], (data, index, done) => {
+            count += data + index
+            done()
+        })
+        expect(count).to.equal(16)
+    })
+    it('event', function() {
+        let count = 0
+        let frag = Oobe.helper.frag()
+        frag.on('$done', () => {
+            count += 1
+        })
+        frag.each([1, 1], (data, index, done) => {
+            done()
+        })
+        expect(count).to.equal(2)
+    })
+})

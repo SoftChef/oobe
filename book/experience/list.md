@@ -197,12 +197,82 @@ export default {
     },
     methods: {
         ...mapActions({
-            fetch: 'fetch'
+            fetch: 'fetchCollection'
         })
     }
 }
 </script>
 ```
+
+## 單筆獲取列表
+
+有時候我們只能得到下列的資料格式：
+
+```js
+let usernames = ['steve', 'dave', 'buffett', 'spark']
+```
+
+代表我們需要帶著這4個人名分別去問API拿到細節，這類應用我們可以如下建構：
+
+```html
+<template>
+    <table v-if="collection">
+        <thead>
+            <tr>
+                <th>使用者名稱</th>
+                <th>電話號碼</th>
+                <th>外送地點</th>
+                <th>狀態</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(item, index) in collection.items" :key="'key' + index">
+                <td>{{ item.username }}</td>
+                <td>{{ item.attributes.phoneNumber || 'loading...' }}</td>
+                <td>{{ targets[item.username] || 'loading...' }}</td>
+                <td>{{ item.$error ? item.$error : '正常' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+export default {
+    data() {
+        return {
+            collection: this.$oobe.collection('user', 'user'),
+            usernames: ['steve', 'dave', 'buffett', 'spark'],
+            targets: {}
+        }
+    },
+    mounted() {
+        for (let username of this.usernames) {
+            // 我們可以利用Key唯一值的特性直接複寫原本沒有細節資料的user
+            this.collection.write({ username })
+            axios
+                .get('getUser', { params: username })
+                .then({ data } => this.collection.write(data))
+                .catch((error) => {
+                    // 如果撈取失敗個別賦予錯誤
+                    this.collection.fetch(username).$setError(error)
+                })
+        }
+        // 在這裡監聽是否有寫入的精靈
+        this.collection.$on('$writeSuccess', (context, { sprite }) => {
+            let username = sprite.username
+            axios
+                .get('getToTarget', { params: { username } })
+                .then((target) => {
+                    this.targets[username] = target
+                })
+        })
+    }
+}
+</script>
+```
+
+---
 
 實戰大致上就到這裡，但oobe還有很多有趣的應用，例如rules的模式就是為了vuetify而打造的，而views其實是list的主力，在研判當下狀態應該顯示什麼是非常重要的。
 
