@@ -203,13 +203,33 @@ class Helper {
         })
     }
 
-    static frag(options) {
-        return new Fragment(options)
+    /**
+     * 偵測是否有指定的key，有則帶入callback
+     * @param {object} target 目標
+     * @param {string} path key path
+     * @param {*} [def] 如果回傳值是空，則採預設值
+     * @returns {*}
+     * @example
+     * let target = {
+     *      a: {
+     *          b: 5
+     *      }
+     *  }
+     *  let output = peel(target, 'a.b') // 5
+     */
+
+    static peel(target, path, def) {
+        let output = path.split(/[.[\]'"]/g).filter(s => s !== '').reduce((obj, key) => {
+            return obj && obj[key] !== 'undefined' ? obj[key] : undefined
+        }, target)
+        if (def) {
+            return Helper.isEmpty(output) ? def : output
+        }
+        return output
     }
 }
 
 module.exports = Helper
 
 const Sprite = require('./Sprite')
-const Fragment = require('./Fragment')
 const Collection = require('./Collection')

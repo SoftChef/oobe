@@ -7,18 +7,21 @@ function getUnit(target) {
 /**
  * export sprite
  * @hideconstructor
- * @property {object} utils 來自container utils物件
- * @property {Helper} helper helper的接口
- * @property {object} configs 來自container configs物件
- * @property {string} distName 現在狀態
- * @property {boolean} live 目前是否為激活狀態
- * @property {boolean} ready 是否宣告過born
  */
 
 class Sprite {
     constructor(sprite) {
+        /**
+         * @property {object} $v views的簡寫
+         * @property {object} $self 無關主key的儲存地
+         * @property {object} $utils 來自container utils物件
+         * @property {Helper} $helper helper的接口
+         * @property {object} $configs 來自container configs物件
+         */
+
         this._sprite = sprite
         this._container = this._sprite.base.container
+        this.$v = null
         this.$self = null
         this.$utils = this._container.options.utils
         this.$helper = Helper

@@ -123,37 +123,20 @@ let text = oobe.helper.generateId()
 console.log(text) // f1c5aaaa-a8a8-4394-9bcf-3272678efbb7
 ```
 
-### frag(options)
+---
 
-一個批次處理用駐列控制系統，文字上解釋大概是如此：每次運行N筆function，每當有一個function宣告done後若還有未處裡的則補進。
+### peel(target, path, def)
 
-> frag並不會無條件進入非同步處理，若所有進入的function都是同步的那仍然會依序進行。
-
-```js
-let now = Date.now()
-let frag = oobe.helper.frag({
-    // 允許同時間運行的function
-    parallel: 2
-})
-frag.add((done) => {
-    setTimeout(done, 100)
-})
-frag.add((done) => {
-    setTimeout(done, 100)
-})
-frag.add((done) => {
-    setTimeout(() => {
-        let total = Date.now() - now
-        console.log(total < 300) // true 因為前兩筆一起運行了
-        done()
-    }, 100)
-})
-```
-
-#### frag本身有event可以使用
-
-跟所有event操作一致，詳情請參閱Event章節。
+可以獲得指定的路徑對象的值，找不到回傳undefined。
 
 ```js
-frag.on('$done', () => { ... })
+let a = {
+    b: {
+        c: {
+            d: 5
+        }
+    }
+}
+
+console.log(peel(a, 'b.c.d')) // 5
 ```

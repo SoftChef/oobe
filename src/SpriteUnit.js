@@ -341,6 +341,7 @@ class SpriteUnit extends Base {
         } else {
             this.unit.$views = this.base.getViews(this.unit)
         }
+        this.unit.$v = this.unit.$views
     }
 
     initBody() {

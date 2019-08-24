@@ -107,7 +107,7 @@
 
 ## ver 0.2.3
 
-* 0.2.3將state轉名為dist，這過程有點痛R，主要 是因為distortion是主動轉換，但state比較像是被動轉換
+* 0.2.3將state轉名為dist，這過程有點痛R，主要是因為distortion是主動轉換，但state比較像是被動轉換
 
 1. collection write取代能觸發vue的反應
 2. 新的error狀態
@@ -117,4 +117,5 @@
 ## ver 0.2.4
 
 1. getType新增promise and buffer
-2. 新的Fragment物件
+3. helper peel
+4. $views有縮寫$v可以使用
