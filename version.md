@@ -117,5 +117,5 @@
 ## ver 0.2.4
 
 1. getType新增promise and buffer
-3. helper peel
-4. $views有縮寫$v可以使用
+2. helper peel
+3. $views縮寫$v可以使用
