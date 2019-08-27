@@ -29,7 +29,7 @@ oobe目的為原始資料與控制器之間的中介者，具有資料轉換與�
 
 ---
 
-## Quick start
+## First Sprite
 
 ```js
 import Oobe from 'oobe'

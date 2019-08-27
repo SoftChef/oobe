@@ -2,9 +2,6 @@
 /**
  * export collection
  * @hideconstructor
- * @property {array} items collection的資料集
- * @property {number} size collection內部長度
- * @property {boolean} dirty 是否宣告過write
  */
 
 class Collection {
@@ -12,13 +9,19 @@ class Collection {
         this._collection = collection
     }
 
+    /** collection內部長度 */
+
     get size() {
         return this._collection.items.length
     }
 
+    /** collection的資料集 */
+
     get items() {
         return this._collection.items.slice()
     }
+
+    /** 是否宣告過write */
 
     get dirty() {
         return this._collection.status.dirty

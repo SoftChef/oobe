@@ -112,7 +112,7 @@ class Core extends Base {
 
     instanceof(containerName, name, target) {
         if (Helper.isSprite(target) === false) {
-            this.$devError('instanceof', `Target not a sprite.`)
+            this.$devError('instanceof', 'Target not a sprite.')
         }
         let container = target._container
         let spriteBase = target._sprite.base

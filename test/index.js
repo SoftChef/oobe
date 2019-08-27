@@ -173,6 +173,10 @@ describe('#Sprite', () => {
         expect(this.user.$isChange()).to.equal(false)
     })
 
+    it('parent', function() {
+        expect(this.user.attributes.$parent.$ready).to.equal(true)
+    })
+
     it('isChange of key', function() {
         this.user.attributes.$reset()
         expect(this.user.attributes.$isChange()).to.equal(false)

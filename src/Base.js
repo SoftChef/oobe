@@ -11,7 +11,7 @@ class Base {
         if (object !== '$_no_error') {
             console.log('error data => ', object)
         }
-        console.error(`Please take this error message to : https://github.com/SoftChef/oobe/issues/new`)
+        console.error('Please take this error message to : https://github.com/SoftChef/oobe/issues/new')
         throw new Error(`(☉д⊙)!! System Error, Oobe::${this._base.name} => ${functionName} -> ${message}`)
     }
 }

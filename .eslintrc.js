@@ -16,6 +16,7 @@ module.exports = {
         'handle-callback-err': [0],
         'prefer-promise-reject-errors': ['error', { 'allowEmptyReject': true }],
         'space-before-function-paren': ['error', 'never'],
-        "requireStringLiterals": false
+        "requireStringLiterals": 0,
+        "prefer-const": 0
     }
 }

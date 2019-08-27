@@ -69,7 +69,7 @@ export default new Vuex.Store({
 <template>
     <div v-if="user">
         <div v-if="user.$error">
-            ERROR : {{ user.$error }}
+            ERROR : {% raw %}{{ user.$error }}{% endraw %}
         </div>
         <div v-if="user.$ready">
             <userform :user="user"></userform>

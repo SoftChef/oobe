@@ -12,9 +12,12 @@ class SpriteUnit extends Base {
         this.from = null
         this.base = base
         this.dist = base.dists.read
+        this.views = null
+        this.parent = null
         this.options = base.options
         this.rawBody = ''
         this.rawData = null
+        this.functions = null
         this.propertyNames = []
         this.init()
     }
@@ -252,11 +255,11 @@ class SpriteUnit extends Base {
     }
 
     bind(name) {
-        let target = this.unit.$fn[name]
+        let target = this.functions[name]
         if (target == null) {
             return this.$devError('bind', `Method(${name}) not found`)
         }
-        return this.unit.$fn[name].bind(this.unit.$fn)
+        return this.functions[name].bind(this.functions)
     }
 
     /**
@@ -286,7 +289,7 @@ class SpriteUnit extends Base {
         object.$views = {}
         object.$status = Helper.jpjs(this.status)
         for (let key in this.base.options.views) {
-            object.$views[key] = this.unit.$views[key]
+            object.$views[key] = this.views[key]
         }
         for (let key in this.unit.$self) {
             object.$self[key] = this.unit.$self[key]
@@ -315,18 +318,17 @@ class SpriteUnit extends Base {
             live: true,
             init: false,
             error: null,
-            ready: false,
-            isReference: false
+            ready: false
         }
     }
 
+    // proxy需要支援es6 我是很想放棄es5拉 但...唉
     initUnit() {
         this.unit = new Sprite(this)
-        this.unit.$fn = this.base.getMethods(this.unit)
-        if (this.base.options.defaultView) {
+        this.functions = this.base.getMethods(this.unit)
+        if (this.base.options.defaultView && typeof Proxy !== 'undefined') {
             let defaultView = this.base.options.defaultView
-            // proxy需要支援es6 我是很想放棄es5拉 但...唉
-            this.unit.$views = new Proxy(this.base.getViews(this.unit), {
+            this.views = new Proxy(this.base.getViews(this.unit), {
                 get: (target, key) => {
                     let value = null
                     if (target[key]) {
@@ -339,9 +341,8 @@ class SpriteUnit extends Base {
                 }
             })
         } else {
-            this.unit.$views = this.base.getViews(this.unit)
+            this.views = this.base.getViews(this.unit)
         }
-        this.unit.$v = this.unit.$views
     }
 
     initBody() {
@@ -356,7 +357,7 @@ class SpriteUnit extends Base {
         }
         for (let key in refs) {
             this.refs[key] = this.base.container.make(refs[key])
-            this.refs[key].status.isReference = true
+            this.refs[key].parent = this.unit
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('refs', key),
                 set: this.setDefineProperty(key, true)

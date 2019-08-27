@@ -73,8 +73,8 @@ export default {
 <!-- overview.vue -->
 <template>
     <div>
-        <div>司機: {{ username }}</div>
-        <div>連絡電話: {{ phoneNumber }}</div>
+        <div>司機: {% raw %}{{ username }}{% endraw %}</div>
+        <div>連絡電話: {% raw %}{{ phoneNumber }}{% endraw %}</div>
     </div>
 </template>
 
@@ -242,8 +242,8 @@ export default {
 <!-- overview.vue -->
 <template>
     <div>
-        <div>司機: {{ user.username }}</div>
-        <div>連絡電話: {{ user.attributes.phoneNumber }}</div>
+        <div>司機: {% raw %}{{ user.username }}{% endraw %}</div>
+        <div>連絡電話: {% raw %}{{ user.attributes.phoneNumber }}{% endraw %}</div>
     </div>
 </template>
 

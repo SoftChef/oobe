@@ -11,21 +11,30 @@ function getUnit(target) {
 
 class Sprite {
     constructor(sprite) {
+        this._sprite = sprite
+        this._container = sprite.base.container
+
         /**
-         * @property {object} $v views的簡寫
-         * @property {object} $self 無關主key的儲存地
-         * @property {object} $utils 來自container utils物件
-         * @property {Helper} $helper helper的接口
-         * @property {object} $configs 來自container configs物件
+         * self的實體化對象
          */
 
-        this._sprite = sprite
-        this._container = this._sprite.base.container
-        this.$v = null
         this.$self = null
-        this.$utils = this._container.options.utils
-        this.$helper = Helper
-        this.$configs = this._container.getConfigs()
+    }
+
+    /**
+     * views的簡寫
+     */
+
+    get $v() {
+        return this._sprite.views
+    }
+
+    /**
+     * views對象
+     */
+
+    get $views() {
+        return this._sprite.views
     }
 
     /**
@@ -34,6 +43,30 @@ class Sprite {
 
     get $live() {
         return this._sprite.status.live
+    }
+
+    /**
+     * utils的接口
+     */
+
+    get $utils() {
+        return this._container.options.utils
+    }
+
+    /**
+     * 來自container configs物件
+     */
+
+    get $configs() {
+        return this._container.getConfigs()
+    }
+
+    /**
+     * Helper的接口
+     */
+
+    get $helper() {
+        return Helper
     }
 
     /**
@@ -58,6 +91,22 @@ class Sprite {
 
     get $error() {
         return this._sprite.getErrorMessage()
+    }
+
+    /**
+     * 如果該精靈是參考對象，則獲取參考對象的對象
+     */
+
+    get $parent() {
+        return this._sprite.parent
+    }
+
+    /**
+     * 獲取methods的接口
+     */
+
+    get $fn() {
+        return this._sprite.functions
     }
 
     /**

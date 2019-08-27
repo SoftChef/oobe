@@ -111,11 +111,18 @@
 
 1. collection write取代能觸發vue的反應
 2. 新的error狀態
-3. 新的putOrigin功能
-4. 新的$error event
+3. 新的$error event
 
 ## ver 0.2.4
 
 1. getType新增promise and buffer
 2. helper peel
 3. $views縮寫$v可以使用
+
+## ver 0.2.5
+
+1. 可以藉由$parent獲取被參考者的狀態
+2. 重構部分程式碼
+3. 把文件缺失的部分都補齊了
+4. 針對不支援proxy的瀏覽器會無視defView
+5. 移除collection實驗性狀態

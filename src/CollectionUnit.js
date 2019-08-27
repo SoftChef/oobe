@@ -122,9 +122,9 @@ class CollectionUnit extends Base {
     fetch(key) {
         let sprite = this.get(key)
         if (sprite) {
-            this.event.emit(this.unit, '$fetch', [ sprite ])
+            this.event.emit(this.unit, '$fetch', [sprite])
         } else {
-            this.event.emit(this.unit, '$fetchFail', [ key ])
+            this.event.emit(this.unit, '$fetchFail', [key])
         }
         return sprite
     }

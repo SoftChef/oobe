@@ -68,7 +68,7 @@ class Channel extends Base {
 
     addListener(callback) {
         if (typeof callback !== 'function') {
-            this.$devError('addListener', `Callback must be a function`, callback)
+            this.$devError('addListener', 'Callback must be a function', callback)
         }
         let id = Helper.generateId()
         this.listeners[id] = new Listener(this, id, callback)

@@ -21,6 +21,7 @@ export default {
             attributes: source.UserAttributes
         }
     },
+
     origin() {
         return {
             Username: this.username,
@@ -118,7 +119,7 @@ export default new Vuex.Store({
         </thead>
         <tbody>
             <tr v-for="(item, index) in collection.items" :key="'key' + index">
-                <td>{{ item.username }}</td>
+                <td>{% raw %}{{ item.username }}{% endraw %}</td>
             </tr>
         </tbody>
     </table>
@@ -163,8 +164,8 @@ export default {
         </thead>
         <tbody>
             <tr v-for="(item, index) in collection.items" :key="'key' + index">
-                <td>{{ item.username }}</td>
-                <td>{{ targets[item.username] || 'loading...' }}</td>
+                <td>{% raw %}{{ item.username }}{% endraw %}</td>
+                <td>{% raw %}{{ targets[item.username] || 'loading...' }}{% endraw %}</td>
             </tr>
         </tbody>
     </table>
@@ -227,10 +228,10 @@ let usernames = ['steve', 'dave', 'buffett', 'spark']
         </thead>
         <tbody>
             <tr v-for="(item, index) in collection.items" :key="'key' + index">
-                <td>{{ item.username }}</td>
-                <td>{{ item.attributes.phoneNumber || 'loading...' }}</td>
-                <td>{{ targets[item.username] || 'loading...' }}</td>
-                <td>{{ item.$error ? item.$error : '正常' }}</td>
+                <td>{% raw %}{{ item.username }}{% endraw %}</td>
+                <td>{% raw %}{{ item.attributes.phoneNumber || 'loading...' }}{% endraw %}</td>
+                <td>{% raw %}{{ targets[item.username] || 'loading...' }}{% endraw %}</td>
+                <td>{% raw %}{{ item.$error ? item.$error : '正常' }}{% endraw %}</td>
             </tr>
         </tbody>
     </table>
@@ -274,9 +275,7 @@ export default {
 
 ---
 
-實戰大致上就到這裡，但oobe還有很多有趣的應用，例如rules的模式就是為了vuetify而打造的，而views其實是list的主力，在研判當下狀態應該顯示什麼是非常重要的。
-
-所以如果想知道更細節的建構模型，可以前往我們提供的範例程式碼：
+實戰大致上就到這裡，所以如果想知道更細節的建構模型，可以前往我們提供的範例程式碼：
 
 [Example Website](https://softchef.github.io/oobe/example/)
 

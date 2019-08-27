@@ -127,10 +127,10 @@ class Helper {
             let [required, types, defaultValue] = validate
             let type = Helper.getType(target)
             if (Helper.getType(required) !== 'boolean') {
-                throw new Error(`Helper::verify => Required must be a boolean`)
+                throw new Error('Helper::verify => Required must be a boolean')
             }
             if (Helper.getType(types) !== 'array') {
-                throw new Error(`Helper::verify => Types must be a array`)
+                throw new Error('Helper::verify => Types must be a array')
             }
             if (required && target == null) {
                 throw new Error(`Helper::verify => Key(${key}) is required`)
