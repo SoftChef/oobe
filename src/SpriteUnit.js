@@ -32,8 +32,12 @@ class SpriteUnit extends Base {
 
     getBody() {
         let output = Helper.jpjs(this.body)
-        this.eachRefs((ref, key) => {
-            output[key] = ref.getBody()
+        this.eachRefs((taget, key, type) => {
+            if (type === 'collection') {
+                output[key] = taget.getBodys()
+            } else {
+                output[key] = taget.getBody()
+            }
         })
         return output
     }
@@ -90,8 +94,8 @@ class SpriteUnit extends Base {
         } else {
             let change = this.rawBody !== this.dataStringify(this.body)
             if (change) return true
-            this.eachRefs((sprite) => {
-                change = sprite.isChange()
+            this.eachRefs((target) => {
+                change = target.isChange()
                 if (change) {
                     return '_break'
                 }
@@ -136,12 +140,28 @@ class SpriteUnit extends Base {
 
     sleep() {
         this.status.live = false
-        this.eachRefs(s => s.sleep())
+        this.eachRefs((target, key, type) => {
+            if (type === 'sprite') {
+                target.sleep()
+            } else {
+                target.forEach((sprite) => {
+                    sprite.sleep()
+                })
+            }
+        })
     }
 
     wakeup() {
         this.status.live = true
-        this.eachRefs(s => s.wakeup())
+        this.eachRefs((target, key, type) => {
+            if (type === 'sprite') {
+                target.wakeup()
+            } else {
+                target.forEach((sprite) => {
+                    sprite.wakeup()
+                })
+            }
+        })
     }
 
     revive() {
@@ -200,8 +220,12 @@ class SpriteUnit extends Base {
         for (let key of this.propertyNames) {
             this.unit[key] = reborn[key] === undefined ? this.unit[key] : reborn[key]
         }
-        this.eachRefs((sprite, key) => {
-            sprite.isReady() ? sprite.setBody(reborn[key]) : sprite.born(reborn[key])
+        this.eachRefs((target, key, type) => {
+            if (type === 'sprite') {
+                target.isReady() ? target.setBody(reborn[key]) : target.born(reborn[key])
+            } else {
+                target.batchWrite(reborn[key])
+            }
         })
         this.unit.$self = this.base.options.self.call(this.unit, data)
     }
@@ -225,9 +249,18 @@ class SpriteUnit extends Base {
                     this.unit[key] = data[key]
                 }
             }
-            this.eachRefs((sprite, key) => {
-                if (data[key] !== undefined) {
-                    sprite.put(data[key])
+            this.eachRefs((target, key, type) => {
+                if (type === 'sprite') {
+                    if (data[key] !== undefined) {
+                        target.put(data[key])
+                    }
+                } else {
+                    if (Array.isArray(data[key])) {
+                        target.clear()
+                        for (let body of data[key]) {
+                            target.write(target.generateSprite({}).$put(body))
+                        }
+                    }
                 }
             })
         }
@@ -236,7 +269,8 @@ class SpriteUnit extends Base {
 
     eachRefs(callback) {
         for (let key in this.refs) {
-            let result = callback(this.refs[key], key)
+            let type = this.refs[key] instanceof SpriteUnit ? 'sprite' : 'collection'
+            let result = callback(this.refs[key], key, type)
             if (result === '_break') {
                 break
             }
@@ -249,7 +283,9 @@ class SpriteUnit extends Base {
                 return this.$devError('distortion', `Name(${name}) not found.`)
             }
             this.dist = this.base.dists[name]
-            this.eachRefs(s => s.distortion(name))
+            this.eachRefs((target) => {
+                target.distortion(name)
+            })
             return this
         }
     }
@@ -322,7 +358,6 @@ class SpriteUnit extends Base {
         }
     }
 
-    // proxy需要支援es6 我是很想放棄es5拉 但...唉
     initUnit() {
         this.unit = new Sprite(this)
         this.functions = this.base.getMethods(this.unit)
@@ -356,7 +391,12 @@ class SpriteUnit extends Base {
             })
         }
         for (let key in refs) {
-            this.refs[key] = this.base.container.make(refs[key])
+            let name = refs[key]
+            if (name[0] === '[' && name.slice(-1) === ']') {
+                this.refs[key] = this.base.container.makeCollection(name.slice(1, -1))
+            } else {
+                this.refs[key] = this.base.container.make(name)
+            }
             this.refs[key].parent = this.unit
             Object.defineProperty(this.unit, key, {
                 get: this.getDefineProperty('refs', key),
@@ -396,21 +436,21 @@ class SpriteUnit extends Base {
         return this.base.container.validate(this.unit, value, rules)
     }
 
-    validateAll(target) {
+    validateAll() {
         let keys = Object.keys(this.base.options.rules)
         let result = {}
         let success = true
         for (let name of keys) {
-            let value = target[name]
+            let value = this.unit[name]
             let check = this.validate(value, name)
             if (check !== true) {
                 result[name] = check
                 success = false
             }
         }
-        this.eachRefs((sprite, name) => {
-            result[name] = sprite.validateAll(target[name])
-            if (result[name].success !== true) {
+        this.eachRefs((target, key) => {
+            result[key] = target.validateAll()
+            if (result[key].success === false) {
                 success = false
             }
         })

@@ -17,7 +17,7 @@ module.exports = {
     },
     locales: {
         'en-us': {
-            'require': 'Value {value} must be required.'
+            require: 'Value {value} must be required.'
         }
     }
 }

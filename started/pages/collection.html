@@ -383,9 +383,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="collection">Collection</h1>
-<h2 id="&#x5EFA;&#x7ACB;&#x4E00;&#x500B;&#x96C6;&#x5408;">&#x5EFA;&#x7ACB;&#x4E00;&#x500B;&#x96C6;&#x5408;</h2>
-<p>&#x96C6;&#x5408;&#x5DF2;&#x7CBE;&#x9748;&#x70BA;&#x55AE;&#x4F4D;&#xFF0C;&#x56E0;&#x6B64;&#x5C6C;&#x6027;&#x5BA3;&#x544A;&#x5728;&#x7CBE;&#x9748;&#x5167;&#x3002;</p>
-<h3 id="&#x5B9A;&#x7FA9;&#x96C6;&#x5408;">&#x5B9A;&#x7FA9;&#x96C6;&#x5408;</h3>
+<h2 id="&#x5B9A;&#x7FA9;&#x96C6;&#x5408;">&#x5B9A;&#x7FA9;&#x96C6;&#x5408;</h2>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> sprite = {
     body() {
         <span class="hljs-keyword">return</span> {
@@ -404,6 +402,16 @@
                 <span class="hljs-keyword">return</span> success()
             }
             reject(<span class="hljs-string">&apos;Name is empty.&apos;</span>)
+        },
+        views: {
+            totalNames() {
+                <span class="hljs-keyword">let</span> name = []
+                <span class="hljs-comment">// collection this&#x6307;&#x5411;collection&#x672C;&#x8EAB;</span>
+                <span class="hljs-keyword">this</span>.forEach((sprite) =&gt; {
+                    name.push(sprite.name)
+                })
+                <span class="hljs-keyword">return</span> name
+            }
         }
     }
 }
@@ -428,6 +436,19 @@ collection.write(sprite)
 <p>&#x7372;&#x53D6;</p>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> sprite = collection.fetch(<span class="hljs-string">&apos;1234&apos;</span>)
 sprite.$fn.foo() <span class="hljs-comment">// bar</span>
+</code></pre>
+<h2 id="&#x5728;&#x7CBE;&#x9748;&#x5B9A;&#x7FA9;refs&#x5C0D;&#x8C61;">&#x5728;&#x7CBE;&#x9748;&#x5B9A;&#x7FA9;Refs&#x5C0D;&#x8C61;</h2>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> sprite = {
+    body() {
+        <span class="hljs-keyword">return</span> {
+            name: <span class="hljs-string">&apos;&apos;</span>
+        }
+    },
+    refs: {
+        noCollection: <span class="hljs-string">&apos;collection&apos;</span>, <span class="hljs-comment">// &#x9019;&#x6703;&#x5EFA;&#x7ACB;&#x7CBE;&#x9748;</span>
+        collection: <span class="hljs-string">&apos;[collection]&apos;</span>, <span class="hljs-comment">// &#x9019;&#x6703;&#x5EFA;&#x7ACB;collection</span>
+    }
+}
 </code></pre>
 
                                 
@@ -472,7 +493,7 @@ sprite.$fn.foo() <span class="hljs-comment">// bar</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"集合","level":"1.8","depth":1,"next":{"title":"實戰vue","level":"2.1","depth":1,"path":"experience/vue.md","ref":"./experience/vue.md","articles":[]},"previous":{"title":"事件","level":"1.7","depth":1,"path":"pages/event.md","ref":"./pages/event.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/collection.md","mtime":"2019-08-27T02:12:13.934Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-27T04:03:22.925Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"集合","level":"1.8","depth":1,"next":{"title":"實戰vue","level":"2.1","depth":1,"path":"experience/vue.md","ref":"./experience/vue.md","articles":[]},"previous":{"title":"事件","level":"1.7","depth":1,"path":"pages/event.md","ref":"./pages/event.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/collection.md","mtime":"2019-08-30T06:05:42.869Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-30T06:06:07.577Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

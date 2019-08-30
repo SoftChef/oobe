@@ -9,6 +9,16 @@ core = new Oobe()
 core.join('CognitoUser', CognitoUser)
 core.addon(Plugin)
 
-user = core.make('CognitoUser', 'user', RawData)
+user = core.make('CognitoUser', 'user').$born(RawData)
+userpool = core.make('CognitoUser', 'userpool').$born({
+    id: '5487',
+    users: [RawData, { ...RawData, Username: '1234' }]
+})
+
+userpool.$put({
+    users: [{
+        name: '1234'
+    }]
+})
 
 debugger

@@ -126,3 +126,14 @@
 3. 把文件缺失的部分都補齊了
 4. 針對不支援proxy的瀏覽器會無視defView
 5. 移除collection實驗性狀態
+
+## ver 0.2.6
+
+1. refs collection
+2. collection views
+3. collection validate
+4. collection forEach
+5. collection isChange
+6. collection getBodys
+7. collection distAll
+8. 移除 validateForSprite ，這方法導致無法整合collection

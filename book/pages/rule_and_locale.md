@@ -109,17 +109,6 @@ console.log(teen.$validate().success) // true
 console.log(old.$validate().success) // false
 ```
 
-### 針對精靈驗證
-
-在有些情況下我們需要了解手上的資料是否符合精靈的規則，而非從精靈實體化來。
-
-```js
-let result = oobe.validateForSprite('demo', 'sprite', { age: 18 })
-console.log(result.success) // true
-```
-
----
-
 ## 語系(Locale)
 
 `oobe`提供了基礎的語系系統，提供良好的展示功能。

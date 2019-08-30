@@ -1,10 +1,6 @@
 # Collection
 
-## 建立一個集合
-
-集合已精靈為單位，因此屬性宣告在精靈內。
-
-### 定義集合
+## 定義集合
 
 ```js
 let sprite = {
@@ -25,6 +21,16 @@ let sprite = {
                 return success()
             }
             reject('Name is empty.')
+        },
+        views: {
+            totalNames() {
+                let name = []
+                // collection this指向collection本身
+                this.forEach((sprite) => {
+                    name.push(sprite.name)
+                })
+                return name
+            }
         }
     }
 }
@@ -64,4 +70,20 @@ collection.write(sprite)
 ```js
 let sprite = collection.fetch('1234')
 sprite.$fn.foo() // bar
+```
+
+## 在精靈定義Refs對象
+
+```js
+let sprite = {
+    body() {
+        return {
+            name: ''
+        }
+    },
+    refs: {
+        noCollection: 'collection', // 這會建立精靈
+        collection: '[collection]', // 這會建立collection
+    }
+}
 ```

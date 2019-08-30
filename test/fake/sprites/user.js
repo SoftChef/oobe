@@ -59,6 +59,11 @@ module.exports = {
                 return reject('test')
             }
             success()
+        },
+        views: {
+            names() {
+                return this.items[0].name + this.items[1].name
+            }
         }
     },
 

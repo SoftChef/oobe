@@ -11,17 +11,31 @@ class CollectionUnit extends Base {
         this.unit = new Collection(this)
         this.items = []
         this.event = new Event('collection', this.base.event)
+        this.parent = null
         this.status = {
             dirty: false
         }
         this.options = Helper.verify(base.options.collection, {
             key: [false, ['function', 'string'], '*'],
-            write: [false, ['function'], ({ success }) => { success() }]
+            write: [false, ['function'], ({ success }) => { success() }],
+            views: [false, ['object'], {}]
         })
+        this.views = {}
+        for (let key in this.options.views) {
+            Object.defineProperty(this.views, key, {
+                get: () => {
+                    return this.options.views[key].apply(this.unit, arguments)
+                }
+            })
+        }
     }
 
     toPKey(key) {
         return '$' + key
+    }
+
+    getKey(sprite) {
+        return this.options.key !== '*' ? this.options.key(sprite) : Helper.generateId()
     }
 
     getKeyIndex(key) {
@@ -32,7 +46,61 @@ class CollectionUnit extends Base {
         this.$systemError('getKeyIndex', `Key(${key}) not found.`)
     }
 
+    generateSprite(source) {
+        return Helper.isSprite(source) ? source : this.base.create().unit.$born(source)
+    }
+
+    forEach(callback) {
+        let length = this.items.length
+        for (let index = 0; index < length; index++) {
+            let result = callback(this.items[index], index)
+            if (result === '_break') {
+                break
+            }
+        }
+    }
+
+    isChange() {
+        let changed = false
+        this.forEach((sprite) => {
+            if (sprite.$isChange()) {
+                changed = true
+                return '_break'
+            }
+        })
+        return changed
+    }
+
+    validateAll() {
+        let length = this.items.length
+        let result = new Array(length)
+        let success = true
+        this.forEach((sprite, index) => {
+            result[index] = sprite.$validate()
+            if (result[index].success === false) {
+                success = false
+            }
+        })
+        return { success, result }
+    }
+
+    getBodys() {
+        let length = this.items.length
+        let output = new Array(length)
+        this.forEach((sprite, index) => {
+            output[index] = sprite.$body()
+        })
+        return output
+    }
+
+    distortion(name) {
+        this.forEach((sprite) => {
+            sprite.$dist(name)
+        })
+    }
+
     put(key, sprite) {
+        sprite.parent = this.parent
         if (this.has(key) === false) {
             this.items.push(sprite)
         } else {
@@ -74,8 +142,8 @@ class CollectionUnit extends Base {
         if (Helper.getType(source) !== 'object') {
             this.$devError('write', 'Source not a object')
         }
-        let sprite = Helper.isSprite(source) ? source : this.base.create().unit.$born(source)
-        let key = this.options.key !== '*' ? this.options.key(sprite) : Helper.generateId()
+        let sprite = this.generateSprite(source)
+        let key = this.getKey(sprite)
         if (this.base.isUs(sprite) === false) {
             this.$devError('write', `Source not a ${this.base.name} sprite.`)
         }

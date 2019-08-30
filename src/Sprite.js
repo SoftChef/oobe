@@ -345,7 +345,7 @@ class Sprite {
      */
 
     $validate() {
-        return this._sprite.validateAll(this)
+        return this._sprite.validateAll()
     }
 
     /**

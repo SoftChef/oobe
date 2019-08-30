@@ -18,10 +18,10 @@ const TestRawOrigin = JSON.stringify({
 const TestRawBody = JSON.stringify({
     name: 'admin',
     attributes: {
-        'sub': 'aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa',
-        'name': 'admin',
-        'email': 'admin@gmail.com',
-        'phone_number': '000000000',
+        sub: 'aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa-aaaaaaa',
+        name: 'admin',
+        email: 'admin@gmail.com',
+        phone_number: '000000000',
         'custom:level': 'admin',
         'custom:country_code': '+886'
     }
@@ -114,13 +114,6 @@ describe('#Core', () => {
         expect(this.oobe.instanceof('CognitoUser', 'user', unit)).to.equal(true)
         expect(this.oobe.instanceof('CognitoUser', 'attributes', unit.attributes)).to.equal(true)
         expect(this.oobe.instanceof('CognitoUser', 'attributes', unit)).to.equal(false)
-    })
-
-    it('validateForSprite', function() {
-        let validateBad = this.oobe.validateForSprite('CognitoUser', 'user', {})
-        expect(validateBad.success).to.equal(false)
-        let validateGood = this.oobe.validateForSprite('CognitoUser', 'user', { name: '123456' })
-        expect(validateGood.success).to.equal(true)
     })
 })
 
@@ -445,6 +438,7 @@ describe('#Sprite', () => {
 describe('#Collection', () => {
     before(function() {
         this.oobe = new Oobe()
+        this.oobe.addon(Plugin)
         this.oobe.join('CognitoUser', CognitoUser)
     })
 
@@ -548,6 +542,106 @@ describe('#Collection', () => {
     it('clear', function() {
         this.collection.clear()
         expect(this.collection.size).to.equal(0)
+    })
+
+    it('views', function() {
+        this.collection.clear()
+        let user = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '5487' })
+        let user2 = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '1234' })
+        this.collection.write(user)
+        this.collection.write(user2)
+        expect(this.collection.views.names).to.equal(user.name + user2.name)
+    })
+
+    it('validate', function() {
+        this.collection.clear()
+        let user = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '5487' })
+        let user2 = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '1234' })
+        this.collection.write(user)
+        this.collection.write(user2)
+        expect(this.collection.validate().success).to.equal(true)
+        let user3 = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '給庫' })
+        this.collection.write(user3)
+        expect(this.collection.validate().success).to.equal(false)
+        this.collection.clear()
+    })
+
+    it('isChange', function() {
+        let user = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '5487' })
+        let user2 = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '1234' })
+        this.collection.write(user)
+        this.collection.write(user2)
+        expect(this.collection.isChange()).to.equal(false)
+        user2.name = '12345'
+        expect(this.collection.isChange()).to.equal(true)
+        this.collection.clear()
+    })
+
+    it('distAll', function() {
+        let user = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '5487' })
+        let user2 = this.oobe.make('CognitoUser', 'user').$born({ ...RawData, Username: '1234' })
+        this.collection.write(user)
+        this.collection.write(user2)
+        this.collection.distAll('create')
+        expect(user.$distName).to.equal('create')
+        expect(user.$show('name')).to.equal(false)
+        expect(user.$isFixed('name')).to.equal(true)
+        expect(user.$isHidden('name')).to.equal(true)
+        expect(user2.$distName).to.equal('create')
+        expect(user2.$show('name')).to.equal(false)
+        expect(user2.$isFixed('name')).to.equal(true)
+        expect(user2.$isHidden('name')).to.equal(true)
+    })
+})
+
+describe('#Collection With Sprite', () => {
+    before(function() {
+        this.oobe = new Oobe()
+        this.oobe.addon(Plugin)
+        this.oobe.join('CognitoUser', CognitoUser)
+    })
+
+    it('init', function() {
+        this.userpool = this.oobe.make('CognitoUser', 'userpool').$born({
+            id: '1234',
+            users: [{ ...RawData, Username: '5487' }, { ...RawData, Username: '4567' }]
+        })
+    })
+
+    it('dist', function() {
+        expect(this.userpool.users.items[0].$distName).to.equal('read')
+        this.userpool.$dist('create')
+        expect(this.userpool.users.items[0].$distName).to.equal('create')
+        expect(this.userpool.users.items[1].$distName).to.equal('create')
+    })
+
+    it('isChange', function() {
+        expect(this.userpool.$isChange()).to.equal(false)
+        this.userpool.users.items[0].name = '7788'
+        expect(this.userpool.$isChange()).to.equal(true)
+    })
+
+    it('validate', function() {
+        let valid = this.userpool.$validate()
+        expect(valid.success).to.equal(true)
+        this.userpool.users.items[0].name = '測試'
+        valid = this.userpool.$validate()
+        expect(valid.success).to.equal(false)
+    })
+
+    it('body', function() {
+        let body = this.userpool.$body()
+        expect(Array.isArray(body.users)).to.equal(true)
+    })
+
+    it('put', function() {
+        this.userpool.$put({
+            users: [{
+                name: '5566'
+            }]
+        })
+        expect(this.userpool.users.items[0].name).to.equal('5566')
+        expect(this.userpool.users.items[1]).to.equal(undefined)
     })
 })
 

@@ -27,6 +27,57 @@ class Collection {
         return this._collection.status.dirty
     }
 
+    /** collection views */
+
+    get views() {
+        return this._collection.views
+    }
+
+    /**
+     * 迭代所有sprite，回傳'_break'會跳出迭代
+     * @param {function} callback 回呼函數
+     */
+
+    forEach(callback) {
+        return this._collection.forEach(callback)
+    }
+
+    /**
+     * 獲得所有sprite的body
+     * @returns {array}
+     */
+
+    getBodys() {
+        return this._collection.getBodys()
+    }
+
+    /**
+     * 內部的sprite是否被更動過
+     * @returns {boolean}
+     */
+
+    isChange() {
+        return this._collection.isChange()
+    }
+
+    /**
+     * 驗證內部所有精靈
+     * @returns {object} { result, success }
+     */
+
+    validate() {
+        return this._collection.validateAll()
+    }
+
+    /**
+     * 畸變內部所有精靈
+     * @param {string} name distName
+     */
+
+    distAll(name) {
+        return this._collection.distortion(name)
+    }
+
     /**
      * 監聽一個事件，但只觸發一次
      * @param {string} channelName 事件名稱

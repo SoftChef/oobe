@@ -138,18 +138,6 @@ class Oobe extends Base {
     }
 
     /**
-     * 驗證資料是否符合精靈的驗證規則
-     * @param {string} containerName
-     * @param {string} spriteName
-     * @param {object} data 驗證對象
-     * @returns {object} { success, result }
-     */
-
-    validateForSprite(containerName, spriteName, data) {
-        return this._core.validateForSprite(containerName, spriteName, data)
-    }
-
-    /**
      * 設定當前語系
      * @param {string} locale 設定指定語系，預設為'en-us'
      */
