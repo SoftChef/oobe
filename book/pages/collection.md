@@ -31,6 +31,11 @@ let sprite = {
                 })
                 return name
             }
+        },
+        methods: {
+            size() {
+                return this.size
+            }
         }
     }
 }
@@ -70,6 +75,19 @@ collection.write(sprite)
 ```js
 let sprite = collection.fetch('1234')
 sprite.$fn.foo() // bar
+```
+
+### view 與 methods
+
+```js
+let collection = oobe.collection('demo', 'sprite')
+
+collection.write({
+    name: '1234'
+})
+
+console.log(collection.views.totalNames) // [1234]
+console.log(collection.methods.size()) // 1
 ```
 
 ## 在精靈定義Refs對象

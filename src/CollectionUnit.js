@@ -11,6 +11,8 @@ class CollectionUnit extends Base {
         this.unit = new Collection(this)
         this.items = []
         this.event = new Event('collection', this.base.event)
+        this.views = new base.CollectionViews(this.unit)
+        this.methods = new base.CollectionMethods(this.unit)
         this.parent = null
         this.status = {
             dirty: false
@@ -20,14 +22,6 @@ class CollectionUnit extends Base {
             write: [false, ['function'], ({ success }) => { success() }],
             views: [false, ['object'], {}]
         })
-        this.views = {}
-        for (let key in this.options.views) {
-            Object.defineProperty(this.views, key, {
-                get: () => {
-                    return this.options.views[key].apply(this.unit, arguments)
-                }
-            })
-        }
     }
 
     toPKey(key) {
@@ -171,6 +165,27 @@ class CollectionUnit extends Base {
         for (let item of items) {
             this.write(item)
         }
+    }
+
+    /**
+     * 寫入資料成功被觸發
+     * @event Collection#$writeAsyncDone
+     * @property {object} context
+     */
+
+    batchWriteAsync(items, ms = 10) {
+        return new Promise((resolve) => {
+            let interval = setInterval(() => {
+                let item = items.shift()
+                if (item) {
+                    this.write(item)
+                } else {
+                    clearInterval(interval)
+                    resolve(true)
+                    this.event.emit(this.unit, '$writeAsyncDone')
+                }
+            }, ms)
+        })
     }
 
     /**

@@ -54,6 +54,8 @@ class SpriteBase extends Base {
         this.initViews()
         this.initDistortion()
         this.initMethods()
+        this.initCollectionViews()
+        this.initCollectionMethods()
     }
 
     initEvent() {
@@ -95,6 +97,38 @@ class SpriteBase extends Base {
         }
         for (let key in methods) {
             this.Methods.prototype[key] = function() {
+                return this._methods[key].apply(this._target, arguments)
+            }
+        }
+    }
+
+    initCollectionViews() {
+        let views = this.options.collection.views || {}
+        this.CollectionViews = function(unit) {
+            this._views = views
+            this._target = unit
+        }
+        for (let key in views) {
+            Object.defineProperty(this.CollectionViews.prototype, key, {
+                get: function() {
+                    return this._views[key].apply(this._target, arguments)
+                }
+            })
+        }
+    }
+
+    initCollectionMethods() {
+        let selfMethods = this.options.collection.methods || {}
+        let methods = {
+            ...selfMethods,
+            ...this.container.options.collectionMethods
+        }
+        this.CollectionMethods = function(unit) {
+            this._target = unit
+            this._methods = methods
+        }
+        for (let key in methods) {
+            this.CollectionMethods.prototype[key] = function() {
                 return this._methods[key].apply(this._target, arguments)
             }
         }

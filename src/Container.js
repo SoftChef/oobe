@@ -40,7 +40,8 @@ class Container extends Base {
             configs: [false, ['object'], {}],
             methods: [false, ['object'], {}],
             install: [false, ['function'], () => {}],
-            interface: [false, ['object'], {}]
+            interface: [false, ['object'], {}],
+            collectionMethods: [false, ['object'], {}]
         })
         this.init()
     }

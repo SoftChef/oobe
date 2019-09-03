@@ -64,6 +64,11 @@ module.exports = {
             names() {
                 return this.items[0].name + this.items[1].name
             }
+        },
+        methods: {
+            size() {
+                return this.size
+            }
         }
     },
 

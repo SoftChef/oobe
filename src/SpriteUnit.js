@@ -224,7 +224,10 @@ class SpriteUnit extends Base {
             if (type === 'sprite') {
                 target.isReady() ? target.setBody(reborn[key]) : target.born(reborn[key])
             } else {
-                target.batchWrite(reborn[key])
+                target.clear()
+                if (reborn[key]) {
+                    target.batchWrite(reborn[key])
+                }
             }
         })
         this.unit.$self = this.base.options.self.call(this.unit, data)
@@ -324,11 +327,11 @@ class SpriteUnit extends Base {
         object.$self = {}
         object.$views = {}
         object.$status = Helper.jpjs(this.status)
-        for (let key in this.base.options.views) {
-            object.$views[key] = this.views[key]
-        }
         for (let key in this.unit.$self) {
             object.$self[key] = this.unit.$self[key]
+        }
+        for (let key in this.base.options.views) {
+            object.$views[key] = this.views[key]
         }
         return object
     }
@@ -341,7 +344,7 @@ class SpriteUnit extends Base {
         this.initStatus()
         this.rawBody = this.dataStringify(this.body)
         this.rawData = null
-        this.propertyNames = Object.keys(this.body)
+        this.propertyNames = Object.keys(this.body || {})
         this.status.init = true
     }
 

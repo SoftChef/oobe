@@ -1,3 +1,4 @@
+const Helper = require('./Helper')
 
 /**
  * export collection
@@ -18,7 +19,7 @@ class Collection {
     /** collection的資料集 */
 
     get items() {
-        return this._collection.items.slice()
+        return this._collection.items
     }
 
     /** 是否宣告過write */
@@ -31,6 +32,44 @@ class Collection {
 
     get views() {
         return this._collection.views
+    }
+
+    /** collection methods */
+
+    get methods() {
+        return this._collection.methods
+    }
+
+    /**
+     * utils的接口
+     */
+
+    get utils() {
+        return this._collection.base.container.options.utils
+    }
+
+    /**
+     * 來自container configs物件
+     */
+
+    get configs() {
+        return this._collection.base.container.getConfigs()
+    }
+
+    /**
+     * Helper的接口
+     */
+
+    get helper() {
+        return Helper
+    }
+
+    /**
+     * 如果該集合是參考對象，則獲取參考對象的對象
+     */
+
+    get parent() {
+        return this._collection.parent
     }
 
     /**
@@ -152,6 +191,17 @@ class Collection {
 
     batchWrite(data) {
         return this._collection.batchWrite(data)
+    }
+
+    /**
+     * 非同步寫入精靈
+     * @param {array} items source data
+     * @param {number} [ms=10] 每筆資料寫入的速度(毫秒)
+     * @returns {promise}
+     */
+
+    batchWriteAsync(items, ms = 10) {
+        return this._collection.batchWriteAsync(items, ms)
     }
 
     /**

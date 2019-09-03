@@ -21,7 +21,11 @@ module.exports = {
         return 'install'
     },
 
-    utils: {},
+    utils: {
+        helloWorld() {
+            return 'hello world'
+        }
+    },
 
     configs: {
         helloWorld: 'hello world'
@@ -30,6 +34,12 @@ module.exports = {
     methods: {
         helloWorld() {
             return this.$configs.helloWorld
+        }
+    },
+
+    collectionMethods: {
+        helloWorld() {
+            return this.configs.helloWorld
         }
     },
 

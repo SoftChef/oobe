@@ -136,4 +136,11 @@
 5. collection isChange
 6. collection getBodys
 7. collection distAll
-8. 移除 validateForSprite ，這方法導致無法整合collection
+8. collection methods
+9. collection batchWriteAsync
+10. collection configs
+11. collection utils
+12. collection parent
+13. collection helper
+14. container collectionMethods
+15. 移除 validateForSprite ，這方法導致無法整合collection

@@ -592,6 +592,31 @@ describe('#Collection', () => {
         expect(user2.$isFixed('name')).to.equal(true)
         expect(user2.$isHidden('name')).to.equal(true)
     })
+
+    it('async batch write', function(done) {
+        this.collection.clear()
+        this.collection.batchWriteAsync([
+            { ...RawData, Username: '5487' },
+            { ...RawData, Username: '1234' }
+        ], 20)
+        expect(this.collection.size).to.equal(0)
+        this.collection.on('$writeAsyncDone', () => {
+            expect(this.collection.size).to.equal(2)
+            done()
+        })
+    })
+    it('container utils', function() {
+        expect(this.collection.utils.helloWorld()).to.equal('hello world')
+    })
+    it('container helper', function() {
+        expect(this.collection.helper.getType('123')).to.equal('string')
+    })
+    it('container methods', function() {
+        expect(this.collection.methods.helloWorld()).to.equal('hello world')
+    })
+    it('container configs', function() {
+        expect(this.collection.configs.helloWorld).to.equal('hello world')
+    })
 })
 
 describe('#Collection With Sprite', () => {
@@ -643,6 +668,8 @@ describe('#Collection With Sprite', () => {
         expect(this.userpool.users.items[0].name).to.equal('5566')
         expect(this.userpool.users.items[1]).to.equal(undefined)
     })
+
+    it('container parent', function() {})
 })
 
 describe('#Helper', () => {
