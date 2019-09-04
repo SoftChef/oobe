@@ -45,7 +45,7 @@ export default new Vuex.Store({
     },
     mutations: {
         make(state) {
-            state.user = oobe.make('user', 'user')
+            state.user = this.oobe.make('user', 'user')
         },
         born(state, data) {
             state.user.$born(data)

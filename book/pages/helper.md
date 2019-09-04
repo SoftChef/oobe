@@ -39,7 +39,7 @@ console.log(b.b) // 7
 獲取類型，能獲取比`typeof`更多的屬性。
 
 ```js
-// 除了底下五種例子外，其他皆回傳typeof的值
+// 除了底下這些例子外，其他皆回傳typeof的值
 oobe.helper.getType([]) // array
 oobe.helper.getType(NaN) // NaN
 oobe.helper.getType(null) // empty

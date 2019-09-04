@@ -81,7 +81,7 @@ export default new Vuex.Store({
     },
     mutations: {
         make(state) {
-            state.user = oobe.make('user', 'user')
+            state.user = this.$oobe.make('user', 'user')
         },
         born(state, data) {
             state.user.$born(data)
@@ -187,7 +187,7 @@ export default {
     mounted() {
         this.fetch()
         // 在這裡監聽是否有寫入的精靈
-        this.collection.$on('$writeSuccess', (context, { sprite }) => {
+        this.collection.on('$writeSuccess', (context, { sprite }) => {
             let username = sprite.username
             axios
                 .get('getToTarget', { params: { username } })
@@ -260,7 +260,7 @@ export default {
                 })
         }
         // 在這裡監聽是否有寫入的精靈
-        this.collection.$on('$writeSuccess', (context, { sprite }) => {
+        this.collection.on('$writeSuccess', (context, { sprite }) => {
             let username = sprite.username
             axios
                 .get('getToTarget', { params: { username } })
