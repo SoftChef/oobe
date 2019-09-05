@@ -216,6 +216,8 @@ console.log(oobe.meg('$demo.age', 20)) // $demo.age 未定義情境下，會顯�
 
 ## 使用官方配件包
 
+> 你可以參考ob的原始碼來了解應用 https://github.com/SoftChef/oobe/blob/master/packages/ob.js
+
 ### ob
 
 ob攜帶了我們常用的驗證方法並提供了en-us與zh-tw兩個語系

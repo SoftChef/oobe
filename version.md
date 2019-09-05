@@ -144,3 +144,7 @@
 13. collection helper
 14. container collectionMethods
 15. 移除 validateForSprite ，這方法導致無法整合collection
+
+## ver 0.2.7
+
+1. 更新文件
