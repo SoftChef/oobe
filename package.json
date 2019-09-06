@@ -4,11 +4,12 @@
   "description": "Wow, write form so fantastic, so fun.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "nyc mocha",
     "book": "gitbook build ./book ./started",
     "docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "prod": "npm run build && npm run book && npm run docs",
-    "build": "mocha && cross-env webpack --progress --hide-modules"
+    "build": "mocha && cross-env webpack --progress --hide-modules",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,8 @@
     "jsdoc": "^3.6.3",
     "mocha": "^6.2.0",
     "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.7",
+    "coveralls": "^3.0.6",
+    "nyc": "^14.1.1"
   }
 }
