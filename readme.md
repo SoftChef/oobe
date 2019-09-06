@@ -12,6 +12,14 @@ oobe目的為原始資料與控制器之間的view model，具有集合、事件
     <img src="https://img.shields.io/npm/v/oobe.svg" alt="Chat on Gitter"  style="max-width:100%;">
 </a>
 
+<a href="https://travis-ci.org/SoftChef/oobe">
+    <img src="https://travis-ci.org/SoftChef/oobe.svg?branch=master" alt="Coverage Status"  style="max-width:100%;">
+</a>
+
+<a href="https://coveralls.io/github/SoftChef/oobe?branch=master">
+    <img src="https://coveralls.io/repos/github/SoftChef/oobe/badge.svg?branch=master" alt="Coverage Status"  style="max-width:100%;">
+</a>
+
 </p>
 ---
 

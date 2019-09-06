@@ -59,82 +59,273 @@
     <section class="readme">
         <article><br>
 <p align="center"><img src="https://softchef.github.io/oobe/assets/logo.png"></p>
-<p align="center" style="font-size:2em">javascript view model library</p>
-<hr>
-<p><a href="https://npmjs.org/package/oobe"><img src="https://img.shields.io/npm/v/oobe.svg" alt="NPM Version"></a></p>
-<p><a href="https://softchef.github.io/oobe/example/">example</a></p>
-<p><a href="https://softchef.github.io/oobe/docs/">document</a></p>
-<p><a href="https://softchef.github.io/oobe/started/">getting started</a></p>
-<p>oobe目的為原始資料與控制器之間的view model，具有集合、事件、資料轉換與驗證方法。</p>
-<p>下圖可以理解使用oobe的心情：</p>
-<p><img src="https://softchef.github.io/oobe/assets/happy_fat_guy.gif" alt="fat_guy"></p>
+<p align="center">
+oobe目的為原始資料與控制器之間的view model，具有集合、事件、資料轉換與驗證方法
+</p>
+<p align="center">
+<a href="https://npmjs.org/package/oobe">
+    <img src="https://img.shields.io/npm/v/oobe.svg" alt="Chat on Gitter"  style="max-width:100%;">
+</a>
+<a href="https://travis-ci.org/SoftChef/oobe">
+    <img src="https://travis-ci.org/SoftChef/oobe.svg?branch=master" alt="Coverage Status"  style="max-width:100%;">
+</a>
+<a href="https://coveralls.io/github/SoftChef/oobe?branch=master">
+    <img src="https://coveralls.io/repos/github/SoftChef/oobe/badge.svg?branch=master" alt="Coverage Status"  style="max-width:100%;">
+</a>
+<h2></p></h2>
+<h2>Browsers support</h2>
+<table>
+<thead>
+<tr>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" /></a></br>IE / Edge</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" /></a></br>Firefox</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" /></a></br>Chrome</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" /></a></br>Safari</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" /></a></br>iOS Safari</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/samsung-internet/samsung-internet_48x48.png" alt="Samsung" width="24px" height="24px" /></a></br>Samsung</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" /></a></br>Opera</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Edge</td>
+<td>last 2 versions</td>
+<td>last 2 versions</td>
+<td>last 2 versions</td>
+<td>last 2 versions</td>
+<td>last 2 versions</td>
+<td>last 2 versions</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>理論上能夠被IE11支持，但defaultView因為採用proxy所以會被忽略。</p>
+</blockquote>
 <hr>
 <h2>概念</h2>
 <p>oobe的概念是來自從vue表單組件中抽出model property時所建構的，當時的目的是為了讓update與create兩個表單能夠實例化同一組instance即可，但意外的是這樣的設計在我們遇到資料格式與狀態的轉換之間有極好的效果，因此決定編寫此library作為一個設計典範。</p>
 <blockquote>
 <p>雖然oobe是為了vue環境編寫，但它並不是vuejs的套件。</p>
 </blockquote>
-<pre class="prettyprint source lang-html"><code>&lt;!-- Bad -->
-&lt;template>
-    &lt;div>
-        &lt;input v-model=&quot;user.name&quot;>
-        &lt;input v-model=&quot;user.phonenumber&quot;>
-    &lt;/div>
-&lt;/template>
-&lt;script>
-    export default {
-        data() {
-            return {
-                user: {
-                    name: '',
-                    phonenumber: ''
-                }
-            }
-        }
-    }
-&lt;/script>
-</code></pre>
-<pre class="prettyprint source lang-html"><code>&lt;!-- Good -->
-&lt;template>
-    &lt;div>
-        &lt;input v-model=&quot;user.name&quot;>
-        &lt;input v-model=&quot;user.phonenumber&quot;>
-    &lt;/div>
-&lt;/template>
-&lt;script>
-    // 實際上不會這樣宣告，推薦方法請參考教學文件的-實戰vue
-    // 這樣對比起來好像麻煩很多...
-    import Oobe from 'oobe'
-    let oobe = new Oobe()
-    let container = {
-        sprites: {
-            profile: {
-                body() {
-                    return {
-                        name: '',
-                        phonenumber: ''
-                    }
-                }
-            }
-        }
-    }
-    oobe.join('user', container)
-    export default {
-        data() {
-            return {
-                user: oobe.make('user', 'profile')
-            }
-        }
-    }
-&lt;/script>
-</code></pre>
-<p>oobe參照了backbone與vue-mc，前者自成一格難以引進vue開發，而後者太過強大，它甚至處理了vuex和axios的工作，而oobe是一個專注在model處理的系統。</p>
 <h3>起源於vue與vuex之間缺乏model</h3>
+<p>整體設計參照了backbone與vue-mc，前者自成一格難以引進vue開發，而後者太過強大，它甚至處理了vuex和axios的工作，而oobe是一個專注在model處理的系統。</p>
 <p>vue-mc有發現component與store中間少了一層model，但vuex並沒有直接提供解決方案。</p>
 <p><img src="https://softchef.github.io/oobe/assets/vuex.png" alt="vuex"></p>
+<h3>最初instance的設計</h3>
+<p>通常我們會把後端回來的資料實例化一份instance而不是直接使用，以確保能夠將業務邏輯與用戶界面分開，設計如下：</p>
+<pre class="prettyprint source lang-js"><code>// User.js
+class User {
+    constructor(source = {}) {
+        this.name = source.name || ''
+        this.phoneNumber = source.phoneNumber || ''
+    }
+}
+</code></pre>
+<pre class="prettyprint source lang-html"><code>&lt;template>
+    &lt;div>
+        &lt;input v-model=&quot;user.name&quot;>
+        &lt;input v-model=&quot;user.phoneNumber&quot;>
+    &lt;/div>
+&lt;/template>
+&lt;script>
+    import User from 'User.js'
+    export default {
+        data() {
+            return {
+                user: new User({
+                    name: 'admin'
+                })
+            }
+        }
+    }
+&lt;/script>
+</code></pre>
+<h4>用oobe建構</h4>
+<p>以下是用oobe達成一樣的效果：</p>
+<pre class="prettyprint source lang-js"><code>// profile.js
+export default {
+    body() {
+        return {
+            name: '',
+            phoneNumber: ''
+        }
+    },
+    born(source = {}) {
+        // 如果source沒有body所定義的則body會採用預設值
+        return source
+    }
+}
+</code></pre>
+<pre class="prettyprint source lang-js"><code>// oobe.js
+import Oobe from 'oobe'
+import profile from './profile.js'
+let oobe = new Oobe()
+oobe.join('User' {
+    sprites: { profile }
+})
+</code></pre>
+<pre class="prettyprint source lang-html"><code>&lt;template>
+    &lt;div>
+        &lt;input v-model=&quot;user.name&quot;>
+        &lt;input v-model=&quot;user.phoneNumber&quot;>
+    &lt;/div>
+&lt;/template>
+&lt;script>
+    import oobe from './oobe'
+    export default {
+        data() {
+            return {
+                user: oobe.make('User', 'profile').$born({
+                    name: 'admin'
+                })
+            }
+        }
+    }
+&lt;/script>
+</code></pre>
+<h3>為你封裝好狀態與常用的功能</h3>
+<p>上面的方法會經過一個工廠將instance綁定常用的方法與事件：</p>
+<h4>方法</h4>
+<pre class="prettyprint source lang-js"><code>let user = oobe.make('User', 'profile').$born()
+console.log(user.$isChange()) // false
+user.name = 'test'
+console.log(user.$isChange()) // true
+</code></pre>
+<h4>狀態</h4>
+<pre class="prettyprint source lang-js"><code>let user = oobe.make('User', 'profile').$born()
+console.log(user.$error) // undefined
+user.$setError('error')
+console.log(user.$error) // 'error'
+</code></pre>
+<h4>事件</h4>
+<pre class="prettyprint source lang-js"><code>let user = oobe.make('User', 'profile')
+user.$on('$ready', () => {
+    console.log('ready')
+})
+user.$born() // 'ready'
+</code></pre>
+<h4>集合</h4>
+<pre class="prettyprint source lang-js"><code>let users = oobe.collection('User', 'profile')
+let items = []
+
+items.push({
+    user: 'admin'
+})
+items.push({
+    user: 'guest'
+})
+
+users.batchWrite(items)
+console.log(users.items[0].name) // admin
+</code></pre>
+<h3>Container 與 Sprite</h3>
+<p>這是來自資料庫關聯設計下決定的分類模式，例如下列兩張table：</p>
+<h4>users</h4>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>phoneNumber</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>admin</td>
+<td>+886928000000</td>
+</tr>
+</tbody>
+</table>
+<h4>user-metadatas</h4>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>key</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>admin</td>
+<td>age</td>
+<td>25</td>
+</tr>
+</tbody>
+</table>
+<h4>result data</h4>
+<p>我們有兩種資料格式回來的可能：</p>
+<pre class="prettyprint source lang-js"><code>user = {
+    name: 'admin',
+    phoneNumber: '+886928000000',
+    metadatas: {
+        age: 25
+    }
+}
+
+metadatas = {
+    name: 'admin',
+    age: 25
+}
+</code></pre>
+<p>這是同一系列的模型但是兩隻不同的instance，因此我們決定將資料結構定義如下：</p>
+<pre class="prettyprint source lang-js"><code>let user = {
+    body() {
+        return {
+            name: '',
+            phoneNumber: ''
+        }
+    },
+    refs: {
+        metadatas: 'metadatas'
+    }
+}
+
+let metadatas = {
+    body() {
+        return {
+            age: null
+        }
+    },
+    methods: {
+        isAdult() {
+            return this.age > 18
+        }
+    }
+}
+
+let container = {
+    sprites: {
+        user,
+        metadatas
+    }
+}
+
+let oobe = new Oobe()
+
+oobe.join('User', container)
+
+// 當我們收到的資料格式如下
+let result = {
+    name: 'admin',
+    phoneNumber: '+886928000000',
+    metadatas: {
+        age: 25
+    }
+}
+
+let sprite = oobe.make('User', 'user').$born(result)
+
+console.log(sprite.metadata.$fn.isAdult()) // true
+</code></pre>
 <h3>Nodejs</h3>
 <p>oobe與其他model最大的差異在於專注在視圖處理，我們為它內置了以下這簡易的模式，這也是雖然它可以運行在nodejs但不推薦的原因，我們希望它能夠依據資料來回決定呈現的樣子，這在後端的風險太大了。</p>
 <p><img src="https://softchef.github.io/oobe/assets/data.png" alt="data"></p>
+<hr>
+<h2>更深入了解oobe</h2>
+<p>oobe的目標是建構vue大型應用，我們建構了一系列說明與範例：</p>
+<p><a href="https://softchef.github.io/oobe/example/">Example</a></p>
+<p><a href="https://softchef.github.io/oobe/docs/">Document</a></p>
+<p><a href="https://softchef.github.io/oobe/started/">Getting started</a></p>
 <hr>
 <h2>Installation</h2>
 <h3>Web</h3>
@@ -156,12 +347,6 @@ let oobe = new Oobe()
 let oobe = new Oobe()
 </code></pre>
 <hr>
-<h2>支援環境</h2>
-<p>支援 es6 與 nodejs8.10 以上。</p>
-<blockquote>
-<p>理論上能夠被IE11支持，但defaultView因為採用proxy所以會被忽略。</p>
-</blockquote>
-<hr>
 <h2>Other</h2>
 <p><a href="https://medium.com/sensor-live/oobe-javascript-view-model-library-a6ada8d56566">medium</a></p>
 <p><a href="https://softchef.github.io/oobe/version">versions</a></p></article>
@@ -179,7 +364,7 @@ let oobe = new Oobe()
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Thu Sep 05 2019 17:49:44 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Fri Sep 06 2019 18:10:27 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
