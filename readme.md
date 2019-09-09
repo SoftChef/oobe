@@ -269,7 +269,7 @@ let result = {
 
 let sprite = oobe.make('User', 'user').$born(result)
 
-console.log(sprite.metadata.$fn.isAdult()) // true
+console.log(sprite.metadatas.$fn.isAdult()) // true
 ```
 
 ### Nodejs
