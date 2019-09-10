@@ -15,11 +15,6 @@ class Core extends Base {
         this.init()
     }
 
-    // ===================
-    //
-    // init
-    //
-
     init() {
         this.initEvent()
         this.initSystemContainer()
@@ -33,11 +28,6 @@ class Core extends Base {
         this.addContainer('__system__', Configs.systemContainer)
         this.systemSprite = this.make('__system__', 'system')
     }
-
-    // ===================
-    //
-    // plugins
-    //
 
     getPrefix(name) {
         if (name === '') {
@@ -60,11 +50,6 @@ class Core extends Base {
         this.message.add(plugin.locales, prefix)
     }
 
-    // ===================
-    //
-    // add
-    //
-
     addContainer(name, container) {
         if (this.containers[name]) {
             return this.$devError('addContainer', `Name(${name}) already exists.`)
@@ -73,28 +58,13 @@ class Core extends Base {
         return this.containers[name]
     }
 
-    // ===================
-    //
-    // get
-    //
-
     getRules(array) {
         return this.rule.getMore(this.systemSprite, array)
     }
 
-    // ===================
-    //
-    // set
-    //
-
     setLocale(locale) {
         this.message.setLocale(locale)
     }
-
-    // ===================
-    //
-    // methods
-    //
 
     eachContainer(action) {
         for (let key in this.containers) {
@@ -118,11 +88,6 @@ class Core extends Base {
         }
         return container === targetContainer && spriteBase === targetSpriteBase
     }
-
-    // ===================
-    //
-    // public
-    //
 
     make(containerName, spriteName) {
         let container = this.containers[containerName]

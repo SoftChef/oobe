@@ -483,6 +483,19 @@ describe('#Collection', () => {
         expect(collection.size).to.equal(2)
     })
 
+    it('batch write only key', function(done) {
+        let collection = this.oobe.collection('CognitoUser', 'user')
+        collection.on('$writeSuccess', (context, { sprite, onlyKey }) => {
+            expect(typeof sprite.name).to.equal('string')
+            expect(onlyKey).to.equal(true)
+            if (collection.size === 3) {
+                expect(collection.size).to.equal(3)
+                done()
+            }
+        })
+        collection.batchWriteOnlyKeys('Username', ['123', '456', '789'])
+    })
+
     it('fetch', function() {
         expect(Oobe.helper.isSprite(this.collection.fetch('admin'))).to.equal(true)
         expect(Oobe.helper.isSprite(this.collection.fetch('5487'))).to.equal(true)

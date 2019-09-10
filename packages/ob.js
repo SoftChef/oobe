@@ -30,7 +30,8 @@ module.exports = {
         },
         type(value, params = {}) {
             let is = params.is || 'string'
-            return typeof value === is ? true : this.$meg('#ob.type') + ' : ' + is
+            let type = typeof value
+            return type === is ? true : this.$meg('#ob.type') + ' : ' + is
         },
         strongType(value, params) {
             let is = params.is || 'string'
@@ -64,36 +65,36 @@ module.exports = {
     },
     locales: {
         'en-us': {
-            'required': 'The field is required',
-            'alphanumeric': 'The field only allow alphanumeric characters, a-zA-Z0-9_',
-            'email': 'The field is invalid email format',
-            'number': 'The field only allow numeric',
+            required: 'The field is required',
+            alphanumeric: 'The field only allow alphanumeric characters, a-zA-Z0-9_',
+            email: 'The field is invalid email format',
+            number: 'The field only allow numeric',
             'hh-mm': 'The field is invalid date format, hh-mm',
             'mm-dd': 'The field is invalid date format, mm-dd',
             'yyyy-mm': 'The field is invalid date format, yyyy-mm',
             'yyyy-mm-dd': 'The field is invalid date format, yyyy-mm-dd',
-            'max': 'Maximum value is ',
-            'min': 'Minimum value is ',
-            'maxLength': 'Maximum length is ',
-            'minLength': 'Minimum length is ',
-            'type': 'Data type must be',
-            'same': 'The field must be equal to '
+            max: 'Maximum value is ',
+            min: 'Minimum value is ',
+            maxLength: 'Maximum length is ',
+            minLength: 'Minimum length is ',
+            type: 'Data type must be',
+            same: 'The field must be equal to '
         },
         'zh-tw': {
-            'required': '必填',
-            'alphanumeric': '必須為數字、英文或_符號',
-            'email': '必須為信箱',
-            'number': '必須為數字',
+            required: '必填',
+            alphanumeric: '必須為數字、英文或_符號',
+            email: '必須為信箱',
+            number: '必須為數字',
             'hh-mm': '日期格式必須為hh-mm',
             'mm-dd': '日期格式必須為mm-dd',
             'yyyy-mm': '日期格式必須為yyyy-mm',
             'yyyy-mm-dd': '日期格式必須為yyyy-mm-dd',
-            'max': '超過最大值',
-            'min': '低於最小值',
-            'maxLength': '超過最大長度',
-            'minLength': '低於最小長度',
-            'type': '型別必須是',
-            'same': '長度必須為'
+            max: '超過最大值',
+            min: '低於最小值',
+            maxLength: '超過最大長度',
+            minLength: '低於最小長度',
+            type: '型別必須是',
+            same: '長度必須為'
         }
     }
 }

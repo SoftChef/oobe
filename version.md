@@ -151,4 +151,8 @@
 
 ## ver 0.2.8
 
+* 開始翻譯的程序
+
 1. collection setDirty
+2. collection 的文件翻譯成英文
+3. batch write only key

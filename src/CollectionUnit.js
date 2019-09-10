@@ -116,27 +116,27 @@ class CollectionUnit extends Base {
     }
 
     /**
-     * 寫入資料被拒絕時觸發
+     * Trigger if data is reject written to the collection.
      * @event Collection#$writeReject
      * @property {object} context
      * @property {object} content
-     * @property {object} content.message 錯誤訊息
-     * @property {string} content.key key
-     * @property {sprite} content.sprite 精靈
-     * @property {object} content.source 原資料
+     * @property {object} content.message
+     * @property {string} content.key
+     * @property {sprite} content.sprite
+     * @property {object} content.source source data
      */
 
     /**
-     * 寫入資料成功被觸發
+     * Trigger if data is written to the collection.
      * @event Collection#$writeSuccess
      * @property {object} context
      * @property {object} content
-     * @property {string} content.key key
-     * @property {sprite} content.sprite 精靈
-     * @property {object} content.source 原資料
+     * @property {string} content.key
+     * @property {sprite} content.sprite
+     * @property {object} content.source source data
      */
 
-    write(source) {
+    write(source, options) {
         if (Helper.getType(source) !== 'object') {
             this.$devError('write', 'Source not a object')
         }
@@ -148,7 +148,7 @@ class CollectionUnit extends Base {
         if (Helper.getType(key) !== 'string') {
             this.$devError('write', `Write key(${key}) not a string`)
         }
-        let eventData = { key, sprite, source }
+        let eventData = { key, sprite, source, ...options }
         this.status.dirty = true
         this.options.write.call(this.unit, {
             key,
@@ -171,8 +171,18 @@ class CollectionUnit extends Base {
         }
     }
 
+    batchWriteOnlyKeys(key, items) {
+        if (Helper.getType(items) !== 'array') {
+            this.$devError('batchWriteOnlyKeys', 'Data not a array.')
+        }
+        this.status.dirty = true
+        for (let item of items) {
+            this.write({ [key]: item }, { onlyKey: true })
+        }
+    }
+
     /**
-     * 寫入資料成功被觸發
+     * Trigger if batchWriteAsync write all items to the collection.
      * @event Collection#$writeAsyncDone
      * @property {object} context
      */
@@ -193,17 +203,17 @@ class CollectionUnit extends Base {
     }
 
     /**
-     * 獲取對象且有真實對象時觸發
+     * Get and has a sprite to trigger.
      * @event Collection#$fetch
      * @property {object} context
-     * @property {sprite} 獲取的精靈
+     * @property {sprite} sprite
      */
 
     /**
-     * 獲取對象為空時觸發
+     * Get and result is a null to trigger.
      * @event Collection#$fetchFail
      * @property {object} context
-     * @property {string} 獲取的key
+     * @property {string} key
      */
 
     fetch(key) {
@@ -216,7 +226,14 @@ class CollectionUnit extends Base {
         return sprite
     }
 
+    /**
+     * Trigger from clear method.
+     * @event Collection#$clear
+     * @property {object} context
+     */
+
     clear() {
+        this.event.emit(this.unit, '$clear', [])
         this.map = {}
         this.items = []
     }

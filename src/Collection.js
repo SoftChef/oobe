@@ -10,71 +10,63 @@ class Collection {
         this._collection = collection
     }
 
-    /** collection內部長度 */
+    /** Collection size. */
 
     get size() {
         return this._collection.items.length
     }
 
-    /** collection的資料集 */
+    /** Collection real data. */
 
     get items() {
         return this._collection.items
     }
 
-    /** 是否宣告過write */
+    /** Have you ever called the write method, you can use setDirty(boolean) to change the state. */
 
     get dirty() {
         return this._collection.status.dirty
     }
 
-    /** collection views */
+    /** Collection views. */
 
     get views() {
         return this._collection.views
     }
 
-    /** collection methods */
+    /** Collection methods. */
 
     get methods() {
         return this._collection.methods
     }
 
-    /**
-     * utils的接口
-     */
+    /** Utils interface. */
 
     get utils() {
         return this._collection.base.container.options.utils
     }
 
-    /**
-     * 來自container configs物件
-     */
+    /** Come from to container configs. */
 
     get configs() {
         return this._collection.base.container.getConfigs()
     }
 
-    /**
-     * Helper的接口
-     */
+    /** Helper interface */
 
     get helper() {
         return Helper
     }
 
-    /**
-     * 如果該集合是參考對象，則獲取參考對象的對象
-     */
+    /** If this collection is a reference, get reference aims. */
 
     get parent() {
         return this._collection.parent
     }
 
     /**
-     * 改變dirty狀態
-     * @param {boolean} status 狀態
+     * Change dirty status.
+     * @param {boolean} status
      */
 
     setDirty(status) {
@@ -82,8 +74,12 @@ class Collection {
     }
 
     /**
-     * 迭代所有sprite，回傳'_break'會跳出迭代
-     * @param {function} callback 回呼函數
+     * Iteration all sprite, if callback return is '_break' string else break loop.
+     * @param {function} callback
+     * @example
+     * collection.forEach((sprite, index) => {
+     *      // do something...
+     * })
      */
 
     forEach(callback) {
@@ -91,7 +87,7 @@ class Collection {
     }
 
     /**
-     * 獲得所有sprite的body
+     * Get all sprite $body() return values.
      * @returns {array}
      */
 
@@ -100,7 +96,7 @@ class Collection {
     }
 
     /**
-     * 內部的sprite是否被更動過
+     * Check if any sprite has changed.
      * @returns {boolean}
      */
 
@@ -109,7 +105,7 @@ class Collection {
     }
 
     /**
-     * 驗證內部所有精靈
+     * Get all sprite $validate() return values.
      * @returns {object} { result, success }
      */
 
@@ -118,7 +114,7 @@ class Collection {
     }
 
     /**
-     * 畸變內部所有精靈
+     * Call all sprite $dist() method.
      * @param {string} name distName
      */
 
@@ -127,29 +123,29 @@ class Collection {
     }
 
     /**
-     * 監聽一個事件，但只觸發一次
-     * @param {string} channelName 事件名稱
-     * @param {object} callback 觸發事件
+     * Attached event handler.
+     * @param {string} channelName
+     * @param {object} handler
      */
 
-    on(channelName, callback) {
-        return this._collection.event.on(channelName, callback)
+    on(channelName, handler) {
+        return this._collection.event.on(channelName, handler)
     }
 
     /**
-     * 監聽一個事件，但只觸發一次
-     * @param {string} channelName 事件名稱
-     * @param {object} callback 觸發事件
+     * Attached event handler, but only trigger once.
+     * @param {string} channelName
+     * @param {object} handler
      */
 
-    onOnce(channelName, callback) {
-        return this._collection.event.once(channelName, callback)
+    onOnce(channelName, handler) {
+        return this._collection.event.once(channelName, handler)
     }
 
     /**
-     * 移除一個事件
-     * @param {string} channelName 事件名稱
-     * @param {string|object} id 事件id或帶有{id}屬性的物件
+     * Remove a event.
+     * @param {string} channelName
+     * @param {string|object} id Event id or has {id} object.
      */
 
     off(channelName, id) {
@@ -157,9 +153,9 @@ class Collection {
     }
 
     /**
-     * 發送一個事件
-     * @param {string} channelName 事件名稱
-     * @param {object} params 傳遞參數
+     * Emit a event.
+     * @param {string} channelName
+     * @param {...*} params
      */
 
     emit(channelName, ...params) {
@@ -167,8 +163,8 @@ class Collection {
     }
 
     /**
-     * 有無一個對象
-     * @param {string} key 對象key
+     * Have Items corresponding to the key.
+     * @param {string} key
      */
 
     has(key) {
@@ -176,8 +172,8 @@ class Collection {
     }
 
     /**
-     * 獲取一個對象
-     * @param {string} key 對象的key
+     * Get Items corresponding to the key.
+     * @param {string} key
      */
 
     fetch(key) {
@@ -185,8 +181,8 @@ class Collection {
     }
 
     /**
-     * 寫入一組資料，當有重複的key鍵則取代
-     * @param {object|sprite} data source data
+     * Write data in the collection and replace it if items have the same key.
+     * @param {object|sprite} data
      */
 
     write(data) {
@@ -194,8 +190,8 @@ class Collection {
     }
 
     /**
-     * 批次寫入資料
-     * @param {array} data source data
+     * Batch trigger write.
+     * @param {array} data
      */
 
     batchWrite(data) {
@@ -203,19 +199,29 @@ class Collection {
     }
 
     /**
-     * 非同步寫入精靈
-     * @param {array} items source data
-     * @param {number} [ms=10] 每筆資料寫入的速度(毫秒)
+     * Batch trigger write and only key.
+     * @param {string} key Key name.
+     * @param {array} items ['name', 'name2'...]
+     */
+
+    batchWriteOnlyKeys(key, data) {
+        return this._collection.batchWriteOnlyKeys(key, data)
+    }
+
+    /**
+     * Batch trigger write with async.
+     * @param {array} items
+     * @param {number} [ms=1] Speed of data queue write(milliseconds).
      * @returns {promise}
      */
 
-    batchWriteAsync(items, ms = 10) {
+    batchWriteAsync(items, ms = 1) {
         return this._collection.batchWriteAsync(items, ms)
     }
 
     /**
-     * 移除指定資料
-     * @param {string} key 對象key
+     * Remove data by key.
+     * @param {string} key
      */
 
     remove(key) {
@@ -223,7 +229,7 @@ class Collection {
     }
 
     /**
-     * 清空所有資料
+     * Clear all data.
      */
 
     clear() {

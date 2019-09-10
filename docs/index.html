@@ -60,7 +60,7 @@
         <article><br>
 <p align="center"><img src="https://softchef.github.io/oobe/assets/logo.png"></p>
 <p align="center">
-oobe目的為原始資料與控制器之間的view model，具有集合、事件、資料轉換與驗證方法
+oobe is javascript view model library, focus data, event, collection and validate method.
 </p>
 <p align="center">
 <a href="https://npmjs.org/package/oobe">
@@ -72,35 +72,7 @@ oobe目的為原始資料與控制器之間的view model，具有集合、事件
 <a href="https://coveralls.io/github/SoftChef/oobe?branch=master">
     <img src="https://coveralls.io/repos/github/SoftChef/oobe/badge.svg?branch=master" alt="Coverage Status"  style="max-width:100%;">
 </a>
-<h2></p></h2>
-<h2>Browsers support</h2>
-<table>
-<thead>
-<tr>
-<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" /></a></br>IE / Edge</th>
-<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" /></a></br>Firefox</th>
-<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" /></a></br>Chrome</th>
-<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" /></a></br>Safari</th>
-<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" /></a></br>iOS Safari</th>
-<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/samsung-internet/samsung-internet_48x48.png" alt="Samsung" width="24px" height="24px" /></a></br>Samsung</th>
-<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" /></a></br>Opera</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Edge</td>
-<td>last 2 versions</td>
-<td>last 2 versions</td>
-<td>last 2 versions</td>
-<td>last 2 versions</td>
-<td>last 2 versions</td>
-<td>last 2 versions</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>理論上能夠被IE11支持，但defaultView因為採用proxy所以會被忽略。</p>
-</blockquote>
+</p>
 <hr>
 <h2>概念</h2>
 <p>oobe的概念是來自從vue表單組件中抽出model property時所建構的，當時的目的是為了讓update與create兩個表單能夠實例化同一組instance即可，但意外的是這樣的設計在我們遇到資料格式與狀態的轉換之間有極好的效果，因此決定編寫此library作為一個設計典範。</p>
@@ -347,6 +319,35 @@ let oobe = new Oobe()
 let oobe = new Oobe()
 </code></pre>
 <hr>
+<h2>Browsers support</h2>
+<table>
+<thead>
+<tr>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" /></a></br>IE / Edge</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" /></a></br>Firefox</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" /></a></br>Chrome</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" /></a></br>Safari</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" /></a></br>iOS Safari</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/samsung-internet/samsung-internet_48x48.png" alt="Samsung" width="24px" height="24px" /></a></br>Samsung</th>
+<th><a href="http://godban.github.io/browsers-support-badges/"><img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" /></a></br>Opera</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Edge</td>
+<td>support</td>
+<td>support</td>
+<td>support</td>
+<td>support</td>
+<td>support</td>
+<td>support</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>理論上能夠被IE11支持，但defaultView因為採用proxy所以會被忽略。</p>
+</blockquote>
+<hr>
 <h2>Other</h2>
 <p><a href="https://medium.com/sensor-live/oobe-javascript-view-model-library-a6ada8d56566">medium</a></p>
 <p><a href="https://softchef.github.io/oobe/version">versions</a></p></article>
@@ -364,7 +365,7 @@ let oobe = new Oobe()
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Sep 10 2019 16:19:57 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Sep 10 2019 17:13:46 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
