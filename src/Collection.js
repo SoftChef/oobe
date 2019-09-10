@@ -73,6 +73,15 @@ class Collection {
     }
 
     /**
+     * 改變dirty狀態
+     * @param {boolean} status 狀態
+     */
+
+    setDirty(status) {
+        return this._collection.setDirty(status)
+    }
+
+    /**
      * 迭代所有sprite，回傳'_break'會跳出迭代
      * @param {function} callback 回呼函數
      */

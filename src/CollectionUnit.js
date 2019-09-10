@@ -32,6 +32,10 @@ class CollectionUnit extends Base {
         return this.options.key !== '*' ? this.options.key(sprite) : Helper.generateId()
     }
 
+    setDirty(status = true) {
+        this.status.dirty = !!status
+    }
+
     getKeyIndex(key) {
         let target = this.get(key)
         if (target) {

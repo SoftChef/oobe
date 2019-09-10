@@ -235,7 +235,7 @@ class SpriteUnit extends Base {
 
     /**
      * 呼叫setError時觸發
-     * @event Fragment#$error
+     * @event Sprite#$error
      * @property {object} context
      * @property {*} errorData
      */

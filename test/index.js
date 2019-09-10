@@ -454,6 +454,15 @@ describe('#Collection', () => {
         expect(collection.dirty).to.equal(true)
     })
 
+    it('setdirty', function() {
+        let collection = this.oobe.collection('CognitoUser', 'user')
+        expect(collection.dirty).to.equal(false)
+        collection.write(RawData)
+        expect(collection.dirty).to.equal(true)
+        collection.setDirty(false)
+        expect(collection.dirty).to.equal(false)
+    })
+
     it('write', function() {
         expect(this.collection.size).to.equal(0)
         this.collection.write(RawData)
@@ -764,5 +773,15 @@ describe('#Helper', () => {
         expect(this.user.$helper.peel(test, 'a.c')).to.equal(5)
         expect(this.user.$helper.peel(test, 'a.b.e.e')).to.equal(undefined)
         expect(this.user.$helper.peel(test, 'a.b.e.e', '*')).to.equal('*')
+    })
+})
+
+describe('#Other', () => {
+    it('system error', function() {
+        let Base = require('../src/Base')
+        let base = new Base('Test')
+        expect(() => {
+            base.$systemError('Test', 'Test')
+        }).to.throw(Error)
     })
 })

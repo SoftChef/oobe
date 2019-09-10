@@ -148,3 +148,7 @@
 ## ver 0.2.7
 
 1. 更新文件
+
+## ver 0.2.8
+
+1. collection setDirty
