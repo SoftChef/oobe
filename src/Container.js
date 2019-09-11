@@ -5,15 +5,15 @@ const SpriteBase = require('./SpriteBase')
 
 /**
  * @namespace Container
- * @property {object.<SpriteBase>} sprites 精靈組
- * @property {array.<string>} [dists] 擴展狀態集
- * @property {object.<fn>} [rules] 私有規則
- * @property {object} [utils] 擴充工具
- * @property {object} [locales] 語系組
- * @property {object} [configs] 通用設定
- * @property {object.<fn>} [methods] 通用方法
- * @property {function} [install] 在加入core時觸發
- * @property {object.<array>} [interface] 建立設計規範，不符合規範的精靈會被擲出錯誤
+ * @property {object.<SpriteBase>} sprites
+ * @property {array.<string>} [dists] Extend distortion.
+ * @property {object.<fn>} [rules]
+ * @property {object} [utils]
+ * @property {object} [locales]
+ * @property {object} [configs]
+ * @property {object.<fn>} [methods]
+ * @property {function} [install] Add oobe trigger this function.
+ * @property {object.<array>} [interface] That sprite does not conform to the specification will throw an error.
  * @see {@link SpriteBase}
  * @example
  * // interface
@@ -45,11 +45,6 @@ class Container extends Base {
         })
         this.init()
     }
-
-    // ===================
-    //
-    // init
-    //
 
     init() {
         this.initEvent()
@@ -123,11 +118,6 @@ class Container extends Base {
         return output
     }
 
-    // ===================
-    //
-    // get
-    //
-
     getRules(target, array) {
         return this.core.rule.getMore(target, this.getNames(array))
     }
@@ -139,11 +129,6 @@ class Container extends Base {
     getConfigs() {
         return this.options.configs
     }
-
-    // ===================
-    //
-    // methods
-    //
 
     getName(name) {
         return name[0] === '#' ? name : this.prefix + name
@@ -161,11 +146,6 @@ class Container extends Base {
         return this.core.rule.validate(target, value, this.getNames(array))
     }
 
-    // ===================
-    //
-    // public
-    //
-
     make(baseName) {
         let base = this.spriteBases[baseName]
         if (base == null) {
@@ -174,12 +154,12 @@ class Container extends Base {
         return base.create()
     }
 
-    makeCollection(baseName, options) {
+    makeCollection(baseName) {
         let base = this.spriteBases[baseName]
         if (base == null) {
             return this.$devError('makeCollection', `Sprite ${baseName} not found.`)
         }
-        return base.createCollection(options)
+        return base.createCollection()
     }
 }
 

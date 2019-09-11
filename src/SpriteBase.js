@@ -8,18 +8,18 @@ const CollectionUnit = require('./CollectionUnit')
 
 /**
  * @namespace SpriteBase
- * @property {function} body 定義結構與預設值
- * @property {object.<string>} [refs] 該屬性參照其他精靈
- * @property {object.<fn>} [views] 經過計算後能夠呈現的值
- * @property {object.<array>} [rules] 屬性驗證規則組
- * @property {object} [dist] distortions模式
- * @property {array.<string>} [dist[].fixed] 目標值是否有fixed屬性
- * @property {array.<string>} [dist[].hidden] 目標值是否有hidden屬性
- * @property {function} [dist[].export] 該狀模式下的輸出產物
- * @property {object.<fn>} [methods] 私有方法
- * @property {function} [born] 攔截rawdata經運算再擲出
- * @property {function} [origin] 將資料轉換成原始資料再擲出
- * @property {function} [created] born後會觸發，sprite一生只會觸發一次
+ * @property {function} body Data structure.
+ * @property {object.<string>} [refs]
+ * @property {object.<fn>} [views]
+ * @property {object.<array>} [rules]
+ * @property {object} [dist]
+ * @property {array.<string>} [dist[].fixed]
+ * @property {array.<string>} [dist[].hidden]
+ * @property {function} [dist[].export]
+ * @property {object.<fn>} [methods]
+ * @property {function} [born]
+ * @property {function} [origin]
+ * @property {function} [created]
  */
 
 class SpriteBase extends Base {

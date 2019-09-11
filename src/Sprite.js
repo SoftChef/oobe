@@ -14,105 +14,81 @@ class Sprite {
         this._sprite = sprite
         this._container = sprite.base.container
 
-        /**
-         * self的實體化對象
-         */
+        /** Self object */
 
         this.$self = null
     }
 
-    /**
-     * views的簡寫
-     */
+    /** Shorthand for $views. */
 
     get $v() {
         return this._sprite.views
     }
 
-    /**
-     * views對象
-     */
+    /** Views */
 
     get $views() {
         return this._sprite.views
     }
 
-    /**
-     * 是否宣告過out且沒有dead and reborn
-     */
+    /** Use $out() and out sprite no call $dead() or $reborn(). */
 
     get $live() {
         return this._sprite.status.live
     }
 
-    /**
-     * utils的接口
-     */
+    /** Utils interface. */
 
     get $utils() {
         return this._container.options.utils
     }
 
-    /**
-     * 來自container configs物件
-     */
+    /** From container configs. */
 
     get $configs() {
         return this._container.getConfigs()
     }
 
-    /**
-     * Helper的接口
-     */
+    /** Helper interface */
 
     get $helper() {
         return Helper
     }
 
-    /**
-     * 獲取目前狀態
-     */
+    /** Now distortion status. */
 
     get $distName() {
         return this._sprite.dist.name
     }
 
-    /**
-     * 是否宣告完born
-     */
+    /** Whether to call $born(). */
 
     get $ready() {
         return this._sprite.status.ready
     }
 
-    /**
-     * 是否錯誤，有回傳錯誤訊息
-     */
+    /** Whether is error, have error return error message. */
 
     get $error() {
         return this._sprite.getErrorMessage()
     }
 
-    /**
-     * 如果該精靈是參考對象，則獲取參考對象的對象
-     */
+    /** If this sprite is a reference, get reference aims. */
 
     get $parent() {
         return this._sprite.parent
     }
 
-    /**
-     * 獲取methods的接口
-     */
+    /** Methods interface */
 
     get $fn() {
         return this._sprite.functions
     }
 
     /**
-     * 監聽一個事件
-     * @param {string} channelName 事件名稱
-     * @param {object} callback 觸發事件
+     * Attached event handler.
+     * @param {string} channelName
+     * @param {object} params
      */
 
     $on(channelName, callback) {
@@ -120,9 +96,9 @@ class Sprite {
     }
 
     /**
-     * 監聽一個事件，但只觸發一次
-     * @param {string} channelName 事件名稱
-     * @param {object} callback 觸發事件
+     * Attached event handler, but only trigger once.
+     * @param {string} channelName
+     * @param {object} callback
      */
 
     $onOnce(channelName, callback) {
@@ -130,9 +106,9 @@ class Sprite {
     }
 
     /**
-     * 移除一個事件
-     * @param {string} channelName 事件名稱
-     * @param {string} id 事件id
+     * Remove a event.
+     * @param {string} channelName
+     * @param {string|object} id Event id or has {id} object.
      */
 
     $off(channelName, id) {
@@ -140,9 +116,9 @@ class Sprite {
     }
 
     /**
-     * 發送一個事件
-     * @param {string} channelName 事件名稱
-     * @param {object} params 傳遞參數
+     * Emit a event.
+     * @param {string} channelName
+     * @param {...*} params
      */
 
     $emit(channelName, ...params) {
@@ -150,7 +126,7 @@ class Sprite {
     }
 
     /**
-     * 更新對應key的body
+     * Update to body key.
      * @param {object} data
      */
 
@@ -159,8 +135,8 @@ class Sprite {
     }
 
     /**
-     * 獲取原始資料
-     * @param {object} assign 使用deepObjectAssign取代原始資料值
+     * Get raw data.
+     * @param {object} [assign] Use helper deepObjectAssign replace origin data.
      * @returns {*}
      */
 
@@ -169,9 +145,9 @@ class Sprite {
     }
 
     /**
-     * 獲取語系資源
-     * @param {string} name 語系的對應key
-     * @param {object} [value] 動態參數
+     * Get locale message.
+     * @param {string} name key name
+     * @param {object} [value] parameter
      * @returns {string}
      */
 
@@ -180,8 +156,8 @@ class Sprite {
     }
 
     /**
-     * 複製一份sprite並休眠宣告對象
-     * @returns {outSprite}
+     * Copy sprite and let this sprite to sleep.
+     * @returns {Sprite}
      */
 
     $out() {
@@ -189,8 +165,8 @@ class Sprite {
     }
 
     /**
-     * 關閉這個sprite並喚醒宣告此sprite的對象(無對象的sprite無法宣告)
-     * @returns {originSprite}
+     * Close this sprite and wake up parent sprite, only have carry parent sprite can use this method.
+     * @returns {Sprite}
      */
 
     $dead() {
@@ -198,7 +174,7 @@ class Sprite {
     }
 
     /**
-     * 初始化並賦予值，並將ready宣告成true
+     * Initialization data, and $ready to the true.
      * @returns {this}
      */
 
@@ -207,7 +183,7 @@ class Sprite {
     }
 
     /**
-     * 複製當前sprite
+     * Copy this sprite.
      * @returns {sprite}
      */
 
@@ -216,7 +192,7 @@ class Sprite {
     }
 
     /**
-     * 綁定一個method
+     * Bind method, let return function this to sprite.
      * @returns {function}
      */
 
@@ -225,7 +201,7 @@ class Sprite {
     }
 
     /**
-     * 獲取body的所有值(為複製對象)
+     * Get body data, and body is copy object.
      * @returns {object}
      */
 
@@ -234,7 +210,7 @@ class Sprite {
     }
 
     /**
-     * 獲取body與refs的鍵值
+     * Get body and refs keys.
      * @returns {array.<string>}
      */
 
@@ -243,8 +219,8 @@ class Sprite {
     }
 
     /**
-     * 把值切回born賦予的狀態
-     * @param {string} [key] 是否針對某個屬性重設
+     * Restore data to born status.
+     * @param {string} [key] Can for target key to reset.
      */
 
     $reset(key) {
@@ -252,9 +228,9 @@ class Sprite {
     }
 
     /**
-     * 獲取指定屬性的規則集
-     * @param {string} name 指定屬性
-     * @param {array.<string|fn>} [extra] 擴充規則
+     * Get rules.
+     * @param {string} name
+     * @param {array.<string|fn>} [extra]
      * @returns {array.<fn>}
      */
 
@@ -263,7 +239,7 @@ class Sprite {
     }
 
     /**
-     * 回傳一個含某些oobe屬性的物件，可用於調適
+     * Return oobe object, for the invoke.
      * @returns {object}
      */
 
@@ -369,8 +345,8 @@ class Sprite {
     }
 
     /**
-     * 將sprite設定為錯誤
-     * @param {*} data 錯誤資料
+     * This sprite will set to error.
+     * @param {*} data error data
      */
 
     $setError(data) {

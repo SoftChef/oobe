@@ -5,28 +5,28 @@
 
 class Helper {
     /**
-     * JSON.parse(JSON.stringify)的深拷貝方法
+     * JSON.parse(JSON.stringify)
      * @static
-     * @param {*} data 任何可以JSON.stringify的物件
+     * @param {*} target
      */
 
-    static jpjs(data) {
-        return JSON.parse(JSON.stringify(data))
+    static jpjs(target) {
+        return JSON.parse(JSON.stringify(target))
     }
 
     /**
-     * 獲取型別
+     * Get target data
      * @static
-     * @param {*} target 任何型態都行
-     * @returns {string} example之外的型態則回傳typeof的值
+     * @param {*} target
+     * @returns {string} The type other than example returns the value of typeof.
      * @example
-     *  getType([]) // array
-     *  getType(null) // empty
-     *  getType(undefined) // empty
-     *  getType(NaN) // NaN
-     *  getType(/test/) // regexp
-     *  getType(new Promise(() => {})) // promise
-     *  getType(Buffer.from('123')) // buffer
+     * getType([]) // array
+     * getType(null) // empty
+     * getType(undefined) // empty
+     * getType(NaN) // NaN
+     * getType(/test/) // regexp
+     * getType(new Promise(() => {})) // promise
+     * getType(Buffer.from('123')) // buffer
      */
 
     static getType(target) {
@@ -53,17 +53,17 @@ class Helper {
     }
 
     /**
-     * 是否為空值
+     * Whether it is null.
      * @static
-     * @param {*} target 標的物
+     * @param {*} target
      * @returns {boolean}
      * @example
-     *  isEmpty(0) //false
-     *  isEmpty('') // true
-     *  isEmpty([]) // true
-     *  isEmpty({}) // true
-     *  isEmpty(null) // true
-     *  isEmpty(undefined) // true
+     * isEmpty(0) //false
+     * isEmpty('') // true
+     * isEmpty([]) // true
+     * isEmpty({}) // true
+     * isEmpty(null) // true
+     * isEmpty(undefined) // true
      */
 
     static isEmpty(target) {
@@ -84,9 +84,9 @@ class Helper {
     }
 
     /**
-     * 是否為精靈
+     * Whether it is sprite.
      * @static
-     * @param {*} target 標的物
+     * @param {*} target
      * @returns {boolean}
      */
 
@@ -95,9 +95,9 @@ class Helper {
     }
 
     /**
-     * 是否為集合
+     * Whether it is collection.
      * @static
-     * @param {*} target 標的物
+     * @param {*} target
      * @returns {boolean}
      */
 
@@ -106,17 +106,18 @@ class Helper {
     }
 
     /**
-     * 驗證和回傳預設與付值結果
+     * Validate data and get default value.
      * @static
-     * @param {object} data 標的物
-     * @param {object.<array>} validates 驗證模型[required:boolean, types:array, default:*]
+     * @param {object} data
+     * @param {object.<array>} validates validate model : [required:boolean, types:array, default:*]
      * @returns {object}
      * @example
-     *  let options = verify({ a: 5 }, {
-     *      a: [true, ['number'], 0],
-     *      b: [false, ['number'], 'test']
-     *  })
-     *  console.log(options.b) // test
+     * let options = verify({ a: 5 }, {
+     *     a: [true, ['number']],
+     *     b: [false, ['number'], 'test']
+     * })
+     * console.log(options.a) // 5
+     * console.log(options.b) // test
      */
 
     static verify(data, validates) {
@@ -144,30 +145,30 @@ class Helper {
     }
 
     /**
-     * 能夠針對更細項的物件做合成
+     * Object concat.
      * @static
-     * @param {object} target 合成物件
-     * @param {object} sources 合成來源
+     * @param {object} target
+     * @param {object} sources
      * @returns {object}
      * @example
-     *  let target = {
-     *      a: 5,
-     *      b: 10,
-     *      c: {
-     *          a: 7,
-     *          b: 8
-     *      }
-     *  }
-     *  let output = deepObjectAssign(target, {
-     *      a: 8,
-     *      c: {
-     *          a: 10
-     *      }
-     *  })
-     *  console.log(output.a) // 8
-     *  console.log(output.b) // 10
-     *  console.log(output.c.a) // 10
-     *  console.log(output.c.b) // 8
+     * let target = {
+     *     a: 5,
+     *     b: 10,
+     *     c: {
+     *         a: 7,
+     *         b: 8
+     *     }
+     * }
+     * let output = deepObjectAssign(target, {
+     *     a: 8,
+     *     c: {
+     *         a: 10
+     *     }
+     * })
+     * console.log(output.a) // 8
+     * console.log(output.b) // 10
+     * console.log(output.c.a) // 10
+     * console.log(output.c.b) // 8
      */
 
     static deepObjectAssign(target, sources = {}) {
@@ -186,7 +187,7 @@ class Helper {
     }
 
     /**
-     * 模擬uuid的建構方法，但不是真的uuid，不保證不會重複，但很難重複
+     * Simulation uuid create mode, but not true uuid.
      * @static
      * @returns {string}
      */
@@ -204,18 +205,18 @@ class Helper {
     }
 
     /**
-     * 偵測是否有指定的key，有則帶入callback
-     * @param {object} target 目標
+     * Check has target key, in case has key, return value, else return default.
+     * @param {object} target
      * @param {string} path key path
-     * @param {*} [def] 如果回傳值是空，則採預設值
+     * @param {*} [def]
      * @returns {*}
      * @example
      * let target = {
-     *      a: {
-     *          b: 5
-     *      }
-     *  }
-     *  let output = peel(target, 'a.b') // 5
+     *     a: {
+     *         b: 5
+     *     }
+     * }
+     * let output = peel(target, 'a.b') // 5
      */
 
     static peel(target, path, def) {

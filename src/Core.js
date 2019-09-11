@@ -109,12 +109,12 @@ class Core extends Base {
         return output
     }
 
-    makeCollection(containerName, spriteName, options) {
+    makeCollection(containerName, spriteName) {
         let container = this.containers[containerName]
         if (container == null) {
             return this.$devError('makeCollection', `Container name(${containerName}) not found.`)
         }
-        return container.makeCollection(spriteName, options).unit
+        return container.makeCollection(spriteName).unit
     }
 }
 

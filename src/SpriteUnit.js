@@ -105,7 +105,7 @@ class SpriteUnit extends Base {
     }
 
     /**
-     * 呼叫export時觸發
+     * Invoke $export() to trigger.
      * @event Sprite#$export
      * @property {object} context
      */
@@ -234,7 +234,7 @@ class SpriteUnit extends Base {
     }
 
     /**
-     * 呼叫setError時觸發
+     * Invoke $setError() to trigger.
      * @event Sprite#$error
      * @property {object} context
      * @property {*} errorData
@@ -302,7 +302,7 @@ class SpriteUnit extends Base {
     }
 
     /**
-     * 呼叫born時觸發
+     * Invoke $born() to trigger.
      * @event Sprite#$ready
      * @property {object} context
      */
@@ -475,6 +475,9 @@ class SpriteUnit extends Base {
             }
             if (protect) {
                 return this.$devError('set', `This property(${key}) is protect.`)
+            }
+            if (typeof value === 'function') {
+                return this.$devError('set', 'Body data not allow function.')
             }
             this.body[key] = value
         }

@@ -14,9 +14,9 @@ class Oobe extends Base {
     }
 
     /**
-     * 監聽一個事件
-     * @param {string} channelName 事件名稱
-     * @param {object} params 傳遞參數
+     * Attached event handler.
+     * @param {string} channelName
+     * @param {object} params
      */
 
     on(channelName, callback) {
@@ -24,9 +24,9 @@ class Oobe extends Base {
     }
 
     /**
-     * 監聽一個事件，但只觸發一次
-     * @param {string} channelName 事件名稱
-     * @param {object} callback 觸發事件
+     * Attached event handler, but only trigger once.
+     * @param {string} channelName
+     * @param {object} callback
      */
 
     onOnce(channelName, callback) {
@@ -34,9 +34,9 @@ class Oobe extends Base {
     }
 
     /**
-     * 移除一個事件
-     * @param {string} channelName 事件名稱
-     * @param {string} name 事件id
+     * Remove a event.
+     * @param {string} channelName
+     * @param {string|object} id Event id or has {id} object.
      */
 
     off(channelName, name) {
@@ -44,9 +44,9 @@ class Oobe extends Base {
     }
 
     /**
-     * 發送一個事件
-     * @param {string} channelName 事件名稱
-     * @param {object} params 傳遞參數
+     * Emit a event.
+     * @param {string} channelName
+     * @param {...*} params
      */
 
     emit(channelName, ...params) {
@@ -54,9 +54,9 @@ class Oobe extends Base {
     }
 
     /**
-     * 獲取語系資源
-     * @param {string} name 語系的對應key
-     * @param {object} [value] 動態參數
+     * Get locales message.
+     * @param {string} name key name
+     * @param {object} [value] parameter
      * @returns {string}
      */
 
@@ -65,9 +65,9 @@ class Oobe extends Base {
     }
 
     /**
-     * 建立精靈
-     * @param {string} containerName container的名稱
-     * @param {string} spriteName sprite的名稱
+     * Create a sprite.
+     * @param {string} containerName
+     * @param {string} spriteName
      * @returns {sprite}
      * @see {@link Sprite}
      */
@@ -77,35 +77,34 @@ class Oobe extends Base {
     }
 
     /**
-     * 批次建立精靈，會預設呼叫born於建立的過程中。
-     * @param {string} containerName container的名稱
-     * @param {string} spriteName sprite的名稱
-     * @param {array} data 批次建立的資料集
+     * Batch create sprite, and call $born().
+     * @param {string} containerName
+     * @param {string} spriteName
+     * @param {array} items
      * @returns {array}
      */
 
-    batch(containerName, spriteName, data) {
-        return this._core.batch(containerName, spriteName, data)
+    batch(containerName, spriteName, items) {
+        return this._core.batch(containerName, spriteName, items)
     }
 
     /**
-     * 建立精靈集合。
-     * @param {string} containerName container的名稱
-     * @param {string} spriteName sprite的名稱
-     * @param {object} optnios collection的選項
+     * Create a collection.
+     * @param {string} containerName
+     * @param {string} spriteName
      * @returns {@link Collection}
      */
 
-    collection(containerName, spriteName, optnios) {
-        return this._core.makeCollection(containerName, spriteName, optnios)
+    collection(containerName, spriteName) {
+        return this._core.makeCollection(containerName, spriteName)
     }
 
     /**
-     * 加入一組container。
-     * @param {string} name container的名稱
-     * @param {object} data container的資料
-     * @param {object} [options] 與container交換的資料
-     * @returns {*} container執行install後的回傳值
+     * register container.
+     * @param {string} name
+     * @param {object} data
+     * @param {object} [options] Container call install() can get this.
+     * @returns {*} Container install return value.
      * @see {@link Container}
      */
 
@@ -116,10 +115,10 @@ class Oobe extends Base {
     }
 
     /**
-     * 加入一組package。
-     * @param {object} optinos package所需物件
-     * @param {string} optinos.name package所需物件
-     * @param {object} [optinos.rules] rule
+     * Add package。
+     * @param {object} optinos package
+     * @param {string} optinos.name package name
+     * @param {object} [optinos.rules] rules
      * @param {object} [optinos.locales] locales
      */
 
@@ -128,7 +127,7 @@ class Oobe extends Base {
     }
 
     /**
-     * 獲取指定的規則集
+     * Get the assign rules.
      * @param {array.<string|fn>} data
      * @returns {array.<fn>}
      */
@@ -138,8 +137,8 @@ class Oobe extends Base {
     }
 
     /**
-     * 設定當前語系
-     * @param {string} locale 設定指定語系，預設為'en-us'
+     * Setting Locale.
+     * @param {string} locale default is 'en-us'.
      */
 
     setLocale(locale) {
@@ -147,20 +146,20 @@ class Oobe extends Base {
     }
 
     /**
-     * 驗證該sprite是否為指定的精靈
-     * @param {string} containerName 指定container
-     * @param {string} name 精靈name
-     * @param {sprite} target 目標對象
+     * Validate source whether designation sprite.
+     * @param {string} containerName
+     * @param {string} name
+     * @param {sprite} source
      * @returns {boolean}
      */
 
-    instanceof(containerName, name, target) {
-        return this._core.instanceof(containerName, name, target)
+    instanceof(containerName, name, source) {
+        return this._core.instanceof(containerName, name, source)
     }
 }
 
 /**
- * Helper的全域接口
+ * Helper global interface.
  * @static
  * @see {@link Helper}
  */

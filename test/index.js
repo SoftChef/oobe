@@ -76,6 +76,19 @@ describe('#Core', () => {
         this.oobe.addon(Plugin)
     })
 
+    it('if use states', function() {
+        expect(() => {
+            this.oobe.join('Test', {
+                sprites: {
+                    test: {
+                        body() {},
+                        states: {}
+                    }
+                }
+            })
+        }).to.throw(Error)
+    })
+
     it('add container', function() {
         let result = this.oobe.join('CognitoUser', CognitoUser, {
             test: true
@@ -445,6 +458,11 @@ describe('#Collection', () => {
     it('create', function() {
         this.collection = this.oobe.collection('CognitoUser', 'user')
         expect(Oobe.helper.isCollection(this.collection)).to.equal(true)
+    })
+
+    it('parent', function() {
+        this.collection = this.oobe.collection('CognitoUser', 'user')
+        expect(this.collection.parent).to.equal(null)
     })
 
     it('dirty', function() {

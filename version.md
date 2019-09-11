@@ -156,3 +156,8 @@
 1. collection setDirty
 2. collection 的文件翻譯成英文
 3. batch write only key
+
+## ver 0.2.9
+
+1. 不允許body的資料是個function(本來就不行 但檢查更嚴格)
+2. 移除collection沒使用的options

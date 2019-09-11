@@ -211,11 +211,11 @@ class Collection {
     /**
      * Batch trigger write with async.
      * @param {array} items
-     * @param {number} [ms=1] Speed of data queue write(milliseconds).
+     * @param {number} [ms=2] Speed of data queue write(milliseconds).
      * @returns {promise}
      */
 
-    batchWriteAsync(items, ms = 1) {
+    batchWriteAsync(items, ms = 2) {
         return this._collection.batchWriteAsync(items, ms)
     }
 
