@@ -20,6 +20,10 @@ oobe is javascript view model library, focus data, event, collection and validat
     <img src="https://coveralls.io/repos/github/SoftChef/oobe/badge.svg?branch=master" alt="Coverage Status"  style="max-width:100%;">
 </a>
 
+<a href="https://standardjs.com/">
+    <img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard Code Style"  style="max-width:100%;">
+</a>
+
 </p>
 
 ---
