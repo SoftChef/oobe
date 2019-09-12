@@ -248,26 +248,28 @@ export default {
         }
     },
     mounted() {
-        for (let username of this.usernames) {
-            // 我們可以利用Key唯一值的特性直接複寫原本沒有細節資料的user
-            this.collection.write({ username })
-            axios
-                .get('getUser', { params: username })
-                .then({ data } => this.collection.write(data))
-                .catch((error) => {
-                    // 如果撈取失敗個別賦予錯誤
-                    this.collection.fetch(username).$setError(error)
-                })
-        }
         // 在這裡監聽是否有寫入的精靈
-        this.collection.on('$writeSuccess', (context, { sprite }) => {
+        this.collection.on('$writeSuccess', (context, { sprite, onlyKey }) => {
             let username = sprite.username
-            axios
-                .get('getToTarget', { params: { username } })
-                .then((target) => {
-                    this.targets[username] = target
-                })
+            if (onlyKey) {
+                // 我們可以利用Key唯一值的特性直接複寫原本沒有細節資料的user
+                axios
+                    .get('getUser', { params: username })
+                    .then(result => this.collection.write(result.data))
+                    .catch(error => {
+                        // 如果撈取失敗個別賦予錯誤
+                        this.collection.fetch(username).$setError(error)
+                    })
+            } else {
+                // 二度觸發寫入我們可以去獲取送貨的對象
+                axios
+                    .get('getToTarget', { params: { username } })
+                    .then((target) => {
+                        this.targets[username] = target
+                    })
+            }
         })
+        this.collection.batchWriteOnlyKeys('username', this.usernames)
     }
 }
 </script>

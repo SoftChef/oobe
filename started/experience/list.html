@@ -609,26 +609,28 @@
         }
     },
     mounted() {
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> username <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>.usernames) {
-            <span class="hljs-comment">// &#x6211;&#x5011;&#x53EF;&#x4EE5;&#x5229;&#x7528;Key&#x552F;&#x4E00;&#x503C;&#x7684;&#x7279;&#x6027;&#x76F4;&#x63A5;&#x8907;&#x5BEB;&#x539F;&#x672C;&#x6C92;&#x6709;&#x7D30;&#x7BC0;&#x8CC7;&#x6599;&#x7684;user</span>
-            <span class="hljs-keyword">this</span>.collection.write({ username })
-            axios
-                .get(<span class="hljs-string">&apos;getUser&apos;</span>, { params: username })
-                .then({ data } =&gt; <span class="hljs-keyword">this</span>.collection.write(data))
-                .catch((error) =&gt; {
-                    <span class="hljs-comment">// &#x5982;&#x679C;&#x6488;&#x53D6;&#x5931;&#x6557;&#x500B;&#x5225;&#x8CE6;&#x4E88;&#x932F;&#x8AA4;</span>
-                    <span class="hljs-keyword">this</span>.collection.fetch(username).$setError(error)
-                })
-        }
         <span class="hljs-comment">// &#x5728;&#x9019;&#x88E1;&#x76E3;&#x807D;&#x662F;&#x5426;&#x6709;&#x5BEB;&#x5165;&#x7684;&#x7CBE;&#x9748;</span>
-        <span class="hljs-keyword">this</span>.collection.on(<span class="hljs-string">&apos;$writeSuccess&apos;</span>, (context, { sprite }) =&gt; {
+        <span class="hljs-keyword">this</span>.collection.on(<span class="hljs-string">&apos;$writeSuccess&apos;</span>, (context, { sprite, onlyKey }) =&gt; {
             <span class="hljs-keyword">let</span> username = sprite.username
-            axios
-                .get(<span class="hljs-string">&apos;getToTarget&apos;</span>, { params: { username } })
-                .then((target) =&gt; {
-                    <span class="hljs-keyword">this</span>.targets[username] = target
-                })
+            <span class="hljs-keyword">if</span> (onlyKey) {
+                <span class="hljs-comment">// &#x6211;&#x5011;&#x53EF;&#x4EE5;&#x5229;&#x7528;Key&#x552F;&#x4E00;&#x503C;&#x7684;&#x7279;&#x6027;&#x76F4;&#x63A5;&#x8907;&#x5BEB;&#x539F;&#x672C;&#x6C92;&#x6709;&#x7D30;&#x7BC0;&#x8CC7;&#x6599;&#x7684;user</span>
+                axios
+                    .get(<span class="hljs-string">&apos;getUser&apos;</span>, { params: username })
+                    .then(result =&gt; <span class="hljs-keyword">this</span>.collection.write(result.data))
+                    .catch(error =&gt; {
+                        <span class="hljs-comment">// &#x5982;&#x679C;&#x6488;&#x53D6;&#x5931;&#x6557;&#x500B;&#x5225;&#x8CE6;&#x4E88;&#x932F;&#x8AA4;</span>
+                        <span class="hljs-keyword">this</span>.collection.fetch(username).$setError(error)
+                    })
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-comment">// &#x4E8C;&#x5EA6;&#x89F8;&#x767C;&#x5BEB;&#x5165;&#x6211;&#x5011;&#x53EF;&#x4EE5;&#x53BB;&#x7372;&#x53D6;&#x9001;&#x8CA8;&#x7684;&#x5C0D;&#x8C61;</span>
+                axios
+                    .get(<span class="hljs-string">&apos;getToTarget&apos;</span>, { params: { username } })
+                    .then((target) =&gt; {
+                        <span class="hljs-keyword">this</span>.targets[username] = target
+                    })
+            }
         })
+        <span class="hljs-keyword">this</span>.collection.batchWriteOnlyKeys(<span class="hljs-string">&apos;username&apos;</span>, <span class="hljs-keyword">this</span>.usernames)
     }
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -676,7 +678,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"列表collection","level":"2.4","depth":1,"next":{"title":"npm","level":"3.1","depth":1,"url":"https://www.npmjs.com/package/oobe","ref":"https://www.npmjs.com/package/oobe","articles":[]},"previous":{"title":"狀態vuex","level":"2.3","depth":1,"path":"experience/vuex.md","ref":"./experience/vuex.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"experience/list.md","mtime":"2019-09-04T10:55:02.248Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-10T09:13:40.402Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"列表collection","level":"2.4","depth":1,"next":{"title":"npm","level":"3.1","depth":1,"url":"https://www.npmjs.com/package/oobe","ref":"https://www.npmjs.com/package/oobe","articles":[]},"previous":{"title":"狀態vuex","level":"2.3","depth":1,"path":"experience/vuex.md","ref":"./experience/vuex.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"experience/list.md","mtime":"2019-09-10T09:44:57.244Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-12T07:15:50.181Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

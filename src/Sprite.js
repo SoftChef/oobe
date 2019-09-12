@@ -248,8 +248,8 @@ class Sprite {
     }
 
     /**
-     * 把out sprite的資料回歸至origin sprite
-     * @returns {originSprite}
+     * Out sprite data to origin sprite, wake up origin sprite and kill self.
+     * @returns {Sprite}
      */
 
     $revive() {
@@ -257,9 +257,10 @@ class Sprite {
     }
 
     /**
-     * 輸出當前狀態指定的export
-     * @param {string} [name] 指定狀態
-     * @returns {object}
+     * Export distortion data.
+     * @param {string} [name] Specified distortion.
+     * @param {...*} [args]
+     * @returns {*}
      */
 
     $export(name, ...args) {
@@ -267,8 +268,8 @@ class Sprite {
     }
 
     /**
-     * 當前狀態的屬性是否有fixed屬性
-     * @param {string} name 指定屬性名稱
+     * Check name has fixed status, but not true fixed, just a status.
+     * @param {string} name
      * @returns {boolean}
      */
 
@@ -277,8 +278,8 @@ class Sprite {
     }
 
     /**
-     * 當前狀態的屬性是否有hidden屬性
-     * @param {string} name 指定屬性名稱
+     * Check name has hidden status, but not true hidden, just a status.
+     * @param {string} name
      * @returns {boolean}
      */
 
@@ -287,8 +288,8 @@ class Sprite {
     }
 
     /**
-     * 當前狀態的屬性是否沒hidden屬性
-     * @param {string} name 指定屬性名稱
+     * Like $isHidden(), just reversed.
+     * @param {string} name
      * @returns {boolean}
      */
 
@@ -297,7 +298,7 @@ class Sprite {
     }
 
     /**
-     * 執行origin參數並回傳結果
+     * Run origin options method and return data.
      * @returns {object}
      */
 
@@ -306,8 +307,8 @@ class Sprite {
     }
 
     /**
-     * 狀態是否與born時的狀態相異
-     * @param {string} [key] 是否針對某個屬性作判別
+     * Body whether the $born() after same now.
+     * @param {string} [key] You can for key check change.
      * @returns {boolean}
      */
 
@@ -316,7 +317,7 @@ class Sprite {
     }
 
     /**
-     * 驗證當下參數是否符合驗證規則
+     * Validate body has compliance with the rules.
      * @returns {object}
      */
 
@@ -325,8 +326,8 @@ class Sprite {
     }
 
     /**
-     * 轉換狀態
-     * @param {string} name 指定狀態名稱
+     * Transform distortion.
+     * @param {string} name
      * @returns {this}
      */
 
@@ -335,8 +336,8 @@ class Sprite {
     }
 
     /**
-     * 轉換狀態，$distortion的縮寫
-     * @param {string} name 指定狀態名稱
+     * Shorthand for distortion.
+     * @param {string} name
      * @returns {this}
      */
 

@@ -24,23 +24,19 @@ oobe is javascript view model library, focus data, event, collection and validat
 
 ---
 
-## 概念
+## Introduction
 
-oobe的概念是來自從vue表單組件中抽出model property時所建構的，當時的目的是為了讓update與create兩個表單能夠實例化同一組instance即可，但意外的是這樣的設計在我們遇到資料格式與狀態的轉換之間有極好的效果，因此決定編寫此library作為一個設計典範。
+When business logic and user interface are entangled, change is hard; when logic doesn't depend on UI, your interface becomes easier to work with. *--backbone.js*
 
-> 雖然oobe是為了vue環境編寫，但它並不是vuejs的套件。
+Our goal is to build a vue library that focuses on model processing, Not like backbone.js and vue-mc that overly powerful library.
 
-### 起源於vue與vuex之間缺乏model
+![data](https://softchef.github.io/oobe/assets/data.png)
 
-整體設計參照了backbone與vue-mc，前者自成一格難以引進vue開發，而後者太過強大，它甚至處理了vuex和axios的工作，而oobe是一個專注在model處理的系統。
+> Although oobe is written for the vue.js, but only for optimized not a vue.js plugin, it can run include nodejs anywhere.
 
-vue-mc有發現component與store中間少了一層model，但vuex並沒有直接提供解決方案。
+---
 
-![vuex](https://softchef.github.io/oobe/assets/vuex.png)
-
-### 最初instance的設計
-
-通常我們會把後端回來的資料實例化一份instance而不是直接使用，以確保能夠將業務邏輯與用戶界面分開，設計如下：
+## Javascript Class Instance Pattern
 
 ```js
 // User.js
@@ -73,9 +69,11 @@ class User {
 </script>
 ```
 
-#### 用oobe建構
+---
 
-以下是用oobe達成一樣的效果：
+## Use oobe
+
+We can use oobe make same effect:
 
 ```js
 // profile.js
@@ -87,7 +85,7 @@ export default {
         }
     },
     born(source = {}) {
-        // 如果source沒有body所定義的則body會採用預設值
+        // If source haven't body definition the key, use default.
         return source
     }
 }
@@ -124,11 +122,13 @@ oobe.join('User' {
 </script>
 ```
 
-### 為你封裝好狀態與常用的功能
+---
 
-上面的方法會經過一個工廠將instance綁定常用的方法與事件：
+## Sprite Not A Normal Instance
 
-#### 方法
+Make will create instance via object factory bind some method and status, no need for complex inheritance trees to get these capabilities, this product object we call then `sprite`.
+
+#### System metohds
 
 ```js
 let user = oobe.make('User', 'profile').$born()
@@ -137,7 +137,7 @@ user.name = 'test'
 console.log(user.$isChange()) // true
 ```
 
-#### 狀態
+#### Status
 
 ```js
 let user = oobe.make('User', 'profile').$born()
@@ -146,7 +146,7 @@ user.$setError('error')
 console.log(user.$error) // 'error'
 ```
 
-#### 事件
+#### Event
 
 ```js
 let user = oobe.make('User', 'profile')
@@ -156,7 +156,7 @@ user.$on('$ready', () => {
 user.$born() // 'ready'
 ```
 
-#### 集合
+#### Collection
 
 ```js
 let users = oobe.collection('User', 'profile')
@@ -173,9 +173,21 @@ users.batchWrite(items)
 console.log(users.items[0].name) // admin
 ```
 
-### Container 與 Sprite
+### For Ajax
 
-這是來自資料庫關聯設計下決定的分類模式，例如下列兩張table：
+No like us often use new keyword, sprite complete construction need call $born(), because ajax have null, success, error three status, we can control to change with the current state.
+
+```js
+let sprtie = oobe.make('User', 'profile')
+axios
+    .get('./user')
+    .then(result => sprite.$born(data))
+    .catch(error => sprite.$setError(error))
+```
+
+### Container Amd Sprite
+
+This is the classification pattern determined from the database association design, such as the following two tables:
 
 #### users
 
@@ -189,26 +201,32 @@ console.log(users.items[0].name) // admin
 | ------------- | ------------- | ------------- |
 | admin         | age           | 25            |
 
-#### result data
+#### Result data
 
-我們有兩種資料格式回來的可能：
+Server side echo maybe the following two format:
 
-```js
-user = {
-    name: 'admin',
-    phoneNumber: '+886928000000',
-    metadatas: {
-        age: 25
+##### User
+
+```json
+{
+    "name": "admin",
+    "phoneNumber": "+886928000000",
+    "metadatas": {
+        "age": 25
     }
-}
-
-metadatas = {
-    name: 'admin',
-    age: 25
 }
 ```
 
-這是同一系列的模型但是兩隻不同的instance，因此我們決定將資料結構定義如下：
+##### Metadata
+
+```json
+{
+    "name": "admin",
+    "age": 25
+}
+```
+
+This is same series just bifurcation to two instance, therefore we decide following data structure:
 
 ```js
 let user = {
@@ -247,7 +265,7 @@ let oobe = new Oobe()
 
 oobe.join('User', container)
 
-// 當我們收到的資料格式如下
+// If api result data like this:
 let result = {
     name: 'admin',
     phoneNumber: '+886928000000',
@@ -261,17 +279,9 @@ let sprite = oobe.make('User', 'user').$born(result)
 console.log(sprite.metadatas.$fn.isAdult()) // true
 ```
 
-### Nodejs
-
-oobe與其他model最大的差異在於專注在視圖處理，我們為它內置了以下這簡易的模式，這也是雖然它可以運行在nodejs但不推薦的原因，我們希望它能夠依據資料來回決定呈現的樣子，這在後端的風險太大了。
-
-![data](https://softchef.github.io/oobe/assets/data.png)
-
 ---
 
-## 更深入了解oobe
-
-oobe的目標是建構vue大型應用，我們建構了一系列說明與範例：
+## Learn More
 
 [Example](https://softchef.github.io/oobe/example/)
 
@@ -321,8 +331,7 @@ let oobe = new Oobe()
 | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
 | Edge| support| support| support| support| support| support
 
-
-> 理論上能夠被IE11支持，但defaultView因為採用proxy所以會被忽略。
+> In theory, it can be supported by IE11, but the defaultView will be ignored it is adopted.
 
 ---
 
