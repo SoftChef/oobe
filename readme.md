@@ -185,7 +185,7 @@ No like us often use new keyword, sprite complete construction need call $born()
 let sprtie = oobe.make('User', 'profile')
 axios
     .get('./user')
-    .then(result => sprite.$born(data))
+    .then(result => sprite.$born(result.data))
     .catch(error => sprite.$setError(error))
 ```
 
@@ -291,7 +291,7 @@ console.log(sprite.metadatas.$fn.isAdult()) // true
 
 [Document](https://softchef.github.io/oobe/docs/)
 
-[Getting started](https://softchef.github.io/oobe/started/)
+[Getting started(TW)](https://softchef.github.io/oobe/started/)
 
 ---
 
