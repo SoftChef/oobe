@@ -163,3 +163,4 @@
 2. 移除collection沒使用的options
 3. 將document全部轉為英文
 4. readme to english
+5. defview 的判定從!轉成判定null

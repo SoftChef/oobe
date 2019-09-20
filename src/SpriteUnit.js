@@ -369,10 +369,10 @@ class SpriteUnit extends Base {
             this.views = new Proxy(this.base.getViews(this.unit), {
                 get: (target, key) => {
                     let value = null
-                    if (target[key]) {
+                    if (target[key] != null) {
                         value = target[key]
                     }
-                    if (!value) {
+                    if (value == null) {
                         value = defaultView.call(this.unit, { key })
                     }
                     return value
