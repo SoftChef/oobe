@@ -470,16 +470,15 @@ class SpriteUnit extends Base {
 
     setDefineProperty(key, protect) {
         return (value) => {
-            if (this.isLive() === false) {
-                return this.$devError('set', 'This Sprite is dead.')
+            if (this.isLive()) {
+                if (protect) {
+                    return this.$devError('set', `This property(${key}) is protect.`)
+                }
+                if (typeof value === 'function') {
+                    return this.$devError('set', 'Body data not allow function.')
+                }
+                this.body[key] = value
             }
-            if (protect) {
-                return this.$devError('set', `This property(${key}) is protect.`)
-            }
-            if (typeof value === 'function') {
-                return this.$devError('set', 'Body data not allow function.')
-            }
-            this.body[key] = value
         }
     }
 }

@@ -446,6 +446,43 @@ describe('#Sprite', () => {
         expect(object.name).to.equal('admin')
         expect(object.$views.testViews).to.equal('admintest')
     })
+
+    it('container distortions', function() {
+        let user = this.user.$copy()
+        expect(() => { user.name = function() {} }).to.throw(Error)
+        user.$out()
+        expect(() => { user.name = '456' }).to.throw(Error)
+    })
+
+    it('Rule not found', function() {
+        let user = this.user.$copy()
+        expect(() => { user.$rules(['aaaa']) }).to.throw(Error)
+    })
+
+    it('Already born', function() {
+        let user = this.user.$copy()
+        expect(() => { user.$born() }).to.throw(Error)
+    })
+
+    it('Revive in root', function() {
+        let user = this.user.$copy()
+        expect(() => { user.$revive() }).to.throw(Error)
+    })
+
+    it('Dead in root', function() {
+        let user = this.user.$copy()
+        expect(() => { user.$dead() }).to.throw(Error)
+    })
+
+    it('Method not found', function() {
+        let user = this.user.$copy()
+        expect(() => { user.$bind('777777') }).to.throw(Error)
+    })
+
+    it('Copy not ready', function() {
+        let user = this.oobe.make('CognitoUser', 'user')
+        expect(() => { user.$copy() }).to.throw(Error)
+    })
 })
 
 describe('#Collection', () => {
@@ -726,6 +763,10 @@ describe('#Helper', () => {
         expect(this.user.$helper.getType(null)).to.equal('empty')
         expect(this.user.$helper.getType(undefined)).to.equal('empty')
         expect(this.user.$helper.getType({})).to.equal('object')
+        expect(this.user.$helper.getType(new Promise(() => {}))).to.equal('promise')
+        expect(this.user.$helper.getType(/www/)).to.equal('regexp')
+        expect(this.user.$helper.getType(Buffer.from([]))).to.equal('buffer')
+        expect(this.user.$helper.getType(Number('AAAA'))).to.equal('NaN')
     })
 
     it('isEmpty', function() {
@@ -766,6 +807,11 @@ describe('#Helper', () => {
         expect(() => {
             this.user.$helper.verify(options, {
                 a: [true, 123]
+            })
+        }).to.throw(Error)
+        expect(() => {
+            this.user.$helper.verify(options, {
+                a: [true, ['string']]
             })
         }).to.throw(Error)
     })
@@ -813,6 +859,9 @@ describe('#Other', () => {
         let base = new Base('Test')
         expect(() => {
             base.$systemError('Test', 'Test')
+        }).to.throw(Error)
+        expect(() => {
+            base.$systemError('Test', 'Test', 'Test')
         }).to.throw(Error)
     })
 })
