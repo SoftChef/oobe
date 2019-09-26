@@ -189,7 +189,7 @@ axios
     .catch(error => sprite.$setError(error))
 ```
 
-### Container Amd Sprite
+### Container And Sprite
 
 This is the classification pattern determined from the database association design, such as the following two tables:
 

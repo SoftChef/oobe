@@ -320,7 +320,6 @@ let staff = {
     self(data) {
         return {
             name: this.name,
-
             createdAt: data.createdAt
         }
     }
