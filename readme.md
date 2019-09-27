@@ -1,5 +1,3 @@
-<br>
-
 <p align="center"><img src="https://softchef.github.io/oobe/assets/logo.png"></p>
 
 <p align="center">
@@ -32,7 +30,7 @@ oobe is javascript view model library, focus data, event, collection and validat
 
 When business logic and user interface are entangled, change is hard; when logic doesn't depend on UI, your interface becomes easier to work with. *--backbone.js*
 
-Our goal is to build a vue library that focuses on model processing, Not like backbone.js and vue-mc that overly powerful library.
+Our goal is build a vue library that focus on model processing, Not like backbone.js and vue-mc that overly powerful library.
 
 ![data](https://softchef.github.io/oobe/assets/data.png)
 
@@ -77,7 +75,7 @@ class User {
 
 ## Use oobe
 
-We can use oobe make same effect:
+We can use oobe to achieve the same effect:
 
 ```js
 // profile.js
@@ -128,9 +126,9 @@ oobe.join('User' {
 
 ---
 
-## Sprite Not A Normal Instance
+## Sprite is Not A Normal Instance
 
-Make will create instance via object factory bind some method and status, no need for complex inheritance trees to get these capabilities, this product object we call then `sprite`.
+Make() will create an instance via object factory bind some method and status, no need to complex the inheritance trees to get these capabilities, we called this product ` sprite.`
 
 #### System metohds
 
@@ -179,7 +177,7 @@ console.log(users.items[0].name) // admin
 
 ### For Ajax
 
-No like us often use new keyword, sprite complete construction need call $born(), because ajax have null, success, error three status, we can control to change with the current state.
+Not like the new keyword we often used, Sprite complete construction needs to call $born(), because ajax have null, success, error three status, we can use control to change with the current state.
 
 ```js
 let sprtie = oobe.make('User', 'profile')
@@ -191,7 +189,7 @@ axios
 
 ### Container And Sprite
 
-This is the classification pattern determined from the database association design, such as the following two tables:
+Here are two example tables of the classification pattern determined from the database association design:
 
 #### users
 
@@ -230,7 +228,7 @@ Server side echo maybe the following two format:
 }
 ```
 
-This is same series just bifurcation to two instance, therefore we decide following data structure:
+This is the same series just bifurcation to two instances, therefore we decide the following data structure:
 
 ```js
 let user = {
