@@ -336,6 +336,13 @@ class SpriteUnit extends Base {
         return object
     }
 
+    /**
+     * Invoke core.make() to trigger.
+     * @event Sprite#$init
+     * @property {object} context
+     * @property {Sprite} self
+     */
+
     init() {
         this.initUnit()
         this.initBody()
@@ -346,6 +353,7 @@ class SpriteUnit extends Base {
         this.rawData = null
         this.propertyNames = Object.keys(this.body || {})
         this.status.init = true
+        this.event.emit(this.unit, '$init', [this.unit])
     }
 
     initEvent() {

@@ -164,3 +164,8 @@
 3. 將document全部轉為英文
 4. readme to english
 5. defview 的判定從!轉成判定null
+
+## ver 0.3.1
+
+1. 新增實驗性功能plugin
+2. 新增系統plugin - loader
