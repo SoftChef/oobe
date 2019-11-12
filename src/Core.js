@@ -7,9 +7,11 @@ const Configs = require('./Configs')
 const Container = require('./Container')
 
 class Core extends Base {
-    constructor() {
+    constructor(oobe) {
         super('Core')
+        this.oobe = oobe
         this.rule = new Rule()
+        this.plugins = []
         this.message = new Message()
         this.containers = {}
         this.init()
@@ -64,6 +66,14 @@ class Core extends Base {
 
     setLocale(locale) {
         this.message.setLocale(locale)
+    }
+
+    plugin(Plugin) {
+        if (this.plugins.includes(Plugin)) {
+            return this.$devError('plugin', 'The patch has been registered')
+        }
+        this.plugins.push(Plugin)
+        return new Plugin(this.oobe)
     }
 
     eachContainer(action) {
