@@ -1,7 +1,8 @@
 const expect = require('chai').expect
 const Oobe = require('../src/Main')
-const Plugin = require('./fake/rules')
+const Package = require('./fake/rules')
 const RawData = require('./fake/data.json')
+const Loader = require('../plugins/loader')
 const CognitoUser = require('./fake')
 const TestRawOrigin = JSON.stringify({
     Username: 'admin',
@@ -73,7 +74,7 @@ describe('#Core', () => {
     })
 
     it('addon and addRules and add locale', function() {
-        this.oobe.addon(Plugin)
+        this.oobe.addon(Package)
     })
 
     it('if use states', function() {
@@ -128,12 +129,20 @@ describe('#Core', () => {
         expect(this.oobe.instanceof('CognitoUser', 'attributes', unit.attributes)).to.equal(true)
         expect(this.oobe.instanceof('CognitoUser', 'attributes', unit)).to.equal(false)
     })
+
+    it('plugin', function() {
+        this.oobe.plugin(Loader)
+    })
+
+    it('plugin registered', function() {
+        expect(() => { this.oobe.plugin(Loader) }).to.throw(Error)
+    })
 })
 
 describe('#Sprite', () => {
     before(function() {
         this.oobe = new Oobe()
-        this.oobe.addon(Plugin)
+        this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
         this.user = this.oobe.make('CognitoUser', 'user')
     })
@@ -488,7 +497,7 @@ describe('#Sprite', () => {
 describe('#Collection', () => {
     before(function() {
         this.oobe = new Oobe()
-        this.oobe.addon(Plugin)
+        this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
     })
 
@@ -699,7 +708,7 @@ describe('#Collection', () => {
 describe('#Collection With Sprite', () => {
     before(function() {
         this.oobe = new Oobe()
-        this.oobe.addon(Plugin)
+        this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
     })
 
@@ -850,6 +859,84 @@ describe('#Helper', () => {
         expect(this.user.$helper.peel(test, 'a.c')).to.equal(5)
         expect(this.user.$helper.peel(test, 'a.b.e.e')).to.equal(undefined)
         expect(this.user.$helper.peel(test, 'a.b.e.e', '*')).to.equal('*')
+    })
+})
+
+describe('#Plugin-Loader', () => {
+    before(function() {
+        this.oobe = new Oobe()
+        this.oobe.addon(Package)
+        this.oobe.join('CognitoUser', CognitoUser)
+    })
+
+    it('add', function() {
+        this.oobe.plugin(Loader)
+    })
+
+    it('set', function() {
+        this.oobe.loader.set('CognitoUser', 'user', {
+            name(sprite, done) {
+                setTimeout(() => {
+                    sprite.name = '456'
+                    done()
+                }, 100)
+            },
+            nameError(sprite, done, error) {
+                setTimeout(() => {
+                    error('OuO')
+                }, 100)
+            }
+        })
+    })
+    
+    it('loader', function(done) {
+        let user = this.oobe.make('CognitoUser', 'user')
+        user.$loader
+            .name
+            .start()
+            .then(() => {
+                expect(user.name).to.equal('456')
+                expect(user.$loader.name.done).to.equal(true)
+                expect(user.$loader.name.error).to.equal(null)
+                expect(user.$loader.name.loading).to.equal(false)
+                done()
+            })
+            .catch(done)
+        expect(user.$loader.name.done).to.equal(false)
+        expect(user.$loader.name.loading).to.equal(true)
+    })
+
+    it('loader error', function(done) {
+        let user = this.oobe.make('CognitoUser', 'user')
+        user.$loader
+            .nameError
+            .start()
+            .then(() => {
+                done('Error')
+            })
+            .catch((error) => {
+                expect(error).to.equal('OuO')
+                expect(user.$loader.nameError.done).to.equal(true)
+                expect(user.$loader.nameError.error).to.equal('OuO')
+                expect(user.$loader.nameError.loading).to.equal(false)
+                done()
+            })
+        expect(user.$loader.nameError.done).to.equal(false)
+        expect(user.$loader.nameError.loading).to.equal(true)
+    })
+
+    it('no register loader', function() {
+        this.oobe.join('Test', {
+            sprites: {
+                test: {
+                    body() {}
+                }
+            }
+        })
+        let test = this.oobe.make('Test', 'test')
+        expect(Object.keys(test.$loader).length).to.equal(0)
+        let rawnull = this.oobe.make('CognitoUser', 'rawnull')
+        expect(Object.keys(rawnull.$loader).length).to.equal(0)
     })
 })
 
