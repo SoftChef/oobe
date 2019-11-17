@@ -1,5 +1,5 @@
 const Base = require('./Base')
-const Core = require('./Core')
+const Core = require('./Oobe')
 const Helper = require('./Helper')
 
 /**
@@ -9,7 +9,7 @@ const Helper = require('./Helper')
 class Oobe extends Base {
     constructor() {
         super('Oobe')
-        this._core = new Core()
+        this._core = new Core(this)
         this.helper = Helper
     }
 
@@ -115,7 +115,7 @@ class Oobe extends Base {
     }
 
     /**
-     * Add package。
+     * Add package.
      * @param {object} optinos package
      * @param {string} optinos.name package name
      * @param {object} [optinos.rules] rules
@@ -124,6 +124,15 @@ class Oobe extends Base {
 
     addon(optinos) {
         this._core.addon(optinos)
+    }
+
+    /**
+     * Add plugin.
+     * @param {Class} Plugin
+     */
+
+    plugin(Plugin) {
+        return this._core.plugin(Plugin)
     }
 
     /**

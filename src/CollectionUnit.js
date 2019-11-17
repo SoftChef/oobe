@@ -137,7 +137,8 @@ class CollectionUnit extends Base {
      */
 
     write(source, options) {
-        if (Helper.getType(source) !== 'object') {
+        let type = Helper.getType(source)
+        if (type !== 'object' && type !== 'array') {
             this.$devError('write', 'Source not a object')
         }
         let sprite = this.generateSprite(source)

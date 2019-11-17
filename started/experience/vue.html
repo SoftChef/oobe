@@ -442,8 +442,8 @@
 <pre><code class="lang-html"><span class="hljs-comment">&lt;!-- overview.vue --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#x53F8;&#x6A5F;: {% raw %}{{ username }}{% endraw %}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#x9023;&#x7D61;&#x96FB;&#x8A71;: {% raw %}{{ phoneNumber }}{% endraw %}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#x53F8;&#x6A5F;: {{ username }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#x9023;&#x7D61;&#x96FB;&#x8A71;: {{ phoneNumber }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 
@@ -590,8 +590,8 @@ Vue.prototype.$oobe = oobe
 <pre><code class="lang-html"><span class="hljs-comment">&lt;!-- overview.vue --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#x53F8;&#x6A5F;: {% raw %}{{ user.username }}{% endraw %}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#x9023;&#x7D61;&#x96FB;&#x8A71;: {% raw %}{{ user.attributes.phoneNumber }}{% endraw %}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#x53F8;&#x6A5F;: {{ user.username }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#x9023;&#x7D61;&#x96FB;&#x8A71;: {{ user.attributes.phoneNumber }}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 
@@ -680,7 +680,7 @@ Vue.prototype.$oobe = oobe
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"實戰vue","level":"2.1","depth":1,"next":{"title":"統一form","level":"2.2","depth":1,"path":"experience/form.md","ref":"./experience/form.md","articles":[]},"previous":{"title":"集合","level":"1.8","depth":1,"path":"pages/collection.md","ref":"./pages/collection.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"experience/vue.md","mtime":"2019-09-27T08:40:25.177Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-27T08:52:40.011Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"實戰vue","level":"2.1","depth":1,"next":{"title":"統一form","level":"2.2","depth":1,"path":"experience/form.md","ref":"./experience/form.md","articles":[]},"previous":{"title":"集合","level":"1.8","depth":1,"path":"pages/collection.md","ref":"./pages/collection.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"experience/vue.md","mtime":"2019-09-05T15:38:40.047Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-16T06:43:36.121Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

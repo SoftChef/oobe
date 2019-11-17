@@ -235,6 +235,15 @@ class Collection {
     clear() {
         return this._collection.clear()
     }
+
+    /**
+     * Sprtie to key.
+     * @returns {string}
+     */
+
+    toKey(sprite) {
+        return this._collection.options.key(sprite)
+    }
 }
 
 module.exports = Collection
