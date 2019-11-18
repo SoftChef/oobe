@@ -176,3 +176,6 @@
 2. collection toKey(sprite)
 3. loader加入called屬性
 4. loader和reset事件綁定
+5. collection getOrigins
+6. collection getExports
+7. plugin loader called

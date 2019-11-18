@@ -96,6 +96,26 @@ class Collection {
     }
 
     /**
+     * Get all sprite $toOrigin() return values.
+     * @returns {array}
+     */
+
+    getOrigins() {
+        return this._collection.getOrigins()
+    }
+
+    /**
+     * Get all sprite $export() return values.
+     * @param {string} [name] Specified distortion.
+     * @param {...*} [args]
+     * @returns {array}
+     */
+
+    getExports(name, ...args) {
+        return this._collection.getExports(name, args)
+    }
+
+    /**
      * Check if any sprite has changed.
      * @returns {boolean}
      */

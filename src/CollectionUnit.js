@@ -91,6 +91,24 @@ class CollectionUnit extends Base {
         return output
     }
 
+    getOrigins() {
+        let length = this.items.length
+        let output = new Array(length)
+        this.forEach((sprite, index) => {
+            output[index] = sprite.$toOrigin()
+        })
+        return output
+    }
+
+    getExports(name, args) {
+        let length = this.items.length
+        let output = new Array(length)
+        this.forEach((sprite, index) => {
+            output[index] = sprite.$export(name, ...args)
+        })
+        return output
+    }
+
     distortion(name) {
         this.forEach((sprite) => {
             sprite.$dist(name)

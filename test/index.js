@@ -703,6 +703,12 @@ describe('#Collection', () => {
     it('container configs', function() {
         expect(this.collection.configs.helloWorld).to.equal('hello world')
     })
+    it('origins', function() {
+        expect(Array.isArray(this.collection.getOrigins())).to.equal(true)
+    })
+    it('exports', function() {
+        expect(Array.isArray(this.collection.getExports())).to.equal(true)
+    })
 })
 
 describe('#Collection With Sprite', () => {
