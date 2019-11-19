@@ -897,9 +897,9 @@ describe('#Helper', () => {
             name: 'Name',
             attributes: 'Attributes'
         }
-        expect(this.user.$helper.mapping(keyMap, this.user, { reverse: true })).to.eql({
+        expect(this.user.$helper.mapping(keyMap, this.user, { reverse: true, isModel: 'body' })).to.eql({
             Name: '',
-            Attributes:{
+            Attributes: {
                 sub: '',
                 name: '',
                 email: '',
@@ -908,7 +908,7 @@ describe('#Helper', () => {
                 'custom:country_code': ''
             }
         })
-        expect(this.user.$helper.mapping(keyMap, this.user, { reverse: true, mode: 'origin' })).to.eql({
+        expect(this.user.$helper.mapping(keyMap, this.user, { reverse: true, isModel: 'origin' })).to.eql({
             Name: '',
             Attributes:[
                 { Name: 'sub', Value: '' },
