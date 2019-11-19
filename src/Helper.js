@@ -43,7 +43,7 @@ class Helper {
         if (target instanceof RegExp) {
             return 'regexp'
         }
-        if (target && typeof target.then === 'function') {
+        if (target instanceof Promise) {
             return 'promise'
         }
         if (typeof Buffer !== 'undefined' && Buffer.isBuffer(target)) {
@@ -197,7 +197,7 @@ class Helper {
         if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
             now += performance.now()
         }
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = (now + Math.random() * 16) % 16 | 0
             now = Math.floor(now / 16)
             return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
@@ -225,6 +225,35 @@ class Helper {
         }, target)
         if (def) {
             return Helper.isEmpty(output) ? def : output
+        }
+        return output
+    }
+
+    /**
+     * Convert the key of an object to a mapped key.
+     * @param {object} keyMap
+     * @param {object} target
+     * @param {object} [options]
+     * @param {string} [options.mode='body'] If valus is sprite(or collection), can set body or origin two mode for return data.
+     * @param {boolean} [options.reverse=false] Reverse key.
+     * @returns {object}
+     * @example
+     */
+
+    static mapping(keyMap, target, options = {}) {
+        let mode = options.mode ? options.mode : 'body'
+        let reverse = !!options.reverse
+        let output = {}
+        for (let [key, value] of Object.entries(keyMap)) {
+            let name = reverse ? value : key
+            let data = reverse ? target[key] : target[value]
+            if (Helper.isCollection(data)) {
+                output[name] = mode === 'body' ? data.getBodys() : data.getOrigins()
+            } else if (Helper.isSprite(data)) {
+                output[name] = mode === 'body' ? data.$body() : data.$toOrigin()
+            } else {
+                output[name] = data
+            }
         }
         return output
     }

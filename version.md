@@ -8,6 +8,7 @@
 4. loader和reset事件綁定
 5. collection getOrigins
 6. collection getExports
+7. 新增實驗性功能helper mapping
 
 ## ver 0.3.1
 

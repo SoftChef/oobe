@@ -868,6 +868,58 @@ describe('#Helper', () => {
         expect(this.user.$helper.peel(test, 'a.b.e.e')).to.equal(undefined)
         expect(this.user.$helper.peel(test, 'a.b.e.e', '*')).to.equal('*')
     })
+
+    it('mapping', function() {
+        var keyMap = {
+            a: 'A',
+            b: 'B'
+        }
+        var target = {
+            A: 5,
+            B: 3
+        }
+        var target2 = {
+            a: 5,
+            b: 3
+        }
+        expect(this.user.$helper.mapping(keyMap, target)).to.eql({
+            a: 5,
+            b: 3
+        })
+        expect(this.user.$helper.mapping(keyMap, target2, { reverse: true })).to.eql({
+            A: 5,
+            B: 3
+        })
+    })
+
+    it('mapping by sprite', function() {
+        let keyMap = {
+            name: 'Name',
+            attributes: 'Attributes'
+        }
+        expect(this.user.$helper.mapping(keyMap, this.user, { reverse: true })).to.eql({
+            Name: '',
+            Attributes:{
+                sub: '',
+                name: '',
+                email: '',
+                phone_number: '',
+                'custom:level': 'user',
+                'custom:country_code': ''
+            }
+        })
+        expect(this.user.$helper.mapping(keyMap, this.user, { reverse: true, mode: 'origin' })).to.eql({
+            Name: '',
+            Attributes:[
+                { Name: 'sub', Value: '' },
+                { Name: 'name', Value: '' },
+                { Name: 'email', Value: '' },
+                { Name: 'phone_number', Value: '' },
+                { Name: 'custom:level', Value: 'user' },
+                { Name: 'custom:country_code', Value: '' }
+            ]
+        })
+    })
 })
 
 describe('#Plugin-Loader', () => {
