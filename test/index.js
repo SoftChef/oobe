@@ -910,7 +910,7 @@ describe('#Helper', () => {
         })
         expect(this.user.$helper.mapping(keyMap, this.user, { reverse: true, isModel: 'origin' })).to.eql({
             Name: '',
-            Attributes:[
+            Attributes: [
                 { Name: 'sub', Value: '' },
                 { Name: 'name', Value: '' },
                 { Name: 'email', Value: '' },
