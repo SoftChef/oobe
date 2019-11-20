@@ -238,6 +238,17 @@ class Helper {
      * @param {boolean} [options.reverse=false] Reverse key.
      * @returns {object}
      * @example
+     * var keyMap = {
+     *      a: 'A',
+     *      b: 'B'
+     * }
+     * var target = {
+     *      A: 5,
+     *      B: 3
+     * }
+     * let output = mapping(keyMap, target)
+     * console.log(output.a) // 5
+     * console.log(output.b) // 3
      */
 
     static mapping(keyMap, target, options = {}) {

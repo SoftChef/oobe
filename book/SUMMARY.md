@@ -8,6 +8,7 @@
 * [容器](./pages/container.md)
 * [事件](./pages/event.md)
 * [集合](./pages/collection.md)
+* [插件](./pages/plugins.md)
 ***
 * [實戰vue](./experience/vue.md)
 * [統一form](./experience/form.md)

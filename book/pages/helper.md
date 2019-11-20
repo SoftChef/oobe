@@ -140,3 +140,25 @@ let a = {
 
 console.log(peel(a, 'b.c.d')) // 5
 ```
+
+---
+
+### mapping(keyMap, target, options)
+
+指定Key By Key的轉換。
+
+> options請參閱[文件](https://softchef.github.io/oobe/docs/)。
+
+```js
+var keyMap = {
+     a: 'A',
+     b: 'B'
+}
+var target = {
+     A: 5,
+     B: 3
+}
+let output = mapping(keyMap, target)
+console.log(output.a) // 5
+console.log(output.b) // 3
+```

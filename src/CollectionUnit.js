@@ -4,6 +4,13 @@ const Helper = require('./Helper')
 const Collection = require('./Collection')
 
 class CollectionUnit extends Base {
+    /**
+     * Invoke core.collection() to trigger.
+     * @event Collection#$init
+     * @property {object} context
+     * @property {Collection} self
+     */
+
     constructor(base) {
         super('Collection')
         this.map = {}
@@ -22,6 +29,7 @@ class CollectionUnit extends Base {
             write: [false, ['function'], ({ success }) => { success() }],
             views: [false, ['object'], {}]
         })
+        this.event.emit(this.unit, '$init', [this.unit])
     }
 
     toPKey(key) {

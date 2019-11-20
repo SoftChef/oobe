@@ -193,6 +193,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.9" data-path="plugins.html">
+            
+                <a href="plugins.html">
+            
+                    
+                    插件
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
         
@@ -483,6 +496,24 @@ oobe.helper.isEmpty(<span class="hljs-number">0</span>) <span class="hljs-commen
 
 <span class="hljs-built_in">console</span>.log(peel(a, <span class="hljs-string">&apos;b.c.d&apos;</span>)) <span class="hljs-comment">// 5</span>
 </code></pre>
+<hr>
+<h3 id="mappingkeymap-target-options">mapping(keyMap, target, options)</h3>
+<p>&#x6307;&#x5B9A;Key By Key&#x7684;&#x8F49;&#x63DB;&#x3002;</p>
+<blockquote>
+<p>options&#x8ACB;&#x53C3;&#x95B1;<a href="https://softchef.github.io/oobe/docs/" target="_blank">&#x6587;&#x4EF6;</a>&#x3002;</p>
+</blockquote>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> keyMap = {
+     a: <span class="hljs-string">&apos;A&apos;</span>,
+     b: <span class="hljs-string">&apos;B&apos;</span>
+}
+<span class="hljs-keyword">var</span> target = {
+     A: <span class="hljs-number">5</span>,
+     B: <span class="hljs-number">3</span>
+}
+<span class="hljs-keyword">let</span> output = mapping(keyMap, target)
+<span class="hljs-built_in">console</span>.log(output.a) <span class="hljs-comment">// 5</span>
+<span class="hljs-built_in">console</span>.log(output.b) <span class="hljs-comment">// 3</span>
+</code></pre>
 
                                 
                                 </section>
@@ -526,7 +557,7 @@ oobe.helper.isEmpty(<span class="hljs-number">0</span>) <span class="hljs-commen
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"協助","level":"1.4","depth":1,"next":{"title":"精靈","level":"1.5","depth":1,"path":"pages/sprite.md","ref":"./pages/sprite.md","articles":[]},"previous":{"title":"語系與規則","level":"1.3","depth":1,"path":"pages/rule_and_locale.md","ref":"./pages/rule_and_locale.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/helper.md","mtime":"2019-11-18T01:06:59.284Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-18T01:29:04.978Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"協助","level":"1.4","depth":1,"next":{"title":"精靈","level":"1.5","depth":1,"path":"pages/sprite.md","ref":"./pages/sprite.md","articles":[]},"previous":{"title":"語系與規則","level":"1.3","depth":1,"path":"pages/rule_and_locale.md","ref":"./pages/rule_and_locale.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/helper.md","mtime":"2019-11-20T08:50:41.077Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-11-20T09:11:10.221Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
