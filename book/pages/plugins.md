@@ -57,18 +57,25 @@ let person = {
 }
 
 let loader = {
-    // loader前三個參數是固定的，之後可以由控制者添加
-    age(sprite, done, error, ...args) {
-        axios.get('./age', {
-            params: {
-                name: sprite.name
-            }
-        }).then(result => {
-            sprite.age = result.data.age
-            done()
-        }, err => {
-            error(err)
-        })
+    sprite: {
+        // loader前三個參數是固定的，之後可以由控制者添加
+        age(sprite, done, error, ...args) {
+            axios.get('./age', {
+                params: {
+                    name: sprite.name
+                }
+            }).then(result => {
+                sprite.age = result.data.age
+                done()
+            }, err => {
+                error(err)
+            })
+        }
+    },
+    collection: {
+        age(collection, done, error, ...args) {
+            // 這是collection的方法
+        }
     }
 }
 
@@ -103,6 +110,8 @@ export default {
                 .then(() => {
                     // loader start自身就會回傳promise，並依照done or error決定then還是catch。
                 })
+
+            // collection.loader.age.start() 這是基於collection的實現模型
         }
     }
 }
