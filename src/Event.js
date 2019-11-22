@@ -45,7 +45,8 @@ class Event extends Base {
     }
 
     trigger(channelName, target, params, context) {
-        let newContext = { channelName, target, ...this.profile, context }
+        // let newContext = { channelName, target, ...this.profile, context }
+        let newContext = Object.assign({ channelName, target, context }, this.profile)
         this.getChannel(channelName).broadcast(target, newContext, params)
         if (this.parent) {
             this.parent.trigger(this.type + '.' + channelName, target, params, newContext)
@@ -100,7 +101,13 @@ class Listener extends Base {
     }
 
     trigger(target, context, params) {
-        this.callback.call(target, { listener: this.export, ...context }, ...params)
+        // this.callback.call(target, { listener: this.export, ...context }, ...params)
+        let callbackContext = Object.assign({ listener: this.export }, context)
+        if (params.length === 0) {
+            this.callback.call(target, callbackContext)
+        } else {
+            this.callback.call(target, callbackContext, ...params)
+        }
     }
 }
 
