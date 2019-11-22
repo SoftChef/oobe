@@ -935,16 +935,28 @@ describe('#Plugin-Loader', () => {
 
     it('set', function() {
         this.oobe.loader.set('CognitoUser', 'user', {
-            name(sprite, done) {
-                setTimeout(() => {
-                    sprite.name = '456'
-                    done()
-                }, 100)
+            sprite: {
+                name(sprite, done) {
+                    setTimeout(() => {
+                        sprite.name = '456'
+                        done()
+                    }, 100)
+                },
+                nameError(sprite, done, error) {
+                    setTimeout(() => {
+                        error('OuO')
+                    }, 100)
+                }
             },
-            nameError(sprite, done, error) {
-                setTimeout(() => {
-                    error('OuO')
-                }, 100)
+            collection: {
+                name(collection, done) {
+                    setTimeout(() => {
+                        collection.forEach(sprite => {
+                            sprite.name = '456'
+                        })
+                        done()
+                    }, 100)
+                }
             }
         })
     })
@@ -966,6 +978,26 @@ describe('#Plugin-Loader', () => {
         expect(user.$loader.name.done).to.equal(false)
         expect(user.$loader.name.called).to.equal(true)
         expect(user.$loader.name.loading).to.equal(true)
+    })
+
+    it('loader collection', function(done) {
+        let user = this.oobe.collection('CognitoUser', 'user')
+        expect(user.loader.name.called).to.equal(false)
+        user.write({ name: '123' })
+        user.loader
+            .name
+            .start()
+            .then(() => {
+                expect(user.items[0].name).to.equal('456')
+                expect(user.loader.name.done).to.equal(true)
+                expect(user.loader.name.error).to.equal(null)
+                expect(user.loader.name.loading).to.equal(false)
+                done()
+            })
+            .catch(done)
+        expect(user.loader.name.done).to.equal(false)
+        expect(user.loader.name.called).to.equal(true)
+        expect(user.loader.name.loading).to.equal(true)
     })
 
     it('loader error', function(done) {

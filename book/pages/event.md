@@ -22,8 +22,6 @@ sprite.$born() // OuO
 
 ## 移除事件
 
-不知道為啥，移除事件的方法多元的跟鬼一樣。
-
 ```js
 // 使用context內的listener
 sprite.$on('$ready', ({ listener }) => {
@@ -75,7 +73,7 @@ sprite.$emit('myEvent', '1234', '5678')
 
 冒泡途徑是這樣的：
 
-unit(實例化對象) -> sprite or collection -> container -> core
+unit or collection(實例化對象) -> sprite -> container -> core
 
 所以要在core監聽到sprite born事件，只要如下定義：
 

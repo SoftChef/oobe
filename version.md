@@ -1,5 +1,10 @@
 ### oobe versions
 
+## ver 0.3.3
+
+1. 修正文件上關於事件傳遞的錯誤
+2. 優化性能
+
 ## ver 0.3.2
 
 1. collection允許source為array

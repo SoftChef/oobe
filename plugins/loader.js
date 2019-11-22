@@ -1,16 +1,19 @@
 class LoaderCore {
-    constructor(sprite, name, handler) {
+    constructor(type, target, name, handler) {
         this.name = name
         this.done = false
+        this.type = type
         this.error = null
         this.called = false
-        this.sprite = sprite
+        this.target = target
         this.loading = false
         this.handler = handler
-        sprite.$on('$reset', () => {
-            this.reset()
-            this.called = false
-        })
+        if (this.type === 'sprite') {
+            target.$on('$reset', () => {
+                this.reset()
+                this.called = false
+            })
+        }
         if (typeof handler !== 'function') {
             this.$devError('Loader', 'Handler not a function')
         }
@@ -21,9 +24,17 @@ class LoaderCore {
         this.loading = false
         if (error) {
             this.error = error
-            this.sprite.$emit('#loader.error', [{ name: this.name, error }])
+            if (this.type === 'sprite') {
+                this.target.$emit('#loader.error', [{ name: this.name, error }])
+            } else {
+                this.target.emit('#loader.error', [{ name: this.name, error }])
+            }
         } else {
-            this.sprite.$emit('#loader.success', [{ name: this.name }])
+            if (this.type === 'sprite') {
+                this.target.$emit('#loader.success', [{ name: this.name }])
+            } else {
+                this.target.emit('#loader.success', [{ name: this.name }])
+            }
         }
     }
 
@@ -46,14 +57,14 @@ class LoaderCore {
                 this.close(err)
                 reject(err)
             }
-            this.handler.call(this.sprite, this.sprite, success, error, ...args)
+            this.handler.call(this.target, this.target, success, error, ...args)
         })
     }
 }
 
 class Loader {
-    constructor(sprite, name, handler) {
-        this._core = new LoaderCore(sprite, name, handler)
+    constructor(type, target, name, handler) {
+        this._core = new LoaderCore(type, target, name, handler)
     }
 
     get called() {
@@ -90,7 +101,12 @@ module.exports = class {
         oobe.on('container.sprite.unit.$init', (context, sprite) => {
             let name = sprite._sprite.base.name
             let containerName = sprite._sprite.base.container.name
-            sprite.$loader = this.get(sprite, containerName, name)
+            sprite.$loader = this.get('sprite', sprite, containerName, name)
+        })
+        oobe.on('container.sprite.collection.$init', (context, collection) => {
+            let name = collection._collection.base.name
+            let containerName = collection._collection.base.container.name
+            collection.loader = this.get('collection', collection, containerName, name)
         })
     }
 
@@ -105,11 +121,15 @@ module.exports = class {
         }
     }
 
-    get(sprite, containerName, name) {
-        let target = this.loaders.get(this.key(containerName, name)) || {}
+    get(type, target, containerName, name) {
+        let config = this.loaders.get(this.key(containerName, name)) || {}
         let loaders = {}
-        for (let key in target) {
-            loaders[key] = new Loader(sprite, key, target[key])
+        if (config[type] == null) {
+            return loaders
+        }
+        let map = config[type]
+        for (let key in map) {
+            loaders[key] = new Loader(type, target, key, map[key])
         }
         return loaders
     }
