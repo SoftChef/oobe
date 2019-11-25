@@ -232,11 +232,12 @@ class Collection {
      * Batch trigger write with async.
      * @param {array} items
      * @param {number} [ms=2] Speed of data queue write(milliseconds).
+     * @param {number} [parallel=1] Parallel write item.
      * @returns {promise}
      */
 
-    batchWriteAsync(items, ms = 2) {
-        return this._collection.batchWriteAsync(items, ms)
+    batchWriteAsync(items, ms = 2, parallel = 1) {
+        return this._collection.batchWriteAsync(items, ms, parallel)
     }
 
     /**

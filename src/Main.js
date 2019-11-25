@@ -1,7 +1,6 @@
 const Base = require('./Base')
 const Core = require('./Oobe')
 const Helper = require('./Helper')
-const Configs = require('./Configs')
 
 /**
  * Main export class
@@ -175,6 +174,5 @@ class Oobe extends Base {
  */
 
 Oobe.helper = Helper
-Oobe.Configs = Configs
 
 module.exports = Oobe

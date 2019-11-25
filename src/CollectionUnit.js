@@ -214,16 +214,19 @@ class CollectionUnit extends Base {
      * @property {object} context
      */
 
-    batchWriteAsync(items, ms = 10) {
+    batchWriteAsync(items, ms, parallel) {
         return new Promise((resolve) => {
             let interval = setInterval(() => {
-                let item = items.shift()
-                if (item) {
-                    this.write(item)
-                } else {
-                    clearInterval(interval)
-                    resolve(true)
-                    this.event.emit(this.unit, '$writeAsyncDone')
+                for (let i = 0; i < parallel; i++) {
+                    let item = items.shift()
+                    if (item) {
+                        this.write(item)
+                    } else {
+                        clearInterval(interval)
+                        resolve(true)
+                        this.event.emit(this.unit, '$writeAsyncDone')
+                        break
+                    }
                 }
             }, ms)
         })

@@ -409,19 +409,6 @@ describe('#Sprite', () => {
         done()
     })
 
-    it('event async', function(done) {
-        Oobe.Configs.eventHandlerIsAsync = true
-        let count = 0
-        let rawnull = this.oobe.make('CognitoUser', 'rawnull').$born()
-        rawnull.$on('$export', () => {
-            count += 1
-            Oobe.Configs.eventHandlerIsAsync = false
-            done()
-        })
-        rawnull.$export()
-        expect(count).to.equal(0)
-    })
-
     it('event', function(done) {
         let count = 0
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')

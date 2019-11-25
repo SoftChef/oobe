@@ -1,7 +1,5 @@
 const Base = require('./Base')
-const Queue = require('./EventQueue')
 const Helper = require('./Helper')
-const Configs = require('./Configs')
 
 class Event extends Base {
     constructor(type, parent, profile = {}) {
@@ -47,17 +45,10 @@ class Event extends Base {
     }
 
     trigger(channelName, target, params, context, ignoreQueue) {
-        let event = () => {
-            let newContext = Object.assign({ channelName, target, context }, this.profile)
-            this.getChannel(channelName).broadcast(target, newContext, params)
-            if (this.parent) {
-                this.parent.trigger(this.type + '.' + channelName, target, params, newContext, true)
-            }
-        }
-        if (ignoreQueue || channelName === '$init' || Configs.eventHandlerIsAsync === false) {
-            event()
-        } else {
-            Queue.push(event)
+        let newContext = Object.assign({ channelName, target, context }, this.profile)
+        this.getChannel(channelName).broadcast(target, newContext, params)
+        if (this.parent) {
+            this.parent.trigger(this.type + '.' + channelName, target, params, newContext, true)
         }
     }
 }
