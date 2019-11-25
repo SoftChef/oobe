@@ -4,6 +4,8 @@
 
 1. 修正文件上關於事件傳遞的錯誤
 2. 優化性能
+3. eventHandlerIsAsync下除了$init事件通通進queue
+4. 可以控制config與eventHandlerIsAsync
 
 ## ver 0.3.2
 

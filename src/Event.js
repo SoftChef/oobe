@@ -1,5 +1,7 @@
 const Base = require('./Base')
+const Queue = require('./EventQueue')
 const Helper = require('./Helper')
+const Configs = require('./Configs')
 
 class Event extends Base {
     constructor(type, parent, profile = {}) {
@@ -44,12 +46,18 @@ class Event extends Base {
         this.trigger(channelName, target, params)
     }
 
-    trigger(channelName, target, params, context) {
-        // let newContext = { channelName, target, ...this.profile, context }
-        let newContext = Object.assign({ channelName, target, context }, this.profile)
-        this.getChannel(channelName).broadcast(target, newContext, params)
-        if (this.parent) {
-            this.parent.trigger(this.type + '.' + channelName, target, params, newContext)
+    trigger(channelName, target, params, context, ignoreQueue) {
+        let event = () => {
+            let newContext = Object.assign({ channelName, target, context }, this.profile)
+            this.getChannel(channelName).broadcast(target, newContext, params)
+            if (this.parent) {
+                this.parent.trigger(this.type + '.' + channelName, target, params, newContext, true)
+            }
+        }
+        if (ignoreQueue || channelName === '$init' || Configs.eventHandlerIsAsync === false) {
+            event()
+        } else {
+            Queue.push(event)
         }
     }
 }
@@ -101,7 +109,6 @@ class Listener extends Base {
     }
 
     trigger(target, context, params) {
-        // this.callback.call(target, { listener: this.export, ...context }, ...params)
         let callbackContext = Object.assign({ listener: this.export }, context)
         if (params.length === 0) {
             this.callback.call(target, callbackContext)

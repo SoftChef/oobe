@@ -315,16 +315,14 @@ describe('#Sprite', () => {
         expect(TestRawBody === JSON.stringify(this.user.$body())).to.equal(true)
     })
 
-    it('error', function() {
-        let check = false
+    it('error', function(done) {
         let user = this.user.$copy()
-        user.$onOnce('$error', (context, error) => {
-            check = true
-        })
         expect(user.$error).to.equal(null)
+        user.$onOnce('$error', (context, error) => {
+            expect(user.$error).to.equal('1234')
+            done()
+        })
         user.$setError('1234')
-        expect(user.$error).to.equal('1234')
-        expect(check).to.equal(true)
     })
 
     it('out revive', function() {
@@ -394,7 +392,7 @@ describe('#Sprite', () => {
         rawnull.$raw()
     })
 
-    it('event once', function() {
+    it('event once', function(done) {
         let count = 0
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
         rawnull.$on('$export', () => {
@@ -408,9 +406,23 @@ describe('#Sprite', () => {
         rawnull.$export()
         rawnull.$export()
         expect(count).to.equal(3)
+        done()
     })
 
-    it('event', function() {
+    it('event async', function(done) {
+        Oobe.Configs.eventHandlerIsAsync = true
+        let count = 0
+        let rawnull = this.oobe.make('CognitoUser', 'rawnull').$born()
+        rawnull.$on('$export', () => {
+            count += 1
+            Oobe.Configs.eventHandlerIsAsync = false
+            done()
+        })
+        rawnull.$export()
+        expect(count).to.equal(0)
+    })
+
+    it('event', function(done) {
         let count = 0
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
         this.oobe.on('container.sprite.unit.$ready', (context) => {
@@ -432,7 +444,10 @@ describe('#Sprite', () => {
         })
         rawnull.$off('$ready', raw3)
         rawnull.$born()
-        expect(count).to.equal(2)
+        setTimeout(() => {
+            expect(count).to.equal(2)
+            done()
+        }, 100)
     })
 
     it('put', function() {
@@ -552,12 +567,12 @@ describe('#Collection', () => {
         collection.on('$writeSuccess', (context, { sprite, onlyKey }) => {
             expect(typeof sprite.name).to.equal('string')
             expect(onlyKey).to.equal(true)
-            if (collection.size === 3) {
-                expect(collection.size).to.equal(3)
-                done()
-            }
         })
         collection.batchWriteOnlyKeys('Username', ['123', '456', '789'])
+        setTimeout(() => {
+            expect(collection.size).to.equal(3)
+            done()
+        }, 100)
     })
 
     it('fetch', function() {
@@ -575,17 +590,20 @@ describe('#Collection', () => {
         expect(this.collection.size).to.equal(1)
     })
 
-    it('event once', function() {
+    it('event once', function(done) {
         let count = 0
         this.collection.onOnce('$fetch', () => {
             count += 1
         })
         this.collection.fetch('admin')
         this.collection.fetch('admin')
-        expect(count).to.equal(1)
+        setTimeout(() => {
+            expect(count).to.equal(1)
+            done()
+        })
     })
 
-    it('event', function() {
+    it('event', function(done) {
         let count = 0
         this.collection.on('$fetch', () => {
             count += 1
@@ -596,10 +614,13 @@ describe('#Collection', () => {
         })
         this.collection.fetch('admin')
         this.collection.fetch('admin')
-        expect(count).to.equal(3)
+        setTimeout(() => {
+            expect(count).to.equal(3)
+            done()
+        }, 100)
     })
 
-    it('write', function() {
+    it('write', function(done) {
         let count = 0
         this.collection.on('$writeReject', (context, reslut) => {
             expect(reslut.message).to.equal('test')
@@ -613,7 +634,10 @@ describe('#Collection', () => {
             Username: '123456789'
         })
         this.collection.write(RawData)
-        expect(count).to.equal(2)
+        setTimeout(() => {
+            expect(count).to.equal(2)
+            done()
+        }, 100)
     })
 
     it('write sprite', function() {

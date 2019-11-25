@@ -353,12 +353,12 @@ class SpriteUnit extends Base {
     init() {
         this.initUnit()
         this.initBody()
-        this.checkBody()
         this.initEvent()
         this.initStatus()
+        this.checkBody()
         this.rawBody = this.dataStringify(this.body)
         this.rawData = null
-        this.propertyNames = Object.keys(this.body || {})
+        this.propertyNames = this.body ? Object.keys(this.body) : []
         this.status.init = true
         this.event.emit(this.unit, '$init', [this.unit])
     }

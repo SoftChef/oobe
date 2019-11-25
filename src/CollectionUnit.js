@@ -175,7 +175,7 @@ class CollectionUnit extends Base {
         if (Helper.getType(key) !== 'string') {
             this.$devError('write', `Write key(${key}) not a string`)
         }
-        let eventData = { key, sprite, source, ...options }
+        let eventData = Object.assign({ key, sprite, source }, options)
         this.status.dirty = true
         this.options.write.call(this.unit, {
             key,
