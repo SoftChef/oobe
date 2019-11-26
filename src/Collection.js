@@ -179,7 +179,7 @@ class Collection {
      */
 
     emit(channelName, ...params) {
-        return this._collection.event.emit(channelName, params)
+        return this._collection.event.emit(this, channelName, params)
     }
 
     /**

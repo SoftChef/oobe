@@ -7,7 +7,8 @@ class Event extends Base {
         this.type = type
         this.parent = parent
         this.channels = {}
-        this.profile = { type, ...profile }
+        this.profile = profile
+        this.profile.type = type
     }
 
     addChannel(name) {
@@ -44,11 +45,18 @@ class Event extends Base {
         this.trigger(channelName, target, params)
     }
 
-    trigger(channelName, target, params, context, ignoreQueue) {
-        let newContext = Object.assign({ channelName, target, context }, this.profile)
-        this.getChannel(channelName).broadcast(target, newContext, params)
+    trigger(channelName, target, params, oldContext) {
+        let channel = this.getChannel(channelName)
+        let hasListener = channel.hasListener()
+        if (hasListener === false && this.parent == null) {
+            return undefined
+        }
+        let context = Object.assign({ channelName, target, oldContext }, this.profile)
+        if (hasListener) {
+            channel.broadcast(target, context, params)
+        }
         if (this.parent) {
-            this.parent.trigger(this.type + '.' + channelName, target, params, newContext, true)
+            this.parent.trigger(this.type + '.' + channelName, target, params, context)
         }
     }
 }
@@ -57,7 +65,11 @@ class Channel extends Base {
     constructor() {
         super('Channel')
         this.listeners = {}
-        this.listenerKeys = null
+        this.listenerSize = 0
+    }
+
+    hasListener() {
+        return this.listenerSize !== 0
     }
 
     checkListener(id) {
@@ -72,11 +84,13 @@ class Channel extends Base {
         }
         let id = Helper.generateId()
         this.listeners[id] = new Listener(this, id, callback)
+        this.listenerSize += 1
         return this.listeners[id].export
     }
 
     removeListener(id) {
         this.checkListener(id)
+        this.listenerSize -= 1
         delete this.listeners[id]
     }
 
