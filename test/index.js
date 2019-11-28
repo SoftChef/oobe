@@ -931,6 +931,16 @@ describe('#Helper', () => {
             ]
         })
     })
+
+    it('set null', function() {
+        var test = {
+            a: 5
+        }
+        var output = this.user.$helper.setNull(test)
+        expect(test.a).to.equal(5)
+        expect(output.a).to.equal(null) 
+    })
+
 })
 
 describe('#Plugin-Loader', () => {

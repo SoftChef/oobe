@@ -27,6 +27,7 @@ class SpriteBase extends Base {
         super('Sprite')
         this.name = name
         this.dists = {}
+        this.cache = null
         this.container = container
         this.options = Helper.verify(options, {
             body: [true, ['function']],

@@ -124,13 +124,13 @@ class Helper {
         let newData = {}
         for (let key in validates) {
             let target = data[key]
+            let type = Helper.getType(target)
             let validate = validates[key]
             let [required, types, defaultValue] = validate
-            let type = Helper.getType(target)
-            if (Helper.getType(required) !== 'boolean') {
+            if (typeof required !== 'boolean') {
                 throw new Error('Helper::verify => Required must be a boolean')
             }
-            if (Helper.getType(types) !== 'array') {
+            if (Array.isArray(types) !== true) {
                 throw new Error('Helper::verify => Types must be a array')
             }
             if (required && target == null) {
@@ -265,6 +265,29 @@ class Helper {
             } else {
                 output[name] = data
             }
+        }
+        return output
+    }
+
+    /**
+     * Copy object key and new object total values to null.
+     * @param {object} target
+     * @returns {*}
+     * @example
+     * let target = {
+     *     a: {},
+     *     b: 5
+     * }
+     * let output = setNull(target)
+     * console.log(target.b) // 5
+     * console.log(object.a) // null
+     * console.log(Object.keys(output)) // ['a', 'b']
+     */
+
+    static setNull(target) {
+        let output = {}
+        for (let key in target) {
+            output[key] = null
         }
         return output
     }
