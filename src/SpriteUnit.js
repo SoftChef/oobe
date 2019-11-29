@@ -2,6 +2,7 @@ const Base = require('./Base')
 const Event = require('./Event')
 const Sprite = require('./Sprite')
 const Helper = require('./Helper')
+const SpriteUnitCache = require('./SpriteUnitCache')
 
 class SpriteUnit extends Base {
     constructor(base) {
@@ -377,7 +378,12 @@ class SpriteUnit extends Base {
     }
 
     initUnit() {
-        this.unit = new Sprite(this)
+        // 這是一個防止反覆建立精靈屬性的方法
+        if (this.base.Unit == null) {
+            this.unit = new Sprite(this)
+            this.base.Unit = SpriteUnitCache(this)
+        }
+        this.unit = new this.base.Unit(this)
         this.functions = this.base.getMethods(this.unit)
         if (this.base.options.defaultView && typeof Proxy !== 'undefined') {
             let defaultView = this.base.options.defaultView
@@ -400,26 +406,15 @@ class SpriteUnit extends Base {
 
     initBody() {
         let refs = this.options.refs
-        let body = this.options.body.call(this.unit)
-        for (let key in body) {
-            this.body[key] = body[key]
-            Object.defineProperty(this.unit, key, {
-                get: this.getDefineProperty('body', key),
-                set: this.setDefineProperty(key)
-            })
-        }
+        this.body = this.options.body.call(this.unit)
         for (let key in refs) {
             let name = refs[key]
-            if (name[0] === '[' && name.slice(-1) === ']') {
+            if (name[0] === '[' && name[name.length - 1] === ']') {
                 this.refs[key] = this.base.container.makeCollection(name.slice(1, -1))
             } else {
                 this.refs[key] = this.base.container.make(name)
             }
             this.refs[key].parent = this.unit
-            Object.defineProperty(this.unit, key, {
-                get: this.getDefineProperty('refs', key),
-                set: this.setDefineProperty(key, true)
-            })
         }
     }
 
@@ -473,28 +468,6 @@ class SpriteUnit extends Base {
             }
         })
         return { result, success }
-    }
-
-    getDefineProperty(name, key) {
-        if (name === 'refs') {
-            return () => this.refs[key].unit
-        } else {
-            return () => this.body[key]
-        }
-    }
-
-    setDefineProperty(key, protect) {
-        return (value) => {
-            if (this.isLive()) {
-                if (protect) {
-                    return this.$devError('set', `This property(${key}) is protect.`)
-                }
-                if (typeof value === 'function') {
-                    return this.$devError('set', 'Body data not allow function.')
-                }
-                this.body[key] = value
-            }
-        }
     }
 }
 

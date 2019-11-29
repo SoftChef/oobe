@@ -29,6 +29,7 @@ class CollectionUnit extends Base {
             write: [false, ['function'], ({ success }) => { success() }],
             views: [false, ['object'], {}]
         })
+        this.bindWrite = this.options.write.bind(this)
         this.event.emit(this.unit, '$init', [this.unit])
     }
 
@@ -177,7 +178,7 @@ class CollectionUnit extends Base {
         }
         let eventData = Object.assign({ key, sprite, source }, options)
         this.status.dirty = true
-        this.options.write.call(this.unit, {
+        this.bindWrite({
             key,
             sprite,
             reject: message => this.event.emit(this.unit, '$writeReject', [{ message, ...eventData }]),
