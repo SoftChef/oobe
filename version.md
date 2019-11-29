@@ -5,7 +5,7 @@
 1. 修正文件上關於事件傳遞的錯誤
 2. 優化性能
 3. 修正collection emit的錯誤
-4. 新增helper setNull
+4. 新增實驗性功能helper setNull
 
 ## ver 0.3.2
 
