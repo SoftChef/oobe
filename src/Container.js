@@ -146,20 +146,20 @@ class Container extends Base {
         return this.core.rule.validate(target, value, this.getNames(array))
     }
 
-    make(baseName) {
+    make(baseName, options) {
         let base = this.spriteBases[baseName]
         if (base == null) {
             return this.$devError('make', `Sprite ${baseName} not found.`)
         }
-        return base.create()
+        return base.create(options)
     }
 
-    makeCollection(baseName) {
+    makeCollection(baseName, options) {
         let base = this.spriteBases[baseName]
         if (base == null) {
             return this.$devError('makeCollection', `Sprite ${baseName} not found.`)
         }
-        return base.createCollection()
+        return base.createCollection(options)
     }
 }
 

@@ -11,7 +11,7 @@ class CollectionUnit extends Base {
      * @property {Collection} self
      */
 
-    constructor(base) {
+    constructor(base, options) {
         super('Collection')
         this.map = {}
         this.base = base
@@ -24,6 +24,7 @@ class CollectionUnit extends Base {
         this.status = {
             dirty: false
         }
+        this.customOptions = options
         this.options = Helper.verify(base.options.collection, {
             key: [false, ['function', 'string'], '*'],
             write: [false, ['function'], ({ success }) => { success() }],
@@ -54,7 +55,7 @@ class CollectionUnit extends Base {
     }
 
     generateSprite(source) {
-        return Helper.isSprite(source) ? source : this.base.create().unit.$born(source)
+        return Helper.isSprite(source) ? source : this.base.create(this.customOptions).unit.$born(source)
     }
 
     forEach(callback) {
@@ -166,7 +167,7 @@ class CollectionUnit extends Base {
     write(source, options) {
         let type = Helper.getType(source)
         if (type !== 'object' && type !== 'array') {
-            this.$devError('write', 'Source not a object')
+            this.$devError('write', 'Source not a object or array.')
         }
         let sprite = this.generateSprite(source)
         let key = this.getKey(sprite)
@@ -176,7 +177,7 @@ class CollectionUnit extends Base {
         if (Helper.getType(key) !== 'string') {
             this.$devError('write', `Write key(${key}) not a string`)
         }
-        let eventData = Object.assign({ key, sprite, source }, options)
+        let eventData = options ? Object.assign({ key, sprite, source }, options) : { key, sprite, source }
         this.status.dirty = true
         this.bindWrite({
             key,

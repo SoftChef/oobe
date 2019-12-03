@@ -32,7 +32,7 @@ class SpriteBase extends Base {
         this.options = Helper.verify(options, {
             body: [true, ['function']],
             refs: [false, ['object'], {}],
-            self: [false, ['function'], () => { return {} }],
+            self: [false, ['function'], () => ({})],
             born: [false, ['function'], data => data],
             views: [false, ['object'], {}],
             dists: [false, ['object'], {}],
@@ -47,6 +47,7 @@ class SpriteBase extends Base {
         if (options.states) {
             throw new Error('States already rename to dists.')
         }
+        this.refKeys = Object.keys(this.options.refs)
         this.init()
     }
 
@@ -147,12 +148,12 @@ class SpriteBase extends Base {
         return new this.Methods(unit)
     }
 
-    create() {
-        return new SpriteUnit(this)
+    create(options) {
+        return new SpriteUnit(this, options)
     }
 
-    createCollection() {
-        return new CollectionUnit(this)
+    createCollection(options) {
+        return new CollectionUnit(this, options)
     }
 }
 

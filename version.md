@@ -2,10 +2,13 @@
 
 ## ver 0.3.3
 
-1. 修正文件上關於事件傳遞的錯誤
-2. 優化性能
+1. 修正文件上關於事件傳遞的說明錯誤
+2. 更快的啟動速度與更低的記憶體消耗
 3. 修正collection emit的錯誤
 4. 新增實驗性功能helper setNull
+5. 新增實驗性功能sprite options(save)
+6. copy options
+7. onDevError
 
 ## ver 0.3.2
 

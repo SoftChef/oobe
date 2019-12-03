@@ -99,12 +99,12 @@ class Core extends Base {
         return container === targetContainer && spriteBase === targetSpriteBase
     }
 
-    make(containerName, spriteName) {
+    make(containerName, spriteName, options) {
         let container = this.containers[containerName]
         if (container == null) {
             return this.$devError('make', `Container name(${containerName}) not found.`)
         }
-        return container.make(spriteName).unit
+        return container.make(spriteName, options).unit
     }
 
     batch(containerName, spriteName, items) {
@@ -119,12 +119,12 @@ class Core extends Base {
         return output
     }
 
-    makeCollection(containerName, spriteName) {
+    makeCollection(containerName, spriteName, options) {
         let container = this.containers[containerName]
         if (container == null) {
             return this.$devError('makeCollection', `Container name(${containerName}) not found.`)
         }
-        return container.makeCollection(spriteName).unit
+        return container.makeCollection(spriteName, options).unit
     }
 }
 

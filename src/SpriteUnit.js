@@ -5,7 +5,7 @@ const Helper = require('./Helper')
 const SpriteUnitCache = require('./SpriteUnitCache')
 
 class SpriteUnit extends Base {
-    constructor(base) {
+    constructor(base, options) {
         super('Sprite')
         this.body = {}
         this.refs = {}
@@ -19,8 +19,16 @@ class SpriteUnit extends Base {
         this.rawBody = ''
         this.rawData = null
         this.functions = null
+        this.refKeys = base.refKeys
         this.propertyNames = []
+        this.setCustomOptions(options)
         this.init()
+    }
+
+    setCustomOptions(options) {
+        this.customOptions = Helper.verify(options || {}, {
+            save: [false, ['boolean'], true]
+        })
     }
 
     dataParse(data = null) {
@@ -28,16 +36,19 @@ class SpriteUnit extends Base {
     }
 
     dataStringify(data) {
+        if (this.customOptions.save === false) {
+            return null
+        }
         return JSON.stringify(data)
     }
 
     getBody() {
         let output = Helper.jpjs(this.body)
         this.eachRefs((taget, key, type) => {
-            if (type === 'collection') {
-                output[key] = taget.getBodys()
-            } else {
+            if (type === 'sprite') {
                 output[key] = taget.getBody()
+            } else {
+                output[key] = taget.getBodys()
             }
         })
         return output
@@ -85,6 +96,9 @@ class SpriteUnit extends Base {
     }
 
     isChange(key) {
+        if (this.customOptions.save === false) {
+            this.$devError('isChange', 'Options save is false, so not cache rawdata.')
+        }
         if (key && this.getProperty(key)) {
             let target = this.unit[key]
             if (Helper.isSprite(target)) {
@@ -176,9 +190,9 @@ class SpriteUnit extends Base {
         }
     }
 
-    copy() {
+    copy(options) {
         if (this.isReady()) {
-            return this.base.create().born(this.toOrigin()).distortion(this.dist.name)
+            return this.base.create(options || this.customOptions).born(this.toOrigin()).distortion(this.dist.name)
         } else {
             this.$devError('copy', 'Sprite not ready.')
         }
@@ -211,6 +225,9 @@ class SpriteUnit extends Base {
      */
 
     reset(key) {
+        if (this.customOptions.save === false) {
+            this.$devError('reset', 'Options save is false, so not cache rawdata.')
+        }
         if (this.isLive()) {
             if (key) {
                 if (this.getProperty(key)) {
@@ -279,7 +296,7 @@ class SpriteUnit extends Base {
     }
 
     eachRefs(callback) {
-        for (let key in this.refs) {
+        for (let key of this.refKeys) {
             let type = this.refs[key] instanceof SpriteUnit ? 'sprite' : 'collection'
             let result = callback(this.refs[key], key, type)
             if (result === '_break') {
@@ -407,12 +424,12 @@ class SpriteUnit extends Base {
     initBody() {
         let refs = this.options.refs
         this.body = this.options.body.call(this.unit)
-        for (let key in refs) {
+        for (let key of this.refKeys) {
             let name = refs[key]
             if (name[0] === '[' && name[name.length - 1] === ']') {
-                this.refs[key] = this.base.container.makeCollection(name.slice(1, -1))
+                this.refs[key] = this.base.container.makeCollection(name.slice(1, -1), this.customOptions)
             } else {
-                this.refs[key] = this.base.container.make(name)
+                this.refs[key] = this.base.container.make(name, this.customOptions)
             }
             this.refs[key].parent = this.unit
         }
@@ -440,6 +457,9 @@ class SpriteUnit extends Base {
     }
 
     getRawdata(assign) {
+        if (this.customOptions.save === false) {
+            this.$devError('getRawdata', 'Options save is false, so not cache rawdata.')
+        }
         let data = this.dataParse(this.rawData)
         return assign ? Helper.deepObjectAssign(data, assign) : data
     }

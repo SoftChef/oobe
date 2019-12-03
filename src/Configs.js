@@ -4,7 +4,7 @@ module.exports = {
     systemContainer: {
         sprites: {
             system: {
-                body: () => { return {} }
+                body: () => ({})
             }
         }
     }

@@ -72,8 +72,8 @@ class Oobe extends Base {
      * @see {@link Sprite}
      */
 
-    make(containerName, spriteName) {
-        return this._core.make(containerName, spriteName)
+    make(containerName, spriteName, options) {
+        return this._core.make(containerName, spriteName, options)
     }
 
     /**
@@ -95,8 +95,8 @@ class Oobe extends Base {
      * @returns {@link Collection}
      */
 
-    collection(containerName, spriteName) {
-        return this._core.makeCollection(containerName, spriteName)
+    collection(containerName, spriteName, options) {
+        return this._core.makeCollection(containerName, spriteName, options)
     }
 
     /**
@@ -174,5 +174,6 @@ class Oobe extends Base {
  */
 
 Oobe.helper = Helper
+Oobe.onDevError = Base.onDevError
 
 module.exports = Oobe
