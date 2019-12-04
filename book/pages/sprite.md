@@ -332,6 +332,19 @@ let dave = oobe.make('company', 'staff').$born({
 console.log(dave.$self.name) // 'dave'
 ```
 
+## Options
+
+在make階段的第三個參數可以加入options。
+
+```js
+let dave = oobe.make('company', 'staff', { save: false }).$born({
+    name: 'dave',
+    createdAt: 123456
+})
+
+dave.$isChange() // Error, 因為原始資料cache被取消了
+```
+
 ## 總結
 
 恭喜下班，Dave辛苦了，我們來看看Staff這個sprite最終呈現的模樣。

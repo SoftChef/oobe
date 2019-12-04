@@ -107,14 +107,14 @@ class Core extends Base {
         return container.make(spriteName, options).unit
     }
 
-    batch(containerName, spriteName, items) {
+    batch(containerName, spriteName, items, options) {
         let type = Helper.getType(items)
         let output = []
         if (type !== 'array') {
             this.$devError('batch', 'Data must be a array.', data)
         }
         items.forEach((item) => {
-            output.push(this.make(containerName, spriteName).$born(item))
+            output.push(this.make(containerName, spriteName, options).$born(item))
         })
         return output
     }

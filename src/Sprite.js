@@ -184,11 +184,13 @@ class Sprite {
 
     /**
      * Copy this sprite.
+     * @param {object} [options] New sprite options.
+     * @param {object} [options.save=true]
      * @returns {sprite}
      */
 
-    $copy() {
-        return getUnit(this._sprite.copy())
+    $copy(options) {
+        return getUnit(this._sprite.copy(options))
     }
 
     /**

@@ -68,6 +68,8 @@ class Oobe extends Base {
      * Create a sprite.
      * @param {string} containerName
      * @param {string} spriteName
+     * @param {object} [options]
+     * @param {object} [options.save=true] If save is false, This sprite can't use reset and isChange and getRawdata method.
      * @returns {sprite}
      * @see {@link Sprite}
      */
@@ -81,17 +83,21 @@ class Oobe extends Base {
      * @param {string} containerName
      * @param {string} spriteName
      * @param {array} items
+     * @param {object} [options]
+     * @param {object} [options.save=true] If save is false, This sprite can't use reset and isChange and getRawdata method.
      * @returns {array}
      */
 
-    batch(containerName, spriteName, items) {
-        return this._core.batch(containerName, spriteName, items)
+    batch(containerName, spriteName, items, options) {
+        return this._core.batch(containerName, spriteName, items, options)
     }
 
     /**
      * Create a collection.
      * @param {string} containerName
      * @param {string} spriteName
+     * @param {object} [options]
+     * @param {object} [options.save=true] Options of source to sprite, but except sprite.
      * @returns {@link Collection}
      */
 

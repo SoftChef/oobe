@@ -68,9 +68,22 @@ const InterfaceTestError = {
     }
 }
 
+let isDevError = false
+
 describe('#Core', () => {
     before(function() {
         this.oobe = new Oobe()
+    })
+
+    it('on dev error', function(done) {
+        Oobe.onDevError(({ functionName }) => {
+            expect(functionName).to.equal('make')
+            if (isDevError === false) {
+                isDevError = true
+                done()
+            }
+        })
+        this.oobe.make('Hello', 'World')
     })
 
     it('addon and addRules and add locale', function() {
@@ -145,6 +158,14 @@ describe('#Sprite', () => {
         this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
         this.user = this.oobe.make('CognitoUser', 'user')
+    })
+
+    it('options', function() {
+        let sprite = this.oobe.make('CognitoUser', 'rawnull')
+        let sprite2 = this.oobe.make('CognitoUser', 'rawnull', { save: false })
+        expect(sprite.$toObject().$options.save).to.equal(true)
+        expect(sprite2.$toObject().$options.save).to.equal(false)
+        expect(() => { sprite2.$isChange() }).to.throw(Error)
     })
 
     it('isUs', function() {

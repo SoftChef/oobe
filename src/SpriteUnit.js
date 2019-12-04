@@ -352,6 +352,7 @@ class SpriteUnit extends Base {
         object.$self = {}
         object.$views = {}
         object.$status = Helper.jpjs(this.status)
+        object.$options = Helper.jpjs(this.customOptions)
         for (let key in this.unit.$self) {
             object.$self[key] = this.unit.$self[key]
         }

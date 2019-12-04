@@ -31,11 +31,11 @@ class Helper {
 
     static getType(target) {
         let type = typeof target
-        if (Array.isArray(target)) {
-            return 'array'
-        }
         if (target == null) {
             return 'empty'
+        }
+        if (Array.isArray(target)) {
+            return 'array'
         }
         if (type === 'number' && isNaN(target)) {
             return 'NaN'

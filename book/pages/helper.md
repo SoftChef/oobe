@@ -162,3 +162,43 @@ let output = mapping(keyMap, target)
 console.log(output.a) // 5
 console.log(output.b) // 3
 ```
+
+---
+
+### setNull(target)
+
+建立一個對應Key的物件但值為null。
+
+```js
+let target = {
+    a: {},
+    b: 5
+}
+let output = setNull(target)
+console.log(target.b) // 5
+console.log(object.a) // null
+console.log(Object.keys(output)) // ['a', 'b']
+```
+
+此功能主要是搭配mapping使用，只要定義一個KeyMap就行了。
+
+```js
+let keyMap = {
+    name: 'Name'
+}
+
+let mySprite = {
+    body() {
+        return this.$helper.setNull(keyMap)
+    },
+    born(source = {}) {
+        return this.$helper.mapping(keyMap, source)
+    },
+    origin() {
+        return this.$helper.mapping(keyMap, this, {
+            isModel: 'origin',
+            reverse: true
+        })
+    }
+}
+```

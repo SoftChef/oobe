@@ -5,8 +5,8 @@
 1. 修正文件上關於事件傳遞的說明錯誤
 2. 更快的啟動速度與更低的記憶體消耗
 3. 修正collection emit的錯誤
-4. 新增實驗性功能helper setNull
-5. 新增實驗性功能sprite options(save)
+4. helper setNull
+5. sprite options(save)
 6. copy options
 7. onDevError
 
