@@ -17,32 +17,3 @@ let oobe = new Oobe()
 
 oobe.make('hello', 'world') // Container name(hello) not found.
 ```
-
-## OnPropertySet
-
-當任一精靈參數有改動時被觸發。
-
-```js
-import Oobe from 'oobe'
-
-Oobe.onPropertySet(({ sprite, key, value }) => {
-    console.log(value)
-})
-
-let oobe = new Oobe()
-
-oobe.join('user', {
-    sprites: {
-        user: {
-            body() {
-                return {
-                    name: ''
-                }
-            }
-        }
-    }
-})
-
-let user = oobe.make('user', 'user').$born()
-user.name = '123' // 123
-```

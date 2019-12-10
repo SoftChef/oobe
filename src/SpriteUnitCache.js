@@ -1,14 +1,5 @@
 const Sprite = require('./Sprite')
 
-let propertyEvents = []
-let usePropertyEvent = false
-
-function broadcastPropertyEvent(sprite, key, value) {
-    for (let event of propertyEvents) {
-        event({ sprite, key, value })
-    }
-}
-
 function getDefineProperty(name, key) {
     if (name === 'refs') {
         return function() {
@@ -22,28 +13,22 @@ function getDefineProperty(name, key) {
 }
 
 function setDefineProperty(key, protect) {
+    if (protect) {
+        return function() {
+            this._sprite.$devError('set', `This property(${key}) is protect.`)
+        }
+    }
     return function(value) {
+        if (typeof value === 'function') {
+            return this._sprite.$devError('set', 'Body data not allow function.')
+        }
         if (this._sprite.isLive()) {
-            if (protect) {
-                return this._sprite.$devError('set', `This property(${key}) is protect.`)
-            }
-            if (typeof value === 'function') {
-                return this._sprite.$devError('set', 'Body data not allow function.')
-            }
-            if (usePropertyEvent) {
-                broadcastPropertyEvent(this, key, value)
-            }
             this._sprite.body[key] = value
         }
     }
 }
 
-exports.onPropertySet = function(event) {
-    usePropertyEvent = true
-    propertyEvents.push(event)
-}
-
-exports.makeSpriteCache = function(sprite) {
+module.exports = function(sprite) {
     let refs = sprite.options.refs
     let body = sprite.options.body.call(sprite.unit)
     let Unit = class extends Sprite {}

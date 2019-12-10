@@ -46,20 +46,20 @@ class Event extends Base {
         if (Array.isArray(params) === false) {
             this.$systemError('emit', 'Params not a array.')
         }
-        this.trigger(channelName, { target, params })
+        this.trigger(channelName, target, params)
     }
 
-    trigger(channelName, parentData) {
+    trigger(channelName, target, params, context) {
         let channel = this.getChannel(channelName)
-        if (channel === null && this.parent == null) {
+        if (channel == null && this.parent == null) {
             return undefined
         }
-        Object.assign(parentData, this.profile)
+        let newContext = Object.assign({ channelName, target, context }, this.profile)
         if (channel) {
-            channel.broadcast(parentData.target, parentData.context, parentData.params)
+            channel.broadcast(target, newContext, params)
         }
         if (this.parent) {
-            this.parent.trigger(this.type + '.' + channelName, parentData)
+            this.parent.trigger(this.type + '.' + channelName, target, params, context)
         }
     }
 }

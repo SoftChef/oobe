@@ -160,22 +160,6 @@ describe('#Sprite', () => {
         this.user = this.oobe.make('CognitoUser', 'user')
     })
 
-    it('on property set', function(done) {
-        let isDone = false
-        let user = this.oobe.make('CognitoUser', 'user').$born(RawData)
-        Oobe.onPropertySet(({ sprite, key, value }) => {
-            if (isDone === true) {
-                return null
-            }
-            isDone = true
-            expect(key).to.equal('name')
-            expect(value).to.equal('123')
-            expect(sprite).to.equal(user)
-            done()
-        })
-        user.name = '123'
-    })
-
     it('options', function() {
         let sprite = this.oobe.make('CognitoUser', 'rawnull')
         let sprite2 = this.oobe.make('CognitoUser', 'rawnull', { save: false })

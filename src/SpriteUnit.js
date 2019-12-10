@@ -2,7 +2,7 @@ const Base = require('./Base')
 const Event = require('./Event')
 const Sprite = require('./Sprite')
 const Helper = require('./Helper')
-const { makeSpriteCache } = require('./SpriteUnitCache')
+const SpriteUnitCache = require('./SpriteUnitCache')
 
 class SpriteUnit extends Base {
     constructor(base, options) {
@@ -404,7 +404,7 @@ class SpriteUnit extends Base {
         // 這是一個防止反覆建立精靈屬性的方法
         if (this.base.Unit == null) {
             this.unit = new Sprite(this)
-            this.base.Unit = makeSpriteCache(this)
+            this.base.Unit = SpriteUnitCache(this)
         }
         this.unit = new this.base.Unit(this)
         this.functions = this.base.getMethods(this.unit)

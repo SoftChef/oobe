@@ -16,8 +16,7 @@
 12. sprite options(save)
 13. copy options
 14. onDevError
-15. onPropertySet
-16. toObject會吐出更多細節
+15. toObject會吐出更多細節
 
 ## ver 0.3.1
 
