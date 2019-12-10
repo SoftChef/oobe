@@ -1,17 +1,5 @@
 ### oobe versions
 
-## ver 0.3.3
-
-1. 修正文件上關於事件傳遞的說明錯誤
-2. 更快的啟動速度與更低的記憶體消耗
-3. 修正collection emit的錯誤
-4. helper setNull
-5. sprite options(save)
-6. copy options
-7. onDevError
-8. onPropertySet
-9. toObject會吐出更多細節
-
 ## ver 0.3.2
 
 1. collection允許source為array
@@ -21,6 +9,15 @@
 5. collection getOrigins
 6. collection getExports
 7. 新增實驗性功能helper mapping
+8. 修正文件上關於事件傳遞的說明錯誤
+9. 更快的啟動速度與更低的記憶體消耗
+10. 修正collection emit的錯誤
+11. helper setNull
+12. sprite options(save)
+13. copy options
+14. onDevError
+15. onPropertySet
+16. toObject會吐出更多細節
 
 ## ver 0.3.1
 
