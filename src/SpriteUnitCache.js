@@ -1,5 +1,14 @@
 const Sprite = require('./Sprite')
 
+let propertyEvents = []
+let usePropertyEvent = false
+
+function broadcastPropertyEvent(sprite, key, value) {
+    for (let event of propertyEvents) {
+        event({ sprite, key, value })
+    }
+}
+
 function getDefineProperty(name, key) {
     if (name === 'refs') {
         return function() {
@@ -21,12 +30,20 @@ function setDefineProperty(key, protect) {
             if (typeof value === 'function') {
                 return this._sprite.$devError('set', 'Body data not allow function.')
             }
+            if (usePropertyEvent) {
+                broadcastPropertyEvent(this, key, value)
+            }
             this._sprite.body[key] = value
         }
     }
 }
 
-module.exports = function(sprite) {
+exports.onPropertySet = function(event) {
+    usePropertyEvent = true
+    propertyEvents.push(event)
+}
+
+exports.makeSpriteCache = function(sprite) {
     let refs = sprite.options.refs
     let body = sprite.options.body.call(sprite.unit)
     let Unit = class extends Sprite {}

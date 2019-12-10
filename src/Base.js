@@ -1,4 +1,4 @@
-let onDevErrors = []
+const onDevErrors = []
 
 class Base {
     constructor(name) {

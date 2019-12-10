@@ -2,7 +2,7 @@ const Base = require('./Base')
 const Event = require('./Event')
 const Sprite = require('./Sprite')
 const Helper = require('./Helper')
-const SpriteUnitCache = require('./SpriteUnitCache')
+const { makeSpriteCache } = require('./SpriteUnitCache')
 
 class SpriteUnit extends Base {
     constructor(base, options) {
@@ -353,6 +353,11 @@ class SpriteUnit extends Base {
         object.$views = {}
         object.$status = Helper.jpjs(this.status)
         object.$options = Helper.jpjs(this.customOptions)
+        object.$profile = {
+            baseName: this.base.name,
+            hasParent: !!this.parent,
+            containerName: this.base.container.name
+        }
         for (let key in this.unit.$self) {
             object.$self[key] = this.unit.$self[key]
         }
@@ -399,7 +404,7 @@ class SpriteUnit extends Base {
         // 這是一個防止反覆建立精靈屬性的方法
         if (this.base.Unit == null) {
             this.unit = new Sprite(this)
-            this.base.Unit = SpriteUnitCache(this)
+            this.base.Unit = makeSpriteCache(this)
         }
         this.unit = new this.base.Unit(this)
         this.functions = this.base.getMethods(this.unit)

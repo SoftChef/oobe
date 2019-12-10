@@ -1,6 +1,7 @@
 const Base = require('./Base')
 const Core = require('./Oobe')
 const Helper = require('./Helper')
+const { onPropertySet } = require('./SpriteUnitCache')
 
 /**
  * Main export class
@@ -181,5 +182,6 @@ class Oobe extends Base {
 
 Oobe.helper = Helper
 Oobe.onDevError = Base.onDevError
+Oobe.onPropertySet = onPropertySet
 
 module.exports = Oobe
