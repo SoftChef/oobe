@@ -17,6 +17,7 @@
 13. copy options
 14. onDevError
 15. toObject會吐出更多細節
+16. loader新增seek
 
 ## ver 0.3.1
 

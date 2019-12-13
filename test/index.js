@@ -1074,6 +1074,37 @@ describe('#Plugin-Loader', () => {
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
         expect(Object.keys(rawnull.$loader).length).to.equal(0)
     })
+    
+    it('loader seek', function(done) {
+        let user = this.oobe.make('CognitoUser', 'user')
+        expect(user.$loader.name.called).to.equal(false)
+        user.$loader
+            .name
+            .seek()
+            .then(() => {
+                let now = Date.now()
+                expect(user.name).to.equal('456')
+                expect(user.$loader.name.done).to.equal(true)
+                expect(user.$loader.name.error).to.equal(null)
+                expect(user.$loader.name.loading).to.equal(false)
+                setTimeout(() => {
+                    user.$loader
+                        .name
+                        .seek()
+                        .then(() => {
+                            expect(user.name).to.equal('456')
+                            expect(Date.now() - now < 90).to.equal(true)
+                            expect(user.$loader.name.done).to.equal(true)
+                            expect(user.$loader.name.error).to.equal(null)
+                            expect(user.$loader.name.loading).to.equal(false)
+                            done()
+                        })
+                }, 1)
+            })
+        expect(user.$loader.name.done).to.equal(false)
+        expect(user.$loader.name.called).to.equal(true)
+        expect(user.$loader.name.loading).to.equal(true)
+    })
 })
 
 describe('#Other', () => {

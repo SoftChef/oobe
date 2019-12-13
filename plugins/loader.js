@@ -8,6 +8,7 @@ class LoaderCore {
         this.target = target
         this.loading = false
         this.handler = handler
+        this.starting = null
         if (this.type === 'sprite') {
             target.$on('$reset', () => {
                 this.reset()
@@ -42,13 +43,14 @@ class LoaderCore {
         this.done = false
         this.error = null
         this.loading = false
+        this.starting = null
     }
 
     start(args) {
         this.reset()
         this.called = true
         this.loading = true
-        return new Promise((resolve, reject) => {
+        this.starting = new Promise((resolve, reject) => {
             let success = () => {
                 this.close()
                 resolve()
@@ -59,6 +61,7 @@ class LoaderCore {
             }
             this.handler.call(this.target, this.target, success, error, ...args)
         })
+        return this.starting
     }
 }
 
@@ -81,6 +84,29 @@ class Loader {
 
     get loading() {
         return this._core.loading
+    }
+
+    seek(...args) {
+        return new Promise((resolve, reject) => {
+            if (this.done) {
+                if (this.error) {
+                    reject(this.error)
+                } else {
+                    resolve()
+                }
+            } else {
+                if (this.called) {
+                    this._core
+                        .starting
+                        .then(resolve)
+                        .catch(reject)
+                } else {
+                    this.start(...args)
+                        .then(resolve)
+                        .catch(reject)
+                }
+            }
+        })
     }
 
     start(...args) {

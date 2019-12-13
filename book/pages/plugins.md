@@ -120,6 +120,24 @@ export default {
 
 ***
 
+## Seek
+
+seek是一個監聽狀態，若loader沒有過任何宣告，呼叫seek與start相同，如果狀態為called則等待該次呼叫的回傳，當然，如果已經是finish的狀態則直接回傳結果。
+
+> 但無論如何都會回傳promise。
+
+```js
+this.person
+    .$loader
+    .age
+    .seek()
+    .then(() => {
+        // result
+    })
+```
+
+***
+
 ## Event
 
 plugin並不能自行發送event，你可以藉由sprite(或collection)發送事件。
