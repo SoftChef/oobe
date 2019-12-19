@@ -336,6 +336,12 @@ console.log(dave.$self.name) // 'dave'
 
 在make階段的第三個參數可以加入options。
 
+> 大多數的選項都是效能考量，主因來自oobe處理太多有時不太需要的功能。
+
+### save
+
+關閉原始資料與原始狀態的快取，預設：true。
+
 ```js
 let dave = oobe.make('company', 'staff', { save: false }).$born({
     name: 'dave',

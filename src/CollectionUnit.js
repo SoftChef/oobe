@@ -165,9 +165,9 @@ class CollectionUnit extends Base {
      */
 
     write(source, options) {
-        let type = Helper.getType(source)
-        if (type !== 'object' && type !== 'array') {
-            this.$devError('write', 'Source not a object or array.')
+        let type = typeof source
+        if (type !== 'object') {
+            this.$devError('write', 'Source not a object.')
         }
         let sprite = this.generateSprite(source)
         let key = this.getKey(sprite)
@@ -191,7 +191,7 @@ class CollectionUnit extends Base {
     }
 
     batchWrite(items) {
-        if (Helper.getType(items) !== 'array') {
+        if (Array.isArray(items) === false) {
             this.$devError('batchWrite', 'Data not a array.')
         }
         this.status.dirty = true
@@ -201,7 +201,7 @@ class CollectionUnit extends Base {
     }
 
     batchWriteOnlyKeys(key, items) {
-        if (Helper.getType(items) !== 'array') {
+        if (Array.isArray(items) === false) {
             this.$devError('batchWriteOnlyKeys', 'Data not a array.')
         }
         this.status.dirty = true

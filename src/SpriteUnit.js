@@ -25,6 +25,10 @@ class SpriteUnit extends Base {
         this.init()
     }
 
+    emit(name, args) {
+        this.event.emit(this.unit, name, args)
+    }
+
     setCustomOptions(options) {
         this.customOptions = Helper.verify(options || {}, {
             save: [false, ['boolean'], true]
@@ -136,7 +140,7 @@ class SpriteUnit extends Base {
             dist = this.dist
         }
         let result = dist.options.export.apply(this.unit, args)
-        this.event.emit(this.unit, '$export', [{ result, dist: dist.name }])
+        this.emit('$export', [{ result, dist: dist.name }])
         return result
     }
 
@@ -236,7 +240,7 @@ class SpriteUnit extends Base {
             } else {
                 this.setBody(this.dataParse(this.rawData))
             }
-            this.event.emit(this.unit, '$reset')
+            this.emit('$reset')
         }
     }
 
@@ -267,7 +271,7 @@ class SpriteUnit extends Base {
 
     setError(data) {
         this.status.error = data || 'Unknown error'
-        this.event.emit(this.unit, '$error', [data])
+        this.emit('$error', [data])
     }
 
     put(data) {
@@ -340,9 +344,11 @@ class SpriteUnit extends Base {
             this.setBody(data)
             this.rawBody = this.dataStringify(this.body)
             this.rawData = this.dataStringify(data)
-            this.base.options.created.call(this.unit)
+            if (this.base.options.created) {
+                this.base.options.created.call(this.unit)
+            }
             this.status.ready = true
-            this.event.emit(this.unit, '$ready')
+            this.emit('$ready')
             return this
         }
     }
@@ -384,7 +390,7 @@ class SpriteUnit extends Base {
         this.rawData = null
         this.propertyNames = this.body ? Object.keys(this.body) : []
         this.status.init = true
-        this.event.emit(this.unit, '$init', [this.unit])
+        this.emit('$init', [this.unit])
     }
 
     initEvent() {

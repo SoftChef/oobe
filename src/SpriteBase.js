@@ -39,7 +39,7 @@ class SpriteBase extends Base {
             rules: [false, ['object'], {}],
             origin: [false, ['function'], function() { return this.$body() }],
             methods: [false, ['object'], {}],
-            created: [false, ['function'], () => {}],
+            created: [false, ['function'], null],
             collection: [false, ['object'], {}],
             defaultView: [false, ['function'], null],
             errorMessage: [false, ['function'], data => data]
