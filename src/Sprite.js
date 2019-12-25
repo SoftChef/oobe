@@ -25,6 +25,12 @@ class Sprite {
         return this._sprite.views
     }
 
+    /** map data */
+
+    get $map() {
+        return this._sprite.options.map
+    }
+
     /** Views */
 
     get $views() {

@@ -8,7 +8,8 @@ const CollectionUnit = require('./CollectionUnit')
 
 /**
  * @namespace SpriteBase
- * @property {function} body Data structure.
+ * @property {function} [body] Data structure.
+ * @property {object} [map]
  * @property {object.<string>} [refs]
  * @property {object.<fn>} [views]
  * @property {object.<array>} [rules]
@@ -20,6 +21,8 @@ const CollectionUnit = require('./CollectionUnit')
  * @property {function} [born]
  * @property {function} [origin]
  * @property {function} [created]
+ * @property {function} [defaultView]
+ * @property {function} [errorMessage]
  */
 
 class SpriteBase extends Base {
@@ -30,7 +33,8 @@ class SpriteBase extends Base {
         this.cache = null
         this.container = container
         this.options = Helper.verify(options, {
-            body: [true, ['function']],
+            map: [false, ['object'], {}],
+            body: [false, ['function'], () => ({})],
             refs: [false, ['object'], {}],
             self: [false, ['function'], () => ({})],
             born: [false, ['function'], data => data],

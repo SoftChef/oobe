@@ -351,6 +351,39 @@ let dave = oobe.make('company', 'staff', { save: false }).$born({
 dave.$isChange() // Error, 因為原始資料cache被取消了
 ```
 
+## Map
+
+Map是一個沒有任何功能的物件，主要是鍵值映射功能。
+
+> 如果遵照良好的設計模式，Map也可以用於查找鍵值。
+
+```js
+let sprite = {
+    map: {
+        name: 'string'
+    },
+    body() {
+        return this.$helper.setNull(this.$map)
+    }
+}
+```
+
+### 注意指向對象
+
+Ｍap是一個長恆的物件，在實體化sprite後並不會建立新的map，因此必須注意引用：
+
+```js
+let spirte = {
+    map: {
+        name: 'string'
+    },
+    body() {
+        // 這樣會導致所有的sprite都指向同一個map，導致系統癱瘓。
+        return this.$map
+    }
+}
+```
+
 ## 總結
 
 恭喜下班，Dave辛苦了，我們來看看Staff這個sprite最終呈現的模樣。

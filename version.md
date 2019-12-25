@@ -18,6 +18,7 @@
 14. onDevError
 15. toObject會吐出更多細節
 16. loader新增seek
+17. map attr
 
 ## ver 0.3.1
 
