@@ -168,6 +168,11 @@ describe('#Sprite', () => {
         expect(() => { sprite2.$isChange() }).to.throw(Error)
     })
 
+    it('map', function() {
+        let sprite = this.oobe.make('CognitoUser', 'user')
+        expect(sprite.$map.name).to.equal('string')
+    })
+
     it('isUs', function() {
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
         expect(this.user._sprite.base.isUs(this.user)).to.equal(true)

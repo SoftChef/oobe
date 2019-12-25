@@ -1,4 +1,8 @@
 module.exports = {
+    map: {
+        name: 'string'
+    },
+
     body() {
         return {
             name: ''
