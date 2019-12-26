@@ -259,11 +259,12 @@ class Collection {
 
     /**
      * Sprtie to key.
+     * @param {object} data
      * @returns {string}
      */
 
-    toKey(sprite) {
-        return this._collection.options.key(sprite)
+    toKey(data) {
+        return this._collection.options.key(data)
     }
 }
 
