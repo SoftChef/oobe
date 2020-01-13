@@ -118,6 +118,36 @@ class Loader {
     }
 }
 
+class LoaderCase {
+    constructor() {
+        this._properties = []
+    }
+
+    get $error() {
+        for (let key of this._properties) {
+            if (this[key].error) {
+                return {
+                    key,
+                    value: this[key].error
+                }
+            }
+        }
+        return null
+    }
+
+    get $loading() {
+        for (let key of this._properties) {
+            if (this[key].loading) {
+                return {
+                    key,
+                    value: this[key].loading
+                }
+            }
+        }
+        return null
+    }
+}
+
 module.exports = class {
     constructor(oobe) {
         this.oobe = oobe
@@ -149,13 +179,14 @@ module.exports = class {
 
     get(type, target, containerName, name) {
         let config = this.loaders.get(this.key(containerName, name)) || {}
-        let loaders = {}
+        let loaders = new LoaderCase()
         if (config[type] == null) {
             return loaders
         }
         let map = config[type]
         for (let key in map) {
             loaders[key] = new Loader(type, target, key, map[key])
+            loaders.properties.push(key)
         }
         return loaders
     }
