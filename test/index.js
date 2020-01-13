@@ -1039,12 +1039,14 @@ describe('#Plugin-Loader', () => {
                 expect(user.loader.name.done).to.equal(true)
                 expect(user.loader.name.error).to.equal(null)
                 expect(user.loader.name.loading).to.equal(false)
+                expect(!!user.loader.$loading).to.equal(false)
                 done()
             })
             .catch(done)
         expect(user.loader.name.done).to.equal(false)
         expect(user.loader.name.called).to.equal(true)
         expect(user.loader.name.loading).to.equal(true)
+        expect(!!user.loader.$loading).to.equal(true)
     })
 
     it('loader error', function(done) {
@@ -1057,6 +1059,7 @@ describe('#Plugin-Loader', () => {
             })
             .catch((error) => {
                 expect(error).to.equal('OuO')
+                expect(user.$loader.$error.value).to.equal('OuO')
                 expect(user.$loader.nameError.done).to.equal(true)
                 expect(user.$loader.nameError.error).to.equal('OuO')
                 expect(user.$loader.nameError.loading).to.equal(false)
@@ -1075,9 +1078,9 @@ describe('#Plugin-Loader', () => {
             }
         })
         let test = this.oobe.make('Test', 'test')
-        expect(Object.keys(test.$loader).length).to.equal(0)
+        expect(Object.keys(test.$loader).length).to.equal(1)
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
-        expect(Object.keys(rawnull.$loader).length).to.equal(0)
+        expect(Object.keys(rawnull.$loader).length).to.equal(1)
     })
     
     it('loader seek', function(done) {

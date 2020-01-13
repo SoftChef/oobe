@@ -186,7 +186,7 @@ module.exports = class {
         let map = config[type]
         for (let key in map) {
             loaders[key] = new Loader(type, target, key, map[key])
-            loaders.properties.push(key)
+            loaders._properties.push(key)
         }
         return loaders
     }
