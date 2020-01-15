@@ -2,7 +2,7 @@ const expect = require('chai').expect
 const Oobe = require('../src/Main')
 const Package = require('./fake/rules')
 const RawData = require('./fake/data.json')
-const Loader = require('../plugins/loader')
+// const Loader = require('../plugins/loader')
 const CognitoUser = require('./fake')
 const TestRawOrigin = JSON.stringify({
     Username: 'admin',
@@ -144,7 +144,7 @@ describe('#Core', () => {
     })
 
     it('plugin', function() {
-        this.oobe.plugin(Loader)
+        // this.oobe.plugin(Loader)
     })
 
     it('plugin registered', function() {
@@ -976,82 +976,50 @@ describe('#Plugin-Loader', () => {
         this.oobe.join('CognitoUser', CognitoUser)
     })
 
-    it('add', function() {
-        this.oobe.plugin(Loader)
-    })
-
-    it('set', function() {
-        this.oobe.loader.set('CognitoUser', 'user', {
-            sprite: {
-                name(sprite, done) {
-                    setTimeout(() => {
-                        sprite.name = '456'
-                        done()
-                    }, 100)
-                },
-                nameError(sprite, done, error) {
-                    setTimeout(() => {
-                        error('OuO')
-                    }, 100)
-                }
-            },
-            collection: {
-                name(collection, done) {
-                    setTimeout(() => {
-                        collection.forEach(sprite => {
-                            sprite.name = '456'
-                        })
-                        done()
-                    }, 100)
-                }
-            }
-        })
-    })
-
     it('loader', function(done) {
         let user = this.oobe.make('CognitoUser', 'user')
-        expect(user.$loader.name.called).to.equal(false)
-        user.$loader
+        expect(user.$o.name.called).to.equal(false)
+        user.$o
             .name
             .start()
             .then(() => {
                 expect(user.name).to.equal('456')
-                expect(user.$loader.name.done).to.equal(true)
-                expect(user.$loader.name.error).to.equal(null)
-                expect(user.$loader.name.loading).to.equal(false)
+                expect(user.$o.name.done).to.equal(true)
+                expect(user.$o.name.error).to.equal(null)
+                expect(user.$o.name.loading).to.equal(false)
                 done()
             })
             .catch(done)
-        expect(user.$loader.name.done).to.equal(false)
-        expect(user.$loader.name.called).to.equal(true)
-        expect(user.$loader.name.loading).to.equal(true)
+        expect(user.$o.name.done).to.equal(false)
+        expect(user.$o.name.called).to.equal(true)
+        expect(user.$o.name.loading).to.equal(true)
     })
 
     it('loader collection', function(done) {
         let user = this.oobe.collection('CognitoUser', 'user')
-        expect(user.loader.name.called).to.equal(false)
+        expect(user.loaders.name.called).to.equal(false)
         user.write({ name: '123' })
-        user.loader
+        user.loaders
             .name
             .start()
             .then(() => {
                 expect(user.items[0].name).to.equal('456')
-                expect(user.loader.name.done).to.equal(true)
-                expect(user.loader.name.error).to.equal(null)
-                expect(user.loader.name.loading).to.equal(false)
-                expect(!!user.loader.$loading).to.equal(false)
+                expect(user.loaders.name.done).to.equal(true)
+                expect(user.loaders.name.error).to.equal(null)
+                expect(user.loaders.name.loading).to.equal(false)
+                expect(!!user.loaders.$loading).to.equal(false)
                 done()
             })
             .catch(done)
-        expect(user.loader.name.done).to.equal(false)
-        expect(user.loader.name.called).to.equal(true)
-        expect(user.loader.name.loading).to.equal(true)
-        expect(!!user.loader.$loading).to.equal(true)
+        expect(user.loaders.name.done).to.equal(false)
+        expect(user.loaders.name.called).to.equal(true)
+        expect(user.loaders.name.loading).to.equal(true)
+        expect(!!user.loaders.$loading).to.equal(true)
     })
 
     it('loader error', function(done) {
         let user = this.oobe.make('CognitoUser', 'user')
-        user.$loader
+        user.$loaders
             .nameError
             .start()
             .then(() => {
@@ -1059,14 +1027,14 @@ describe('#Plugin-Loader', () => {
             })
             .catch((error) => {
                 expect(error).to.equal('OuO')
-                expect(user.$loader.$error.value).to.equal('OuO')
-                expect(user.$loader.nameError.done).to.equal(true)
-                expect(user.$loader.nameError.error).to.equal('OuO')
-                expect(user.$loader.nameError.loading).to.equal(false)
+                expect(user.$loaders.$error.value).to.equal('OuO')
+                expect(user.$loaders.nameError.done).to.equal(true)
+                expect(user.$loaders.nameError.error).to.equal('OuO')
+                expect(user.$loaders.nameError.loading).to.equal(false)
                 done()
             })
-        expect(user.$loader.nameError.done).to.equal(false)
-        expect(user.$loader.nameError.loading).to.equal(true)
+        expect(user.$loaders.nameError.done).to.equal(false)
+        expect(user.$loaders.nameError.loading).to.equal(true)
     })
 
     it('no register loader', function() {
@@ -1078,40 +1046,40 @@ describe('#Plugin-Loader', () => {
             }
         })
         let test = this.oobe.make('Test', 'test')
-        expect(Object.keys(test.$loader).length).to.equal(1)
+        expect(Object.keys(test.$loaders).length).to.equal(1)
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
-        expect(Object.keys(rawnull.$loader).length).to.equal(1)
+        expect(Object.keys(rawnull.$loaders).length).to.equal(1)
     })
     
     it('loader seek', function(done) {
         let user = this.oobe.make('CognitoUser', 'user')
-        expect(user.$loader.name.called).to.equal(false)
-        user.$loader
+        expect(user.$loaders.name.called).to.equal(false)
+        user.$loaders
             .name
             .seek()
             .then(() => {
                 let now = Date.now()
                 expect(user.name).to.equal('456')
-                expect(user.$loader.name.done).to.equal(true)
-                expect(user.$loader.name.error).to.equal(null)
-                expect(user.$loader.name.loading).to.equal(false)
+                expect(user.$loaders.name.done).to.equal(true)
+                expect(user.$loaders.name.error).to.equal(null)
+                expect(user.$loaders.name.loading).to.equal(false)
                 setTimeout(() => {
-                    user.$loader
+                    user.$loaders
                         .name
                         .seek()
                         .then(() => {
                             expect(user.name).to.equal('456')
                             expect(Date.now() - now < 90).to.equal(true)
-                            expect(user.$loader.name.done).to.equal(true)
-                            expect(user.$loader.name.error).to.equal(null)
-                            expect(user.$loader.name.loading).to.equal(false)
+                            expect(user.$loaders.name.done).to.equal(true)
+                            expect(user.$loaders.name.error).to.equal(null)
+                            expect(user.$loaders.name.loading).to.equal(false)
                             done()
                         })
                 }, 1)
             })
-        expect(user.$loader.name.done).to.equal(false)
-        expect(user.$loader.name.called).to.equal(true)
-        expect(user.$loader.name.loading).to.equal(true)
+        expect(user.$loaders.name.done).to.equal(false)
+        expect(user.$loaders.name.called).to.equal(true)
+        expect(user.$loaders.name.loading).to.equal(true)
     })
 })
 

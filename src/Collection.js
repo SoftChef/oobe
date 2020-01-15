@@ -40,6 +40,12 @@ class Collection {
         return this._collection.methods
     }
 
+    /** Collection loaders. */
+
+    get loaders() {
+        return this._collection.loaders
+    }
+
     /** Utils interface. */
 
     get utils() {

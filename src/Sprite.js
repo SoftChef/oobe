@@ -25,7 +25,19 @@ class Sprite {
         return this._sprite.views
     }
 
-    /** map data */
+    /** Shorthand for $loaders. */
+
+    get $o() {
+        return this._sprite.loaders
+    }
+
+    /** Loaders */
+
+    get $loaders() {
+        return this._sprite.loaders
+    }
+
+    /** Map data */
 
     get $map() {
         return this._sprite.options.map

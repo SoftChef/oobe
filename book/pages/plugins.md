@@ -20,6 +20,8 @@ oobe.plugin(MyFirstPlugin)
 
 ## Loader
 
+> Loader在0.32版本轉為內置系統，請參照Loader Page.
+
 Loader是一個官方擴展套件，若你使用`npm`安裝oobe，則能夠使用以下方法使用Loader:
 
 > 同時Loader也是一個plugin範本，示範如何藉由監聽生命週期來賦予sprite發送請求的能力。

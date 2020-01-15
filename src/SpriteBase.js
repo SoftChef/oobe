@@ -1,6 +1,7 @@
 const Base = require('./Base')
 const Event = require('./Event')
 const Helper = require('./Helper')
+const Loader = require('./Loader')
 const Configs = require('./Configs')
 const SpriteUnit = require('./SpriteUnit')
 const Distortion = require('./Distortion')
@@ -43,6 +44,7 @@ class SpriteBase extends Base {
             rules: [false, ['object'], {}],
             origin: [false, ['function'], function() { return this.$body() }],
             methods: [false, ['object'], {}],
+            loaders: [false, ['object'], null],
             created: [false, ['function'], null],
             collection: [false, ['object'], {}],
             defaultView: [false, ['function'], null],
@@ -150,6 +152,10 @@ class SpriteBase extends Base {
 
     getMethods(unit) {
         return new this.Methods(unit)
+    }
+
+    getLoaders(unit) {
+        return Loader(unit, 'sprite', this.options.loaders)
     }
 
     create(options) {

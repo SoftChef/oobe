@@ -1,6 +1,7 @@
 const Base = require('./Base')
 const Event = require('./Event')
 const Helper = require('./Helper')
+const Loader = require('./Loader')
 const Collection = require('./Collection')
 
 class CollectionUnit extends Base {
@@ -28,8 +29,10 @@ class CollectionUnit extends Base {
         this.options = Helper.verify(base.options.collection, {
             key: [false, ['function', 'string'], '*'],
             write: [false, ['function'], ({ success }) => { success() }],
-            views: [false, ['object'], {}]
+            views: [false, ['object'], {}],
+            loaders: [false, ['object'], null]
         })
+        this.loaders = Loader(this.unit, 'collection', this.options.loaders)
         this.bindWrite = this.options.write.bind(this)
         this.event.emit(this.unit, '$init', [this.unit])
     }

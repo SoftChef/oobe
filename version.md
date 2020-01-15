@@ -19,6 +19,7 @@
 15. toObject會吐出更多細節
 16. loader新增seek
 17. map attr
+18. loader移致內置系統
 
 ## ver 0.3.1
 

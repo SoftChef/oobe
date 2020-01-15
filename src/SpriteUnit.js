@@ -381,9 +381,9 @@ class SpriteUnit extends Base {
      */
 
     init() {
+        this.initEvent()
         this.initUnit()
         this.initBody()
-        this.initEvent()
         this.initStatus()
         this.checkBody()
         this.rawBody = this.dataStringify(this.body)
@@ -413,6 +413,7 @@ class SpriteUnit extends Base {
             this.base.Unit = SpriteUnitCache(this)
         }
         this.unit = new this.base.Unit(this)
+        this.loaders = this.base.getLoaders(this.unit)
         this.functions = this.base.getMethods(this.unit)
         if (this.base.options.defaultView && typeof Proxy !== 'undefined') {
             let defaultView = this.base.options.defaultView
