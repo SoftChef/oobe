@@ -20,6 +20,7 @@
 16. loader新增seek
 17. map attr
 18. loader移致內置系統
+19. 修正batchWriteAsync不會觸發dirty
 
 ## ver 0.3.1
 

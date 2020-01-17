@@ -220,6 +220,7 @@ class CollectionUnit extends Base {
      */
 
     batchWriteAsync(items, ms, parallel) {
+        this.status.dirty = true
         return new Promise((resolve) => {
             let interval = setInterval(() => {
                 for (let i = 0; i < parallel; i++) {
