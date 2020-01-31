@@ -1,21 +1,11 @@
 # Summary
-
 * [介紹](README.md)
-* [開始](./pages/getting_started.md)
-* [語系與規則](./pages/rule_and_locale.md)
-* [協助 - helper](./pages/helper.md)
-* [精靈 - sprite](./pages/sprite.md)
 * [容器 - container](./pages/container.md)
-* [事件 - event](./pages/event.md)
-* [集合 - collection](./pages/collection.md)
-* [載入 - loader](./pages/loaders.md)
-* [插件 - plugins](./pages/plugins.md)
-* [系統 - system](./pages/system.md)
 ***
-* [實戰vue](./experience/vue.md)
-* [統一form](./experience/form.md)
-* [狀態vuex](./experience/vuex.md)
-* [列表collection](./experience/list.md)
+精靈 - sprite
+* [建立](./pages/sprite.md)
+* [操作](./pages/sprite.md)
+* [進階](./pages/sprite.md)
 ***
 * [npm](https://www.npmjs.com/package/oobe)
 * [github](https://github.com/SoftChef/oobe)

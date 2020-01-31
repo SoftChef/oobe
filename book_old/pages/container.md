@@ -1,8 +1,12 @@
 # Container
 
+`container`是`Out-of-Box Experience`的精隨，由`container`封裝的精靈組可以在任何的oobe專案內游離，包刮後端。
+
+延續上一節的Staff精靈，接下來將更正規化整個架構，首先我們先建立`company`這個`container`，並告知它有`staff`與`unit`兩種精靈可以建立。
+
 ```js
 let company = {
-    sprites: {}
+    sprites: { staff, unit }
 }
 ```
 
