@@ -7,7 +7,13 @@ Sprite是oobe的Model單元，負責定義結構與方法。
 * 私有屬性：[Self](#self)
 * 私有方法：[Methods](#methods)、[Views](#views)
 * 驗證規則：[Rule](#rule)
-* 事件處理：[On](#on)、[Off](#off)、[Emit](#emit)
+
+進階操作會讓Sprite的複雜度直接上一個層次，但也能使整理操作與檢視的完整性提升一個層次。
+
+* 鍵值映射：Map
+* 狀態變化：Export、Distortion
+* 狀態管理：Loader
+* 錯誤處理：ErrorMessage
 
 ---
 
@@ -477,16 +483,6 @@ Sprite可以宣告`$rules()`回傳一組驗證方法，如果是[Vuetify](http:/
     <v-text-field :rules="sprite.$rules()"></v-text-field>
 </v-form>
 ```
-
----
-
-### 事件處理
-
-#### On
-
-#### Off
-
-#### Emit
 
 ---
 

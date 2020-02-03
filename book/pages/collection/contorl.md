@@ -1,51 +1,37 @@
 ## Sprite Contorl
 
-* 流程處理
-  * `$born`
-  * `$toOrigin`
-  * `$setError`
-  * `$out`
-  * `$revive`
-  * `$dead`
-* 表單操作
-  * `$dist($distortion)`
-  * `$isChange`
-  * `$export`
-  * `$validate`
-  * `$isFixed`
-  * `$isHidden`
-  * `$reset`
-  * `$rules`
-  * `$show`
-* 視圖呈現：
-  * `$v($view)`
-  * `$o($loaders)`
-  * `$meg`
-* 資料處理：
-  * `$body`
-  * `$copy`
-  * `$keys`
-  * `$put`
-  * `$raw`
-  * `$toObject`
-  * `$map`
-* 方法處理：
-  * `$bind`
-  * `$helper`
 * 事件處理：
-  * `$on`
-  * `$off`
-  * `$emit`
+  * `on`
+  * `off`
+  * `emit`
 * 其他：
-  * `$config`
-  * `$distName`
-  * `$error`
-  * `$fn`
-  * `$live`
-  * `$parent`
-  * `$ready`
-  * `$self`
-  * `$utils`
+  * `size`
+  * `items`
+  * `dirty`
+  * `views`
+  * `methods`
+  * `loaders`
+  * `utils`
+  * `configs`
+  * `helper`
+  * `parent`
+  * `setDirty`
+  * `forEach`
+  * `getBodys`
+  * `getOrigins`
+  * `getExports`
+  * `isChange`
+  * `validate`
+  * `distAll`
+  * `has`
+  * `fetch`
+  * `write`
+  * `batchWrite`
+  * `batchWriteOnlyKeys`
+  * `batchWriteAsync`
+  * `remove`
+  * `clear`
+  * `toKey`
 
 ---
 
