@@ -287,8 +287,6 @@ console.log(sprite.metadatas.$fn.isAdult()) // true
 
 [Example](https://softchef.github.io/oobe/example/)
 
-[Document](https://softchef.github.io/oobe/docs/)
-
 [Getting started(TW)](https://softchef.github.io/oobe/started/)
 
 ---

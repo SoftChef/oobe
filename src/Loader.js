@@ -26,15 +26,15 @@ class LoaderCore {
         if (error) {
             this.error = error
             if (this.type === 'sprite') {
-                this.target.$emit('$loader.error', [{ name: this.name, error }])
+                this.target.$emit('$loaderError', [{ name: this.name, error }])
             } else {
-                this.target.emit('$loader.error', [{ name: this.name, error }])
+                this.target.emit('$loaderError', [{ name: this.name, error }])
             }
         } else {
             if (this.type === 'sprite') {
-                this.target.$emit('$loader.success', [{ name: this.name }])
+                this.target.$emit('$loaderSuccess', [{ name: this.name }])
             } else {
-                this.target.emit('$loader.success', [{ name: this.name }])
+                this.target.emit('$loaderSuccess', [{ name: this.name }])
             }
         }
     }

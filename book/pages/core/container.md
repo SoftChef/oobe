@@ -1,14 +1,20 @@
 # Container
 
-```js
-let company = {
-    sprites: {}
-}
-```
+`container`是一個組(Group)，意味著它可以定義通用資料於同群組`sprite`中，包括在規則與語系共享。
 
-## 與Sprite互動
+* Structure
+  * rules
+  * utils
+  * dists
+  * sprites
+  * locales
+  * configs
+  * methods
+  * install
+  * interface
+  * collectionMethods
 
-`container`是一個組(Group)，意味著它可以定義通用資料於同群組`sprite`中，包括在[rule&locale](./rule_and_locale.md)章節中提到的規則與語系共享。
+---
 
 ### 設定 - Config
 
