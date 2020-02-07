@@ -1,6 +1,6 @@
 ## Sprite
 
-Sprite是oobe的Model單元，負責定義結構與方法。
+Sprite是`oobe`的Model單元，負責定義結構與方法。
 
 * 定義結構：[Body](#body)、[Refs](#refs)
 * 生命週期：[Born](#born)、[Origin](#origin)、[Created](#created)
@@ -440,7 +440,7 @@ console.log(user.$validate().result)
 
 ##### 自定義驗證規則
 
-在驗證陣列中可以直接添加`function`來做客製的驗證，回傳`true`為通過，`String`意味著錯誤與訊息：
+在驗證陣列中可以直接添加`function`來做客製的驗證，方法可見@Rule：
 
 > 當然如果你想客製化一組通用驗證規則，可見@package。
 

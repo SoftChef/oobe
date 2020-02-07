@@ -3,10 +3,9 @@
 * 開始
   * [實例化與引用專案](#%e5%af%a6%e4%be%8b%e5%8c%96%e8%88%87%e5%bc%95%e7%94%a8%e5%b0%88%e6%a1%88)
   * [引用oobe](#%e5%bc%95%e7%94%a8oobe)
-* 註冊
-  * [Container - `join`](#join)
-  * [Package - `addon`](#addon)
-  * [Plugin - `plugin`](#plugin)
+  * [註冊Container ( join )](#join)
+  * [註冊Package ( addon )](#addon)
+  * [註冊Plugin ( plugin )](#plugin)
 * 建立
   * [`make`](#make)
   * [`batch`](#batch)

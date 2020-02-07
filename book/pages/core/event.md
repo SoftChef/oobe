@@ -1,22 +1,18 @@
-## Sprite Event
-
-* On
-* Once
-* Off
-* Emit
-* 冒泡傳遞
-
 ## Event
 
-* Listener
+在建立@Oobe、@Sprite、@Collection等都能接收或發送Event，以下是通用邏輯：
 
-### How To Use
+* 監聽事件：[On](#on)
+* 移除監聽：[Off](#off)
+* 發送事件：[Emit](#emit)
 
-#### On
+---
+
+### On
 
 監聽發送的事件，事件會藉由`callback`獲取。
 
-> 在系統會發送開頭以`$`命名的事件：
+> 在系統會發送開頭以`$`命名的事件。
 
 ```js
 let sprite = oobe.make(...)
@@ -24,26 +20,67 @@ sprite.$on('$ready', () => console.log('ready'))
 sprite.$born() // 'ready'
 ```
 
-##### 事件接收
+#### Once
 
-接收的`callback`第一個參數為@Event對象。
+只觸發一次事件，不需要觸發後手動關閉：
 
-> `$on`呼叫後會回傳@Listener。
+```js
+// ...
+sprite.$onOnce('somethingEvent', event => {})
+// ...
+```
+
+#### 事件接收
+
+接收的`callback`第一個參數固定為Event對象。
 
 ```js
 let sprite = oobe.make(...)
-let listener = sprite.$on('$ready', (listener, ...args) => {
-    console.log(listener.id) // xxxxx-xx-xx-xxxxx
+let listener = sprite.$on('$ready', (event, ...args) => {
+    console.log(event.listener.id) // xxxxx-xx-xx-xxxxx
 })
 ```
 
-#### Off
+| Param        | Type                 | Description             |
+| ---          | ---                  | ---                     |
+| type         | string               | Event caller type.      |
+| target       | sprite or collection | 發送事件的對象             |
+| context      | object               | 冒泡傳遞的事件上下文        |
+| listener     | string               | _No description_        |
+| listener.id  | function             | 事件id                  |
+| listener.off | function             | 關閉事件                 |
+
+#### 冒泡傳遞
+
+所有的事件都會向上傳遞，最後傳到`oobe`被觸發，冒泡途徑是這樣的：
+
+```bash
+unit or collection(實例化對象) -> sprite -> container -> core
+```
+
+所以要在`oobe`監聽到`sprite $ready`事件，只要如下定義：
+
+```js
+let oobe = new Oobe()
+let sprite = { ... }
+oobe.join('demo', {
+    sprites: { sprite }
+})
+oobe.on('container.sprite.unit.$ready', () => {
+    console.log('hello')
+})
+oobe.make('demo', 'sprite').$born() // hello
+```
+
+---
+
+### Off
 
 關閉監聽，方法有以下幾種：
 
 ```js
 // ...
-sprite.$on('$ready', { listener } => listener.off())
+sprite.$on('$ready', ({ listener }) => listener.off())
 // ...
 ```
 
@@ -68,19 +105,11 @@ listener.off()
 // ...
 ```
 
-##### Once
+---
 
-只觸發一次事件，不需要觸發後手動關閉：
+### Emit
 
-```js
-// ...
-sprite.$onOnce('somethingEvent', event => {})
-// ...
-```
-
-#### Emit
-
-你也可以自定義自己的事件：
+你也可以自定義發送事件：
 
 ```js
 // ...
@@ -89,49 +118,4 @@ sprite.$on('myEvent', (event, p1, p2, p3) => {
 })
 sprite.$emit('myEvent', 1, 2, 3)
 // ...
-```
-
-## 冒泡傳遞
-
-所有的事件都會向上傳遞，最後傳到core被觸發。
-
-冒泡途徑是這樣的：
-
-unit or collection(實例化對象) -> sprite -> container -> core
-
-所以要在core監聽到sprite born事件，只要如下定義：
-
-```js
-let oobe = new Oobe()
-let sprite = { ... }
-oobe.join('demo', {
-    sprites: { sprite }
-})
-oobe.on('container.sprite.unit.$ready', () => {
-    console.log('hello')
-})
-oobe.make('demo', 'sprite').$born() // hello
-```
-
----
-
-### Event
-
-#### channelName
-
-#### Listener
-
-該物件有[`off`](#off)與`id`兩個屬性，而之後的屬性則由發送者決定。
-
-```js
-{
-    listener: {
-        id: 'xxxxx-xxx-xxx-xxxxxxx',
-        off: Off
-    },
-    channelName: '$error',
-    target: Sprite || Collection,
-    context: Event || undefined,
-    type: 'unit'
-}
 ```

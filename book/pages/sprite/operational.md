@@ -589,12 +589,12 @@ user.name = 'dave'
 console.log(result.$views.name) // steve
 ```
 
-#### $config
+#### $configs
 
-該對象會指向@container的@config。
+該對象會指向@container的@configs。
 
 ```js
-sprite.$toObject() => Object
+sprite.$configs => Object
 ```
 
 #### $distName

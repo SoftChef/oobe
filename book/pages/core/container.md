@@ -2,106 +2,236 @@
 
 `container`是一個組(Group)，意味著它可以定義通用資料於同群組`sprite`中，包括在規則與語系共享。
 
-* Structure
-  * rules
-  * utils
-  * dists
-  * sprites
-  * locales
-  * configs
-  * methods
-  * install
-  * interface
-  * collectionMethods
+  * 精靈群組：[Sprites](#sprites)
+  * 規則群組：[Rules](#rules)
+  * 語系群組：[Locales](#locales)
+  * 設定參數：[Configs](#configs)
+  * 擴增狀態：[Dists](#dists)
+  * 資料交換：[Install](#install)
+  * 通用方法：[Methods](#methods)、[Collection Methods](#collection-methods)
+  * 擴展工具：[Utils](#utils)
+  * 規範介面：[Interface](#interface)
 
 ---
 
-### 設定 - Config
+### Sprites
 
-`Config`協助我們定義一些開發環境或者是固定的資料，例如公司統編。
+@Sprite的集合。
 
-```js
-let company = {
-    sprites: { staff, unit },
-    configs: {
-        vat_number: '94879487'
-    }
-}
-console.log(dave.$configs.vat_number) // 94879487
-```
-
-#### 資料交換 - Install
-
-但是這個模型可能會套用在眾多公司的系統上，統編就不能寫死，`install`這個週期會在引入core時觸發，並協助交換`configs`。
+> Sprites是必要的參數。
 
 ```js
-let company = {
-    sprites: { staff, unit },
-    configs: {
-        vat_number: ''
-    },
-    install(configs, options) {
-        configs.vat_number = options.vat_number
-        return 'success'
-    }
-}
-let result = oobe.join('company', company, {
-    vat_number: '54875487'
-})
-console.log(result) // 'success'
-console.log(dave.$configs.vat_number) // 54875487
-```
-
-### 通用方法 - Method
-
-在`container`定義的方法會在建立`sprite`時轉移過去，若`sprite`定義了相同的方法，則`sprite`優先。
-
-```js
-let company = {
-    sprites: { staff, unit },
-    methods: {
-        bodyToPrettyJSON() {
-            return JSON.stringify(this.$body(), null, 4)
+// 建立sprite
+let sprite = {
+    body() {
+        return {
+            a: ''
         }
     }
 }
-console.log(dave.$fn.bodyToPrettyJSON())
-/* 
-{
-    "name": "Dave"
+// 建立container
+let container = {
+    sprites: {
+        sprite
+    }
 }
-*/
+// 註冊進core
+oobe.join('container', container)
+let mySprite = oobe.make('container', 'sprite')
 ```
 
-### 工具組 - Util
+---
 
-`Util`是一個擴展外掛接口，與method不同的點在於它並不會強制將`this`導向`sprite`，另一個目的是我們並不鼓勵把套件從精靈引入，這樣會使的開發人員有機會的錯過某項依賴套件。
+### Rules
+
+參數驗證方法，詳細方法可見@Rule。
+
+> 在同一個Container內的@Sprite可以共享驗證規則。
+
+```js
+let container = {
+    // ...
+    rules: {
+        string(value) {
+            return typeof value === 'string' ? true : 'Not a string.'
+        }
+    }
+    // ...
+}
+let sprite = {
+    body() {
+        return {
+            name: ''
+        }
+    },
+    rules: {
+        name: ['string']
+    }
+}
+// ...
+let user = oobe.make('container', 'sprite').$born({ name: 'steve' })
+console.log(user.$validate().success) // true
+```
+
+---
+
+### Locales
+
+Sprite可以共享的語系群組，詳細方法可見@Locale。
+
+> Sprite無法自行定義Locale。
+
+```js
+let container = {
+    // ...
+    locales: {
+        'en-us': {
+            'hw': 'hello world.'
+        },
+        'zh-tw': {
+            'hw': '你好，世界。'
+        }
+    }
+    // ...
+}
+// ...
+sprite.$meg('hw') // 'hello world.'
+```
+
+---
+
+### Configs
+
+協助定義一些開發環境或者是固定的資料，例如公司統編。
+
+```js
+let container = {
+    // ...
+    sprites: { mySprite },
+    configs: {
+        vatNumber: '12345678'
+    }
+    // ...
+}
+console.log(sprite.$configs.vatNumber) // 12345678
+```
+
+---
+
+### Dists
+
+一般的@Sprite只能定義`read`、`create`、`update`、`delete`四個狀態，該屬性允許擴增定義的。
+
+```js
+let container = {
+    // ...
+    dists: ['newDist']
+    // ...
+}
+let sprtie = {
+    dists: {
+        newDist: { ... }
+    }
+}
+```
+
+---
+
+#### Install
+
+`install`這個週期會在引入@oobe時觸發，並協助交換`configs`。
+
+```js
+let container = {
+    // ...
+    configs: {
+        vatNumber: ''
+    },
+    install(configs, options) {
+        configs.vatNumber = options.vatNumber
+        return 'success'
+    }
+    // ...
+}
+let result = oobe.join('container', container, {
+    vatNumber: '12345678'
+})
+console.log(result) // 'success'
+// ...
+console.log(sprite.$configs.vatNumber) // 12345678
+```
+
+---
+
+### Methods
+
+在Container定義的方法會在建立Sprite時轉移過去，若Sprite定義了相同的方法，則Sprite優先。
+
+```js
+let container = {
+    // ...
+    configs: {
+        vatNumber: '12345678'
+    },
+    methods: {
+        getVatNumber() {
+            // this指向實例化的精靈
+            return this.$configs.getVatNumber
+        }
+    }
+    // ...
+}
+// ...
+sprite.$fn.getVatNumber() // 12345678
+```
+
+---
+
+### Collection Methods
+
+如同[Methods](#methods)的@Collection版本。
+
+```js
+let container = {
+    // ...
+    configs: {
+        vatNumber: '12345678'
+    },
+    collectionMethods: {
+        getVatNumber() {
+            // this指向實例化的精靈
+            return this.$configs.getVatNumber
+        }
+    }
+    // ...
+}
+// ...
+collection.methods.getVatNumber() // 12345678
+```
+
+---
+
+### Utils
+
+`Utils`是一個擴展外掛接口，與[Method](#methods)不同的點在於它並不會強制將`this`導向`sprite`或`collection`，另一個目的是我們並不鼓勵把套件從精靈引入，這樣會使的開發人員有機會的錯過某項依賴套件。
 
 ```js
 // 在 container 宣告引用moment可以幫助開發人員了解依賴套件。
 import moment from 'moment'
-let company = {
-    sprites: { staff, unit },
+let container = {
+    // ...
     utils: { moment }
+    // ...
 }
-console.log(dave.$utils.moment) // print moment module
+
+console.log(sprite.$utils.moment) // moment module
 ```
 
-## 限制歧變 - Dists
+---
 
-除了系統建構的CRUD之外，隨意呼叫任何的`distortion`都會擲出錯誤，若需要擴展更多的狀態，必須在`container`中宣告。
+### Interface
 
-```js
-let company = {
-    sprites: { staff, unit },
-    dists: ['adminUpdate']
-}
-dave.$distortion('adminUpdate') // success
-```
-
-## 規範介面 - Interface
-
-Interface可以規範Sprite必須實作某些方法。
+Interface可以規範@Sprite必須實作某些方法，如果不符規則會擲出錯誤。
 
 ```js
 let interface = {
@@ -126,33 +256,5 @@ let container = {
     sprites: { sprtie },
     interface
 }
-
 oobe.join('interface', container) // (☉д⊙)!! Oobe::Container => initSprites -> Interface error for : views[name]
 ```
-
-## 總結
-
-以下開始技術總結：
-
-```js
-import moment from 'moment'
-let company = {
-    sprites: { staff, unit },
-    configs: {
-        vat_number: ''
-    },
-    install(configs, options) {
-        configs.vat_number = options.vat_number
-        return 'success'
-    },
-    methods: {
-        bodyToPrettyJSON() {
-            return JSON.stringify(this.$body(), null, 4)
-        }
-    },
-    utils: { moment },
-    dists: ['adminUpdate']
-}
-```
-
-定義完`container`後教學就可以算是結束了，了解`container`的分離結構是oobe最重要的課題，未來會更強化這部分。
