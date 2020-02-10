@@ -1,6 +1,6 @@
 ## Sprite Events
 
-Sprite的系統事件，細節可見@Event。
+Sprite的系統事件，細節可見[Event](../core/event.md)。
 
   * [`$ready`](#ready)
   * [`$export`](#export)
@@ -12,9 +12,9 @@ Sprite的系統事件，細節可見@Event。
 
 ---
 
-### $ready
+#### $ready
 
-在呼叫@$born後觸發。
+在呼叫[`$born`](./operational.md#born)後觸發。
 
 ```js
 sprite.$on('$ready', (event) => { ... })
@@ -23,9 +23,9 @@ sprite.$born()
 
 ---
 
-### $export
+#### $export
 
-宣告@$export時觸發。
+宣告[`$export`](./operational.md#export)時觸發。
 
 ```js
 sprite.$on('$export', (event, data) => { ... })
@@ -40,9 +40,9 @@ sprite.$export()
 
 ---
 
-### $reset
+#### $reset
 
-當宣告@$reset時觸發。
+當宣告[`$reset`](./operational.md#reset)時觸發。
 
 ```js
 sprite.$on('$reset', (event) => { ... })
@@ -50,9 +50,9 @@ sprite.$on('$reset', (event) => { ... })
 
 ---
 
-### $error
+#### $error
 
-在觸發@$setError時觸發。
+在觸發[$setError](./operational.md#seterror)時觸發。
 
 ```js
 sprite.$on('$error', (event, error) => { ... })
@@ -60,13 +60,13 @@ sprite.$on('$error', (event, error) => { ... })
 
 | Param         | Type    | Description           |
 | ---           | ---     | ---                   |
-| error         | any     | `$setError`時輸入的對象 |
+| error         | any     | `$setError`攜帶的參數   |
 
 ---
 
-### $init
+#### $init
 
-在@Core宣告@make或@collection.write時會被創造的Sprite對象會觸發該事件。
+在Core宣告[`make`](../core/oobe.md#make)或Collection宣告[`write`](../collection/operational.md#write)系列時會被創造的Sprite對象會觸發該事件。
 
 ```js
 sprite.$on('$init', (event, target) => { ... })
@@ -78,9 +78,9 @@ sprite.$on('$init', (event, target) => { ... })
 
 ---
 
-### $loaderSuccess
+#### $loaderSuccess
 
-當@Loader成功宣告`done`的當下觸發。
+當[Loader](../sprite/structure.md#loaders)成功宣告`done`的當下觸發。
 
 ```js
 sprite.$on('$loaderSuccess', (event, data) => { ... })
@@ -93,9 +93,9 @@ sprite.$on('$loaderSuccess', (event, data) => { ... })
 
 ---
 
-###  $loaderError
+####  $loaderError
 
-當@Loader成功宣告`error`的當下觸發。
+當[Loader](../sprite/structure.md#loaders)成功宣告`error`的當下觸發。
 
 ```js
 sprite.$on('$loaderError', (event, data) => { ... })

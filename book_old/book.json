@@ -1,8 +1,0 @@
-{
-    "title": "oobe",
-    "extension": null,
-    "plugins": ["-sharing"],
-    "links": {
-        "sidebar": false
-    }
-}

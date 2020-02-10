@@ -1,6 +1,6 @@
 ## Collection Events
 
-Collection的系統事件，細節可見@Event。
+Collection的系統事件，細節可見[Event](../core/event.md)。
 
  * [`$init`](#init)
  * [`$writeSuccess`](#writesuccess)
@@ -14,22 +14,22 @@ Collection的系統事件，細節可見@Event。
 
 ---
 
-### $init
+#### $init
 
-在@Core宣告@collection時會被創造的Collection對象會觸發該事件。
+在[Core](../core/oobe.md)宣告[`collection`](../core/oobe.md#collection)時會被創造的Collection對象會觸發該事件。
 
 ```js
-collection.$on('$init', (event) => { ... })
+collection.on('$init', (event) => { ... })
 ```
 
 ---
 
-### $writeSuccess
+#### $writeSuccess
 
-在@`write`成功後觸發。
+在[`write`](./operational.md#write)成功後觸發。
 
 ```js
-collection.$on('$writeSuccess', (event, data) => { ... })
+collection.on('$writeSuccess', (event, data) => { ... })
 ```
 
 | Param         | Type    | Description           |
@@ -38,16 +38,16 @@ collection.$on('$writeSuccess', (event, data) => { ... })
 | data.key      | string  | Write key.            |
 | data.sprite   | sprite  | 實例化Sprite對象        |
 | data.source   | object  | 寫入的原始資料          |
-| data.options? | object  | @Write Option         |
+| data.onlyKey  | boolean | 該次寫入是藉由[onlyKey](./operational.md#batchwriteonlykeys) |
 
 ---
 
-### $writeReject
+#### $writeReject
 
-在@`write`宣告`reject`時觸發。
+在[`write`](./operational.md#write)宣告`reject`時觸發。
 
 ```js
-collection.$on('$writeReject', (event, data) => { ... })
+collection.on('$writeReject', (event, data) => { ... })
 ```
 
 | Param         | Type    | Description           |
@@ -57,26 +57,26 @@ collection.$on('$writeReject', (event, data) => { ... })
 | data.sprite   | sprite  | 實例化Sprite對象        |
 | data.source   | object  | 寫入的原始資料          |
 | data.message  | any     | Reject message.       |
-| data.options? | object  | @Write Option         |
+| data.onlyKey  | boolean | 該次寫入是藉由[onlyKey](./operational.md#batchwriteonlykeys) |
 
 ---
 
-### $writeAsyncDone
+#### $writeAsyncDone
 
-執行`batchWriteAsync`整批寫入完畢後觸發。
+執行[`batchWriteAsync`](./operational.md#batchwriteasync)整批寫入完畢後觸發。
 
 ```js
-collection.$on('$writeAsyncDone', (event) => { ... })
+collection.on('$writeAsyncDone', (event) => { ... })
 ```
 
 ---
 
-### $fetch
+#### $fetch
 
-執行`fetch`時觸發。
+執行[`fetch`](./operational.md#fetch)時觸發。
 
 ```js
-collection.$on('$fetch', (event, sprite) => { ... })
+collection.on('$fetch', (event, sprite) => { ... })
 ```
 
 | Param         | Type    | Description           |
@@ -85,12 +85,12 @@ collection.$on('$fetch', (event, sprite) => { ... })
 
 ---
 
-### $fetchFail
+#### $fetchFail
 
-執行`fetch`時找不到對象時觸發。
+執行[`fetch`](./operational.md#fetch)時找不到對象時觸發。
 
 ```js
-collection.$on('$fetchFail', (event, key) => { ... })
+collection.on('$fetchFail', (event, key) => { ... })
 ```
 
 | Param         | Type    | Description           |
@@ -99,22 +99,22 @@ collection.$on('$fetchFail', (event, key) => { ... })
 
 ---
 
-### $clear
+#### $clear
 
-執行`clear`時觸發。
+執行[`clear`](./operational.md#clear)時觸發。
 
 ```js
-collection.$on('$clear', (event) => { ... })
+collection.on('$clear', (event) => { ... })
 ```
 
 ---
 
-### $loaderSuccess
+#### $loaderSuccess
 
-當@Loader成功宣告`done`的當下觸發。
+當[Loader](./structure.md#loaders)成功宣告`done`的當下觸發。
 
 ```js
-collection.$on('$loaderSuccess', (event, data) => { ... })
+collection.on('$loaderSuccess', (event, data) => { ... })
 ```
 
 | Param         | Type    | Description           |
@@ -124,12 +124,12 @@ collection.$on('$loaderSuccess', (event, data) => { ... })
 
 ---
 
-###  $loaderError
+#### $loaderError
 
-當@Loader成功宣告`error`的當下觸發。
+當[Loader](./structure.md#loaders)成功宣告`error`的當下觸發。
 
 ```js
-collection.$on('$loaderError', (event, data) => { ... })
+collection.on('$loaderError', (event, data) => { ... })
 ```
 
 | Param         | Type    | Description           |

@@ -567,6 +567,12 @@ describe('#Collection', () => {
         expect(this.collection.has('5487')).to.equal(true)
     })
 
+    it('writeAfter', function() {
+        let collection = this.oobe.collection('CognitoUser', 'user')
+        collection.write(RawData)
+        expect(collection.items[0].after).to.equal(true)
+    })
+
     it('batch write', function() {
         let collection = this.oobe.collection('CognitoUser', 'user')
         let newData = Oobe.helper.jpjs(RawData)

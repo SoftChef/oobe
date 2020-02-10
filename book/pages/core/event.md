@@ -1,6 +1,6 @@
 ## Event
 
-在建立@Oobe、@Sprite、@Collection等都能接收或發送Event，以下是通用邏輯：
+在建立[Oobe](./oobe.md)、[Sprite](../sprite/structure.md)、[Collection](../collection/structure.md)等都能接收或發送Event，以下是通用邏輯：
 
 * 監聽事件：[On](#on)
 * 移除監聽：[Off](#off)

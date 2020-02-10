@@ -6,20 +6,17 @@ Sprite是`oobe`的Model單元，負責定義結構與方法。
 * 生命週期：[Born](#born)、[Origin](#origin)、[Created](#created)
 * 私有屬性：[Self](#self)
 * 私有方法：[Methods](#methods)、[Views](#views)
-
-### 進階應用
-
 * 驗證規則：[Rule](#rule)
 * 鍵值映射：[Map](#map)
 * 狀態變化：[Distortion](#distortion)
-* 狀態管理：[Loader](#loader)
+* 狀態管理：[Loader](#loaders)
 * 錯誤處理：[ErrorMessage](#error-message)
 
 ---
 
 ### Container
 
-Sprite與@Container是共生關係，所有的Sprite都必須運作於其下。
+Sprite與[Container](../corde/container.md)是共生關係，所有的Sprite都必須運作於其下。
 
 ```js
 // 建立sprite
@@ -55,7 +52,7 @@ let sprite = oobe.make('container name', 'sprite name')
 
 是否在實體化會保留原始資料，這將影響記憶體與效能的消耗，預設為`true`，通常會在大量的不變動資料下設定為`false`，例如：列表。
 
-> 在關閉Save的情況下有些功能會無法使用，例如：@`$reset`、@`$isChange`。
+> 在關閉Save的情況下有些功能會無法使用，例如：[`$reset`](./operational.md#reset)、[`$isChange`](./operational.md#ischange)。
 
 ```js
 oobe.make('container name', 'sprite name', {
@@ -175,7 +172,7 @@ console.log(userSprite.attributes.name) // steve
 
 ##### Collection
 
-只要將目標加入`[]`就會轉換成@Collection：
+只要將目標加入`[]`就會轉換成[Collection](../collection/structure.md)：
 
 ```js
 let user = {
@@ -440,9 +437,9 @@ console.log(user.$validate().result)
 
 ##### 自定義驗證規則
 
-在驗證陣列中可以直接添加`function`來做客製的驗證，方法可見@Rule：
+在驗證陣列中可以直接添加`function`來做客製的驗證，方法可見[Rule](../core/package.md#rule)：
 
-> 當然如果你想客製化一組通用驗證規則，可見@package。
+> 當然如果你想客製化一組通用驗證規則，可見[Package](../core/package.md)。
 
 ```js
 let sprite = {
@@ -461,9 +458,9 @@ let sprite = {
 
 ##### OB Package
 
-我們提供了一組常見的[驗證規則](https://github.com/SoftChef/oobe/blob/master/packages/ob.js)f：
+我們提供了一組常見的[驗證規則](https://github.com/SoftChef/oobe/blob/master/packages/ob.js)：
 
-> `ob`攜帶了我們常用的驗證方法並提供了`en-us`與`zh-tw`兩個語系，詳情可見@setLocale。
+> `ob`攜帶了我們常用的驗證方法並提供了`en-us`與`zh-tw`兩個語系，詳情可見[setLocale](../core/oobe.md#setlocale)。
 
 ```js
 import Oobe from 'oobe'
@@ -485,13 +482,11 @@ Sprite可以宣告`$rules()`回傳一組驗證方法，如果是[Vuetify](http:/
 
 ---
 
-## 進階應用
-
 ### Map
 
 Map是一個鍵值映射表，我們推薦你把鍵值宣告在Map上而不是Body：
 
-> 運用@helper的`setNull`給綁定上Body。
+> 運用[Helper](../tools/helper.md)的`setNull`給綁定上Body。
 
 ```js
 let sprite = {
@@ -539,7 +534,7 @@ console.log(user.$toOrigin().Name) // steve
 
 ### Distortion
 
-Distortion定義了當下Sprite的模式，為了表單開發而生，預設4個狀態，分別為`read`(預設)、`create`、`update`、`delete`，如果需要擴充則需藉由@Container定義。
+Distortion定義了當下Sprite的模式，為了表單開發而生，預設4個狀態，分別為`read`(預設)、`create`、`update`、`delete`，如果需要擴充則需藉由[Container](../core/container.md)定義。
 
 > Distortion是一種狀態，而不是強制性規則，例如`fixed`並不會真正禁止修改。
 
@@ -623,7 +618,7 @@ console.log(user.$export('read')) // { name: 'steve', createdAt: xxxxxx }
 
 ---
 
-### Loader
+### Loaders
 
 雖然我們已經有Vuex、MobX這類型的狀態管理工具，但多數是針對一個頁面而非一個物件，代表缺乏細部請求的管理，Loader是Sprite的請求狀態管理屬性，流程如下：
 

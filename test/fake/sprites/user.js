@@ -76,6 +76,9 @@ module.exports = {
             }
             success()
         },
+        writeAfter({ sprite }) {
+            sprite.after = true
+        },
         views: {
             names() {
                 return this.items[0].name + this.items[1].name

@@ -21,6 +21,7 @@
 17. map attr
 18. loader移致內置系統
 19. 修正batchWriteAsync不會觸發dirty
+20. collection新功能：writeAfter
 
 ## ver 0.3.1
 

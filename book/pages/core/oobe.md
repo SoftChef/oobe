@@ -59,9 +59,9 @@ vue.prototype.$oobe = oobe
 
 #### Join
 
-註冊@Container。
+註冊[Container](./container.md)。
 
-> `oobe`不允許個別建立@Sprite，只能由Container註冊。
+> `oobe`不允許個別建立[Sprite](../sprite/structure.md)，只能由[Container](./container.md)註冊。
 
 ```js
 oobe.join(name, data) => null
@@ -74,7 +74,7 @@ oobe.join(name, data) => null
 
 #### Addon
 
-註冊@package。
+註冊[Package](./package.md)。
 
 ```js
 oobe.addon(data) => null
@@ -82,11 +82,11 @@ oobe.addon(data) => null
 
 | Param | Type      | Description         |
 | ---   | ---       | ---                 |
-| data  | @package  | _No description_    |
+| data  | object    | _No description_    |
 
 #### Plugin
 
-註冊@plugin。
+註冊[Plugin](../tools/plugin.md)。
 
 ```js
 oobe.plugin(data) => null
@@ -94,7 +94,7 @@ oobe.plugin(data) => null
 
 | Param | Type      | Description         |
 | ---   | ---       | ---                 |
-| data  | @plugin   | _No description_    |
+| data  | class     | _No description_    |
 
 ---
 
@@ -102,7 +102,7 @@ oobe.plugin(data) => null
 
 #### make
 
-回傳指定的@Sprite。
+回傳指定的[Sprite](../sprite/structure.md)。
 
 ```js
 oobe.make(containerName, spriteName, options) => Sprite
@@ -117,9 +117,9 @@ oobe.make(containerName, spriteName, options) => Sprite
 
 #### batch
 
-批次建立指定的@Sprite。
+批次建立指定的[Sprite](../sprite/structure.md)。
 
-> 批次建立的Sprite會被自動執行@`$born`，如果沒有特殊需求請使用[`collection`](#collection)。
+> 批次建立的Sprite會被自動執行[`$born`](../sprite/operational.md#born)，如果沒有特殊需求請使用[`collection`](#collection)。
 
 ```js
 oobe.batch(containerName, spriteName, items, options) => Array<Sprite>
@@ -135,7 +135,7 @@ oobe.batch(containerName, spriteName, items, options) => Array<Sprite>
 
 #### collection
 
-批次建立指定的@Collection。
+批次建立指定的[Collection](../collection/structure.md)。
 
 ```js
 oobe.collection(containerName, spriteName, options) => Collection
@@ -152,11 +152,11 @@ oobe.collection(containerName, spriteName, options) => Collection
 
 ### 事件處理
 
-`oobe`可以監聽事件，詳細應用請見@Event。
+`oobe`可以監聽事件，詳細應用請見[Event](./event.md)。
 
 #### on
 
-監聽一則@Event。
+監聽一則[Event](./event.md)。
 
 ```js
 oobe.on(eventName, callback) => { off: Function, id: String }
@@ -231,7 +231,7 @@ Oobe.onDevError(data => {}) => null
 
 #### meg
 
-回傳@package訂製的語系。
+回傳[Package](./package.md#locale)訂製的語系。
 
 ```js
 oobe.meg(name, value) => String
@@ -244,7 +244,7 @@ oobe.meg(name, value) => String
 
 #### getRules
 
-回傳@package定義的Rules也可以加入自定義的Function，詳情可見@package。
+回傳Package定義的Rules也可以加入自定義的Function，詳情可見[Package](./package.md#rule)。
 
 ```js
 oobe.getRules(rules: Array<String|Function>) => Array<Function>
@@ -256,7 +256,7 @@ oobe.getRules(rules: Array<String|Function>) => Array<Function>
 
 #### setLocale
 
-設定`oobe`的@Locale。
+設定`oobe`的[Locale](./package.md#locale)。
 
 ```js
 oobe.setLocale(locale) => null
@@ -268,7 +268,7 @@ oobe.setLocale(locale) => null
 
 #### instanceof
 
-驗證實例化對象是否為指定的對象。
+驗證實例化對象是否為指定的[Sprite](../sprite/structure.md)。
 
 ```js
 oobe.instanceof(containerName, spriteName, sprite) => Boolean
@@ -278,11 +278,11 @@ oobe.instanceof(containerName, spriteName, sprite) => Boolean
 | ---           | ---     | ---                     |
 | containerName | string  | Container name.         |
 | spriteName    | string  | Sprite name.            |
-| containerName | @sprite | Target sprite.          |
+| containerName | sprite  | Target sprite.          |
 
 #### helper
 
-@Helper的接口。
+[Helper](../tools/helper.md)的接口。
 
 ```js
 oobe.helper => Helper

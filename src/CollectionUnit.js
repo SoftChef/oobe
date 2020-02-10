@@ -29,11 +29,11 @@ class CollectionUnit extends Base {
         this.options = Helper.verify(base.options.collection, {
             key: [false, ['function', 'string'], '*'],
             write: [false, ['function'], ({ success }) => { success() }],
+            writeAfter: [false, ['function'], null],
             views: [false, ['object'], {}],
             loaders: [false, ['object'], null]
         })
         this.loaders = Loader(this.unit, 'collection', this.options.loaders)
-        this.bindWrite = this.options.write.bind(this)
         this.event.emit(this.unit, '$init', [this.unit])
     }
 
@@ -167,7 +167,7 @@ class CollectionUnit extends Base {
      * @property {object} content.source source data
      */
 
-    write(source, options) {
+    write(source, options = {}) {
         let type = typeof source
         if (type !== 'object') {
             this.$devError('write', 'Source not a object.')
@@ -180,15 +180,18 @@ class CollectionUnit extends Base {
         if (Helper.getType(key) !== 'string') {
             this.$devError('write', `Write key(${key}) not a string`)
         }
-        let eventData = options ? Object.assign({ key, sprite, source }, options) : { key, sprite, source }
+        let eventData = { key, sprite, source, onlyKey: !!options.onlyKey }
         this.status.dirty = true
-        this.bindWrite({
+        this.options.write({
             key,
             sprite,
             reject: message => this.event.emit(this.unit, '$writeReject', [{ message, ...eventData }]),
             success: () => {
                 this.put(key, sprite)
                 this.event.emit(this.unit, '$writeSuccess', [eventData])
+                if (this.options.writeAfter) {
+                    this.options.writeAfter({ key, sprite })
+                }
             }
         })
     }

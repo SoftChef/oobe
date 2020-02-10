@@ -1,4 +1,4 @@
-## Sprite Contorl
+## Sprite Operational
 
 Sprite大量內置了操作功能與狀態，免除複雜且難以維護的繼承樹。
 
@@ -14,6 +14,7 @@ Sprite大量內置了操作功能與狀態，免除複雜且難以維護的繼�
   * [`$dead`](#dead)
   * [`$live`](#live)
 * 視圖呈現：
+  * [`$ready`](#ready)
   * [`$dist`](#dist)
   * [`$export`](#export)
   * [`$show`](#show)
@@ -42,10 +43,9 @@ Sprite大量內置了操作功能與狀態，免除複雜且難以維護的繼�
 * 其他：
   * [`$helper`](#helper)
   * [`$toObject`](#toobject)
-  * [`$config`](#config)
+  * [`$configs`](#configs)
   * [`$distName`](#distname)
   * [`$parent`](#parent)
-  * [`$ready`](#ready)
   * [`$self`](#self)
   * [`$utils`](#utils)
 
@@ -55,7 +55,7 @@ Sprite大量內置了操作功能與狀態，免除複雜且難以維護的繼�
 
 #### $born
 
-初始化資料，觸發會使狀態@`$ready`為`true`且並發@event。
+初始化資料，觸發會使狀態[`$ready`](#ready)為`true`且並發送[`event`](./events.md#ready)。
 
 ```js
 sprite.$born(params) => self
@@ -67,7 +67,7 @@ sprite.$born(params) => self
 
 #### $toOrigin
 
-回傳@Origin的資料。
+回傳[Origin](./structure.md#origin)的資料。
 
 ```js
 sprite.$toOrigin() => any
@@ -83,7 +83,7 @@ sprite.$reset() => null
 
 #### $setError
 
-設定Sprite為錯誤並加入錯誤訊息且發送@event。
+設定Sprite為錯誤並加入錯誤訊息且發送[`event`](./events.md#error)。
 
 ```js
 sprite.$setError(error) => null
@@ -121,7 +121,7 @@ export default {
 
 #### $copy
 
-觸發當下Sprite的`$toOrigin()`並用回傳的資料實例化一個新的Sprite。
+觸發當下Sprite的[`$toOrigin()`](#toorigin)並用回傳的資料實例化一個新的Sprite。
 
 ```js
 sprite.$copy(options) => sprite
@@ -130,7 +130,7 @@ sprite.$copy(options) => sprite
 | Param         | Type    | Description         |
 | ---           | ---     | ---                 |
 | options?      | object  | Sprite make options |
-| options.save? | boolean | @save               |
+| options.save? | boolean | [save](./structure.md#save) |
 
 ##### 雖然可以直接複製對象進行修改，但反覆尋找修改對象並做資料轉換是個繁雜的行為，因此誕生了以下操作方法：
 
@@ -215,9 +215,17 @@ export default {
 
 ### 視圖呈現
 
+#### $ready
+
+是否被呼叫過[`$born`](#born)，有此狀態會回傳`true`。
+
+```js
+sprite.$ready => Boolean
+```
+
 #### $dist
 
-更改當前狀態，可更動狀態請見@Dists。
+更改當前狀態，可更動狀態請見[Dists](./structure.md#distortion)。
 
 > `$dist`為`$distortion`方法的簡寫。
 
@@ -225,13 +233,13 @@ export default {
 sprite.$dist(name) => self
 ```
 
-| Param    | Type    | Description     |
-| ---      | ---     | ---             |
-| name     | string  | Distortion Name |
+| Param    | Type    | Description      |
+| ---      | ---     | ---              |
+| name     | string  | Distortion name. |
 
 #### $export
 
-根據當前或指定狀態輸出值，詳情請見@Dists。
+根據當前或指定狀態輸出值，詳情請見[Dists](./structure.md#distortion)。
 
 ```js
 sprite.$export(name, ...args) => any
@@ -244,7 +252,7 @@ sprite.$export(name, ...args) => any
 
 #### $show
 
-指定數值是否不是`fixed`的狀態，詳情請見@Dists。
+指定數值是否不是`fixed`的狀態，詳情請見[Dists](./structure.md#distortion)。
 
 ```js
 sprite.$show(name) => Boolean
@@ -256,7 +264,7 @@ sprite.$show(name) => Boolean
 
 #### $isFixed
 
-指定數值是否為`fixed`的狀態，詳情請見@Dists。
+指定數值是否為`fixed`的狀態，詳情請見[Dists](./structure.md#distortion)。
 
 ```js
 sprite.$isFixed(name) => Boolean
@@ -268,7 +276,7 @@ sprite.$isFixed(name) => Boolean
 
 #### $isHidden
 
-指定數值是否為`hidden`的狀態，詳情請見@Dists。
+指定數值是否為`hidden`的狀態，詳情請見[Dists](./structure.md#distortion)。
 
 ```js
 sprite.$isHidden(name) => Boolean
@@ -282,7 +290,7 @@ sprite.$isHidden(name) => Boolean
 
 當前數值是否與宣告[`$born`](#born)時相同。
 
-> 該方法在@`options.save`宣告為`false`時無效。
+> 該方法在[`options.save`](./structure.md#save)宣告為`false`時無效。
 
 ```js
 sprite.$isChange(key) => Boolean
@@ -294,7 +302,7 @@ sprite.$isChange(key) => Boolean
 
 #### $validate
 
-驗證屬性使用與@Rule的規則相同。
+驗證屬性使用與[Rule](../core/package.md#rule)的規則相同。
 
 ```js
 sprite.$validate() => {
@@ -326,7 +334,7 @@ sprite.$rules(name, extra) => Array<Function>
 
 #### $v($views)
 
-經過計算的唯讀屬性，詳情請見@Views。
+經過計算的唯讀屬性，詳情請見[Views](./structure.md#views)。
 
 > `$v`為`$views`屬性的簡寫。
 
@@ -336,7 +344,7 @@ sprite.$v => Object
 
 #### $o($loaders)
 
-狀態控制單元，詳情請見@Loaders。
+狀態控制單元，詳情請見[Loaders](./structure.md#loaders)。
 
 > `$o`為`$loaders`屬性的簡寫。
 
@@ -346,7 +354,7 @@ sprite.$o => Object
 
 #### $meg
 
-語系顯示單元，詳情請見@Locale。
+語系顯示單元，詳情請見[Locale](../core/package.md#locale)。
 
 ```js
 sprite.$meg(name, value) => String
@@ -360,7 +368,7 @@ sprite.$meg(name, value) => String
 
 #### $error
 
-當你觸發了[`$setError`](#seterror)此屬性會從null改成輸入值，並且回傳@errorMessage的值。
+當你觸發了[`$setError`](#seterror)此屬性會從null改成輸入值，並且回傳[`errorMessage`](./structure.md#error-message)的值。
 
 ```js
 sprite.$error => any
@@ -382,7 +390,7 @@ sprite.$body() => Object
 
 回傳Body的`key`值。
 
-> 並不包含@Refs的`key`。
+> 並不包含[Refs](./structure.md#refs)的`key`。
 
 ```js
 sprite.$keys() => Array<String>
@@ -392,7 +400,7 @@ sprite.$keys() => Array<String>
 
 批次寫入Body屬性。
 
-> 該方法也會對應到相對的@Refs的對象。
+> 該方法也會對應到相對的[Refs](./structure.md#refs)的對象。
 
 ```js
 sprite.$put() => self
@@ -422,7 +430,7 @@ console.log(user.age) // 20
 
 回傳[`$born`](#born)傳入的值。
 
-> 若宣告@options.save則無法使用此功能。
+> 若宣告[`options.save`](./structure.md#save)則無法使用此功能。
 
 ```js
 sprite.$raw(assign) => any
@@ -434,7 +442,7 @@ sprite.$raw(assign) => any
 
 ### $map
 
-@Map對象，詳情請見@Map。
+[Map](./structure.md#map)對象。
 
 ```js
 sprite.$map => Object
@@ -446,7 +454,7 @@ sprite.$map => Object
 
 #### $fn
 
-使用@Method的接口。
+使用[Methods](./structure.md#methods)的接口。
 
 ```js
 sprite.$fn => Object
@@ -492,7 +500,7 @@ console.log(getName()) // steve
 
 #### $on
 
-監聽一則@Event。
+監聽一則[Event](../core/event.md)。
 
 ```js
 sprite.$on(eventName, callback) => { off: Function, id: String }
@@ -516,7 +524,7 @@ sprite.$off(eventName, id) => null
 | eventName | string  | Event name.             |
 | id        | string  | Listener id.            |
 
-##### $onOnce
+#### $onOnce
 
 監聽的事件只觸發一次。
 
@@ -548,7 +556,7 @@ sprite.$emit(eventName, ...args) => null
 
 #### $helper
 
-@Helper的接口。
+[Helper](../tools/helper.md)的接口。
 
 ```js
 sprite.$helper => Helper
@@ -591,7 +599,7 @@ console.log(result.$views.name) // steve
 
 #### $configs
 
-該對象會指向@container的@configs。
+該對象會指向Container的[`configs`](../core/container.md#configs)。
 
 ```js
 sprite.$configs => Object
@@ -607,10 +615,10 @@ sprite.$distName => String
 
 #### $parent
 
-如果該Sprite是來自@Refs的參照對象時指向其參照者。
+如果該Sprite是來自[Refs](./structure.md#refs)的參照對象時指向其參照者。
 
 ```js
-sprite.$distName => Sprite
+sprite.$parent => Sprite
 ```
 
 ##### exampale
@@ -642,17 +650,9 @@ let user = oobe.make('...', 'sprite')
 console.log(user.sprite2.$parent.name) // 'steve'
 ```
 
-#### $ready
-
-是否被呼叫過[`$born`](#born)，有此狀態會回傳`true`。
-
-```js
-sprite.$ready => Boolean
-```
-
 #### $self
 
-回傳@Self對象，會在[`$born`](#born)宣告後產生。
+回傳[Self](./structure.md#self)對象，會在[`$born`](#born)宣告後產生。
 
 ```js
 sprite.$self => Object
@@ -660,7 +660,7 @@ sprite.$self => Object
 
 #### $utils
 
-回傳@container的@utils對象。
+回傳Container的[utils](../core/container.md#utils)對象。
 
 ```js
 sprite.$utils => Object
