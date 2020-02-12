@@ -33,6 +33,10 @@ class CollectionUnit extends Base {
             views: [false, ['object'], {}],
             loaders: [false, ['object'], null]
         })
+        this.bind = {
+            write: this.options.write.bind(this),
+            writeAfter: this.options.writeAfter ? this.options.writeAfter.bind(this) : null
+        }
         this.loaders = Loader(this.unit, 'collection', this.options.loaders)
         this.event.emit(this.unit, '$init', [this.unit])
     }
@@ -182,15 +186,15 @@ class CollectionUnit extends Base {
         }
         let eventData = { key, sprite, source, onlyKey: !!options.onlyKey }
         this.status.dirty = true
-        this.options.write({
+        this.bind.write({
             key,
             sprite,
             reject: message => this.event.emit(this.unit, '$writeReject', [{ message, ...eventData }]),
             success: () => {
                 this.put(key, sprite)
                 this.event.emit(this.unit, '$writeSuccess', [eventData])
-                if (this.options.writeAfter) {
-                    this.options.writeAfter({ key, sprite })
+                if (this.bind.writeAfter) {
+                    this.bind.writeAfter({ key, sprite })
                 }
             }
         })
