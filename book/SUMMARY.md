@@ -37,6 +37,7 @@
   * [包裹 - package](./pages/core/package.md)
     * [rule](./pages/core/package.md#rule)
     * [locale](./pages/core/package.md#locale)
+    * [ob](./pages/core/package.md#ob)
 
 ## 精靈 - Sprite
   * [結構 - structure](./pages/sprite/structure.md)
