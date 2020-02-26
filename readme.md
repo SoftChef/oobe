@@ -38,6 +38,12 @@ Our goal is build a vue library that focus on model processing, Not like backbon
 
 ---
 
+## Document
+
+[繁體中文文件](https://softchef.github.io/oobe/started/)
+
+---
+
 ## Javascript Class Instance Pattern
 
 ```js
@@ -280,14 +286,6 @@ let sprite = oobe.make('User', 'user').$born(result)
 
 console.log(sprite.metadatas.$fn.isAdult()) // true
 ```
-
----
-
-## Learn More
-
-[Example](https://softchef.github.io/oobe/example/)
-
-[Getting started(TW)](https://softchef.github.io/oobe/started/)
 
 ---
 
