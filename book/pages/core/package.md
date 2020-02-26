@@ -113,25 +113,31 @@ console.log(old.$validate().success) // false
 
 `oobe`提供了基礎的語系系統。
 
+#### 在Core安裝語系
+
+`oobe`不允許直接建立`locale`，必須藉由`addon`來進行擴展，試著把剛剛定義的語系加入組件。
+
 ```js
-let locales = {
-    'en-us': {
-        'hw': 'hello world.'
-    },
-    'zh-tw': {
-        'hw': '你好，世界。'
+// 組件名稱不允許重複，須注意衝突問題。
+oobe.addon({
+    name: 'meg',
+    locales: {
+        'en-us': {
+            'hw': 'hello world.'
+        },
+        'zh-tw': {
+            'hw': '你好，世界。'
+        }
     }
-}
+})
 ```
 
----
+#### 參數
 
-### 參數
-
-`locale`輸出的`message`允許加入動態元素，使用`{value}`符號作為更動目標。
+`locale`輸出的`message`允許加入動態元素，使用`{}`符號作為更動目標。
 
 ```js
-let maxLocales = {
+let locales = {
     'en-us': {
         'age': '{value} years old.'
     },
@@ -147,7 +153,14 @@ let maxLocales = {
 
 ```js
 let container = {
-    locales: maxLocales
+    locales: {
+        'en-us': {
+            'age': '{value} years old.'
+        },
+        'zh-tw': {
+            'age': '年齡為{value}歲'
+        }
+    }
 }
 ```
 
@@ -165,7 +178,9 @@ container.sprites = { sprite }
 oobe.join('demo', container)
 let teen = oobe.make('demo', 'sprite').$born({ age: 18 })
 console.log(sprite.$meg('#meg.hw')) // hello world.
-console.log(sprite.$meg('age', sprite.age)) // 18 years old.
+console.log(sprite.$meg('age', {
+    value: sprite.age
+})) // 18 years old.
 ```
 
 #### 全局呼叫
@@ -175,19 +190,7 @@ console.log(sprite.$meg('age', sprite.age)) // 18 years old.
 事實上，所有的規則與語系都註冊在[Core](./oobe.md)內，因此在某些場合中，我們需要調用Container的訊息時，可以使用`${containerName}.{key}`獲得訊息，範例如下：
 
 ```js
-console.log(oobe.meg('$demo.age', 20)) // 20 years old.
-```
-
-#### 在Core安裝語系
-
-`oobe`不允許直接建立`locale`，必須藉由`addon`導入一組組件來進行擴展，試著把剛剛定義的語系加入組件。
-
-```js
-// 組件名稱不允許重複，須注意衝突問題。
-oobe.addon({
-    name: 'meg',
-    locales
-})
+console.log(oobe.meg('$demo.age', { value: 20 })) // 20 years old.
 ```
 
 #### 切換語系
@@ -195,11 +198,11 @@ oobe.addon({
 語系默認為`en-us`，可以使用以下方法更換顯示狀態。
 
 ```js
-console.log(oobe.meg('$demo.age', 20)) // 20 years old.
+console.log(oobe.meg('$demo.age', { value: 20 })) // 20 years old.
 oobe.setLocale('zh-tw')
-console.log(oobe.meg('$demo.age', 20)) // 年齡為20歲.
+console.log(oobe.meg('$demo.age', { value: 20 })) // 年齡為20歲.
 oobe.setLocale('zh-cn')
-console.log(oobe.meg('$demo.age', 20)) // $demo.age 未定義情境下，會顯示key值
+console.log(oobe.meg('$demo.age', { value: 20 })) // $demo.age 未定義情境下，會顯示key值
 ```
 
 ---
