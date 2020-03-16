@@ -235,11 +235,15 @@ Interface可以規範[Sprite](../sprite/structure.md)必須實作某些方法，
 
 ```js
 let interface = {
+    map: ['name'],
     views: ['name'],
     dists: ['update'],
     methods: ['rename']
 }
 let sprite = {
+    map: {
+        name: 'Name'
+    },
     body() {
         return {
             name

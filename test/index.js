@@ -68,6 +68,34 @@ const InterfaceTestError = {
     }
 }
 
+const InterfaceTestMap = {
+    sprites: {
+        s: {
+            map: {
+                name: '123'
+            },
+            body() {}
+        }
+    },
+    interface: {
+        map: ['name']
+    }
+}
+
+const InterfaceTestMapError = {
+    sprites: {
+        s: {
+            map: {
+                aaaa: '123'
+            },
+            body() {}
+        }
+    },
+    interface: {
+        map: ['name']
+    }
+}
+
 let isDevError = false
 
 describe('#Core', () => {
@@ -410,6 +438,14 @@ describe('#Sprite', () => {
         oobe.join('if', InterfaceTest)
         expect(() => {
             oobe.join('ife', InterfaceTestError)
+        }).to.throw(Error)
+    })
+
+    it('interface map', function() {
+        let oobe = new Oobe()
+        oobe.join('ifmap', InterfaceTestMap)
+        expect(() => {
+            oobe.join('ifmaperror', InterfaceTestMapError)
         }).to.throw(Error)
     })
 

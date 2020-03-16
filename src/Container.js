@@ -81,6 +81,7 @@ class Container extends Base {
 
     initInterface() {
         this.interface = Helper.verify(this.options.interface, {
+            map: [false, ['array'], []],
             views: [false, ['array'], []],
             dists: [false, ['array'], []],
             methods: [false, ['array'], []]
@@ -88,13 +89,17 @@ class Container extends Base {
     }
 
     checkInterface(options) {
+        let map = this.verifyInterface('map', options)
         let views = this.verifyInterface('views', options)
         let dists = this.verifyInterface('dists', options)
         let methods = this.verifyInterface('methods', options)
-        if ((views.length + dists.length + methods.length) === 0) {
+        if ((map.length + views.length + dists.length + methods.length) === 0) {
             return true
         }
         let message = 'Interface error for : '
+        if (map.length !== 0) {
+            message += `\nmap[${views.join()}]`
+        }
         if (views.length !== 0) {
             message += `\nviews[${views.join()}]`
         }
