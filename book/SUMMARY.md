@@ -58,6 +58,7 @@
     * [$born](./pages/sprite/operational.md#born)
     * [$toOrigin](./pages/sprite/operational.md#toorigin)
     * [$setError](./pages/sprite/operational.md#seterror)
+    * [$reborn](./pages/sprite/operational.md##reborn)
     * [$reset](./pages/sprite/operational.md#reset)
     * [$copy](./pages/sprite/operational.md#copy)
     * [$out](./pages/sprite/operational.md#out)

@@ -186,11 +186,23 @@ class SpriteUnit extends Base {
     revive() {
         if (this.isLive()) {
             if (this.from) {
-                this.from.reborn(this.toOrigin())
+                this.from.wakeup()
+                this.from.setBody(this.toOrigin())
                 return this.dead()
             } else {
                 this.$devError('revive', 'This Sprite is root.')
             }
+        }
+    }
+
+    reborn(data) {
+        if (!this.isReady()) {
+            return this.$devError('reborn', 'This Sprite not ready.')
+        }
+        if (this.isLive()) {
+            this.status.ready = false
+            this.initBody()
+            return this.born(data)
         }
     }
 
@@ -215,11 +227,6 @@ class SpriteUnit extends Base {
                 this.$devError('dead', 'This Sprite is root.')
             }
         }
-    }
-
-    reborn(origin) {
-        this.wakeup()
-        this.setBody(origin)
     }
 
     /**

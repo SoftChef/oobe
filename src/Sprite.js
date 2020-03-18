@@ -318,6 +318,16 @@ class Sprite {
     }
 
     /**
+     * Restart born, reset all body and refs, with created and $ready event.
+     * @param {object} data
+     * @returns {sprite}
+     */
+
+    $reborn(data) {
+        return this._sprite.reborn(data)
+    }
+
+    /**
      * Run origin options method and return data.
      * @returns {object}
      */

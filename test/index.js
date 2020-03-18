@@ -105,9 +105,9 @@ describe('#Core', () => {
 
     it('on dev error', function(done) {
         Oobe.onDevError(({ functionName }) => {
-            expect(functionName).to.equal('make')
             if (isDevError === false) {
                 isDevError = true
+                expect(functionName).to.equal('make')
                 done()
             }
         })
@@ -171,10 +171,6 @@ describe('#Core', () => {
         expect(this.oobe.instanceof('CognitoUser', 'attributes', unit)).to.equal(false)
     })
 
-    it('plugin', function() {
-        // this.oobe.plugin(Loader)
-    })
-
     it('plugin registered', function() {
         expect(() => { this.oobe.plugin(Loader) }).to.throw(Error)
     })
@@ -186,6 +182,29 @@ describe('#Sprite', () => {
         this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
         this.user = this.oobe.make('CognitoUser', 'user')
+    })
+
+    it('reborn', function() {
+        let count = 0
+        let user = this.oobe.make('CognitoUser', 'user')
+        user.$on('$ready', (context) => {
+            count += 1
+        })
+        user.$born(RawData)
+        user.name = '123'
+        user.attributes.phone_number = '5432'
+        expect(count).to.equal(1)
+        expect(user.name).to.equal('123')
+        expect(user.attributes.phone_number).to.equal('5432')
+        user.$reborn(RawData)
+        expect(count).to.equal(2)
+        expect(user.attributes.phone_number).to.equal('000000000')
+        expect(user.name).to.equal('admin')
+    })
+
+    it('reborn and no born', function() {
+        let user = this.oobe.make('CognitoUser', 'user')
+        expect(() => { user.$reborn(RawData) }).to.throw(Error)
     })
 
     it('options', function() {

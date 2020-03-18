@@ -7,6 +7,7 @@ Sprite大量內置了操作功能與狀態，免除複雜且難以維護的繼�
   * [`$toOrigin`](#toorigin)
   * [`$setError`](#seterror)
   * [`$reset`](#reset)
+  * [`$reborn`](#reborn)
 * 操作處理
   * [`$copy`](#copy)
   * [`$out`](#out)
@@ -92,6 +93,20 @@ sprite.$setError(error) => null
 | Param    | Type    | Description   |
 | ---      | ---     | ---           |
 | error?   | any     | Error message |
+
+#### $reborn
+
+初始化所有`body`和`refs`的資料並重新觸發`born`，且重新呼叫`created`行為並發送[`event`](./events.md#ready)。
+
+> 通常我們不建議使用`reborn`行為，但有時`ref`的對象需要重新賦予數值，而其嚴格的檢查特性礙於執行此行為，因此才需要藉由`reborn`設定。
+
+```js
+sprite.$reborn(params) => self
+```
+
+| Param    | Type    | Description |
+| ---      | ---     | ---         |
+| params?  | object  | Origin data |
 
 ---
 
