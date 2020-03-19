@@ -355,6 +355,14 @@ describe('#Sprite', () => {
         expect(this.user.$validate().success).to.equal(false)
     })
 
+    it('container validate by', function() {
+        this.user.name = 'ffff'
+        expect(this.user.$validateBy('name')).to.equal(true)
+        this.user.name = ''
+        expect(typeof this.user.$validateBy('name')).to.equal('string')
+        expect(() => { this.user.$validateBy('naeme') }).to.throw(Error)
+    })
+
     it('to origin', function() {
         this.user.$reset()
         let origin = JSON.stringify(this.user.$toOrigin())

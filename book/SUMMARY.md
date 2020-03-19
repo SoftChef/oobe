@@ -73,6 +73,7 @@
     * [$isHidden](./pages/sprite/operational.md#ishidden)
     * [$isChange](./pages/sprite/operational.md#ischange)
     * [$validate](./pages/sprite/operational.md#validate)
+    * [$validateBy](./pages/sprite/operational.md#validateby)
     * [$rules](./pages/sprite/operational.md#rules)
     * [$v($views)](./pages/sprite/operational.md#vviews)
     * [$o($loaders)](./pages/sprite/operational.md#oloaders)

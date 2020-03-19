@@ -356,6 +356,18 @@ class Sprite {
     }
 
     /**
+     * Validate body by key with the rules.
+     * @returns {object}
+     */
+
+    $validateBy(key) {
+        if (Object.prototype.hasOwnProperty.call(this._sprite.body, key) === false) {
+            return this._sprite.$devError('$validateBy', `Property name(${key}) not in the body.`)
+        }
+        return this._sprite.validate(this[key], key)
+    }
+
+    /**
      * Transform distortion.
      * @param {string} name
      * @returns {this}

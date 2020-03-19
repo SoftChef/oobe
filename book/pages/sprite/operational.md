@@ -23,6 +23,7 @@ Sprite大量內置了操作功能與狀態，免除複雜且難以維護的繼�
   * [`$isHidden`](#ishidden)
   * [`$isChange`](#ischange)
   * [`$validate`](#validate)
+  * [`$validateBy`](#validateby)
   * [`$rules`](#rules)
   * [`$v($views)`](#vviews)
   * [`$o($loaders)`](#oloaders)
@@ -333,6 +334,20 @@ sprite.$validate() => {
     }
 }
 ```
+
+#### $validateBy
+
+基於指定`Key`的驗證方法，正確者回傳`ture`否則回傳錯誤訊息。
+
+> 本方法只能驗證`body`宣告的值。
+
+```js
+sprite.$validateBy(key) => true || String
+```
+
+| Param    | Type    | Description             |
+| ---      | ---     | ---                     |
+| key?     | string  | 可以只針對某一個屬性進行驗證 |
 
 #### $rules
 
