@@ -15,7 +15,7 @@ module.exports = {
             return pattern.test(value) || this.$meg('#ob.email')
         },
         range(value, params) {
-            let isNumber = this.$helper.getType(Number(value)) === 'number'
+            let isNumber = params.isNumber === 'false' ? false : (this.$helper.getType(Number(value)) === 'number')
             let number = isNumber ? value : (value.length || 0)
             if (params.max && number > Number(params.max)) {
                 return this.$meg(isNumber ? '#ob.max' : '#ob.maxLength') + ' : ' + params.max
@@ -23,7 +23,7 @@ module.exports = {
             if (params.min && number < Number(params.min)) {
                 return this.$meg(isNumber ? '#ob.min' : '#ob.minLength') + ' : ' + params.min
             }
-            if (params.same && number === Number(params.same)) {
+            if (params.same && number !== Number(params.same)) {
                 return this.$meg('#ob.same') + ' : ' + params.same
             }
             return true
