@@ -90,6 +90,7 @@ sprite.$on('$loaderSuccess', (event, data) => { ... })
 | ---           | ---     | ---                   |
 | data          | object  | _No description_      |
 | data.name     | string  | Loader name.          |
+| data.result   | string  | Success or error response. |
 
 ---
 

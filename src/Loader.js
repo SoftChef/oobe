@@ -6,6 +6,7 @@ class LoaderCore {
         this.error = null
         this.called = false
         this.target = target
+        this.result = null
         this.loading = false
         this.handler = handler
         this.starting = null
@@ -24,17 +25,25 @@ class LoaderCore {
         this.done = true
         this.loading = false
         if (error) {
+            let eventData = [{
+                name: this.name,
+                result: this.error
+            }]
             this.error = error
             if (this.type === 'sprite') {
-                this.target.$emit('$loaderError', [{ name: this.name, error }])
+                this.target.$emit('$loaderError', eventData)
             } else {
-                this.target.emit('$loaderError', [{ name: this.name, error }])
+                this.target.emit('$loaderError', eventData)
             }
         } else {
+            let eventData = [{
+                name: this.name,
+                result: this.result
+            }]
             if (this.type === 'sprite') {
-                this.target.$emit('$loaderSuccess', [{ name: this.name }])
+                this.target.$emit('$loaderSuccess', eventData)
             } else {
-                this.target.emit('$loaderSuccess', [{ name: this.name }])
+                this.target.emit('$loaderSuccess', eventData)
             }
         }
     }
@@ -51,9 +60,10 @@ class LoaderCore {
         this.called = true
         this.loading = true
         this.starting = new Promise((resolve, reject) => {
-            let success = () => {
+            let success = (result) => {
                 this.close()
-                resolve()
+                this.result = result
+                resolve(result)
             }
             let error = (err = 'Unknown error.') => {
                 this.close(err)
@@ -92,7 +102,7 @@ class Loader {
                 if (this.error) {
                     reject(this.error)
                 } else {
-                    resolve()
+                    resolve(this._core.result)
                 }
             } else {
                 if (this.called) {
