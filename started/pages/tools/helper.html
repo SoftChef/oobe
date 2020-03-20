@@ -2641,6 +2641,14 @@ oobe.helper.isEmpty(<span class="hljs-number">0</span>) <span class="hljs-commen
 </tr>
 </tbody>
 </table>
+<p>&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>origin</code>&#x4F86;&#x7C21;&#x5316;options&#x7684;&#x884C;&#x70BA;&#xFF1A;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x9019;&#x8207;&#x4EE5;&#x4E0B;&#x7D50;&#x679C;&#x76F8;&#x540C;</span>
+helper.mapping(key, map, <span class="hljs-string">&apos;origin&apos;</span>)
+helper.mapping(key, map, {
+    isModel: <span class="hljs-string">&apos;origin&apos;</span>,
+    reverse: <span class="hljs-literal">true</span>
+})
+</code></pre>
 <h5 id="exampale">exampale</h5>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> keyMap = {
      a: <span class="hljs-string">&apos;A&apos;</span>,
@@ -2686,22 +2694,18 @@ oobe.helper.isEmpty(<span class="hljs-number">0</span>) <span class="hljs-commen
 <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.keys(output)) <span class="hljs-comment">// [&apos;a&apos;, &apos;b&apos;]</span>
 </code></pre>
 <p>&#x6B64;&#x529F;&#x80FD;&#x4E3B;&#x8981;&#x662F;&#x642D;&#x914D;<a href="#mapping"><code>mapping</code></a>&#x4F7F;&#x7528;&#xFF0C;&#x53EA;&#x8981;&#x5B9A;&#x7FA9;&#x4E00;&#x500B;KeyMap&#x5C31;&#x884C;&#x4E86;&#x3002;</p>
-<pre><code class="lang-js"><span class="hljs-keyword">let</span> keyMap = {
-    name: <span class="hljs-string">&apos;Name&apos;</span>
-}
-
-<span class="hljs-keyword">let</span> mySprite = {
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> mySprite = {
+    map: {
+        name: <span class="hljs-string">&apos;Name&apos;</span>
+    },
     body() {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$helper.setNull(keyMap)
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$helper.setNull(<span class="hljs-keyword">this</span>.$map)
     },
     born(source = {}) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$helper.mapping(keyMap, source)
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$helper.mapping(<span class="hljs-keyword">this</span>.$map, source)
     },
     origin() {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$helper.mapping(keyMap, <span class="hljs-keyword">this</span>, {
-            isModel: <span class="hljs-string">&apos;origin&apos;</span>,
-            reverse: <span class="hljs-literal">true</span>
-        })
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$helper.mapping(<span class="hljs-keyword">this</span>.$map, <span class="hljs-keyword">this</span>, <span class="hljs-string">&apos;origin&apos;</span>)
     }
 }
 </code></pre>
@@ -2748,7 +2752,7 @@ oobe.helper.isEmpty(<span class="hljs-number">0</span>) <span class="hljs-commen
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"幫助 - helper","level":"5.1","depth":1,"next":{"title":"jpjs","level":"5.1.1","depth":2,"anchor":"#jpjs","path":"pages/tools/helper.md","ref":"./pages/tools/helper.md#jpjs","articles":[]},"previous":{"title":"$loaderError","level":"4.3.9","depth":2,"anchor":"#loadererror","path":"pages/collection/events.md","ref":"./pages/collection/events.md#loadererror","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","back-to-top-button","chapter-fold"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"back-to-top-button":{},"chapter-fold":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/tools/helper.md","mtime":"2020-02-10T08:13:24.714Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-20T05:46:50.332Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"幫助 - helper","level":"5.1","depth":1,"next":{"title":"jpjs","level":"5.1.1","depth":2,"anchor":"#jpjs","path":"pages/tools/helper.md","ref":"./pages/tools/helper.md#jpjs","articles":[]},"previous":{"title":"$loaderError","level":"4.3.9","depth":2,"anchor":"#loadererror","path":"pages/collection/events.md","ref":"./pages/collection/events.md#loadererror","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","back-to-top-button","chapter-fold"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"back-to-top-button":{},"chapter-fold":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/tools/helper.md","mtime":"2020-03-20T07:13:48.832Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-03-20T07:14:11.815Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

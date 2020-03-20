@@ -252,8 +252,8 @@ class Helper {
      */
 
     static mapping(keyMap, target, options = {}) {
-        let isModel = options.isModel
-        let reverse = !!options.reverse
+        let isModel = options === 'origin' ? 'origin' : options.isModel
+        let reverse = options === 'origin' ? true : !!options.reverse
         let output = {}
         for (let [key, value] of Object.entries(keyMap)) {
             let name = reverse ? value : key

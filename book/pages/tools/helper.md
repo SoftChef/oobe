@@ -249,6 +249,17 @@ oobe.helper.mapping(keyMap, target, options) => Object
 | options.isModel? | body or origin | 對象是Sprite或Collection則自動轉換成`body`或`origin`。 |
 | options.reverse? | boolean        | 反向映射                                             |
 
+你也可以使用`origin`來簡化options的行為：
+
+```js
+// 這與以下結果相同
+helper.mapping(key, map, 'origin')
+helper.mapping(key, map, {
+    isModel: 'origin',
+    reverse: true
+})
+```
+
 ##### exampale
 
 ```js
@@ -295,22 +306,18 @@ console.log(Object.keys(output)) // ['a', 'b']
 此功能主要是搭配[`mapping`](#mapping)使用，只要定義一個KeyMap就行了。
 
 ```js
-let keyMap = {
-    name: 'Name'
-}
-
 let mySprite = {
+    map: {
+        name: 'Name'
+    },
     body() {
-        return this.$helper.setNull(keyMap)
+        return this.$helper.setNull(this.$map)
     },
     born(source = {}) {
-        return this.$helper.mapping(keyMap, source)
+        return this.$helper.mapping(this.$map, source)
     },
     origin() {
-        return this.$helper.mapping(keyMap, this, {
-            isModel: 'origin',
-            reverse: true
-        })
+        return this.$helper.mapping(this.$map, this, 'origin')
     }
 }
 ```
