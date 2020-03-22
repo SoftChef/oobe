@@ -133,7 +133,7 @@ class CollectionUnit extends Base {
     }
 
     put(key, sprite) {
-        sprite.parent = this.parent
+        sprite._sprite.parent = this.parent
         if (this.has(key) === false) {
             this.items.push(sprite)
         } else {
