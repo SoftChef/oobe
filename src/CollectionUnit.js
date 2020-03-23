@@ -133,7 +133,7 @@ class CollectionUnit extends Base {
     }
 
     put(key, sprite, insert) {
-        sprite.parent = this.parent
+        sprite._sprite.parent = this.parent
         if (this.has(key) === false) {
             if (insert != null) {
                 this.items.splice(insert, 0, sprite)
