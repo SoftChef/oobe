@@ -591,6 +591,20 @@ describe('#Collection', () => {
         this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
     })
+    
+    it('insert', function() {
+        let collection = this.oobe.collection('CognitoUser', 'user')
+        let user1 = Oobe.helper.jpjs(RawData)
+        let user2 = Oobe.helper.jpjs(RawData)
+        let user3 = Oobe.helper.jpjs(RawData)
+        user1.Username = '1'
+        user2.Username = '2'
+        user3.Username = '3'
+        collection.write(user1)
+        collection.write(user2)
+        collection.write(user3, { insert: 0 })
+        expect(collection.items.map(u => u.name).join(',')).to.equal('3,1,2')
+    })
 
     it('create', function() {
         this.collection = this.oobe.collection('CognitoUser', 'user')

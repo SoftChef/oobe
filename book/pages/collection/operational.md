@@ -73,12 +73,14 @@ collection.fetch(key) => Sprite || null
 寫入一個Sprite。
 
 ```js
-collection.write(source) => null
+collection.write(source, options?) => null
 ```
 
-| Param    | Type    | Description  |
-| ---      | ---     | ---          |
-| source   | any     | Origin data. |
+| Param           | Type    | Description      |
+| ---             | ---     | ---              |
+| source          | any     | Origin data.     |
+| options?        | object  | _No description_ |
+| options.insert? | number  | 數據的插入點       |
 
 #### batchWrite
 

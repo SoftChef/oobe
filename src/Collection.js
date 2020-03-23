@@ -211,8 +211,10 @@ class Collection {
      * @param {object|sprite} data
      */
 
-    write(data) {
-        return this._collection.write(data)
+    write(data, options = {}) {
+        return this._collection.write(data, {
+            insert: options.insert
+        })
     }
 
     /**

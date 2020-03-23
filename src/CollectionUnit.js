@@ -132,10 +132,14 @@ class CollectionUnit extends Base {
         })
     }
 
-    put(key, sprite) {
+    put(key, sprite, insert) {
         sprite.parent = this.parent
         if (this.has(key) === false) {
-            this.items.push(sprite)
+            if (insert != null) {
+                this.items.splice(insert, 0, sprite)
+            } else {
+                this.items.push(sprite)
+            }
         } else {
             this.items.splice([this.getKeyIndex(key)], 1, sprite)
         }
@@ -184,14 +188,19 @@ class CollectionUnit extends Base {
         if (Helper.getType(key) !== 'string') {
             this.$devError('write', `Write key(${key}) not a string`)
         }
-        let eventData = { key, sprite, source, onlyKey: !!options.onlyKey }
+        let eventData = {
+            key,
+            sprite,
+            source,
+            onlyKey: !!options.onlyKey
+        }
         this.status.dirty = true
         this.bind.write({
             key,
             sprite,
             reject: message => this.event.emit(this.unit, '$writeReject', [{ message, ...eventData }]),
             success: () => {
-                this.put(key, sprite)
+                this.put(key, sprite, options.insert)
                 this.event.emit(this.unit, '$writeSuccess', [eventData])
                 if (this.bind.writeAfter) {
                     this.bind.writeAfter({ key, sprite })
