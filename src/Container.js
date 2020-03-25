@@ -84,7 +84,8 @@ class Container extends Base {
             map: [false, ['array'], []],
             views: [false, ['array'], []],
             dists: [false, ['array'], []],
-            methods: [false, ['array'], []]
+            methods: [false, ['array'], []],
+            loaders: [false, ['array'], []]
         })
     }
 
@@ -93,7 +94,8 @@ class Container extends Base {
         let views = this.verifyInterface('views', options)
         let dists = this.verifyInterface('dists', options)
         let methods = this.verifyInterface('methods', options)
-        if ((map.length + views.length + dists.length + methods.length) === 0) {
+        let loaders = this.verifyInterface('loaders', options)
+        if ((map.length + views.length + dists.length + methods.length + loaders.length) === 0) {
             return true
         }
         let message = 'Interface error for : '
@@ -108,6 +110,9 @@ class Container extends Base {
         }
         if (methods.length !== 0) {
             message += `\nmethods[${methods.join()}]`
+        }
+        if (loaders.length !== 0) {
+            message += `\nloaders[${loaders.join()}]`
         }
         return message
     }

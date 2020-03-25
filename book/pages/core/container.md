@@ -238,7 +238,8 @@ let interface = {
     map: ['name'],
     views: ['name'],
     dists: ['update'],
-    methods: ['rename']
+    methods: ['rename'],
+    loaders: ['fetch']
 }
 let sprite = {
     map: {
@@ -254,6 +255,9 @@ let sprite = {
     },
     methods: {
         rename() {}
+    },
+    loaders: {
+        fetch() {}
     }
 }
 let container = {
