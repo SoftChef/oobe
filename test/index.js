@@ -207,6 +207,33 @@ describe('#Sprite', () => {
         expect(() => { user.$reborn(RawData) }).to.throw(Error)
     })
 
+    it('watch', function(done) {
+        let oobe = new Oobe()
+        oobe.join('test', {
+            sprites: {
+                test: {
+                    body() {
+                        return {
+                            a: '5'
+                        }
+                    },
+                    watch: {
+                        a(value) {
+                            expect(this.a).to.equal('5')
+                            expect(value).to.equal('10')
+                            setTimeout(() => {
+                                done()
+                            }, 20)
+                        }
+                    }
+                }
+            }
+        })
+        let sprite = oobe.make('test', 'test')
+        sprite.a = '10'
+        expect(sprite.a).to.equal('10')
+    })
+
     it('options', function() {
         let sprite = this.oobe.make('CognitoUser', 'rawnull')
         let sprite2 = this.oobe.make('CognitoUser', 'rawnull', { save: false })
@@ -591,7 +618,7 @@ describe('#Collection', () => {
         this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
     })
-    
+
     it('insert', function() {
         let collection = this.oobe.collection('CognitoUser', 'user')
         let user1 = Oobe.helper.jpjs(RawData)

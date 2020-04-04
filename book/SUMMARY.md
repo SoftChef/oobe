@@ -46,6 +46,7 @@
     * [Born](./pages/sprite/structure.md#born)
     * [Origin](./pages/sprite/structure.md#origin)
     * [Created](./pages/sprite/structure.md#created)
+    * [Watch](./pages/sprite/structure.md#watch)
     * [Self](./pages/sprite/structure.md#self)
     * [Methods](./pages/sprite/structure.md#methods)
     * [Views](./pages/sprite/structure.md#views)
