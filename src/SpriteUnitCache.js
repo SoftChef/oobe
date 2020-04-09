@@ -23,6 +23,9 @@ function setDefineProperty(key, protect) {
             return this._sprite.$devError('set', 'Body data not allow function.')
         }
         if (this._sprite.isLive()) {
+            if (this._sprite.options.watch[key]) {
+                this._sprite.options.watch[key].call(this, value)
+            }
             this._sprite.body[key] = value
         }
     }

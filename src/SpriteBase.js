@@ -42,6 +42,7 @@ class SpriteBase extends Base {
             views: [false, ['object'], {}],
             dists: [false, ['object'], {}],
             rules: [false, ['object'], {}],
+            watch: [false, ['object'], {}],
             origin: [false, ['function'], function() { return this.$body() }],
             methods: [false, ['object'], {}],
             loaders: [false, ['object'], null],
