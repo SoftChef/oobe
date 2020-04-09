@@ -141,7 +141,7 @@ class CollectionUnit extends Base {
                 this.items.push(sprite)
             }
         } else {
-            this.items.splice([this.getKeyIndex(key)], 1, sprite)
+            this.items.splice(this.getKeyIndex(key), 1, sprite)
         }
         this.map[this.toPKey(key)] = sprite
     }
