@@ -2,9 +2,10 @@ const Base = require('./Base')
 const Event = require('./Event')
 const Sprite = require('./Sprite')
 const Helper = require('./Helper')
+const SpriteUnitCache = require('./SpriteUnitCache')
 
 class SpriteUnit extends Base {
-    constructor(base) {
+    constructor(base, options) {
         super('Sprite')
         this.body = {}
         this.refs = {}
@@ -18,8 +19,20 @@ class SpriteUnit extends Base {
         this.rawBody = ''
         this.rawData = null
         this.functions = null
+        this.refKeys = base.refKeys
         this.propertyNames = []
+        this.setCustomOptions(options)
         this.init()
+    }
+
+    emit(name, args) {
+        this.event.emit(this.unit, name, args)
+    }
+
+    setCustomOptions(options) {
+        this.customOptions = Helper.verify(options || {}, {
+            save: [false, ['boolean'], true]
+        })
     }
 
     dataParse(data = null) {
@@ -27,16 +40,19 @@ class SpriteUnit extends Base {
     }
 
     dataStringify(data) {
+        if (this.customOptions.save === false) {
+            return null
+        }
         return JSON.stringify(data)
     }
 
     getBody() {
         let output = Helper.jpjs(this.body)
         this.eachRefs((taget, key, type) => {
-            if (type === 'collection') {
-                output[key] = taget.getBodys()
-            } else {
+            if (type === 'sprite') {
                 output[key] = taget.getBody()
+            } else {
+                output[key] = taget.getBodys()
             }
         })
         return output
@@ -84,6 +100,9 @@ class SpriteUnit extends Base {
     }
 
     isChange(key) {
+        if (this.customOptions.save === false) {
+            this.$devError('isChange', 'Options save is false, so not cache rawdata.')
+        }
         if (key && this.getProperty(key)) {
             let target = this.unit[key]
             if (Helper.isSprite(target)) {
@@ -121,7 +140,7 @@ class SpriteUnit extends Base {
             dist = this.dist
         }
         let result = dist.options.export.apply(this.unit, args)
-        this.event.emit(this.unit, '$export', [{ result, dist: dist.name }])
+        this.emit('$export', [{ result, dist: dist.name }])
         return result
     }
 
@@ -167,7 +186,8 @@ class SpriteUnit extends Base {
     revive() {
         if (this.isLive()) {
             if (this.from) {
-                this.from.reborn(this.toOrigin())
+                this.from.wakeup()
+                this.from.setBody(this.toOrigin())
                 return this.dead()
             } else {
                 this.$devError('revive', 'This Sprite is root.')
@@ -175,9 +195,20 @@ class SpriteUnit extends Base {
         }
     }
 
-    copy() {
+    reborn(data) {
+        if (!this.isReady()) {
+            return this.$devError('reborn', 'This Sprite not ready.')
+        }
+        if (this.isLive()) {
+            this.status.ready = false
+            this.initBody()
+            return this.born(data)
+        }
+    }
+
+    copy(options) {
         if (this.isReady()) {
-            return this.base.create().born(this.toOrigin()).distortion(this.dist.name)
+            return this.base.create(options || this.customOptions).born(this.toOrigin()).distortion(this.dist.name)
         } else {
             this.$devError('copy', 'Sprite not ready.')
         }
@@ -198,12 +229,16 @@ class SpriteUnit extends Base {
         }
     }
 
-    reborn(origin) {
-        this.wakeup()
-        this.setBody(origin)
-    }
+    /**
+     * Invoke core.reset() to trigger.
+     * @event Sprite#$reset
+     * @property {object} context
+     */
 
     reset(key) {
+        if (this.customOptions.save === false) {
+            this.$devError('reset', 'Options save is false, so not cache rawdata.')
+        }
         if (this.isLive()) {
             if (key) {
                 if (this.getProperty(key)) {
@@ -212,6 +247,7 @@ class SpriteUnit extends Base {
             } else {
                 this.setBody(this.dataParse(this.rawData))
             }
+            this.emit('$reset')
         }
     }
 
@@ -242,7 +278,7 @@ class SpriteUnit extends Base {
 
     setError(data) {
         this.status.error = data || 'Unknown error'
-        this.event.emit(this.unit, '$error', [data])
+        this.emit('$error', [data])
     }
 
     put(data) {
@@ -271,7 +307,7 @@ class SpriteUnit extends Base {
     }
 
     eachRefs(callback) {
-        for (let key in this.refs) {
+        for (let key of this.refKeys) {
             let type = this.refs[key] instanceof SpriteUnit ? 'sprite' : 'collection'
             let result = callback(this.refs[key], key, type)
             if (result === '_break') {
@@ -315,9 +351,11 @@ class SpriteUnit extends Base {
             this.setBody(data)
             this.rawBody = this.dataStringify(this.body)
             this.rawData = this.dataStringify(data)
-            this.base.options.created.call(this.unit)
+            if (this.base.options.created) {
+                this.base.options.created.call(this.unit)
+            }
             this.status.ready = true
-            this.event.emit(this.unit, '$ready')
+            this.emit('$ready')
             return this
         }
     }
@@ -327,6 +365,12 @@ class SpriteUnit extends Base {
         object.$self = {}
         object.$views = {}
         object.$status = Helper.jpjs(this.status)
+        object.$options = Helper.jpjs(this.customOptions)
+        object.$profile = {
+            baseName: this.base.name,
+            hasParent: !!this.parent,
+            containerName: this.base.container.name
+        }
         for (let key in this.unit.$self) {
             object.$self[key] = this.unit.$self[key]
         }
@@ -336,16 +380,24 @@ class SpriteUnit extends Base {
         return object
     }
 
+    /**
+     * Invoke core.make() to trigger.
+     * @event Sprite#$init
+     * @property {object} context
+     * @property {Sprite} self
+     */
+
     init() {
+        this.initEvent()
         this.initUnit()
         this.initBody()
-        this.checkBody()
-        this.initEvent()
         this.initStatus()
+        this.checkBody()
         this.rawBody = this.dataStringify(this.body)
         this.rawData = null
-        this.propertyNames = Object.keys(this.body || {})
+        this.propertyNames = this.body ? Object.keys(this.body) : []
         this.status.init = true
+        this.emit('$init', [this.unit])
     }
 
     initEvent() {
@@ -362,7 +414,13 @@ class SpriteUnit extends Base {
     }
 
     initUnit() {
-        this.unit = new Sprite(this)
+        // 這是一個防止反覆建立精靈屬性的方法
+        if (this.base.Unit == null) {
+            this.unit = new Sprite(this)
+            this.base.Unit = SpriteUnitCache(this)
+        }
+        this.unit = new this.base.Unit(this)
+        this.loaders = this.base.getLoaders(this.unit)
         this.functions = this.base.getMethods(this.unit)
         if (this.base.options.defaultView && typeof Proxy !== 'undefined') {
             let defaultView = this.base.options.defaultView
@@ -385,26 +443,15 @@ class SpriteUnit extends Base {
 
     initBody() {
         let refs = this.options.refs
-        let body = this.options.body.call(this.unit)
-        for (let key in body) {
-            this.body[key] = body[key]
-            Object.defineProperty(this.unit, key, {
-                get: this.getDefineProperty('body', key),
-                set: this.setDefineProperty(key)
-            })
-        }
-        for (let key in refs) {
+        this.body = this.options.body.call(this.unit)
+        for (let key of this.refKeys) {
             let name = refs[key]
-            if (name[0] === '[' && name.slice(-1) === ']') {
-                this.refs[key] = this.base.container.makeCollection(name.slice(1, -1))
+            if (name[0] === '[' && name[name.length - 1] === ']') {
+                this.refs[key] = this.base.container.makeCollection(name.slice(1, -1), this.customOptions)
             } else {
-                this.refs[key] = this.base.container.make(name)
+                this.refs[key] = this.base.container.make(name, this.customOptions)
             }
             this.refs[key].parent = this.unit
-            Object.defineProperty(this.unit, key, {
-                get: this.getDefineProperty('refs', key),
-                set: this.setDefineProperty(key, true)
-            })
         }
     }
 
@@ -430,6 +477,9 @@ class SpriteUnit extends Base {
     }
 
     getRawdata(assign) {
+        if (this.customOptions.save === false) {
+            this.$devError('getRawdata', 'Options save is false, so not cache rawdata.')
+        }
         let data = this.dataParse(this.rawData)
         return assign ? Helper.deepObjectAssign(data, assign) : data
     }
@@ -458,28 +508,6 @@ class SpriteUnit extends Base {
             }
         })
         return { result, success }
-    }
-
-    getDefineProperty(name, key) {
-        if (name === 'refs') {
-            return () => this.refs[key].unit
-        } else {
-            return () => this.body[key]
-        }
-    }
-
-    setDefineProperty(key, protect) {
-        return (value) => {
-            if (this.isLive()) {
-                if (protect) {
-                    return this.$devError('set', `This property(${key}) is protect.`)
-                }
-                if (typeof value === 'function') {
-                    return this.$devError('set', 'Body data not allow function.')
-                }
-                this.body[key] = value
-            }
-        }
     }
 }
 

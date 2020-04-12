@@ -1,9 +1,23 @@
+const onDevErrors = []
+
 class Base {
     constructor(name) {
         this._base = { name }
     }
 
+    static onDevError(callback) {
+        onDevErrors.push(callback)
+    }
+
     $devError(functionName, message) {
+        for (let callback of onDevErrors) {
+            callback.call(this, {
+                name: this._base.name,
+                target: this,
+                message,
+                functionName
+            })
+        }
         throw new Error(`(☉д⊙)!! Oobe::${this._base.name} => ${functionName} -> ${message}`)
     }
 

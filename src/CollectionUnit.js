@@ -1,10 +1,18 @@
 const Base = require('./Base')
 const Event = require('./Event')
 const Helper = require('./Helper')
+const Loader = require('./Loader')
 const Collection = require('./Collection')
 
 class CollectionUnit extends Base {
-    constructor(base) {
+    /**
+     * Invoke core.collection() to trigger.
+     * @event Collection#$init
+     * @property {object} context
+     * @property {Collection} self
+     */
+
+    constructor(base, options) {
         super('Collection')
         this.map = {}
         this.base = base
@@ -17,11 +25,20 @@ class CollectionUnit extends Base {
         this.status = {
             dirty: false
         }
+        this.customOptions = options
         this.options = Helper.verify(base.options.collection, {
             key: [false, ['function', 'string'], '*'],
             write: [false, ['function'], ({ success }) => { success() }],
-            views: [false, ['object'], {}]
+            writeAfter: [false, ['function'], null],
+            views: [false, ['object'], {}],
+            loaders: [false, ['object'], null]
         })
+        this.bind = {
+            write: this.options.write.bind(this),
+            writeAfter: this.options.writeAfter ? this.options.writeAfter.bind(this) : null
+        }
+        this.loaders = Loader(this.unit, 'collection', this.options.loaders)
+        this.event.emit(this.unit, '$init', [this.unit])
     }
 
     toPKey(key) {
@@ -45,7 +62,7 @@ class CollectionUnit extends Base {
     }
 
     generateSprite(source) {
-        return Helper.isSprite(source) ? source : this.base.create().unit.$born(source)
+        return Helper.isSprite(source) ? source : this.base.create(this.customOptions).unit.$born(source)
     }
 
     forEach(callback) {
@@ -91,18 +108,40 @@ class CollectionUnit extends Base {
         return output
     }
 
+    getOrigins() {
+        let length = this.items.length
+        let output = new Array(length)
+        this.forEach((sprite, index) => {
+            output[index] = sprite.$toOrigin()
+        })
+        return output
+    }
+
+    getExports(name, args) {
+        let length = this.items.length
+        let output = new Array(length)
+        this.forEach((sprite, index) => {
+            output[index] = sprite.$export(name, ...args)
+        })
+        return output
+    }
+
     distortion(name) {
         this.forEach((sprite) => {
             sprite.$dist(name)
         })
     }
 
-    put(key, sprite) {
-        sprite.parent = this.parent
+    put(key, sprite, insert) {
+        sprite._sprite.parent = this.parent
         if (this.has(key) === false) {
-            this.items.push(sprite)
+            if (insert != null) {
+                this.items.splice(insert, 0, sprite)
+            } else {
+                this.items.push(sprite)
+            }
         } else {
-            this.items.splice([this.getKeyIndex(key)], 1, sprite)
+            this.items.splice(this.getKeyIndex(key), 1, sprite)
         }
         this.map[this.toPKey(key)] = sprite
     }
@@ -136,9 +175,10 @@ class CollectionUnit extends Base {
      * @property {object} content.source source data
      */
 
-    write(source, options) {
-        if (Helper.getType(source) !== 'object') {
-            this.$devError('write', 'Source not a object')
+    write(source, options = {}) {
+        let type = typeof source
+        if (type !== 'object') {
+            this.$devError('write', 'Source not a object.')
         }
         let sprite = this.generateSprite(source)
         let key = this.getKey(sprite)
@@ -148,21 +188,29 @@ class CollectionUnit extends Base {
         if (Helper.getType(key) !== 'string') {
             this.$devError('write', `Write key(${key}) not a string`)
         }
-        let eventData = { key, sprite, source, ...options }
+        let eventData = {
+            key,
+            sprite,
+            source,
+            onlyKey: !!options.onlyKey
+        }
         this.status.dirty = true
-        this.options.write.call(this.unit, {
+        this.bind.write({
             key,
             sprite,
             reject: message => this.event.emit(this.unit, '$writeReject', [{ message, ...eventData }]),
             success: () => {
-                this.put(key, sprite)
+                this.put(key, sprite, options.insert)
                 this.event.emit(this.unit, '$writeSuccess', [eventData])
+                if (this.bind.writeAfter) {
+                    this.bind.writeAfter({ key, sprite })
+                }
             }
         })
     }
 
     batchWrite(items) {
-        if (Helper.getType(items) !== 'array') {
+        if (Array.isArray(items) === false) {
             this.$devError('batchWrite', 'Data not a array.')
         }
         this.status.dirty = true
@@ -172,7 +220,7 @@ class CollectionUnit extends Base {
     }
 
     batchWriteOnlyKeys(key, items) {
-        if (Helper.getType(items) !== 'array') {
+        if (Array.isArray(items) === false) {
             this.$devError('batchWriteOnlyKeys', 'Data not a array.')
         }
         this.status.dirty = true
@@ -187,16 +235,20 @@ class CollectionUnit extends Base {
      * @property {object} context
      */
 
-    batchWriteAsync(items, ms = 10) {
+    batchWriteAsync(items, ms, parallel) {
+        this.status.dirty = true
         return new Promise((resolve) => {
             let interval = setInterval(() => {
-                let item = items.shift()
-                if (item) {
-                    this.write(item)
-                } else {
-                    clearInterval(interval)
-                    resolve(true)
-                    this.event.emit(this.unit, '$writeAsyncDone')
+                for (let i = 0; i < parallel; i++) {
+                    let item = items.shift()
+                    if (item) {
+                        this.write(item)
+                    } else {
+                        clearInterval(interval)
+                        resolve(true)
+                        this.event.emit(this.unit, '$writeAsyncDone')
+                        break
+                    }
                 }
             }, ms)
         })

@@ -1,5 +1,5 @@
 const Base = require('./Base')
-const Core = require('./Core')
+const Core = require('./Oobe')
 const Helper = require('./Helper')
 
 /**
@@ -9,7 +9,7 @@ const Helper = require('./Helper')
 class Oobe extends Base {
     constructor() {
         super('Oobe')
-        this._core = new Core()
+        this._core = new Core(this)
         this.helper = Helper
     }
 
@@ -68,12 +68,14 @@ class Oobe extends Base {
      * Create a sprite.
      * @param {string} containerName
      * @param {string} spriteName
+     * @param {object} [options]
+     * @param {object} [options.save=true] If save is false, This sprite can't use reset and isChange and getRawdata method.
      * @returns {sprite}
      * @see {@link Sprite}
      */
 
-    make(containerName, spriteName) {
-        return this._core.make(containerName, spriteName)
+    make(containerName, spriteName, options) {
+        return this._core.make(containerName, spriteName, options)
     }
 
     /**
@@ -81,22 +83,26 @@ class Oobe extends Base {
      * @param {string} containerName
      * @param {string} spriteName
      * @param {array} items
+     * @param {object} [options]
+     * @param {object} [options.save=true] If save is false, This sprite can't use reset and isChange and getRawdata method.
      * @returns {array}
      */
 
-    batch(containerName, spriteName, items) {
-        return this._core.batch(containerName, spriteName, items)
+    batch(containerName, spriteName, items, options) {
+        return this._core.batch(containerName, spriteName, items, options)
     }
 
     /**
      * Create a collection.
      * @param {string} containerName
      * @param {string} spriteName
+     * @param {object} [options]
+     * @param {object} [options.save=true] Options of source to sprite, but except sprite.
      * @returns {@link Collection}
      */
 
-    collection(containerName, spriteName) {
-        return this._core.makeCollection(containerName, spriteName)
+    collection(containerName, spriteName, options) {
+        return this._core.makeCollection(containerName, spriteName, options)
     }
 
     /**
@@ -115,7 +121,7 @@ class Oobe extends Base {
     }
 
     /**
-     * Add package。
+     * Add package.
      * @param {object} optinos package
      * @param {string} optinos.name package name
      * @param {object} [optinos.rules] rules
@@ -124,6 +130,15 @@ class Oobe extends Base {
 
     addon(optinos) {
         this._core.addon(optinos)
+    }
+
+    /**
+     * Add plugin.
+     * @param {Class} Plugin
+     */
+
+    plugin(Plugin) {
+        return this._core.plugin(Plugin)
     }
 
     /**
@@ -165,5 +180,6 @@ class Oobe extends Base {
  */
 
 Oobe.helper = Helper
+Oobe.onDevError = Base.onDevError
 
 module.exports = Oobe

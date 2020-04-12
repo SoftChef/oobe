@@ -25,6 +25,24 @@ class Sprite {
         return this._sprite.views
     }
 
+    /** Shorthand for $loaders. */
+
+    get $o() {
+        return this._sprite.loaders
+    }
+
+    /** Loaders */
+
+    get $loaders() {
+        return this._sprite.loaders
+    }
+
+    /** Map data */
+
+    get $map() {
+        return this._sprite.options.map
+    }
+
     /** Views */
 
     get $views() {
@@ -184,11 +202,13 @@ class Sprite {
 
     /**
      * Copy this sprite.
+     * @param {object} [options] New sprite options.
+     * @param {object} [options.save=true]
      * @returns {sprite}
      */
 
-    $copy() {
-        return getUnit(this._sprite.copy())
+    $copy(options) {
+        return getUnit(this._sprite.copy(options))
     }
 
     /**
@@ -298,6 +318,16 @@ class Sprite {
     }
 
     /**
+     * Restart born, reset all body and refs, with created and $ready event.
+     * @param {object} data
+     * @returns {sprite}
+     */
+
+    $reborn(data) {
+        return this._sprite.reborn(data)
+    }
+
+    /**
      * Run origin options method and return data.
      * @returns {object}
      */
@@ -323,6 +353,18 @@ class Sprite {
 
     $validate() {
         return this._sprite.validateAll()
+    }
+
+    /**
+     * Validate body by key with the rules.
+     * @returns {object}
+     */
+
+    $validateBy(key) {
+        if (Object.prototype.hasOwnProperty.call(this._sprite.body, key) === false) {
+            return this._sprite.$devError('$validateBy', `Property name(${key}) not in the body.`)
+        }
+        return this._sprite.validate(this[key], key)
     }
 
     /**

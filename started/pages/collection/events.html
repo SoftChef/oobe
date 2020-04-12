@@ -1,0 +1,2662 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>事件 - events · oobe</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="events.html" />
+    
+    
+    <link rel="prev" href="operational.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    介紹
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">系統 - Core</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html">
+            
+                    
+                    主體 - oobe
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#join">
+            
+                    
+                    join
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#addon">
+            
+                    
+                    addon
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#plugin">
+            
+                    
+                    plugin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#make">
+            
+                    
+                    make
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#batch">
+            
+                    
+                    batch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.6" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#collection">
+            
+                    
+                    collection
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.7" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#on">
+            
+                    
+                    on
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.8" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#ononce">
+            
+                    
+                    onOnce
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.9" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#off">
+            
+                    
+                    off
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.10" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#emit">
+            
+                    
+                    emit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.11" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#ondeverror">
+            
+                    
+                    onDevError
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.12" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#meg">
+            
+                    
+                    meg
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.13" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#getrules">
+            
+                    
+                    getRules
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.14" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#setlocale">
+            
+                    
+                    setLocale
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.15" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#instanceof">
+            
+                    
+                    instanceof
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.16" data-path="../core/oobe.html">
+            
+                <a href="../core/oobe.html#helper">
+            
+                    
+                    helper
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../core/container.html">
+            
+                <a href="../core/container.html">
+            
+                    
+                    容器 - container
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="../core/container.html">
+            
+                <a href="../core/container.html#sprites">
+            
+                    
+                    Sprites
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="../core/container.html">
+            
+                <a href="../core/container.html#rules">
+            
+                    
+                    Rules
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="../core/container.html">
+            
+                <a href="../core/container.html#locales">
+            
+                    
+                    Locales
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.4" data-path="../core/container.html">
+            
+                <a href="../core/container.html#configs">
+            
+                    
+                    Configs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.5" data-path="../core/container.html">
+            
+                <a href="../core/container.html#dists">
+            
+                    
+                    Dists
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.6" data-path="../core/container.html">
+            
+                <a href="../core/container.html#install">
+            
+                    
+                    Install
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7" data-path="../core/container.html">
+            
+                <a href="../core/container.html#methods">
+            
+                    
+                    Methods
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.8" data-path="../core/container.html">
+            
+                <a href="../core/container.html#collection-methods">
+            
+                    
+                    Collection Methods
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.9" data-path="../core/container.html">
+            
+                <a href="../core/container.html#utils">
+            
+                    
+                    Utils
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.10" data-path="../core/container.html">
+            
+                <a href="../core/container.html#interface">
+            
+                    
+                    Interface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../core/event.html">
+            
+                <a href="../core/event.html">
+            
+                    
+                    事件 - event
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.3.1" data-path="../core/event.html">
+            
+                <a href="../core/event.html#on">
+            
+                    
+                    On
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.2" data-path="../core/event.html">
+            
+                <a href="../core/event.html#off">
+            
+                    
+                    Off
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.3" data-path="../core/event.html">
+            
+                <a href="../core/event.html#emit">
+            
+                    
+                    Emit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../core/package.html">
+            
+                <a href="../core/package.html">
+            
+                    
+                    包裹 - package
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.4.1" data-path="../core/package.html">
+            
+                <a href="../core/package.html#rule">
+            
+                    
+                    rule
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.2" data-path="../core/package.html">
+            
+                <a href="../core/package.html#locale">
+            
+                    
+                    locale
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.3" data-path="../core/package.html">
+            
+                <a href="../core/package.html#ob">
+            
+                    
+                    ob
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">精靈 - Sprite</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html">
+            
+                    
+                    結構 - structure
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#body">
+            
+                    
+                    Body
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#refs">
+            
+                    
+                    Refs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#born">
+            
+                    
+                    Born
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#origin">
+            
+                    
+                    Origin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.5" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#created">
+            
+                    
+                    Created
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.6" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#watch">
+            
+                    
+                    Watch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.7" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#self">
+            
+                    
+                    Self
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.8" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#methods">
+            
+                    
+                    Methods
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.9" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#views">
+            
+                    
+                    Views
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.10" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#rule">
+            
+                    
+                    Rule
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.11" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#map">
+            
+                    
+                    Map
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.12" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#distortion">
+            
+                    
+                    Distortion
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.13" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#loaders">
+            
+                    
+                    Loader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.14" data-path="../sprite/structure.html">
+            
+                <a href="../sprite/structure.html#error-message">
+            
+                    
+                    ErrorMessage
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html">
+            
+                    
+                    操作 - operational
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.2.1" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#born">
+            
+                    
+                    $born
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.2" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#toorigin">
+            
+                    
+                    $toOrigin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.3" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#seterror">
+            
+                    
+                    $setError
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.4" data-path="../sprite/operational.md#">
+            
+                <span>
+            
+                    
+                    $reborn
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.5" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#reset">
+            
+                    
+                    $reset
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.6" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#copy">
+            
+                    
+                    $copy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.7" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#out">
+            
+                    
+                    $out
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.8" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#revive">
+            
+                    
+                    $revive
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.9" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#dead">
+            
+                    
+                    $dead
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.10" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#live">
+            
+                    
+                    $live
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.11" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#ready">
+            
+                    
+                    $ready
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.12" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#dist">
+            
+                    
+                    $dist
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.13" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#export">
+            
+                    
+                    $export
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.14" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#show">
+            
+                    
+                    $show
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.15" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#isfixed">
+            
+                    
+                    $isFixed
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.16" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#ishidden">
+            
+                    
+                    $isHidden
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.17" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#ischange">
+            
+                    
+                    $isChange
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.18" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#validate">
+            
+                    
+                    $validate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.19" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#validateby">
+            
+                    
+                    $validateBy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.20" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#rules">
+            
+                    
+                    $rules
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.21" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#vviews">
+            
+                    
+                    $v($views)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.22" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#oloaders">
+            
+                    
+                    $o($loaders)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.23" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#meg">
+            
+                    
+                    $meg
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.24" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#error">
+            
+                    
+                    $error
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.25" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#body">
+            
+                    
+                    $body
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.26" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#keys">
+            
+                    
+                    $keys
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.27" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#put">
+            
+                    
+                    $put
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.28" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#raw">
+            
+                    
+                    $raw
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.29" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#map">
+            
+                    
+                    $map
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.30" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#fn">
+            
+                    
+                    $fn
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.31" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#bind">
+            
+                    
+                    $bind
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.32" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#on">
+            
+                    
+                    $on
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.33" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#off">
+            
+                    
+                    $off
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.34" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#emit">
+            
+                    
+                    $emit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.35" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#helper">
+            
+                    
+                    $helper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.36" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#toobject">
+            
+                    
+                    $toObject
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.37" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#configs">
+            
+                    
+                    $configs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.38" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#distname">
+            
+                    
+                    $distName
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.39" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#parent">
+            
+                    
+                    $parent
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.40" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#self">
+            
+                    
+                    $self
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.41" data-path="../sprite/operational.html">
+            
+                <a href="../sprite/operational.html#utils">
+            
+                    
+                    $utils
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../sprite/events.html">
+            
+                <a href="../sprite/events.html">
+            
+                    
+                    事件 - events
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.3.1" data-path="../sprite/events.html">
+            
+                <a href="../sprite/events.html#ready">
+            
+                    
+                    $ready
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3.2" data-path="../sprite/events.html">
+            
+                <a href="../sprite/events.html#export">
+            
+                    
+                    $export
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3.3" data-path="../sprite/events.html">
+            
+                <a href="../sprite/events.html#reset">
+            
+                    
+                    $reset
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3.4" data-path="../sprite/events.html">
+            
+                <a href="../sprite/events.html#error">
+            
+                    
+                    $error
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3.5" data-path="../sprite/events.html">
+            
+                <a href="../sprite/events.html#init">
+            
+                    
+                    $init
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3.6" data-path="../sprite/events.html">
+            
+                <a href="../sprite/events.html#loadersuccess">
+            
+                    
+                    $loaderSuccess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3.7" data-path="../sprite/events.html">
+            
+                <a href="../sprite/events.html#loadererror">
+            
+                    
+                    $loaderError
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">集合 - Collection</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="structure.html">
+            
+                <a href="structure.html">
+            
+                    
+                    結構 - structure
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="structure.html">
+            
+                <a href="structure.html#key">
+            
+                    
+                    Key
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="structure.html">
+            
+                <a href="structure.html#write">
+            
+                    
+                    Write
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="structure.html">
+            
+                <a href="structure.html#writeafter">
+            
+                    
+                    WriteAfter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="structure.html">
+            
+                <a href="structure.html#methods">
+            
+                    
+                    Methods
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="structure.html">
+            
+                <a href="structure.html#views">
+            
+                    
+                    Views
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="structure.html">
+            
+                <a href="structure.html#loaders">
+            
+                    
+                    Loader
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="operational.html">
+            
+                <a href="operational.html">
+            
+                    
+                    操作 - operational
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="operational.html">
+            
+                <a href="operational.html#has">
+            
+                    
+                    has
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="operational.html">
+            
+                <a href="operational.html#fetch">
+            
+                    
+                    fetch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.3" data-path="operational.html">
+            
+                <a href="operational.html#write">
+            
+                    
+                    write
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.4" data-path="operational.html">
+            
+                <a href="operational.html#batchwrite">
+            
+                    
+                    batchWrite
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.5" data-path="operational.html">
+            
+                <a href="operational.html#batchwriteonlykeys">
+            
+                    
+                    batchWriteOnlyKeys
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.6" data-path="operational.html">
+            
+                <a href="operational.html#batchwriteasync">
+            
+                    
+                    batchWriteAsync
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.7" data-path="operational.html">
+            
+                <a href="operational.html#remove">
+            
+                    
+                    remove
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.8" data-path="operational.html">
+            
+                <a href="operational.html#clear">
+            
+                    
+                    clear
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.9" data-path="operational.html">
+            
+                <a href="operational.html#on">
+            
+                    
+                    on
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.10" data-path="operational.html">
+            
+                <a href="operational.html#off">
+            
+                    
+                    off
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.11" data-path="operational.html">
+            
+                <a href="operational.html#ononce">
+            
+                    
+                    onOnce
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.12" data-path="operational.html">
+            
+                <a href="operational.html#emit">
+            
+                    
+                    emit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.13" data-path="operational.html">
+            
+                <a href="operational.html#size">
+            
+                    
+                    size
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.14" data-path="operational.html">
+            
+                <a href="operational.html#dirty">
+            
+                    
+                    dirty
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.15" data-path="operational.html">
+            
+                <a href="operational.html#loaders">
+            
+                    
+                    loaders
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.16" data-path="operational.html">
+            
+                <a href="operational.html#setdirty">
+            
+                    
+                    setDirty
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.17" data-path="operational.html">
+            
+                <a href="operational.html#ischange">
+            
+                    
+                    isChange
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.18" data-path="operational.html">
+            
+                <a href="operational.html#items">
+            
+                    
+                    items
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.19" data-path="operational.html">
+            
+                <a href="operational.html#foreach">
+            
+                    
+                    forEach
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.20" data-path="operational.html">
+            
+                <a href="operational.html#getbodys">
+            
+                    
+                    getBodys
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.21" data-path="operational.html">
+            
+                <a href="operational.html#getorigins">
+            
+                    
+                    getOrigins
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.22" data-path="operational.html">
+            
+                <a href="operational.html#getexports">
+            
+                    
+                    getExports
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.23" data-path="operational.html">
+            
+                <a href="operational.html#validate">
+            
+                    
+                    validate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.24" data-path="operational.html">
+            
+                <a href="operational.html#distall">
+            
+                    
+                    distAll
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.25" data-path="operational.html">
+            
+                <a href="operational.html#views">
+            
+                    
+                    views
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.26" data-path="operational.html">
+            
+                <a href="operational.html#methods">
+            
+                    
+                    methods
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.27" data-path="operational.html">
+            
+                <a href="operational.html#utils">
+            
+                    
+                    utils
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.28" data-path="operational.html">
+            
+                <a href="operational.html#configs">
+            
+                    
+                    configs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.29" data-path="operational.html">
+            
+                <a href="operational.html#helper">
+            
+                    
+                    helper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.30" data-path="operational.html">
+            
+                <a href="operational.html#parent">
+            
+                    
+                    parent
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.31" data-path="operational.html">
+            
+                <a href="operational.html#tokey">
+            
+                    
+                    toKey
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.3" data-path="events.html">
+            
+                <a href="events.html">
+            
+                    
+                    事件 - events
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="events.html">
+            
+                <a href="events.html#init">
+            
+                    
+                    $init
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.2" data-path="events.html">
+            
+                <a href="events.html#writesuccess">
+            
+                    
+                    $writeSuccess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.3" data-path="events.html">
+            
+                <a href="events.html#writereject">
+            
+                    
+                    $writeReject
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.4" data-path="events.html">
+            
+                <a href="events.html#writeasyncdone">
+            
+                    
+                    $writeAsyncDone
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.5" data-path="events.html">
+            
+                <a href="events.html#fetch">
+            
+                    
+                    $fetch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.6" data-path="events.html">
+            
+                <a href="events.html#fetchfail">
+            
+                    
+                    $fetchFail
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.7" data-path="events.html">
+            
+                <a href="events.html#clear">
+            
+                    
+                    $clear
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.8" data-path="events.html">
+            
+                <a href="events.html#loadersuccess">
+            
+                    
+                    $loaderSuccess
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.9" data-path="events.html">
+            
+                <a href="events.html#loadererror">
+            
+                    
+                    $loaderError
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">工具 - Tools</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html">
+            
+                    
+                    幫助 - helper
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html#jpjs">
+            
+                    
+                    jpjs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html#gettype">
+            
+                    
+                    getType
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html#isempty">
+            
+                    
+                    isEmpty
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html#verify">
+            
+                    
+                    verify
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.5" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html#deepobjectassign">
+            
+                    
+                    deepObjectAssign
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.6" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html#generateid">
+            
+                    
+                    generateId
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.7" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html#peel">
+            
+                    
+                    peel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.8" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html#mapping">
+            
+                    
+                    mapping
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.9" data-path="../tools/helper.html">
+            
+                <a href="../tools/helper.html#setnull">
+            
+                    
+                    setNull
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../tools/plugin.html">
+            
+                <a href="../tools/plugin.html">
+            
+                    
+                    擴展 - plugin
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">連結 - Links</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" >
+            
+                <a target="_blank" href="https://github.com/SoftChef/oobe">
+            
+                    
+                    GitHub
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >事件 - events</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="collection-events">Collection Events</h2>
+<p>Collection&#x7684;&#x7CFB;&#x7D71;&#x4E8B;&#x4EF6;&#xFF0C;&#x7D30;&#x7BC0;&#x53EF;&#x898B;<a href="../core/event.html">Event</a>&#x3002;</p>
+<ul>
+<li><a href="#init"><code>$init</code></a></li>
+<li><a href="#writesuccess"><code>$writeSuccess</code></a></li>
+<li><a href="#writereject"><code>$writeReject</code></a></li>
+<li><a href="#writeasyncdone"><code>$writeAsyncDone</code></a></li>
+<li><a href="#fetch"><code>$fetch</code></a></li>
+<li><a href="#fetchfail"><code>$fetchFail</code></a></li>
+<li><a href="#clear"><code>$clear</code></a></li>
+<li><a href="#loadersuccess"><code>$loaderSuccess</code></a></li>
+<li><a href="#loadererror"><code>$loaderError</code></a></li>
+</ul>
+<hr>
+<h4 id="init">$init</h4>
+<p>&#x5728;<a href="../core/oobe.html">Core</a>&#x5BA3;&#x544A;<a href="../core/oobe.html#collection"><code>collection</code></a>&#x6642;&#x6703;&#x88AB;&#x5275;&#x9020;&#x7684;Collection&#x5C0D;&#x8C61;&#x6703;&#x89F8;&#x767C;&#x8A72;&#x4E8B;&#x4EF6;&#x3002;</p>
+<pre><code class="lang-js">collection.on(<span class="hljs-string">&apos;$init&apos;</span>, (event) =&gt; { ... })
+</code></pre>
+<hr>
+<h4 id="writesuccess">$writeSuccess</h4>
+<p>&#x5728;<a href="operational.html#write"><code>write</code></a>&#x6210;&#x529F;&#x5F8C;&#x89F8;&#x767C;&#x3002;</p>
+<pre><code class="lang-js">collection.on(<span class="hljs-string">&apos;$writeSuccess&apos;</span>, (event, data) =&gt; { ... })
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>object</td>
+<td><em>No description</em></td>
+</tr>
+<tr>
+<td>data.key</td>
+<td>string</td>
+<td>Write key.</td>
+</tr>
+<tr>
+<td>data.sprite</td>
+<td>sprite</td>
+<td>&#x5BE6;&#x4F8B;&#x5316;Sprite&#x5C0D;&#x8C61;</td>
+</tr>
+<tr>
+<td>data.source</td>
+<td>object</td>
+<td>&#x5BEB;&#x5165;&#x7684;&#x539F;&#x59CB;&#x8CC7;&#x6599;</td>
+</tr>
+<tr>
+<td>data.onlyKey</td>
+<td>boolean</td>
+<td>&#x8A72;&#x6B21;&#x5BEB;&#x5165;&#x662F;&#x85C9;&#x7531;<a href="operational.html#batchwriteonlykeys">onlyKey</a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="writereject">$writeReject</h4>
+<p>&#x5728;<a href="operational.html#write"><code>write</code></a>&#x5BA3;&#x544A;<code>reject</code>&#x6642;&#x89F8;&#x767C;&#x3002;</p>
+<pre><code class="lang-js">collection.on(<span class="hljs-string">&apos;$writeReject&apos;</span>, (event, data) =&gt; { ... })
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>object</td>
+<td><em>No description</em></td>
+</tr>
+<tr>
+<td>data.key</td>
+<td>string</td>
+<td>Write key.</td>
+</tr>
+<tr>
+<td>data.sprite</td>
+<td>sprite</td>
+<td>&#x5BE6;&#x4F8B;&#x5316;Sprite&#x5C0D;&#x8C61;</td>
+</tr>
+<tr>
+<td>data.source</td>
+<td>object</td>
+<td>&#x5BEB;&#x5165;&#x7684;&#x539F;&#x59CB;&#x8CC7;&#x6599;</td>
+</tr>
+<tr>
+<td>data.message</td>
+<td>any</td>
+<td>Reject message.</td>
+</tr>
+<tr>
+<td>data.onlyKey</td>
+<td>boolean</td>
+<td>&#x8A72;&#x6B21;&#x5BEB;&#x5165;&#x662F;&#x85C9;&#x7531;<a href="operational.html#batchwriteonlykeys">onlyKey</a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="writeasyncdone">$writeAsyncDone</h4>
+<p>&#x57F7;&#x884C;<a href="operational.html#batchwriteasync"><code>batchWriteAsync</code></a>&#x6574;&#x6279;&#x5BEB;&#x5165;&#x5B8C;&#x7562;&#x5F8C;&#x89F8;&#x767C;&#x3002;</p>
+<pre><code class="lang-js">collection.on(<span class="hljs-string">&apos;$writeAsyncDone&apos;</span>, (event) =&gt; { ... })
+</code></pre>
+<hr>
+<h4 id="fetch">$fetch</h4>
+<p>&#x57F7;&#x884C;<a href="operational.html#fetch"><code>fetch</code></a>&#x6642;&#x89F8;&#x767C;&#x3002;</p>
+<pre><code class="lang-js">collection.on(<span class="hljs-string">&apos;$fetch&apos;</span>, (event, sprite) =&gt; { ... })
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sprite</td>
+<td>sprite</td>
+<td>Fetch sprite.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="fetchfail">$fetchFail</h4>
+<p>&#x57F7;&#x884C;<a href="operational.html#fetch"><code>fetch</code></a>&#x6642;&#x627E;&#x4E0D;&#x5230;&#x5C0D;&#x8C61;&#x6642;&#x89F8;&#x767C;&#x3002;</p>
+<pre><code class="lang-js">collection.on(<span class="hljs-string">&apos;$fetchFail&apos;</span>, (event, key) =&gt; { ... })
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>string</td>
+<td>Fetch key.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="clear">$clear</h4>
+<p>&#x57F7;&#x884C;<a href="operational.html#clear"><code>clear</code></a>&#x6642;&#x89F8;&#x767C;&#x3002;</p>
+<pre><code class="lang-js">collection.on(<span class="hljs-string">&apos;$clear&apos;</span>, (event) =&gt; { ... })
+</code></pre>
+<hr>
+<h4 id="loadersuccess">$loaderSuccess</h4>
+<p>&#x7576;<a href="structure.html#loaders">Loader</a>&#x6210;&#x529F;&#x5BA3;&#x544A;<code>done</code>&#x7684;&#x7576;&#x4E0B;&#x89F8;&#x767C;&#x3002;</p>
+<pre><code class="lang-js">collection.on(<span class="hljs-string">&apos;$loaderSuccess&apos;</span>, (event, data) =&gt; { ... })
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>object</td>
+<td><em>No description</em></td>
+</tr>
+<tr>
+<td>data.name</td>
+<td>string</td>
+<td>Loader name.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="loadererror">$loaderError</h4>
+<p>&#x7576;<a href="structure.html#loaders">Loader</a>&#x6210;&#x529F;&#x5BA3;&#x544A;<code>error</code>&#x7684;&#x7576;&#x4E0B;&#x89F8;&#x767C;&#x3002;</p>
+<pre><code class="lang-js">collection.on(<span class="hljs-string">&apos;$loaderError&apos;</span>, (event, data) =&gt; { ... })
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>object</td>
+<td><em>No description</em></td>
+</tr>
+<tr>
+<td>data.name</td>
+<td>string</td>
+<td>Loader name.</td>
+</tr>
+<tr>
+<td>data.error</td>
+<td>any</td>
+<td>Error message.</td>
+</tr>
+</tbody>
+</table>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="operational.html#tokey" class="navigation navigation-prev " aria-label="Previous page: toKey">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="events.html#init" class="navigation navigation-next " aria-label="Next page: $init">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"事件 - events","level":"4.3","depth":1,"next":{"title":"$init","level":"4.3.1","depth":2,"anchor":"#init","path":"pages/collection/events.md","ref":"./pages/collection/events.md#init","articles":[]},"previous":{"title":"toKey","level":"4.2.31","depth":2,"anchor":"#tokey","path":"pages/collection/operational.md","ref":"./pages/collection/operational.md#tokey","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","back-to-top-button","chapter-fold"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"back-to-top-button":{},"chapter-fold":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"oobe","links":{"sidebar":false},"gitbook":"*","extension":null},"file":{"path":"pages/collection/events.md","mtime":"2020-04-04T06:44:32.583Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-04-04T07:09:51.621Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

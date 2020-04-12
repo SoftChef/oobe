@@ -1,4 +1,8 @@
 module.exports = {
+    map: {
+        name: 'string'
+    },
+
     body() {
         return {
             name: ''
@@ -52,6 +56,18 @@ module.exports = {
         }
     },
 
+    loaders: {
+        name(done) {
+            this.name = '456'
+            setTimeout(() => done(), 100)
+        },
+        nameError(done, error) {
+            setTimeout(() => {
+                error('OuO')
+            }, 100)
+        }
+    },
+
     collection: {
         key: sprite => sprite.name,
         write({ key, sprite, success, reject }) {
@@ -59,6 +75,9 @@ module.exports = {
                 return reject('test')
             }
             success()
+        },
+        writeAfter({ sprite }) {
+            sprite.after = true
         },
         views: {
             names() {
@@ -68,6 +87,16 @@ module.exports = {
         methods: {
             size() {
                 return this.size
+            }
+        },
+        loaders: {
+            name(done) {
+                setTimeout(() => {
+                    this.forEach(sprite => {
+                        sprite.name = '456'
+                    })
+                    done()
+                }, 100)
             }
         }
     },

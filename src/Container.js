@@ -81,20 +81,27 @@ class Container extends Base {
 
     initInterface() {
         this.interface = Helper.verify(this.options.interface, {
+            map: [false, ['array'], []],
             views: [false, ['array'], []],
             dists: [false, ['array'], []],
-            methods: [false, ['array'], []]
+            methods: [false, ['array'], []],
+            loaders: [false, ['array'], []]
         })
     }
 
     checkInterface(options) {
+        let map = this.verifyInterface('map', options)
         let views = this.verifyInterface('views', options)
         let dists = this.verifyInterface('dists', options)
         let methods = this.verifyInterface('methods', options)
-        if ((views.length + dists.length + methods.length) === 0) {
+        let loaders = this.verifyInterface('loaders', options)
+        if ((map.length + views.length + dists.length + methods.length + loaders.length) === 0) {
             return true
         }
         let message = 'Interface error for : '
+        if (map.length !== 0) {
+            message += `\nmap[${views.join()}]`
+        }
         if (views.length !== 0) {
             message += `\nviews[${views.join()}]`
         }
@@ -103,6 +110,9 @@ class Container extends Base {
         }
         if (methods.length !== 0) {
             message += `\nmethods[${methods.join()}]`
+        }
+        if (loaders.length !== 0) {
+            message += `\nloaders[${loaders.join()}]`
         }
         return message
     }
@@ -146,20 +156,20 @@ class Container extends Base {
         return this.core.rule.validate(target, value, this.getNames(array))
     }
 
-    make(baseName) {
+    make(baseName, options) {
         let base = this.spriteBases[baseName]
         if (base == null) {
             return this.$devError('make', `Sprite ${baseName} not found.`)
         }
-        return base.create()
+        return base.create(options)
     }
 
-    makeCollection(baseName) {
+    makeCollection(baseName, options) {
         let base = this.spriteBases[baseName]
         if (base == null) {
             return this.$devError('makeCollection', `Sprite ${baseName} not found.`)
         }
-        return base.createCollection()
+        return base.createCollection(options)
     }
 }
 

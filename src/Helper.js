@@ -31,11 +31,11 @@ class Helper {
 
     static getType(target) {
         let type = typeof target
-        if (Array.isArray(target)) {
-            return 'array'
-        }
         if (target == null) {
             return 'empty'
+        }
+        if (Array.isArray(target)) {
+            return 'array'
         }
         if (type === 'number' && isNaN(target)) {
             return 'NaN'
@@ -43,7 +43,7 @@ class Helper {
         if (target instanceof RegExp) {
             return 'regexp'
         }
-        if (target && typeof target.then === 'function') {
+        if (target instanceof Promise) {
             return 'promise'
         }
         if (typeof Buffer !== 'undefined' && Buffer.isBuffer(target)) {
@@ -124,13 +124,13 @@ class Helper {
         let newData = {}
         for (let key in validates) {
             let target = data[key]
+            let type = Helper.getType(target)
             let validate = validates[key]
             let [required, types, defaultValue] = validate
-            let type = Helper.getType(target)
-            if (Helper.getType(required) !== 'boolean') {
+            if (typeof required !== 'boolean') {
                 throw new Error('Helper::verify => Required must be a boolean')
             }
-            if (Helper.getType(types) !== 'array') {
+            if (Array.isArray(types) !== true) {
                 throw new Error('Helper::verify => Types must be a array')
             }
             if (required && target == null) {
@@ -197,7 +197,7 @@ class Helper {
         if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
             now += performance.now()
         }
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
             var r = (now + Math.random() * 16) % 16 | 0
             now = Math.floor(now / 16)
             return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
@@ -225,6 +225,69 @@ class Helper {
         }, target)
         if (def) {
             return Helper.isEmpty(output) ? def : output
+        }
+        return output
+    }
+
+    /**
+     * Convert the key of an object to a mapped key.
+     * @param {object} keyMap
+     * @param {object} target
+     * @param {object} [options]
+     * @param {string} [options.isModel] If valus is sprite(or collection), can set body or origin two mode for return data.
+     * @param {boolean} [options.reverse=false] Reverse key.
+     * @returns {object}
+     * @example
+     * var keyMap = {
+     *      a: 'A',
+     *      b: 'B'
+     * }
+     * var target = {
+     *      A: 5,
+     *      B: 3
+     * }
+     * let output = mapping(keyMap, target)
+     * console.log(output.a) // 5
+     * console.log(output.b) // 3
+     */
+
+    static mapping(keyMap, target, options = {}) {
+        let isModel = options === 'origin' ? 'origin' : options.isModel
+        let reverse = options === 'origin' ? true : !!options.reverse
+        let output = {}
+        for (let [key, value] of Object.entries(keyMap)) {
+            let name = reverse ? value : key
+            let data = reverse ? target[key] : target[value]
+            if (isModel && Helper.isCollection(data)) {
+                output[name] = isModel === 'body' ? data.getBodys() : data.getOrigins()
+            } else if (isModel && Helper.isSprite(data)) {
+                output[name] = isModel === 'body' ? data.$body() : data.$toOrigin()
+            } else {
+                output[name] = data
+            }
+        }
+        return output
+    }
+
+    /**
+     * Copy object key and new object total values to null.
+     * @param {object} target
+     * @returns {*}
+     * @example
+     * let target = {
+     *     a: {},
+     *     b: 5
+     * }
+     * let output = setNull(target)
+     * console.log(target.b) // 5
+     * console.log(object.a) // null
+     * console.log(Object.keys(output)) // ['a', 'b']
+     */
+
+    static setNull(target) {
+        let output = {}
+        for (let key in target) {
+            output[key] = null
         }
         return output
     }

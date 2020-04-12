@@ -1,6 +1,7 @@
 const Base = require('./Base')
 const Event = require('./Event')
 const Helper = require('./Helper')
+const Loader = require('./Loader')
 const Configs = require('./Configs')
 const SpriteUnit = require('./SpriteUnit')
 const Distortion = require('./Distortion')
@@ -8,7 +9,8 @@ const CollectionUnit = require('./CollectionUnit')
 
 /**
  * @namespace SpriteBase
- * @property {function} body Data structure.
+ * @property {function} [body] Data structure.
+ * @property {object} [map]
  * @property {object.<string>} [refs]
  * @property {object.<fn>} [views]
  * @property {object.<array>} [rules]
@@ -20,6 +22,8 @@ const CollectionUnit = require('./CollectionUnit')
  * @property {function} [born]
  * @property {function} [origin]
  * @property {function} [created]
+ * @property {function} [defaultView]
+ * @property {function} [errorMessage]
  */
 
 class SpriteBase extends Base {
@@ -27,18 +31,22 @@ class SpriteBase extends Base {
         super('Sprite')
         this.name = name
         this.dists = {}
+        this.cache = null
         this.container = container
         this.options = Helper.verify(options, {
-            body: [true, ['function']],
+            map: [false, ['object'], {}],
+            body: [false, ['function'], () => ({})],
             refs: [false, ['object'], {}],
-            self: [false, ['function'], () => { return {} }],
+            self: [false, ['function'], () => ({})],
             born: [false, ['function'], data => data],
             views: [false, ['object'], {}],
             dists: [false, ['object'], {}],
             rules: [false, ['object'], {}],
+            watch: [false, ['object'], {}],
             origin: [false, ['function'], function() { return this.$body() }],
             methods: [false, ['object'], {}],
-            created: [false, ['function'], () => {}],
+            loaders: [false, ['object'], null],
+            created: [false, ['function'], null],
             collection: [false, ['object'], {}],
             defaultView: [false, ['function'], null],
             errorMessage: [false, ['function'], data => data]
@@ -46,6 +54,7 @@ class SpriteBase extends Base {
         if (options.states) {
             throw new Error('States already rename to dists.')
         }
+        this.refKeys = Object.keys(this.options.refs)
         this.init()
     }
 
@@ -146,12 +155,16 @@ class SpriteBase extends Base {
         return new this.Methods(unit)
     }
 
-    create() {
-        return new SpriteUnit(this)
+    getLoaders(unit) {
+        return Loader(unit, 'sprite', this.options.loaders)
     }
 
-    createCollection() {
-        return new CollectionUnit(this)
+    create(options) {
+        return new SpriteUnit(this, options)
+    }
+
+    createCollection(options) {
+        return new CollectionUnit(this, options)
     }
 }
 

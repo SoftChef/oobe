@@ -40,6 +40,12 @@ class Collection {
         return this._collection.methods
     }
 
+    /** Collection loaders. */
+
+    get loaders() {
+        return this._collection.loaders
+    }
+
     /** Utils interface. */
 
     get utils() {
@@ -93,6 +99,26 @@ class Collection {
 
     getBodys() {
         return this._collection.getBodys()
+    }
+
+    /**
+     * Get all sprite $toOrigin() return values.
+     * @returns {array}
+     */
+
+    getOrigins() {
+        return this._collection.getOrigins()
+    }
+
+    /**
+     * Get all sprite $export() return values.
+     * @param {string} [name] Specified distortion.
+     * @param {...*} [args]
+     * @returns {array}
+     */
+
+    getExports(name, ...args) {
+        return this._collection.getExports(name, args)
     }
 
     /**
@@ -159,7 +185,7 @@ class Collection {
      */
 
     emit(channelName, ...params) {
-        return this._collection.event.emit(channelName, params)
+        return this._collection.event.emit(this, channelName, params)
     }
 
     /**
@@ -185,8 +211,10 @@ class Collection {
      * @param {object|sprite} data
      */
 
-    write(data) {
-        return this._collection.write(data)
+    write(data, options = {}) {
+        return this._collection.write(data, {
+            insert: options.insert
+        })
     }
 
     /**
@@ -212,11 +240,12 @@ class Collection {
      * Batch trigger write with async.
      * @param {array} items
      * @param {number} [ms=2] Speed of data queue write(milliseconds).
+     * @param {number} [parallel=1] Parallel write quantity of every millisecond.
      * @returns {promise}
      */
 
-    batchWriteAsync(items, ms = 2) {
-        return this._collection.batchWriteAsync(items, ms)
+    batchWriteAsync(items, ms = 2, parallel = 1) {
+        return this._collection.batchWriteAsync(items, ms, parallel)
     }
 
     /**
@@ -234,6 +263,16 @@ class Collection {
 
     clear() {
         return this._collection.clear()
+    }
+
+    /**
+     * Sprtie to key.
+     * @param {object} data
+     * @returns {string}
+     */
+
+    toKey(data) {
+        return this._collection.options.key(data)
     }
 }
 

@@ -1,13 +1,12 @@
 {
   "name": "oobe",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Wow, write form so fantastic, so fun.",
   "main": "dist/index.js",
   "scripts": {
     "test": "nyc mocha",
     "book": "gitbook build ./book ./started",
-    "docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-    "prod": "npm run build && npm run book && npm run docs",
+    "prod": "npm run build && npm run book",
     "build": "mocha && cross-env webpack --progress --hide-modules",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -27,7 +26,6 @@
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
-    "docdash": "^1.1.1",
     "eslint": "^6.2.2",
     "eslint-config-standard": "^14.0.1",
     "eslint-loader": "^3.0.0",
@@ -35,7 +33,6 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "jsdoc": "^3.6.3",
     "mocha": "^6.2.0",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7",

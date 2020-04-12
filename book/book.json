@@ -1,7 +1,7 @@
 {
     "title": "oobe",
     "extension": null,
-    "plugins": ["-sharing"],
+    "plugins": ["-sharing", "back-to-top-button", "chapter-fold"],
     "links": {
         "sidebar": false
     }

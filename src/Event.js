@@ -7,7 +7,8 @@ class Event extends Base {
         this.type = type
         this.parent = parent
         this.channels = {}
-        this.profile = { type, ...profile }
+        this.profile = profile
+        this.profile.type = type
     }
 
     addChannel(name) {
@@ -15,26 +16,30 @@ class Event extends Base {
     }
 
     getChannel(name) {
+        return this.channels[name]
+    }
+
+    getOrCreate(name) {
         if (this.channels[name] == null) {
             this.addChannel(name)
         }
         return this.channels[name]
     }
 
-    on(channelName, callback) {
-        return this.getChannel(channelName).addListener(callback)
+    on(name, callback) {
+        return this.getOrCreate(name).addListener(callback)
     }
 
     once(channelName, callback) {
-        return this.on(channelName, function(...args) {
-            callback.apply(this, args)
-            args[0].listener.off()
+        return this.on(channelName, function(event) {
+            callback.apply(this, arguments)
+            event.listener.off()
         })
     }
 
     off(channelName, target) {
         let event = typeof target === 'string' ? target : target.id
-        this.getChannel(channelName).removeListener(event)
+        this.getOrCreate(channelName).removeListener(event)
     }
 
     emit(target, channelName, params = []) {
@@ -45,10 +50,16 @@ class Event extends Base {
     }
 
     trigger(channelName, target, params, context) {
-        let newContext = { channelName, target, ...this.profile, context }
-        this.getChannel(channelName).broadcast(target, newContext, params)
+        let channel = this.getChannel(channelName)
+        if (channel == null && this.parent == null) {
+            return undefined
+        }
+        let newContext = Object.assign({ channelName, target, context }, this.profile)
+        if (channel) {
+            channel.broadcast(target, newContext, params)
+        }
         if (this.parent) {
-            this.parent.trigger(this.type + '.' + channelName, target, params, newContext)
+            this.parent.trigger(this.type + '.' + channelName, target, params, context)
         }
     }
 }
@@ -57,7 +68,6 @@ class Channel extends Base {
     constructor() {
         super('Channel')
         this.listeners = {}
-        this.listenerKeys = null
     }
 
     checkListener(id) {
@@ -100,7 +110,12 @@ class Listener extends Base {
     }
 
     trigger(target, context, params) {
-        this.callback.call(target, { listener: this.export, ...context }, ...params)
+        let callbackContext = Object.assign({ listener: this.export }, context)
+        if (params.length === 0) {
+            this.callback.call(target, callbackContext)
+        } else {
+            this.callback.call(target, callbackContext, ...params)
+        }
     }
 }
 

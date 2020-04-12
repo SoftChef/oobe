@@ -1,7 +1,8 @@
 const expect = require('chai').expect
 const Oobe = require('../src/Main')
-const Plugin = require('./fake/rules')
+const Package = require('./fake/rules')
 const RawData = require('./fake/data.json')
+// const Loader = require('../plugins/loader')
 const CognitoUser = require('./fake')
 const TestRawOrigin = JSON.stringify({
     Username: 'admin',
@@ -67,13 +68,54 @@ const InterfaceTestError = {
     }
 }
 
+const InterfaceTestMap = {
+    sprites: {
+        s: {
+            map: {
+                name: '123'
+            },
+            body() {}
+        }
+    },
+    interface: {
+        map: ['name']
+    }
+}
+
+const InterfaceTestMapError = {
+    sprites: {
+        s: {
+            map: {
+                aaaa: '123'
+            },
+            body() {}
+        }
+    },
+    interface: {
+        map: ['name']
+    }
+}
+
+let isDevError = false
+
 describe('#Core', () => {
     before(function() {
         this.oobe = new Oobe()
     })
 
+    it('on dev error', function(done) {
+        Oobe.onDevError(({ functionName }) => {
+            if (isDevError === false) {
+                isDevError = true
+                expect(functionName).to.equal('make')
+                done()
+            }
+        })
+        this.oobe.make('Hello', 'World')
+    })
+
     it('addon and addRules and add locale', function() {
-        this.oobe.addon(Plugin)
+        this.oobe.addon(Package)
     })
 
     it('if use states', function() {
@@ -128,14 +170,81 @@ describe('#Core', () => {
         expect(this.oobe.instanceof('CognitoUser', 'attributes', unit.attributes)).to.equal(true)
         expect(this.oobe.instanceof('CognitoUser', 'attributes', unit)).to.equal(false)
     })
+
+    it('plugin registered', function() {
+        expect(() => { this.oobe.plugin(Loader) }).to.throw(Error)
+    })
 })
 
 describe('#Sprite', () => {
     before(function() {
         this.oobe = new Oobe()
-        this.oobe.addon(Plugin)
+        this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
         this.user = this.oobe.make('CognitoUser', 'user')
+    })
+
+    it('reborn', function() {
+        let count = 0
+        let user = this.oobe.make('CognitoUser', 'user')
+        user.$on('$ready', (context) => {
+            count += 1
+        })
+        user.$born(RawData)
+        user.name = '123'
+        user.attributes.phone_number = '5432'
+        expect(count).to.equal(1)
+        expect(user.name).to.equal('123')
+        expect(user.attributes.phone_number).to.equal('5432')
+        user.$reborn(RawData)
+        expect(count).to.equal(2)
+        expect(user.attributes.phone_number).to.equal('000000000')
+        expect(user.name).to.equal('admin')
+    })
+
+    it('reborn and no born', function() {
+        let user = this.oobe.make('CognitoUser', 'user')
+        expect(() => { user.$reborn(RawData) }).to.throw(Error)
+    })
+
+    it('watch', function(done) {
+        let oobe = new Oobe()
+        oobe.join('test', {
+            sprites: {
+                test: {
+                    body() {
+                        return {
+                            a: '5'
+                        }
+                    },
+                    watch: {
+                        a(value) {
+                            expect(this.a).to.equal('5')
+                            expect(value).to.equal('10')
+                            setTimeout(() => {
+                                done()
+                            }, 20)
+                        }
+                    }
+                }
+            }
+        })
+        let sprite = oobe.make('test', 'test')
+        sprite.a = '10'
+        expect(sprite.a).to.equal('10')
+    })
+
+    it('options', function() {
+        let sprite = this.oobe.make('CognitoUser', 'rawnull')
+        let sprite2 = this.oobe.make('CognitoUser', 'rawnull', { save: false })
+        expect(sprite.$toObject().$options.save).to.equal(true)
+        expect(sprite2.$toObject().$options.save).to.equal(false)
+        expect(() => { sprite2.$isChange() }).to.throw(Error)
+    })
+
+    it('map', function() {
+        let sprite = this.oobe.make('CognitoUser', 'user')
+        expect(sprite.$map.name).to.equal('string')
     })
 
     it('isUs', function() {
@@ -273,6 +382,14 @@ describe('#Sprite', () => {
         expect(this.user.$validate().success).to.equal(false)
     })
 
+    it('container validate by', function() {
+        this.user.name = 'ffff'
+        expect(this.user.$validateBy('name')).to.equal(true)
+        this.user.name = ''
+        expect(typeof this.user.$validateBy('name')).to.equal('string')
+        expect(() => { this.user.$validateBy('naeme') }).to.throw(Error)
+    })
+
     it('to origin', function() {
         this.user.$reset()
         let origin = JSON.stringify(this.user.$toOrigin())
@@ -306,16 +423,14 @@ describe('#Sprite', () => {
         expect(TestRawBody === JSON.stringify(this.user.$body())).to.equal(true)
     })
 
-    it('error', function() {
-        let check = false
+    it('error', function(done) {
         let user = this.user.$copy()
-        user.$onOnce('$error', (context, error) => {
-            check = true
-        })
         expect(user.$error).to.equal(null)
+        user.$onOnce('$error', (context, error) => {
+            expect(user.$error).to.equal('1234')
+            done()
+        })
         user.$setError('1234')
-        expect(user.$error).to.equal('1234')
-        expect(check).to.equal(true)
     })
 
     it('out revive', function() {
@@ -380,12 +495,20 @@ describe('#Sprite', () => {
         }).to.throw(Error)
     })
 
+    it('interface map', function() {
+        let oobe = new Oobe()
+        oobe.join('ifmap', InterfaceTestMap)
+        expect(() => {
+            oobe.join('ifmaperror', InterfaceTestMapError)
+        }).to.throw(Error)
+    })
+
     it('raw data is null', function() {
         let rawnull = this.oobe.make('CognitoUser', 'rawnull').$born()
         rawnull.$raw()
     })
 
-    it('event once', function() {
+    it('event once', function(done) {
         let count = 0
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
         rawnull.$on('$export', () => {
@@ -399,9 +522,10 @@ describe('#Sprite', () => {
         rawnull.$export()
         rawnull.$export()
         expect(count).to.equal(3)
+        done()
     })
 
-    it('event', function() {
+    it('event', function(done) {
         let count = 0
         let rawnull = this.oobe.make('CognitoUser', 'rawnull')
         this.oobe.on('container.sprite.unit.$ready', (context) => {
@@ -423,7 +547,10 @@ describe('#Sprite', () => {
         })
         rawnull.$off('$ready', raw3)
         rawnull.$born()
-        expect(count).to.equal(2)
+        setTimeout(() => {
+            expect(count).to.equal(2)
+            done()
+        }, 100)
     })
 
     it('put', function() {
@@ -488,8 +615,22 @@ describe('#Sprite', () => {
 describe('#Collection', () => {
     before(function() {
         this.oobe = new Oobe()
-        this.oobe.addon(Plugin)
+        this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
+    })
+
+    it('insert', function() {
+        let collection = this.oobe.collection('CognitoUser', 'user')
+        let user1 = Oobe.helper.jpjs(RawData)
+        let user2 = Oobe.helper.jpjs(RawData)
+        let user3 = Oobe.helper.jpjs(RawData)
+        user1.Username = '1'
+        user2.Username = '2'
+        user3.Username = '3'
+        collection.write(user1)
+        collection.write(user2)
+        collection.write(user3, { insert: 0 })
+        expect(collection.items.map(u => u.name).join(',')).to.equal('3,1,2')
     })
 
     it('create', function() {
@@ -530,6 +671,12 @@ describe('#Collection', () => {
         expect(this.collection.has('5487')).to.equal(true)
     })
 
+    it('writeAfter', function() {
+        let collection = this.oobe.collection('CognitoUser', 'user')
+        collection.write(RawData)
+        expect(collection.items[0].after).to.equal(true)
+    })
+
     it('batch write', function() {
         let collection = this.oobe.collection('CognitoUser', 'user')
         let newData = Oobe.helper.jpjs(RawData)
@@ -543,12 +690,12 @@ describe('#Collection', () => {
         collection.on('$writeSuccess', (context, { sprite, onlyKey }) => {
             expect(typeof sprite.name).to.equal('string')
             expect(onlyKey).to.equal(true)
-            if (collection.size === 3) {
-                expect(collection.size).to.equal(3)
-                done()
-            }
         })
         collection.batchWriteOnlyKeys('Username', ['123', '456', '789'])
+        setTimeout(() => {
+            expect(collection.size).to.equal(3)
+            done()
+        }, 100)
     })
 
     it('fetch', function() {
@@ -566,17 +713,20 @@ describe('#Collection', () => {
         expect(this.collection.size).to.equal(1)
     })
 
-    it('event once', function() {
+    it('event once', function(done) {
         let count = 0
         this.collection.onOnce('$fetch', () => {
             count += 1
         })
         this.collection.fetch('admin')
         this.collection.fetch('admin')
-        expect(count).to.equal(1)
+        setTimeout(() => {
+            expect(count).to.equal(1)
+            done()
+        })
     })
 
-    it('event', function() {
+    it('event', function(done) {
         let count = 0
         this.collection.on('$fetch', () => {
             count += 1
@@ -587,10 +737,13 @@ describe('#Collection', () => {
         })
         this.collection.fetch('admin')
         this.collection.fetch('admin')
-        expect(count).to.equal(3)
+        setTimeout(() => {
+            expect(count).to.equal(3)
+            done()
+        }, 100)
     })
 
-    it('write', function() {
+    it('write', function(done) {
         let count = 0
         this.collection.on('$writeReject', (context, reslut) => {
             expect(reslut.message).to.equal('test')
@@ -604,7 +757,10 @@ describe('#Collection', () => {
             Username: '123456789'
         })
         this.collection.write(RawData)
-        expect(count).to.equal(2)
+        setTimeout(() => {
+            expect(count).to.equal(2)
+            done()
+        }, 100)
     })
 
     it('write sprite', function() {
@@ -694,12 +850,18 @@ describe('#Collection', () => {
     it('container configs', function() {
         expect(this.collection.configs.helloWorld).to.equal('hello world')
     })
+    it('origins', function() {
+        expect(Array.isArray(this.collection.getOrigins())).to.equal(true)
+    })
+    it('exports', function() {
+        expect(Array.isArray(this.collection.getExports())).to.equal(true)
+    })
 })
 
 describe('#Collection With Sprite', () => {
     before(function() {
         this.oobe = new Oobe()
-        this.oobe.addon(Plugin)
+        this.oobe.addon(Package)
         this.oobe.join('CognitoUser', CognitoUser)
     })
 
@@ -746,7 +908,9 @@ describe('#Collection With Sprite', () => {
         expect(this.userpool.users.items[1]).to.equal(undefined)
     })
 
-    it('container parent', function() {})
+    it('toKey', function() {
+        expect(this.userpool.users.toKey({ name: '5566' })).to.equal('5566')
+    })
 })
 
 describe('#Helper', () => {
@@ -850,6 +1014,182 @@ describe('#Helper', () => {
         expect(this.user.$helper.peel(test, 'a.c')).to.equal(5)
         expect(this.user.$helper.peel(test, 'a.b.e.e')).to.equal(undefined)
         expect(this.user.$helper.peel(test, 'a.b.e.e', '*')).to.equal('*')
+    })
+
+    it('mapping', function() {
+        var keyMap = {
+            a: 'A',
+            b: 'B'
+        }
+        var target = {
+            A: 5,
+            B: 3
+        }
+        var target2 = {
+            a: 5,
+            b: 3
+        }
+        expect(this.user.$helper.mapping(keyMap, target)).to.eql({
+            a: 5,
+            b: 3
+        })
+        expect(this.user.$helper.mapping(keyMap, target2, { reverse: true })).to.eql({
+            A: 5,
+            B: 3
+        })
+    })
+
+    it('mapping by sprite', function() {
+        let keyMap = {
+            name: 'Name',
+            attributes: 'Attributes'
+        }
+        expect(this.user.$helper.mapping(keyMap, this.user, { reverse: true, isModel: 'body' })).to.eql({
+            Name: '',
+            Attributes: {
+                sub: '',
+                name: '',
+                email: '',
+                phone_number: '',
+                'custom:level': 'user',
+                'custom:country_code': ''
+            }
+        })
+        expect(this.user.$helper.mapping(keyMap, this.user, { reverse: true, isModel: 'origin' })).to.eql({
+            Name: '',
+            Attributes: [
+                { Name: 'sub', Value: '' },
+                { Name: 'name', Value: '' },
+                { Name: 'email', Value: '' },
+                { Name: 'phone_number', Value: '' },
+                { Name: 'custom:level', Value: 'user' },
+                { Name: 'custom:country_code', Value: '' }
+            ]
+        })
+    })
+
+    it('set null', function() {
+        var test = {
+            a: 5
+        }
+        var output = this.user.$helper.setNull(test)
+        expect(test.a).to.equal(5)
+        expect(output.a).to.equal(null) 
+    })
+
+})
+
+describe('#Plugin-Loader', () => {
+    before(function() {
+        this.oobe = new Oobe()
+        this.oobe.addon(Package)
+        this.oobe.join('CognitoUser', CognitoUser)
+    })
+
+    it('loader', function(done) {
+        let user = this.oobe.make('CognitoUser', 'user')
+        expect(user.$o.name.called).to.equal(false)
+        user.$o
+            .name
+            .start()
+            .then(() => {
+                expect(user.name).to.equal('456')
+                expect(user.$o.name.done).to.equal(true)
+                expect(user.$o.name.error).to.equal(null)
+                expect(user.$o.name.loading).to.equal(false)
+                done()
+            })
+            .catch(done)
+        expect(user.$o.name.done).to.equal(false)
+        expect(user.$o.name.called).to.equal(true)
+        expect(user.$o.name.loading).to.equal(true)
+    })
+
+    it('loader collection', function(done) {
+        let user = this.oobe.collection('CognitoUser', 'user')
+        expect(user.loaders.name.called).to.equal(false)
+        user.write({ name: '123' })
+        user.loaders
+            .name
+            .start()
+            .then(() => {
+                expect(user.items[0].name).to.equal('456')
+                expect(user.loaders.name.done).to.equal(true)
+                expect(user.loaders.name.error).to.equal(null)
+                expect(user.loaders.name.loading).to.equal(false)
+                expect(!!user.loaders.$loading).to.equal(false)
+                done()
+            })
+            .catch(done)
+        expect(user.loaders.name.done).to.equal(false)
+        expect(user.loaders.name.called).to.equal(true)
+        expect(user.loaders.name.loading).to.equal(true)
+        expect(!!user.loaders.$loading).to.equal(true)
+    })
+
+    it('loader error', function(done) {
+        let user = this.oobe.make('CognitoUser', 'user')
+        user.$loaders
+            .nameError
+            .start()
+            .then(() => {
+                done('Error')
+            })
+            .catch((error) => {
+                expect(error).to.equal('OuO')
+                expect(user.$loaders.$error.value).to.equal('OuO')
+                expect(user.$loaders.nameError.done).to.equal(true)
+                expect(user.$loaders.nameError.error).to.equal('OuO')
+                expect(user.$loaders.nameError.loading).to.equal(false)
+                done()
+            })
+        expect(user.$loaders.nameError.done).to.equal(false)
+        expect(user.$loaders.nameError.loading).to.equal(true)
+    })
+
+    it('no register loader', function() {
+        this.oobe.join('Test', {
+            sprites: {
+                test: {
+                    body() {}
+                }
+            }
+        })
+        let test = this.oobe.make('Test', 'test')
+        expect(Object.keys(test.$loaders).length).to.equal(1)
+        let rawnull = this.oobe.make('CognitoUser', 'rawnull')
+        expect(Object.keys(rawnull.$loaders).length).to.equal(1)
+    })
+    
+    it('loader seek', function(done) {
+        let user = this.oobe.make('CognitoUser', 'user')
+        expect(user.$loaders.name.called).to.equal(false)
+        user.$loaders
+            .name
+            .seek()
+            .then(() => {
+                let now = Date.now()
+                expect(user.name).to.equal('456')
+                expect(user.$loaders.name.done).to.equal(true)
+                expect(user.$loaders.name.error).to.equal(null)
+                expect(user.$loaders.name.loading).to.equal(false)
+                setTimeout(() => {
+                    user.$loaders
+                        .name
+                        .seek()
+                        .then(() => {
+                            expect(user.name).to.equal('456')
+                            expect(Date.now() - now < 90).to.equal(true)
+                            expect(user.$loaders.name.done).to.equal(true)
+                            expect(user.$loaders.name.error).to.equal(null)
+                            expect(user.$loaders.name.loading).to.equal(false)
+                            done()
+                        })
+                }, 1)
+            })
+        expect(user.$loaders.name.done).to.equal(false)
+        expect(user.$loaders.name.called).to.equal(true)
+        expect(user.$loaders.name.loading).to.equal(true)
     })
 })
 
