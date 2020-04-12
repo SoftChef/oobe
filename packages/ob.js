@@ -33,7 +33,7 @@ module.exports = {
             let type = typeof value
             return type === is ? true : this.$meg('#ob.type') + ' : ' + is
         },
-        strongType(value, params) {
+        strongType(value, params = {}) {
             let is = params.is || 'string'
             return this.$helper.getType(value) === is ? true : this.$meg('#ob.type') + ' : ' + is
         },
